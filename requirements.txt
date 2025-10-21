@@ -1,0 +1,9 @@
+Flask==2.3.0
+Flask-SQLAlchemy==3.0.0
+Flask-Mail==0.9.1
+Flask-WTF==1.1.0
+Werkzeug==2.3.0
+reportlab==4.0.4
+gunicorn==21.2.0
+psycopg2-binary==2.9.6
+python-dotenv==1.0.0

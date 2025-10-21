@@ -1,0 +1,17 @@
+venv/
+.venv/
+__pycache__/
+*.pyc
+instance/
+.pytest_cache/
+.coverage
+htmlcov/
+dist/
+build/
+*.egg-info/
+.env
+booking_system_v2.db
+*.log
+.DS_Store
+.vscode/
+.idea/
