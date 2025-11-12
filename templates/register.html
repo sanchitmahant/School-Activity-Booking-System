@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}Register - School Activity Booking{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg border-0">
+                <div class="card-body p-5">
+                    <h2 class="card-title mb-4 text-center text-primary">Create Account</h2>
+
+                    {% if error %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ error }}
+                    </div>
+                    {% endif %}
+
+                    <form method="POST" action="{{ url_for('register') }}" id="registerForm">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Full Name *</label>
+                            <input type="text" class="form-control form-control-lg" id="name" name="full_name" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email Address *</label>
+                            <input type="email" class="form-control form-control-lg" id="email" name="email" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Phone Number *</label>
+                            <input type="tel" class="form-control form-control-lg" id="phone" name="phone"
+                                pattern="[0-9+\s-]{10,15}"
+                                title="Phone number must contain only digits, spaces, or hyphens (10-15 characters)"
+                                required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password *</label>
+                            <input type="password" class="form-control form-control-lg" id="password" name="password"
+                                minlength="8" required>
+                            <small class="text-muted">At least 8 characters required</small>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="confirm_password" class="form-label">Confirm Password *</label>
+                            <input type="password" class="form-control form-control-lg" id="confirm_password"
+                                name="confirm_password" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary-custom btn-lg w-100 mb-3">Register</button>
+                    </form>
+
+                    <p class="text-center text-muted">
+                        Already have an account? <a href="{{ url_for('login') }}" class="text-decoration-none">Login
+                            here</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
