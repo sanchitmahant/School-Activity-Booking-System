@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}Tutor Login{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="card shadow-lg border-0">
+                <div class="card-body p-5">
+                    <div class="text-center mb-4">
+                        <i class="fas fa-chalkboard-teacher fa-3x text-secondary mb-3"></i>
+                        <h2 class="card-title text-primary">Tutor Portal</h2>
+                        <p class="text-muted">Access your class rosters and attendance</p>
+                    </div>
+
+                    {% if error %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ error }}
+                    </div>
+                    {% endif %}
+
+                    <form method="POST" action="{{ url_for('tutor_login') }}">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email Address</label>
+                            <input type="email" class="form-control form-control-lg" id="email" name="email" required>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control form-control-lg" id="password" name="password"
+                                required>
+                        </div>
+
+                        <button type="submit" class="btn btn-secondary btn-lg w-100 mb-3">Login</button>
+                    </form>
+
+                    <div class="text-center mt-3">
+                        <a href="{{ url_for('portal_home') }}" class="text-muted text-decoration-none"><i
+                                class="fas fa-arrow-left me-1"></i> Back to Portal</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
