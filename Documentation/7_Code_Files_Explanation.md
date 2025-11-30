@@ -97,15 +97,71 @@ Here is what is in every room:
 
 ---
 
+## 9. Helper Scripts
+
+**These are the Utility Tools.**
+
+- **`populate_db.py`**: Creates sample data (1 admin, 1 parent, 6 tutors, 8 activities)
+- **`convert_to_pdf.py`**: Converts markdown documentation to PDF format
+- **`view_attendance.py`**: Quick script to view all attendance records in database
+- **`create_sanchit_parent.py`**: Creates a specific parent account with child
+- **`update_sarah_email.py`**: Updates tutor email in database
+- **`upload_to_notion.py`**: Automates uploading project plan to Notion workspace
+
+---
+
+## 10. Templates
+
+**Complete List of HTML Pages:**
+
+**Base:**
+- `base.html` - Main layout frame (header, footer, navigation)
+
+**Parent Portal:**
+- `index.html` - Homepage
+- `login.html` - Parent login
+- `register.html` - Parent registration
+- `dashboard.html` - Parent dashboard
+- `activities.html` - Browse activities
+- `payment.html` - Payment page
+- `invoice_template.html` - PDF invoice design
+
+**Admin Portal:**
+- `admin/login.html` - Admin login
+- `admin/dashboard.html` - Admin overview with statistics
+- `admin/activities.html` - Manage activities (CRUD)
+- `admin/tutors.html` - Manage tutors (CRUD)
+- `admin/bookings.html` - View all bookings
+
+**Tutor Portal:**
+- `tutor/login.html` - Tutor login
+- `tutor/dashboard.html` - Tutor overview
+- `tutor/attendance.html` - Mark attendance
+- `tutor/attendance_history.html` - View past attendance records
+
+**Shared:**
+- `error.html` - Custom 404/500 error pages
+- `admissions.html` - School admissions information
+
+---
+
 ## Summary
 
 | File | Analogy | Purpose |
 |------|---------|---------|
-| `app.py` | The Brain | Logic & Rules |
+| `app.py` | The Brain | Logic & Rules (31 routes) |
 | `config.py` | Control Panel | Settings |
-| `templates/` | Skeletons | Page Layouts |
+| `templates/` | Skeletons | Page Layouts (18 templates) |
 | `static/` | Paint | Colors & Styles |
 | `database.db` | Memory | Storing Data |
 | `populate.py` | Robot | Creating Sample Data |
+| `Helper Scripts` | Tools | Maintenance & Automation |
+
+**Total Project Size:**
+- **1,300+ lines** of Python code
+- **18 HTML templates**
+- **1 CSS file** with 500+ lines
+- **7 Database models**
+- **31 Routes** (endpoints)
 
 ---
