@@ -1214,7 +1214,51 @@ def tutor_attendance(activity_id):
                 db.session.add(record)
         
         db.session.commit()
-    return render_template('payment.html', activity=activity, child=child, date=date)
+        flash('Attendance recorded successfully!', 'success')
+        return redirect(url_for('tutor_dashboard'))
+    
+    # GET request - show attendance form
+    bookings = Booking.query.filter_by(activity_id=activity_id, status='confirmed').all()
+    return render_template('tutor/attendance.html', 
+                         activity=activity, 
+                         bookings=bookings,
+                         today=datetime.utcnow().date())
+
+@app.route('/tutor/attendance_history/<int:activity_id>')
+@tutor_required
+def attendance_history(activity_id):
+    """View attendance history for an activity"""
+    tutor_id = session['tutor_id']
+    
+    activity = Activity.query.get_or_404(activity_id)
+    if activity.tutor_id != tutor_id:
+        return redirect(url_for('tutor_dashboard'))
+    
+    # Get all attendance records for this activity, grouped by date
+    from sqlalchemy import func
+    from sqlalchemy.sql import case
+    
+    attendance_records = db.session.query(
+        Attendance.date,
+        func.count(Attendance.id).label('total'),
+        func.sum(case((Attendance.status == 'present', 1), else_=0)).label('present'),
+        func.sum(case((Attendance.status == 'late', 1), else_=0)).label('late'),
+        func.sum(case((Attendance.status == 'absent', 1), else_=0)).label('absent')
+    ).filter_by(activity_id=activity_id).group_by(Attendance.date).order_by(Attendance.date.desc()).all()
+    
+    # Get detailed records for each date
+    detailed_records = {}
+    for record in attendance_records:
+        date = record.date
+        detailed_records[date] = Attendance.query.filter_by(
+            activity_id=activity_id,
+            date=date
+        ).join(Child).all()
+    
+    return render_template('tutor/attendance_history.html',
+                         activity=activity,
+                         attendance_records=attendance_records,
+                         detailed_records=detailed_records)
 
 # --- DB Init ---
 

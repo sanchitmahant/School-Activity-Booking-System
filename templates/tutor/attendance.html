@@ -6,81 +6,125 @@
 <div class="container py-5">
     <div class="row justify-content-center">
         <div class="col-lg-10">
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <div>
-                    <a href="{{ url_for('tutor_dashboard') }}"
-                        class="text-decoration-none text-muted mb-2 d-inline-block">
-                        <i class="fas fa-arrow-left me-1"></i> Back to Dashboard
-                    </a>
-                    <h2 class="text-primary mb-0">Attendance: {{ activity.name }}</h2>
-                    <p class="text-muted">{{ activity.day_of_week }} | {{ activity.start_time }} - {{ activity.end_time
-                        }}</p>
-                </div>
-                <div>
-                    <div class="input-group">
-                        <span class="input-group-text bg-white"><i class="fas fa-calendar"></i></span>
-                        <input type="date" class="form-control" id="attendance_date" <th>Status</th>
-                        <th>Notes</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                            {% for booking in bookings %}
-                            <tr>
-                                <td class="ps-4">
-                                    <div class="d-flex align-items-center">
-                                        <div class="avatar-circle bg-primary text-white me-3">
-                                            {{ booking.child.name[0] }}
-                                        </div>
-                                        <div>
-                                            <h6 class="mb-0">{{ booking.child.name }}</h6>
-                                            <small class="text-muted">ID: #{{ booking.child.id }}</small>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>{{ booking.child.grade }}</td>
-                                <td>
-                                    <div class="btn-group" role="group">
-                                        <input type="radio" class="btn-check" name="status_{{ booking.child.id }}"
-                                            id="present_{{ booking.child.id }}" value="present" checked>
-                                        <label class="btn btn-outline-success btn-sm"
-                                            for="present_{{ booking.child.id }}">Present</label>
+            <div class="mb-4">
+                <a href="{{ url_for('tutor_dashboard') }}" class="text-decoration-none text-muted mb-2 d-inline-block">
+                    <i class="fas fa-arrow-left me-1"></i> Back to Dashboard
+                </a>
+                <h2 class="text-primary mb-0">Attendance: {{ activity.name }}</h2>
+                <p class="text-muted">{{ activity.day_of_week }} | {{ activity.start_time }} - {{ activity.end_time }}
+                </p>
+            </div>
 
-                                        <input type="radio" class="btn-check" name="status_{{ booking.child.id }}"
-                                            id="late_{{ booking.child.id }}" value="late">
-                                        <label class="btn btn-outline-warning btn-sm"
-                                            for="late_{{ booking.child.id }}">Late</label>
-
-                                        <input type="radio" class="btn-check" name="status_{{ booking.child.id }}"
-                                            id="absent_{{ booking.child.id }}" value="absent">
-                                        <label class="btn btn-outline-danger btn-sm"
-                                            for="absent_{{ booking.child.id }}">Absent</label>
-                                    </div>
-                                </td>
-                                <td>
-                                    <input type="text" class="form-control form-control-sm"
-                                        name="notes_{{ booking.child.id }}" placeholder="Optional notes...">
-                                </td>
-                            </tr>
-                            {% else %}
-                            <tr>
-                                <td colspan="4" class="text-center py-5 text-muted">
-                                    <i class="fas fa-users-slash fa-2x mb-3"></i>
-                                    <p>No students enrolled in this activity yet.</p>
-                                </td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                        </table>
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white p-4">
+                    <div class="row align-items-center">
+                        <div class="col-md-6">
+                            <h5 class="mb-0"><i class="fas fa-clipboard-check me-2"></i>Mark Attendance</h5>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="input-group">
+                                <span class="input-group-text bg-white"><i class="fas fa-calendar"></i></span>
+                                <input type="date" class="form-control" id="attendance_date" value="{{ today }}"
+                                    readonly>
+                            </div>
+                        </div>
                     </div>
+                </div>
 
+                <div class="card-body p-0">
                     {% if bookings %}
-                    <div class="card-footer bg-white p-4 text-end">
-                        <button type="submit" class="btn btn-primary px-5">
-                            <i class="fas fa-save me-2"></i> Save Attendance
-                        </button>
+                    <form method="POST" action="{{ url_for('tutor_attendance', activity_id=activity.id) }}">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                        <input type="hidden" name="date" value="{{ today }}" />
+
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th class="ps-4">Student</th>
+                                        <th>Grade</th>
+                                        <th>Status</th>
+                                        <th>Notes</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for booking in bookings %}
+                                    <tr>
+                                        <td class="ps-4">
+                                            <div class="d-flex align-items-center py-2">
+                                                <div class="avatar-circle bg-primary text-white me-3">
+                                                    {{ booking.child.name[0] }}
+                                                </div>
+                                                <div>
+                                                    <h6 class="mb-0">{{ booking.child.name }}</h6>
+                                                    <small class="text-muted">ID: #{{ booking.child.id }}</small>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="align-middle">
+                                            <span class="badge bg-secondary">Grade {{ booking.child.grade }}</span>
+                                        </td>
+                                        <td class="align-middle">
+                                            <div class="btn-group" role="group">
+                                                <input type="radio" class="btn-check"
+                                                    name="status_{{ booking.child.id }}"
+                                                    id="present_{{ booking.child.id }}" value="present" checked>
+                                                <label class="btn btn-outline-success"
+                                                    for="present_{{ booking.child.id }}">
+                                                    <i class="fas fa-check"></i> Present
+                                                </label>
+
+                                                <input type="radio" class="btn-check"
+                                                    name="status_{{ booking.child.id }}"
+                                                    id="late_{{ booking.child.id }}" value="late">
+                                                <label class="btn btn-outline-warning"
+                                                    for="late_{{ booking.child.id }}">
+                                                    <i class="fas fa-clock"></i> Late
+                                                </label>
+
+                                                <input type="radio" class="btn-check"
+                                                    name="status_{{ booking.child.id }}"
+                                                    id="absent_{{ booking.child.id }}" value="absent">
+                                                <label class="btn btn-outline-danger"
+                                                    for="absent_{{ booking.child.id }}">
+                                                    <i class="fas fa-times"></i> Absent
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td class="align-middle">
+                                            <input type="text" class="form-control" name="notes_{{ booking.child.id }}"
+                                                placeholder="Optional notes...">
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="card-footer bg-white p-4 border-top">
+                            <div class="row align-items-center">
+                                <div class="col-md-6">
+                                    <p class="mb-0 text-muted">
+                                        <i class="fas fa-users me-2"></i>
+                                        <strong>{{ bookings|length }}</strong> student(s) enrolled
+                                    </p>
+                                </div>
+                                <div class="col-md-6 text-end">
+                                    <button type="submit" class="btn btn-primary px-5">
+                                        <i class="fas fa-save me-2"></i> Save Attendance
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                    {% else %}
+                    <div class="text-center py-5">
+                        <i class="fas fa-users-slash fa-3x text-muted mb-3"></i>
+                        <h5 class="text-muted">No Students Enrolled</h5>
+                        <p class="text-muted">There are no confirmed bookings for this activity yet.</p>
                     </div>
                     {% endif %}
-                    </form>
                 </div>
             </div>
         </div>
@@ -89,13 +133,22 @@
 
 <style>
     .avatar-circle {
-        width: 40px;
-        height: 40px;
+        width: 45px;
+        height: 45px;
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
         font-weight: bold;
+        font-size: 18px;
+    }
+
+    .btn-group label {
+        min-width: 90px;
+    }
+
+    .table td {
+        vertical-align: middle;
     }
 </style>
 {% endblock %}

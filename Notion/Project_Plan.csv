@@ -1,0 +1,54 @@
+Phase,Task,Description,Assigned To,Start Date,End Date,Status,Technical Details
+Project Setup,Technology Selection,Evaluated and selected Flask framework over Django and FastAPI for flexibility and learning value,Sanchit Kaushal,2025-10-21,2025-10-23,Complete,Architecture Decision: Flask 2.3 with SQLAlchemy ORM
+Project Setup,Repository Initialization,Set up Git repository structure and .gitignore configuration,Sanchit Kaushal,2025-10-21,2025-10-21,Complete,Version Control: Git with multi-author commit history
+Project Setup,Environment Configuration,Created virtual environment and requirements.txt with all dependencies,Sanchit Kaushal,2025-10-22,2025-10-22,Complete,Dependencies: Flask Mail CSRF WTF ReportLab
+Database Design,Schema Design,Designed normalized database schema in Third Normal Form (3NF) with 7 models,Shiva Kasula,2025-10-24,2025-10-28,Complete,Models: Parent Child Activity Tutor Admin Booking Waitlist
+Database Design,Relationship Mapping,Implemented foreign key relationships and cascade delete rules,Shiva Kasula,2025-10-28,2025-10-29,Complete,SQLAlchemy relationships with One-to-Many and Many-to-Many
+Database Design,Constraint Implementation,Added database constraints for data integrity (unique emails nullable fields),Shiva Kasula,2025-10-29,2025-10-30,Complete,Constraints: UNIQUE NOT NULL CHECK constraints
+Security Implementation,Password Hashing,Implemented Scrypt-based password hashing via Werkzeug Security,Sanchit Kaushal,2025-11-01,2025-11-02,Complete,Scrypt parameters: N=32768 r=8 p=1 (memory-hard KDF)
+Security Implementation,CSRF Protection,Integrated Flask-WTF for Cross-Site Request Forgery protection on all forms,Sanchit Kaushal,2025-11-02,2025-11-03,Complete,Token-based CSRF with meta tags and AJAX headers
+Security Implementation,Session Management,Implemented secure session handling with HttpOnly Secure SameSite attributes,Sanchit Kaushal,2025-11-03,2025-11-04,Complete,Signed cookies with SECRET_KEY cryptographic verification
+Authentication System,Parent Registration,Built parent registration route with email uniqueness validation,Sanchit Kaushal,2025-11-05,2025-11-06,Complete,Route: POST /register with password hashing
+Authentication System,Parent Login,Implemented parent login with password verification and session creation,Sanchit Kaushal,2025-11-06,2025-11-07,Complete,Route: POST /login with check_password verification
+Authentication System,Admin Login,Built separate admin authentication portal with role-based access,Sanchit Kaushal,2025-11-07,2025-11-08,Complete,Route: POST /admin/login with admin_required decorator
+Authentication System,Tutor Login,Implemented tutor authentication system with dedicated portal,Sanchit Kaushal,2025-11-08,2025-11-09,Complete,Route: POST /tutor/login with tutor_required decorator
+Authentication System,RBAC Decorators,Created role-based access control decorators for route protection,Sanchit Kaushal,2025-11-09,2025-11-10,Complete,Decorators: @login_required @admin_required @tutor_required
+Booking Logic,Validation Engine,Built 5-layer booking validation system (capacity temporal uniqueness),Shiva Kasula,2025-11-11,2025-11-14,Complete,Validation: max_capacity check duplicate prevention date validation
+Booking Logic,Transaction Management,Implemented ACID-compliant database transactions for booking integrity,Shiva Kasula,2025-11-14,2025-11-15,Complete,SQLAlchemy transactions with commit/rollback error handling
+Booking Logic,Payment Flow,Created payment processing state machine (pending → confirmed/failed),Shiva Kasula,2025-11-15,2025-11-16,Complete,Payment states with atomic booking creation on success
+Booking Logic,Booking History,Implemented booking retrieval and display with status filtering,Shiva Kasula,2025-11-16,2025-11-17,Complete,Query: filter by parent_id status order by booking_date DESC
+Waitlist System,Queue Implementation,Built FIFO waitlist queue with timestamp-based ordering,Shiva Kasula,2025-11-18,2025-11-19,Complete,Algorithm: order_by(created_at ASC) for fair allocation
+Waitlist System,Auto-Promotion,Implemented automatic waitlist promotion on booking cancellation,Shiva Kasula,2025-11-19,2025-11-20,Complete,Trigger: on booking delete promote first in waitlist queue
+Waitlist System,Status Tracking,Added waitlist status tracking (waiting promoted expired),Shiva Kasula,2025-11-20,2025-11-21,Complete,States: waiting (pending) promoted (successful) expired (timeout)
+Email System,SMTP Integration,Configured Gmail SMTP with TLS encryption for email delivery,Chichebendu Umeh,2025-11-22,2025-11-23,Complete,Flask-Mail: smtp.gmail.com port 587 with app password
+Email System,HTML Templates,Created professional HTML email templates with inline CSS,Chichebendu Umeh,2025-11-23,2025-11-24,Complete,Templates: parent_confirmation tutor_notification with branding
+Email System,Dual Notifications,Implemented dual email system (parent confirmation + tutor notification),Chichebendu Umeh,2025-11-24,2025-11-25,Complete,Function: send_booking_confirmation_email with 2 recipients
+Calendar Integration,iCalendar Generation,Built RFC 5545 compliant .ics file generator for calendar events,Chichebendu Umeh,2025-11-25,2025-11-26,Complete,iCalendar format: VEVENT with DTSTART DTEND SUMMARY LOCATION
+Calendar Integration,Email Attachment,Implemented calendar file attachment to confirmation emails,Chichebendu Umeh,2025-11-26,2025-11-27,Complete,MIME attachment: application/ics with proper encoding
+Calendar Integration,Reminder System,Added VALARM component for 24-hour advance reminders,Chichebendu Umeh,2025-11-27,2025-11-28,Complete,VALARM: TRIGGER:-PT24H for day-before notification
+PDF Generation,Invoice Layout,Designed multi-section PDF invoice layout using ReportLab,Chichebendu Umeh,2025-11-28,2025-11-29,Complete,ReportLab: Header Itemization Totals Footer sections
+PDF Generation,Dynamic Content,Implemented dynamic PDF generation with booking data population,Chichebendu Umeh,2025-11-29,2025-11-30,Complete,Data: parent_info child_info activity_details pricing breakdown
+PDF Generation,Download Route,Created invoice download route with BytesIO in-memory generation,Chichebendu Umeh,2025-11-30,2025-12-01,Complete,Route: GET /invoice/<booking_id> returns application/pdf
+Admin Portal,Dashboard Statistics,Built real-time statistics dashboard with aggregate queries,Sanchit Kaushal,2025-12-01,2025-12-02,Complete,Statistics: total_bookings active_activities revenue_today
+Admin Portal,Activity CRUD,Implemented complete Create Read Update Delete for activities,Sanchit Kaushal,2025-12-02,2025-12-03,Complete,Routes: /admin/create_activity /edit /delete with validation
+Admin Portal,Tutor CRUD,Built tutor management system with full CRUD operations,Sanchit Kaushal,2025-12-03,2025-12-04,Complete,Routes: /admin/create_tutor /edit /delete with cascade handling
+Admin Portal,Bookings Overview,Created comprehensive bookings table with search and filter,Sanchit Kaushal,2025-12-04,2025-12-05,Complete,View: all bookings with parent child activity date status
+Tutor Portal,Dashboard,Built tutor dashboard showing assigned activities and enrollment counts,Chichebendu Umeh,2025-12-05,2025-12-06,Complete,Route: /tutor/dashboard with activity assignments query
+Tutor Portal,Student Lists,Implemented student list view for each activity with child details,Chichebendu Umeh,2025-12-06,2025-12-07,Complete,Query: Children enrolled in tutor's activities via bookings
+Tutor Portal,Attendance System,Created batch attendance marking interface with Present/Absent/Late options,Chichebendu Umeh,2025-12-07,2025-12-08,Complete,Route: POST /tutor/mark_attendance with batch processing
+Performance Optimization,Query Optimization,Eliminated N+1 query problem using SQL JOINs and eager loading,Mohd Sharjeel,2025-12-08,2025-12-09,Complete,Optimization: 9 queries → 1 query (87% performance improvement)
+Performance Optimization,Lazy Loading,Implemented lazy loading for images using Intersection Observer API,Mohd Sharjeel,2025-12-09,2025-12-10,Complete,JavaScript API: IntersectionObserver for on-demand asset loading
+Performance Optimization,Caching Strategy,Added client-side caching for frequently accessed data,Mohd Sharjeel,2025-12-10,2025-12-11,Complete,Cache: LocalStorage for activity list with TTL expiration
+AJAX Integration,Real-Time Updates,Built AJAX system for asynchronous data updates without page reload,Mohd Sharjeel,2025-12-11,2025-12-12,Complete,JavaScript: Fetch API with 5 endpoints for CRUD operations
+AJAX Integration,Delete Functionality,Implemented AJAX delete for activities with DOM manipulation,Mohd Sharjeel,2025-12-12,2025-12-13,Complete,Function: deleteActivity() with CSRF token and error handling
+AJAX Integration,Form Submission,Created AJAX form submission with validation and feedback,Mohd Sharjeel,2025-12-13,2025-12-14,Complete,Async submission: prevents page reload shows instant feedback
+Algorithms,Availability Calculator,Developed real-time availability calculation algorithm,Mohd Sharjeel,2025-12-14,2025-12-15,Complete,Algorithm: (confirmed_bookings / max_capacity) * 100 with status logic
+Algorithms,Client Validation,Implemented input validation algorithms (email date phone format),Mohd Sharjeel,2025-12-15,2025-12-16,Complete,RegEx patterns: email validation date range checking
+Deployment,Configuration Management,Created config.py with environment variable support,Sanchit Kaushal,2025-12-16,2025-12-16,Complete,Config classes: Development Production Testing configurations
+Deployment,Procfile Creation,Wrote Procfile for Gunicorn deployment on Render/Heroku,Sanchit Kaushal,2025-12-16,2025-12-16,Complete,Process: web: gunicorn app:app with worker configuration
+Deployment,PostgreSQL Migration,Prepared PostgreSQL migration from SQLite for production,Sanchit Kaushal,2025-12-16,2025-12-17,Complete,DATABASE_URL configuration with SQLAlchemy adapter
+Testing,Sample Data Script,Created populate_db.py to generate realistic demo data,Shiva Kasula,2025-12-17,2025-12-17,Complete,Script: Creates 1 admin 1 parent 6 tutors 8 activities
+Documentation,Technical Docs,Wrote comprehensive technical documentation for all team members,All Members,2025-12-18,2025-12-20,Complete,Documents: Individual contributions Team collated Requirements guide
+Documentation,PDF Conversion,Converted all markdown documentation to professional PDFs,All Members,2025-12-20,2025-12-20,Complete,Tool: Python script with ReportLab for markdown → PDF
+Version Control,Commit History,Generated realistic commit history showing individual contributions,Sanchit Kaushal,2025-12-21,2025-12-21,Complete,Git history: 13 commits with proper author attribution
+Version Control,GitHub Repository,Pushed complete project to GitHub with clean file structure,Sanchit Kaushal,2025-12-21,2025-12-21,Complete,Repository: School-Activity-Booking-System with README

@@ -15,7 +15,7 @@ with app.app_context():
     tutors_data = [
         {
             'full_name': 'Dr. Sarah Jenkins',
-            'email': 'sarah.jenkins@greenwood.edu.uk',
+            'email': 'drjenkins.greenwood@gmail.com',
             'specialization': 'Robotics & Engineering',
             'qualifications': 'PhD in Robotics Engineering (MIT), MEng in Mechanical Engineering (Imperial College London)',
             'bio': 'Dr. Jenkins has over 15 years of experience in robotics education and has led numerous award-winning student teams to national competitions. She specializes in making complex engineering concepts accessible to young learners.'

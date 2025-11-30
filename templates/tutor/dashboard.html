@@ -56,8 +56,12 @@
                                     <td>{{ activity.max_capacity }}</td>
                                     <td class="text-end pe-4">
                                         <a href="{{ url_for('tutor_attendance', activity_id=activity.id) }}"
-                                            class="btn btn-sm btn-outline-primary">
-                                            <i class="fas fa-clipboard-check me-1"></i> Attendance
+                                            class="btn btn-sm btn-primary me-2">
+                                            <i class="fas fa-clipboard-check me-1"></i> Mark Attendance
+                                        </a>
+                                        <a href="{{ url_for('attendance_history', activity_id=activity.id) }}"
+                                            class="btn btn-sm btn-outline-secondary">
+                                            <i class="fas fa-history me-1"></i> History
                                         </a>
                                     </td>
                                 </tr>
