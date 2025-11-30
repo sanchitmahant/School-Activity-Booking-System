@@ -837,7 +837,7 @@ def generate_invoice(booking_id):
     elements.append(Paragraph("INVOICE", title_style))
     elements.append(Paragraph("Greenwood International School", subtitle_style))
     elements.append(Paragraph("123 Education Lane, London, UK SW1A 1AA", small_style))
-    elements.append(Paragraph("Tel: +44 20 7123 4567 | Email: info@greenwood.edu.uk", small_style))
+    elements.append(Paragraph("Tel: +44 (0) 1491 570000 | Email: admissions@greenwood.edu", small_style))
     elements.append(Paragraph("Company Registration No: 12345678 | VAT No: GB123456789", small_style))
     elements.append(Spacer(1, 25))
     
@@ -995,7 +995,7 @@ def generate_invoice(booking_id):
         alignment=1
     )
     elements.append(Paragraph("Thank you for choosing Greenwood International School!", footer_style))
-    elements.append(Paragraph("For any queries, please contact us at info@greenwood.edu.uk or +44 20 7123 4567", small_style))
+    elements.append(Paragraph("For any queries, please contact us at admissions@greenwood.edu or +44 (0) 1491 570000", small_style))
     
     doc.build(elements)
     buffer.seek(0)
