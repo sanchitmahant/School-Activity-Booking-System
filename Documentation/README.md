@@ -29,8 +29,8 @@ We wrote these so **anyone** (even a child!) can understand what we built.
 
 ### 4. 🏗️ Mohd Sharjeel
 **File**: `4_Mohd_Sharjeel_Contribution.md`
-- **Read this for**: Frontend Code, Templates, Responsive Logic.
-- **Analogy**: The Frontend Engineer & Architect.
+- **Read this for**: AJAX Integration, Performance Optimization, Algorithms.
+- **Analogy**: The Integration & Performance Engineer.
 
 ### 5. 🤝 Team Summary
 **File**: `5_Team_Collated_Documentation.md`

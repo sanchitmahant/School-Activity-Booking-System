@@ -48,14 +48,14 @@ We divided the work so everyone had a special technical job.
   - Waitlist (The queue)
   - Payments (The cash register)
 
-### 4. Mohd Sharjeel (The Architect)
-**Role**: Frontend Engineer
-- **Analogy**: He built the displays, the controls, and the structure.
+### 4. Mohd Sharjeel (The Optimizer)
+**Role**: Integration & Performance Engineer
+- **Analogy**: He built the connections and made everything faster.
 - **Key Jobs**:
-  - **Template Logic**: Writing code to display data (Jinja2)
-  - **Responsive Algorithms**: Making math work for mobile screens
-  - **CSS Architecture**: Building a scalable code system
-  - **Accessibility**: Coding for WCAG compliance
+  - **AJAX Integration**: Real-time updates without page refresh
+  - **Performance Optimization**: Query optimization, caching, lazy loading
+  - **Availability Algorithm**: Real-time calculation of remaining spots
+  - **Client-Side Validation**: Input checking algorithms
 
 ---
 

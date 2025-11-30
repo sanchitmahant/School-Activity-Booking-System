@@ -1,0 +1,427 @@
+PAGES: 8
+
+=== PAGE 1 ===
+1  
+    
+   
+ 
+ 
+ 
+   
+SCHOOL OF ARCHITECTURE, COMPUTING & ENGINEERING   
+   
+   
+Submission instructions   
+• Cover sheet to be attached to the front of the assignment when submitted   
+• Question paper to be attached to the assignment when submitted   
+• All pages to be numbered sequentially   
+• All work has to be presented in a ready to submit state upon arrival at the ACE 
+Helpdesk. Assignment cover sheets or stationery will NOT  be provided by Helpdesk 
+staff   
+   
+   
+Module code      
+CN7021  
+   
+Module title      
+Advanced Software Engineering  – ASWE  
+   
+Module leader    
+Hisham AbouGrad  
+   
+Assignment tutors   Bilyaminu Auwal Romo, Aloysius Edoh, Rawad Hammad, 
+Abdulrazaq Abba, Umaima Haider, Reena Popat, Mayank 
+Trivedi, Abdul Qadoos, Manasa Yegamati, Ashna Sabu, 
+Chinnammai Mannam, Aadithya Nalannadiyil Sukumar, 
+Emmanuel Favour Iyahen, Fiza Riaz  
+   
+Assignment title      
+Coursework: Group Assignment   
+   
+Assignment number      
+One   
+   
+Weighting      
+50%   
+   
+Handout date      
+16th of October 202 5 
+   
+Submission date      
+22nd  December 202 5 until 23:59 (online submission)  
+Learning outcomes 
+assessed by this 
+assignment     
+1 – 8 in the Module Guide 
+   
+Turnitin submission 
+requirement      
+Yes   Turnitin Grade Mark feedback 
+used?     
+No   
+UEL Plus Grade Book 
+submission used?      
+No   UEL Plus Grade Book feedback 
+used?    
+No 
+Other electronic system 
+used?     
+No   Are submissions/feedback 
+totally electronic?      
+Yes   
+Additional information    
+       
+                                  
+
+
+=== PAGE 2 ===
+2  
+    
+                
+ 
+  
+                  
+Form of assessment:   
+  
+  Individual work     Group work  
+  
+For group  work  assessment which requires members to submit both individual and 
+group work aspects for the assignment, the work should be submitted as:   
+  
+   Consolidated single document     Separately by each member  
+  
+ Number of assignment copies required:      
+  
+   1    Other   Other    
+  
+Assignment to be presented in the following format:   
+  
+   Online submission  
+   Stapled once in the top left -hand corner  
+   Glue bound   
+   Spiral bound  
+   Placed in a A4 ring bound folder (not lever arch)  
+  
+Note:   To students submitting work on A3/A2 boards, work has to be contained in 
+suitable protective case to ensure any damage to work is avoided.   
+  
+Soft copy:    
+  
+ (to be attached to the work in an envelope or purpose made wallet adhered to 
+the rear) adhered to the rear)  
+ wallet adhered to the rear) adhered to the rear)   
+Soft copy not required  
+  
+Note to all students   
+  
+Assignment cover sheets can be downloaded from logging into UEL Direct via the 
+following pathway.  
+  
+UEL Direct  → My Record  → My Programme  → Assessment log dates with 
+Barcoded  Frontsheet   
+All work has to be presented in a ready to submit state upon arrival at the ACE Helpdesk. 
+Assignment cover sheets or stationery (including staplers) will NOT  be provided by Helpdesk 
+staff. This will mean students will not be able to staple cover sheets at the Helpdesk.   
+  
+   
+
+
+=== PAGE 3 ===
+3  
+ Group Work Assignment – 50%  
+   
+Please read the whole assignment to ensure you understand all the requirements before you 
+begin.    
+   
+This assessment can be attempted in groups of up to  4 students . These groups will be managed 
+by the module leader and tutor /s. 
+ 
+You must keep regular minutes of any meetings that you have while undertaking this coursework , 
+as they will be required if there is a dispute about any member's  contribution. Your minutes should:   
+• be dated   
+• include a list of all group members present and apologies for any absences   
+• include allocation of work to be achieved by each member by the next meeting   
+• include the time, date and venue of the next meeting   
+• be signed to indicate the agreement of all group members, present or not.   
+   
+You are required to submit with your assignment a statement signed by each member of the group 
+stating that you have all participated almost  equally , and therefore , the mark awarded should be 
+shared equally , without  this statement marks cannot be allocated . The original of this agreement 
+goes to your tutor, and an electronic copy goes in your assignment. Refer to the attached template .  
+   
+In the event of a dispute about a particular member's contribution to the coursework, you should 
+make an appointment with your tutor and/or the module leader no later than 1 week  before the 
+submission date. All group members will be required to attend this meeting. Your  tutor and/or the 
+module leader reserves the right to alter an individual's grade in light of any evidence of unequal 
+contribution. It is envisaged that such occurrences will be rare.   
+All individuals will receive the group grade for this coursework unless clear evidence is provided 
+of unequal contributions.   
+The marking criterion for the coursework is based on the assessment criteria at the end.   
+       
+  
+
+=== PAGE 4 ===
+4  
+ Component 1: Coursework - Group -based project (50%)   
+ 
+Required task s: 
+You are required to select an existing open -source software project or product  and develop an 
+enhanced version that demonstrates measurable improvement to its existing functionality. The goal 
+is to apply the advanced software engineering principles and techniques  covered in this module 
+— such as software architecture design, testing strategies, refactoring, version control, and 
+continuous integration — to produce a technically sound and well -documented improvement. Your 
+work must be accompanied by a comprehensive report (3,000 words ±10%) , following the 
+provided template, that critically analyses the project’s current state, identifies limitations or 
+enhancement opportunities, and justifies the specific features or modules your team has 
+implemented. The report should also discuss the desig n rationale, applied methodologies, 
+implementation process, testing procedures, and outcomes. You are expected to use a version 
+control system  (e.g., GitHub or GitLab) to document your development process, including commits, 
+branches, and collaborative contributions, as part of your submission evidence. Importantly, 
+modifications limited to the interface or user interface (UI) will not qualify as new features or 
+functionalities; only substantive technical changes — such as new modules, algorithms, integrations, 
+or improved performance mechanisms — will be assessed. Tutors may suggest a shortlist of suitable 
+open -source projects, but you  are encouraged to demonstrate initiative in selecting and justifying a 
+project that aligns with the learning outcomes and reflects the advanced engineering practices 
+explored throughout this module.  
+ 
+Instructions:  
+This component  consists  of a group -based  project ; each  group  has 3 or 4  members . This 
+coursework was designed keeping the group size in mind , and the size will be managed by the 
+module leader and tutors (exceptional circumstances might be considered).  You will be required to 
+designate a group leader . It is vital that each group nominates a group leader as early as possible , 
+because the group leader will be responsible for all group communication with the lab tutor and 
+module leader, as well as the final submission of the work to Moodle and provide confirmation 
+(acknowledgement) to the group members by email with the submitte d Group Report.  
+Please  note that group  communication  should  only be done  through  the group  leader unless there 
+are exceptional circumstances.  
+The deadline  for finalising  your group  is by the end of Week 3. Groups can be found on the module 
+Moodle site or through your tutor.  
+Please  include Student  ID, Full Name  and timetable group  number  (i.e., seminar  group)  for each  
+member  of the group  and clearly  identify  the group leader.  
+If you are not in a group by the deadline , you will be randomly assigned  to one. 
+Final list of groups along with details each member will be published on CN7021 Moodle page site: 
+this will be the final official allocation and will be strictly followed.  
+The deadline  for deciding  on your group  leader  and project  topic  is Week 4 . 
+Each group is required to submit the following:  
+1. A web link to a UEL OneDrive folder containing all the project source code and any additional  
+material  (images,  configuration  or read me files).  Alternatively,  you can provide the  link to an 
+open  code  repository  (bitbucket  or GitHub),  as long as it is freely  accessible.  
+2. Project  submission  report  via Turnitin  submission  link in MS Word  or PDF file format . 
+3. Contribution /s of each group member  in a Contributions Table. This must be highlighted in 
+the report appendix section, stating who has done what: each group member is required to 
+contribute to the project equally  and coursework  report , as well as  submit  all tutorial s’ 
+tasks  in a Word document file format .  This has 15 marks from the report  total of 50 marks.
+
+=== PAGE 5 ===
+5   The report  must  be structured  according  to a template  provided  on Moodle.  
+• Request formative feedback during tutorial in week 7 from your lab tutor to show 
+the current  status  of the project  (introducing  the problem,  show  a draft architecture,  and use 
+case diagram with some requirements, software metrics and cost estimation);  
+ 
+Coursework Marks Distribution  
+Required Items  Marks  Due Date 
+ 
+1. Source Code & additional functionalities 
+documentation  20 marks  22nd December 202 5 
+ 
+ 
+2. Report: COCOMO, Project Management 
+Documentation, software metrics , 
+Cost estimation of your choosing software 
+project , with tutorials in a file. 50 marks  22nd December 202 5 
+3 Quality of Report and Harvard Referencing  30 marks  22nd December 202 5 
+ 
+Submission Deadlines will also be  published on the module Moodle site.  
+ 
+Resit Assessment  
+If you do not pass your module at the first attempt, you will have an opportunity 
+to resubmit  your practical tasks and/or take a re -sit exam. The mark for all re -
+sits is capped at 50%.  
+ 
+LATE SUBMISSIONS  
+  
+You should aim to submit all coursework by the deadline set.   Meeting deadlines is an 
+essential employability skill, and an expectation for your course.   Should you be unable 
+to submit your assignments on time, one of the following may be available:  
+  
+• You may submit coursework up to 24 hours after the deadline .  Work submitted 
+within 24 hours of the deadline will be subject to a fixed penalty of 5% of the total 
+marks available (as opposed to marks obtained).   Please note that if you 
+submit  both  before the deadline  and during the 24 -hour late period, then the second 
+submission will be marked and 5% deducted. Students submitting at resit will not be 
+eligible to submit 24 hours late . 
+  
+• You may be able to request an automatic 7 -day extension .  You have two 
+opportunities to request automatic extensions in one academic year (one per 
+term).   Follow this link to find out more about how to request an automatic extension.  
+  
+These rules normally only apply to coursework.   It does not apply to examinations, 
+presentations, performances, practical assessments or viva voce examinations.   If you 
+are unable to take advantage of these opportunities, then you will need to apply 
+for extenuating circumstances , or accept that you will receive a zero mark.  
+  
+Extenuating Circumstances are circumstances which:   
+  
+• impair your examination performance prevent you from attending examinations or 
+other types of assessment, or  
+• prevent you from submitting coursework or other assessed work by the scheduled 
+deadline date, or within 24 hours of the deadline date  
+  
+ 
+ 
+
+=== PAGE 6 ===
+ 
+   6   Such circumstances rarely occur and would normally be:  
+  
+• unforeseeable  - in that you could have no prior knowledge of the event 
+concerned, and  
+• unpreventable  - in that you could do nothing reasonably in your power to prevent 
+such an event, and  
+• expected to have a  serious impact  on performance  
+  
+You can make an application for extenuating circumstances by following this link.  
+ 
+Plagiarism  
+The University defines an assessment offence as any action(s) or behaviour 
+likely to confer an unfair advantage in assessment, whether by advantaging the 
+alleged offender or disadvantaging (deliberately or unconsciously) another or 
+others. A number of examples are set out in the Regulations and these include: 
+“D.5.7.1 (e) the submission of material (writte n, visual or oral), originally 
+produced by another person or persons, without due acknowledgement, so that 
+the work could be assumed the student’s own. For the purposes of these 
+Regulations, this includes incorporation of significant extracts or elements t aken 
+from the work of (an) other(s), without acknowledgement or reference, and the 
+submission of work produced in collaboration for an assignment based on the 
+assessment of individual work. (Such offences are typically described as 
+plagiarism and collusion .)” The University's Assessment Offences Regulations 
+can be found on our web site. Also, information about plagiarism can be found 
+on the programme’s handbook.  
+ 
+Formative Feedback   
+  
+You have the opportunity to submit tasks at designated milestones during the 
+running of the module to receive formative feedback  from your tutor  during labs .   
+  
+The feedback is not grading the work. It is designed to help you develop areas 
+of your work, and it helps you develop your skills as an independent learner  and 
+overall group (team) . These opportunities are only open up to one week before 
+the deadline date.  
+  
+Informative feedback allows you to reflect on the instructor's recommendation 
+and draft your final submission.  
+ 
+ 
+Guidelines  
+  
+You MUST  underpin your critical analysis and evaluation of the key issues with 
+appropriate and wide -ranging academic research and ensure this is referenced using 
+Harvard referencing system. My Study Skills Area contains the following useful 
+resources:  
+  
+Guide to Harvard Referencing and citations:  
+- https://www.uel.ac.uk/sites/default/files/6475.pdf  
+- https://www.uel.ac.uk/study/student -life/library -archives -learning -services/info -skills -
+guides/referencing -information  
+ 
+You must use the UEL Harvard Referencing method in your assignment.  
+  
+
+=== PAGE 7 ===
+ 
+   7   Agreement of Participation – Group Assignment CN7021  
+   
+Please complete this agreement and keep a copy for each member of your group. The 
+original of this agreement goes to your tutor, and the Electronic copy goes in your 
+assignment.   
+   
+We agree to work as a group  of . . . to complete the coursework for CN 7021  and 
+understand that the grade awarded will be the grade allocated to us individually as a 
+result of our group work . 
+   
+Student ID. Name in capital  letters  and Email  Address  Signature  
+ 
+ 
+  
+ 
+  
+ 
+ 
+  
+ 
+  
+ 
+ 
+  
+ 
+  
+ 
+ 
+   
+   
+Note: Students should form their groups (a group of 4) within the SAME Tutorial / 
+Practical.   
+   
+   
+Tutorial / Practical Number: ________________________________________   
+   
+   
+Tutor’s Name: ___________________________________________________   
+   
+   
+   
+Date of agreement________________________________________________   
+  
+  
+
+=== PAGE 8 ===
+ 
+   8   Assessment Criteria   
+  
+Each of the four elements in the short report will be marked using the following scale:    
+Short Report elements – Assessment Criteria    Grade  Band    
+Excellent coverage of issues with good exemplification and a 
+complete list of references along with Turnitin  report.    70-100% 
+Excellent  
+Good coverage of issues with some relevant exemplification with 
+adequate references.   60-69%  
+Good to Very 
+Good  
+Adequate coverage of issues with little exemplification   50-59%  
+Satisfactory to  
+Good  
+Unclear coverage of issues but little exemplification   40-49%  
+Fairer to 
+Overall Fail  
+No relevant material or very little relevant material   0-39 
+Fail  
+   
+Deliverable – Software Solution Diagrams  Grade Band   
+There is a clear indication in the answer that students have fully 
+understood the problem domain and spent a considerable amount of 
+time iterating over different solutions. All relevant actors and use 
+cases have been identified and their relationships clearly shown. 
+Documentation is to a pr ofessional standard . 70-100% 
+Excellent  
+Most of the relevant actors and use cases have been identified. Any 
+assumptions will be justified in the context of the case study and 
+problem domain. Documentation will be of a high standard and 
+there will be evidence of iteration.   60-69%  
+Pass standard 
+to satisfactory  
+About half of the actors and use cases have been identified and 
+there will be no redundant use cases. The standard of 
+documentation is satisfactory. Evidence of iteration will be patchy.   50-59%  
+Satisfactory to  
+Good  
+Very little or no iteration. There may be a number of redundant use 
+cases. The standard of documentation is generally weak.   40-49%  
+Fairer to Overall 
+Fail  
+Significant errors and misunderstandings. Actors and use cases have 
+not been identified correctly. The level  of detail is inappropriate. 
+Documentation is poor. Task not attempted or incomplete or fails to 
+identify the most obvious points.   0-39 
+Fail  
+ 
+

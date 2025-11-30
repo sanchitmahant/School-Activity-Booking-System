@@ -15,7 +15,7 @@ A comprehensive web-based application for managing school activity bookings, des
 | **Sanchit Kaushal** | Team Lead & Backend Security | Architecture, Auth System, Admin Portal, Security |
 | **Chichebendu Blessed Umeh** | Integration Specialist | Email Notifications, PDF Generation, Tutor Portal |
 | **Shiva Kasula** | Database Specialist | Database Design, Booking Logic, Waitlist System |
-| **Mohd Sharjeel** | UI/UX Designer | Frontend Design, Responsive Layout, Accessibility |
+| **Mohd Sharjeel** | Integration & Performance | AJAX System, Query Optimization, Algorithms |
 
 ---
 
