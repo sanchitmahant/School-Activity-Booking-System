@@ -27,10 +27,10 @@ We wrote these so **anyone** (even a child!) can understand what we built.
 - **Read this for**: Database, Rules, Payments.
 - **Analogy**: The Filing Clerk & Bouncer.
 
-### 4. 🎨 Mohd Sharjeel
+### 4. 🏗️ Mohd Sharjeel
 **File**: `4_Mohd_Sharjeel_Contribution.md`
-- **Read this for**: Design, Colors, Mobile View.
-- **Analogy**: The Interior Decorator.
+- **Read this for**: Frontend Code, Templates, Responsive Logic.
+- **Analogy**: The Frontend Engineer & Architect.
 
 ### 5. 🤝 Team Summary
 **File**: `5_Team_Collated_Documentation.md`

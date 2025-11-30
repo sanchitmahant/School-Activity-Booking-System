@@ -19,7 +19,7 @@ We built a complete **School Activity Booking Website**.
 
 ## Who Did What? (The Dream Team)
 
-We divided the work so everyone had a special job.
+We divided the work so everyone had a special technical job.
 
 ### 1. Sanchit Kaushal (The Leader & Guard)
 **Role**: Security & Admin
@@ -48,14 +48,14 @@ We divided the work so everyone had a special job.
   - Waitlist (The queue)
   - Payments (The cash register)
 
-### 4. Mohd Sharjeel (The Artist)
-**Role**: UI/UX Design
-- **Analogy**: He is the interior decorator and painter.
+### 4. Mohd Sharjeel (The Architect)
+**Role**: Frontend Engineer
+- **Analogy**: He built the displays, the controls, and the structure.
 - **Key Jobs**:
-  - Colors and Fonts (The look)
-  - Mobile friendly (Works on phones)
-  - Dashboard design (Easy to use)
-  - Visual effects (Glassmorphism)
+  - **Template Logic**: Writing code to display data (Jinja2)
+  - **Responsive Algorithms**: Making math work for mobile screens
+  - **CSS Architecture**: Building a scalable code system
+  - **Accessibility**: Coding for WCAG compliance
 
 ---
 
@@ -63,10 +63,11 @@ We divided the work so everyone had a special job.
 
 **Follow the Journey of a Booking**:
 
-**Step 1: The Visit (Sharjeel's Work)**
-- Parent visits website on their phone.
-- It looks beautiful and fits the screen perfectly.
-- They see "Swimming" with a Green "Available" badge.
+**Step 1: The Interface (Sharjeel's Code)**
+- Parent visits website.
+- Sharjeel's **responsive logic** detects a mobile phone.
+- Sharjeel's **Jinja2 code** loops through activities and renders them.
+- It shows "Swimming" with a Green "Available" badge (Logic-based).
 
 **Step 2: The Login (Sanchit's Work)**
 - Parent clicks "Login".
@@ -89,7 +90,7 @@ We divided the work so everyone had a special job.
 - Teacher logs in (Sanchit)
 - Checks list (Shiva)
 - Marks attendance (Chichebendu)
-- On a beautiful interface (Sharjeel)
+- On a structured interface (Sharjeel)
 
 ---
 
@@ -100,7 +101,8 @@ We divided the work so everyone had a special job.
 | **Python** | Programming Language | Easy to write, powerful |
 | **Flask** | Web Framework | Builds websites fast |
 | **SQLite** | Database | Stores our data simply |
-| **HTML/CSS** | Design Code | Makes it look good |
+| **Jinja2** | Template Engine | Logic for HTML (Loops/Ifs) |
+| **CSS3** | Styling Language | Layout and Design Architecture |
 | **Git** | Version Control | Lets us work together without overwriting |
 
 ---
@@ -119,9 +121,9 @@ We divided the work so everyone had a special job.
 - *Scenario*: Bad people trying to fake forms.
 - *Solution (Sanchit)*: CSRF Tokens. Secret codes on every form that hackers can't guess.
 
-**Problem 4: Ugly on Phones**
-- *Scenario*: Website looked good on laptop, but tiny on phone.
-- *Solution (Sharjeel)*: "Responsive Design". The website changes shape like water to fit the phone.
+**Problem 4: Code Maintainability**
+- *Scenario*: Changing the theme color required editing 50 files.
+- *Solution (Sharjeel)*: "CSS Variables Architecture". Defined colors in one place, used everywhere. Changed 50 files to 1 line of code.
 
 ---
 
