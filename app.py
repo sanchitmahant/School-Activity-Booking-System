@@ -1000,10 +1000,16 @@ def generate_invoice(booking_id):
     doc.build(elements)
     buffer.seek(0)
     
-    # Create response with proper headers
+    # Create response with proper headers for PDF download
+    # Using inline with proper filename encoding to ensure correct filename in all browsers
+    invoice_filename = f'Invoice_{booking.id:06d}_Greenwood.pdf'
+    
     response = make_response(buffer.getvalue())
     response.headers['Content-Type'] = 'application/pdf'
-    response.headers['Content-Disposition'] = f'attachment; filename=Invoice_{booking.id}.pdf'
+    response.headers['Content-Disposition'] = f'inline; filename="{invoice_filename}"'
+    response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
+    response.headers['Pragma'] = 'no-cache'
+    response.headers['Expires'] = '0'
     
     return response
 
