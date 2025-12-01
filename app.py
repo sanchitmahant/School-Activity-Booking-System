@@ -752,38 +752,7 @@ def join_waitlist():
     
     return jsonify({'success': True, 'message': 'Added to waitlist'})
 
-@app.route('/cancel_booking/<int:booking_id>', methods=['POST'])
-@login_required
-def cancel_booking(booking_id):
-    booking = Booking.query.get(booking_id)
-    
-    is_ajax = request.headers.get('X-Requested-With') == 'XMLHttpRequest'
 
-    if not booking or booking.parent_id != session['parent_id']:
-        msg = 'Unauthorized'
-        if is_ajax:
-            return jsonify({'error': msg}), 403
-        flash(msg, 'danger')
-        return redirect(url_for('dashboard'))
-    
-    # Store details for waitlist check before deleting/cancelling
-    activity_id = booking.activity_id
-    booking_date = booking.booking_date
-    
-    booking.status = 'cancelled'
-    db.session.commit()
-    
-    # Check waitlist and promote if applicable
-    promoted = promote_waitlist_user(activity_id, booking_date)
-    message = 'Booking cancelled.'
-    if promoted:
-        message += ' A spot opened up and was filled from the waitlist.'
-    
-    if is_ajax:
-        return jsonify({'success': True, 'message': message})
-    
-    flash(message, 'info')
-    return redirect(url_for('dashboard'))
 
 @app.route('/invoice/<int:booking_id>')
 @login_required

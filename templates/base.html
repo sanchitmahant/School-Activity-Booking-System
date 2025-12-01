@@ -43,6 +43,10 @@
                     <li class="nav-item"><a class="nav-link text-primary" href="{{ url_for('admin_dashboard') }}">Admin
                             Panel</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ url_for('logout') }}">Logout</a></li>
+                    {% elif session.get('tutor_id') %}
+                    <li class="nav-item"><a class="nav-link text-primary" href="{{ url_for('tutor_dashboard') }}">Tutor
+                            Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('logout') }}">Logout</a></li>
                     {% else %}
                     <li class="nav-item"><a class="nav-link btn btn-primary-custom text-white ms-2 px-4 py-2"
                             href="{{ url_for('login') }}" style="margin-left: 1rem !important;">Login</a></li>
