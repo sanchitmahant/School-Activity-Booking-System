@@ -1298,7 +1298,126 @@ def init_db():
             db.session.add_all(activities)
             db.session.commit()
 
+
+# --- Cancel Booking Route ---
+
+@app.route('/cancel_booking/<int:booking_id>', methods=['POST'])
+@login_required
+def cancel_booking(booking_id):
+    """
+    Cancel a booking and promote from waitlist if available
+    """
+    booking = Booking.query.get_or_404(booking_id)
+    
+    # Authorization check - ensure parent owns this booking
+    if booking.parent_id != session.get('parent_id'):
+        flash('Unauthorized access', 'error')
+        abort(403)
+    
+    try:
+        activity_id = booking.activity_id
+        activity_name = booking.activity.name
+        child_name = booking.child.name
+        parent = Parent.query.get(booking.parent_id)
+        booking_date = booking.booking_date.strftime('%d %B %Y')
+        
+        # Delete the booking
+        db.session.delete(booking)
+        db.session.commit()
+        
+        # Send cancellation confirmation email to parent
+        try:
+            cancel_msg = Message(
+                subject=f'Booking Cancellation Confirmed - {activity_name}',
+                recipients=[parent.email],
+                html=f'''
+                <html>
+                <body style="font-family: Arial, sans-serif;">
+                    <h2 style="color: #ef4444;">Booking Cancelled</h2>
+                    <p>Dear {parent.full_name},</p>
+                    <p>Your booking has been successfully cancelled:</p>
+                    <div style="background: #f3f4f6; padding: 15px; border-radius: 8px; margin: 20px 0;">
+                        <p><strong>Activity:</strong> {activity_name}<br>
+                        <strong>Child:</strong> {child_name}<br>
+                        <strong>Original Date:</strong> {booking_date}<br>
+                        <strong>Status:</strong> Cancelled</p>
+                    </div>
+                    <p>If you'd like to book again in the future, you can do so from your dashboard.</p>
+                    <p>Best regards,<br>Greenwood International School<br>
+                    Email: greenwoodinternationaluk@gmail.com</p>
+                </body>
+                </html>
+                '''
+            )
+            mail.send(cancel_msg)
+        except Exception as email_error:
+            print(f"Cancellation email failed: {email_error}")
+        
+        # Check for waitlist and auto-promote
+        first_in_queue = Waitlist.query.filter_by(
+            activity_id=activity_id,
+            status='waiting'
+        ).order_by(Waitlist.created_at.asc()).first()
+        
+        if first_in_queue:
+            # Promote from waitlist
+            promoted_booking = Booking(
+                parent_id=first_in_queue.parent_id,
+                child_id=first_in_queue.child_id,
+                activity_id=activity_id,
+                booking_date=first_in_queue.request_date,
+                cost=Activity.query.get(activity_id).price,
+                status='confirmed'
+            )
+            first_in_queue.status = 'promoted'
+            db.session.add(promoted_booking)
+            db.session.commit()
+            
+            # Send promotion email to waitlisted parent
+            try:
+                promoted_parent = Parent.query.get(first_in_queue.parent_id)
+                promoted_child = Child.query.get(first_in_queue.child_id)
+                
+                promo_msg = Message(
+                    subject=f'Great News! Spot Available for {activity_name}',
+                    recipients=[promoted_parent.email],
+                    html=f'''
+                    <html>
+                    <body style="font-family: Arial, sans-serif;">
+                        <h2 style="color: #10b981;">Good News!</h2>
+                        <p>Dear {promoted_parent.full_name},</p>
+                        <p>A spot has opened up for <strong>{activity_name}</strong> and {promoted_child.name} has been automatically enrolled!</p>
+                        <div style="background: #f0fdf4; padding: 15px; border-radius: 8px; margin: 20px 0;">
+                            <p><strong>Activity:</strong> {activity_name}<br>
+                            <strong>Child:</strong> {promoted_child.name}<br>
+                            <strong>Status:</strong> Confirmed ✅</p>
+                        </div>
+                        <p>You can view your booking details in your dashboard.</p>
+                        <p>Best regards,<br>Greenwood International School<br>
+                        Email: greenwoodinternationaluk@gmail.com</p>
+                    </body>
+                    </html>
+                    '''
+                )
+                mail.send(promo_msg)
+            except Exception as email_error:
+                print(f"Promotion email failed: {email_error}")
+            
+            flash(f'Booking cancelled. A confirmation email has been sent. Waitlist student promoted.', 'success')
+        else:
+            flash(f'Booking for {child_name} in {activity_name} cancelled. Confirmation email sent.', 'success')
+        
+        return redirect(url_for('dashboard'))
+        
+    except Exception as e:
+        db.session.rollback()
+        flash('Error cancelling booking. Please try again.', 'error')
+        return redirect(url_for('dashboard'))
+
+# ==================== Error Handlers ====================
+
 @app.errorhandler(404)
+
 def page_not_found(e):
     return render_template('404.html'), 404
 
