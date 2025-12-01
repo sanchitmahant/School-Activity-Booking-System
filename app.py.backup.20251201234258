@@ -456,110 +456,6 @@ def send_booking_confirmation_email(booking):
         # Don't fail the booking if email fails
         return False
 
-
-# ==================== Professional Email Functions ====================
-
-def send_tutor_application_email(tutor):
-    """Send emails when tutor applies"""
-    try:
-        # Tutor confirmation
-        tutor_msg = Message(
-            subject='Application Received - Greenwood International',
-            recipients=[tutor.email]
-        )
-        tutor_msg.html = f"""
-        <html><body style="font-family: Arial, sans-serif;">
-        <div style="max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #ddd;">
-            <h2 style="color: #002E5D;">Application Received</h2>
-            <p>Dear {tutor.full_name},</p>
-            <p>Thank you for applying to Greenwood International School!</p>
-            <p>Your application is under review. You'll receive an email once reviewed.</p>
-            <p style="background: #f8f9fa; padding: 15px; border-radius: 5px;">
-                <strong>Application Date:</strong> {tutor.application_date.strftime('%B %d, %Y')}<br>
-                <strong>Status:</strong> <span style="color: #ffc107;">Pending Review</span>
-            </p>
-        </div>
-        </body></html>
-        """
-        
-        # Admin notification
-        admin = Admin.query.first()
-        if admin:
-            admin_msg = Message(
-                subject=f'New Tutor Application: {tutor.full_name}',
-                recipients=[admin.email]
-            )
-            admin_msg.html = f"""
-            <html><body style="font-family: Arial;">
-            <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
-                <h2>New Tutor Application</h2>
-                <p><strong>Name:</strong> {tutor.full_name}</p>
-                <p><strong>Email:</strong> {tutor.email}</p>
-                <p><strong>Specialization:</strong> {tutor.specialization}</p>
-                <p style="background: #0d6efd; color: white; padding: 15px; text-align: center;">
-                    <a href="http://127.0.0.1:5000/admin/pending-tutors" style="color: white; text-decoration: none;">
-                        Review Application →
-                    </a>
-                </p>
-            </div>
-            </body></html>
-            """
-            mail.send(admin_msg)
-        
-        mail.send(tutor_msg)
-        return True
-    except Exception as e:
-        print(f'Email error: {e}')
-        return False
-
-def send_tutor_approval_email(tutor):
-    """Send approval email"""
-    try:
-        msg = Message(
-            subject='Application Approved - Welcome to Greenwood!',
-            recipients=[tutor.email]
-        )
-        msg.html = f"""
-        <html><body style="font-family: Arial;">
-        <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
-            <h2 style="color: #28a745;">🎉 Application Approved!</h2>
-            <p>Dear {tutor.full_name},</p>
-            <p>Your application has been <strong style="color: #28a745;">APPROVED</strong>!</p>
-            <p>Login at <a href="http://127.0.0.1:5000/tutor/login">Tutor Portal</a></p>
-            <p>Welcome to the team!</p>
-        </div>
-        </body></html>
-        """
-        mail.send(msg)
-        return True
-    except Exception as e:
-        print(f'Email error: {e}')
-        return False
-
-def send_tutor_rejection_email(tutor):
-    """Send rejection email"""
-    try:
-        msg = Message(
-            subject='Application Update - Greenwood International',
-            recipients=[tutor.email]
-        )
-        msg.html = f"""
-        <html><body style="font-family: Arial;">
-        <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
-            <h2>Application Update</h2>
-            <p>Dear {tutor.full_name},</p>
-            <p>Thank you for your interest. After review, we are unable to proceed with your application at this time.</p>
-            <p>You may reapply in the future.</p>
-        </div>
-        </body></html>
-        """
-        mail.send(msg)
-        return True
-    except Exception as e:
-        print(f'Email error: {e}')
-        return False
-
-
 # ==================== Routes ====================
 
 @app.route('/')
@@ -1236,54 +1132,6 @@ def edit_activity(id):
     flash('Activity updated successfully', 'success')
     return redirect(url_for('admin_dashboard'))
 
-
-@app.route('/admin/pending-tutors')
-@admin_required
-def admin_pending_tutors():
-    """Pending tutors"""
-    pending = Tutor.query.filter_by(status='pending').order_by(Tutor.application_date.desc()).all()
-    approved = Tutor.query.filter_by(status='approved').all()
-    rejected = Tutor.query.filter_by(status='rejected').all()
-    return render_template('admin/pending_tutors.html', pending=pending, approved=approved, rejected=rejected)
-
-@app.route('/admin/approve-tutor/<int:tutor_id>', methods=['POST'])
-@admin_required
-def approve_tutor(tutor_id):
-    """Approve tutor"""
-    tutor = Tutor.query.get_or_404(tutor_id)
-    tutor.status = 'approved'
-    tutor.approved_by = session['admin_id']
-    tutor.approval_date = datetime.utcnow()
-    tutor.email_verified = True
-    db.session.commit()
-    
-    try:
-        send_tutor_approval_email(tutor)
-    except:
-        pass
-    
-    flash(f'{tutor.full_name} approved!', 'success')
-    return redirect(url_for('admin_pending_tutors'))
-
-@app.route('/admin/reject-tutor/<int:tutor_id>', methods=['POST'])
-@admin_required
-def reject_tutor(tutor_id):
-    """Reject tutor"""
-    tutor = Tutor.query.get_or_404(tutor_id)
-    tutor.status = 'rejected'
-    tutor.approved_by = session['admin_id']
-    tutor.approval_date = datetime.utcnow()
-    db.session.commit()
-    
-    try:
-        send_tutor_rejection_email(tutor)
-    except:
-        pass
-    
-    flash(f'{tutor.full_name} rejected.', 'info')
-    return redirect(url_for('admin_pending_tutors'))
-
-
 # --- Tutor Routes ---
 
 @app.route('/tutor/login', methods=['GET', 'POST'])
@@ -1292,53 +1140,12 @@ def tutor_login():
         email = request.form.get('email')
         password = request.form.get('password')
         tutor = Tutor.query.filter_by(email=email).first()
-        if tutor and tutor.check_password(password) and tutor.status == 'approved':
+        if tutor and tutor.check_password(password):
             session['tutor_id'] = tutor.id
             session['tutor_name'] = tutor.full_name
             return redirect(url_for('tutor_dashboard'))
         return render_template('tutor/login.html', error='Invalid credentials')
     return render_template('tutor/login.html')
-
-
-@app.route('/tutor/register', methods=['GET', 'POST'])
-def tutor_register():
-    """Tutor registration"""
-    if request.method == 'POST':
-        email = request.form.get('email')
-        password = request.form.get('password')
-        confirm = request.form.get('confirm_password')
-        name = request.form.get('full_name')
-        spec = request.form.get('specialization')
-        quals = request.form.get('qualifications')
-        bio = request.form.get('bio')
-        
-        if not all([email, password, confirm, name, spec, quals]):
-            return render_template('tutor/register.html', error='All fields required')
-        
-        if password != confirm:
-            return render_template('tutor/register.html', error='Passwords do not match')
-        
-        if len(password) < 8:
-            return render_template('tutor/register.html', error='Password must be 8+ characters')
-        
-        if Tutor.query.filter_by(email=email).first():
-            return render_template('tutor/register.html', error='Email already registered')
-        
-        tutor = Tutor(email=email, full_name=name, specialization=spec, qualifications=quals, bio=bio, status='pending')
-        tutor.set_password(password)
-        db.session.add(tutor)
-        db.session.commit()
-        
-        try:
-            send_tutor_application_email(tutor)
-        except:
-            pass
-        
-        flash('Application submitted! You will receive an email once reviewed.', 'success')
-        return redirect(url_for('portal_home'))
-    
-    return render_template('tutor/register.html')
-
 
 @app.route('/tutor/dashboard')
 @tutor_required

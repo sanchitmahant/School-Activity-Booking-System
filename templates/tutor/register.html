@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% block title %}Tutor Application - Greenwood International{% endblock %}
+
+{% block content %}
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg border-0">
+                <div class="card-body p-5">
+                    <h2 class="card-title text-center text-primary mb-4">
+                        <i class="fas fa-chalkboard-teacher"></i> Tutor Application
+                    </h2>
+
+                    <p class="text-center text-muted mb-4">
+                        Join our team of expert educators at Greenwood International School
+                    </p>
+
+                    {% if error %}
+                    <div class="alert alert-danger" role="alert">
+                        <i class="fas fa-exclamation-circle"></i> {{ error }}
+                    </div>
+                    {% endif %}
+
+                    <form method="POST" action="{{ url_for('tutor_register') }}">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+
+                        <div class="mb-3">
+                            <label for="full_name" class="form-label"><i class="fas fa-user"></i> Full Name *</label>
+                            <input type="text" class="form-control" id="full_name" name="full_name" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="email" class="form-label"><i class="fas fa-envelope"></i> Email Address
+                                *</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="specialization" class="form-label"><i class="fas fa-star"></i> Specialization
+                                *</label>
+                            <input type="text" class="form-control" id="specialization" name="specialization"
+                                placeholder="e.g., Mathematics, Science, Music" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="qualifications" class="form-label"><i class="fas fa-graduation-cap"></i>
+                                Qualifications *</label>
+                            <textarea class="form-control" id="qualifications" name="qualifications" rows="3"
+                                placeholder="List your degrees, certifications, and relevant qualifications"
+                                required></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="bio" class="form-label"><i class="fas fa-info-circle"></i> Professional
+                                Bio</label>
+                            <textarea class="form-control" id="bio" name="bio" rows="4"
+                                placeholder="Tell us about your teaching experience and philosophy"></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="password" class="form-label"><i class="fas fa-lock"></i> Password *</label>
+                            <input type="password" class="form-control" id="password" name="password" required>
+                            <small class="text-muted">Must be at least 8 characters long</small>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="confirm_password" class="form-label"><i class="fas fa-lock"></i> Confirm
+                                Password *</label>
+                            <input type="password" class="form-control" id="confirm_password" name="confirm_password"
+                                required>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary-custom btn-lg w-100">
+                            <i class="fas fa-paper-plane"></i> Submit Application
+                        </button>
+                    </form>
+
+                    <div class="text-center mt-4">
+                        <p class="text-muted">
+                            Already have an account?
+                            <a href="{{ url_for('tutor_login') }}" class="text-primary">Login here</a>
+                        </p>
+                    </div>
+
+                    <div class="alert alert-info mt-4">
+                        <i class="fas fa-info-circle"></i> <strong>Application Process:</strong><br>
+                        Your application will be reviewed by our administration team. You will receive an email
+                        notification once your application has been processed.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
