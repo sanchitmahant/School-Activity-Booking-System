@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+
+{% block title %}Contact Us{% endblock %}
+
+{% block content %}
+<!-- Header Section -->
+<div class="py-5" style="background: linear-gradient(135deg, #002E5D 0%, #0056A3 100%);">
+    <div class="container text-center text-white">
+        <h1 class="display-4 fw-bold mb-3" style="color: white;">Get In Touch</h1>
+        <p class="lead">We're here to help and answer any question you might have</p>
+    </div>
+</div>
+
+<!-- Contact Section -->
+<div class="container py-5">
+    <div class="row g-4">
+        <!-- Contact Form -->
+        <div class="col-lg-7">
+            <div class="card shadow-sm border-0 p-4">
+                <h3 class="mb-4" style="color: #002E5D;">Send Us a Message</h3>
+                <form action="{{ url_for('contact_submit') if url_for else '#' }}" method="POST">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Full Name</label>
+                            <input type="text" class="form-control" name="name" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Email Address</label>
+                            <input type="email" class="form-control" name="email" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Phone Number</label>
+                        <input type="tel" class="form-control" name="phone">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Subject</label>
+                        <select class="form-select" name="subject" required>
+                            <option value="">Select a topic...</option>
+                            <option>General Inquiry</option>
+                            <option>Admissions</option>
+                            <option>Activities & Programs</option>
+                            <option>Billing & Payments</option>
+                            <option>Technical Support</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Message</label>
+                        <textarea class="form-control" name="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-lg w-100"
+                        style="background: #0DA49F; color: white; border-radius: 50px;">
+                        <i class="fas fa-paper-plane me-2"></i>Send Message
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Contact Information -->
+        <div class="col-lg-5">
+            <div class="card shadow-sm border-0 p-4 mb-4"
+                style="background: linear-gradient(135deg, #002E5D, #0056A3); color: white;">
+                <h4 class="mb-4" style="color: white;">Contact Information</h4>
+
+                <div class="mb-4">
+                    <div class="d-flex align-items-start mb-3">
+                        <i class="fas fa-map-marker-alt fa-lg me-3 mt-1"></i>
+                        <div>
+                            <h6 class="mb-1">Address</h6>
+                            <p class="mb-0" style="opacity: 0.9;">Greenwood Hall<br>Henley-on-Thames<br>Oxfordshire, RG9
+                                1AA<br>United Kingdom</p>
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-start mb-3">
+                        <i class="fas fa-phone fa-lg me-3 mt-1"></i>
+                        <div>
+                            <h6 class="mb-1">Phone</h6>
+                            <p class="mb-0" style="opacity: 0.9;">+44 (0) 1491 570000</p>
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-start mb-3">
+                        <i class="fas fa-envelope fa-lg me-3 mt-1"></i>
+                        <div>
+                            <h6 class="mb-1">Email</h6>
+                            <p class="mb-0" style="opacity: 0.9;">greenwoodinternationaluk@gmail.com<br>greenwoodinternationaluk@gmail.com</p>
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-start">
+                        <i class="fas fa-clock fa-lg me-3 mt-1"></i>
+                        <div>
+                            <h6 class="mb-1">Office Hours</h6>
+                            <p class="mb-0" style="opacity: 0.9;">
+                                Monday - Friday: 8:00 AM - 5:00 PM<br>
+                                Saturday: 9:00 AM - 1:00 PM<br>
+                                Sunday: Closed
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pt-3 border-top" style="border-color: rgba(255,255,255,0.2) !important;">
+                    <h6 class="mb-3">Follow Us</h6>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="text-white"><i class="fab fa-facebook fa-2x"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-twitter fa-2x"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-instagram fa-2x"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-linkedin fa-2x"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="card shadow-sm border-0 p-4">
+                <h5 class="mb-3" style="color: #002E5D;">Quick Links</h5>
+                <ul class="list-unstyled">
+                    <li class="mb-2"><a href="{{ url_for('admissions') }}" style="color: #0DA49F;"><i
+                                class="fas fa-chevron-right me-2"></i>Admissions</a></li>
+                    <li class="mb-2"><a href="{{ url_for('portal_home') }}" style="color: #0DA49F;"><i
+                                class="fas fa-chevron-right me-2"></i>Parent Portal</a></li>
+                    <li class="mb-2"><a href="{{ url_for('academic') }}" style="color: #0DA49F;"><i
+                                class="fas fa-chevron-right me-2"></i>Academic Programs</a></li>
+                    <li><a href="{{ url_for('index') }}#activities" style="color: #0DA49F;"><i
+                                class="fas fa-chevron-right me-2"></i>Activities</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Map Section (Placeholder) -->
+<div class="py-5" style="background: #f8f9fa;">
+    <div class="container">
+        <h3 class="text-center mb-4" style="color: #002E5D;">Visit Our Campus</h3>
+        <div class="card shadow-sm border-0"
+            style="height: 400px; background: #e0e0e0; display: flex; align-items: center; justify-content: center;">
+            <div class="text-center">
+                <i class="fas fa-map-marked-alt fa-4x text-muted mb-3"></i>
+                <p class="text-muted">Interactive map would be embedded here<br>Greenwood Hall, Henley-on-Thames,
+                    Oxfordshire</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

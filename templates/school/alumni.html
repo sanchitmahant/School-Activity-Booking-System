@@ -3,245 +3,283 @@
 {% block title %}Alumni Network{% endblock %}
 
 {% block content %}
-<div class="hero-section" style="height: 60vh;">
-    <div class="hero-bg"
-        style="background: linear-gradient(rgba(0,46,93,0.7), rgba(0,46,93,0.6)), url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80'); background-size: cover; background-position: center;">
-    </div>
-    <div class="container text-center">
-        <h1 class="display-3 hero-title fade-in-up">Alumni Network</h1>
-        <p class="hero-subtitle fade-in-up delay-1">Once a Greenwood Student, Always Part of the Family</p>
+<!-- Hero Section -->
+<div style="background: linear-gradient(135deg, #002E5D 0%, #0056A3 100%); padding: 100px 0;">
+    <div class="container text-center text-white">
+        <h1 class="display-3 fw-bold mb-4" style="color: white;">Greenwood Alumni</h1>
+        <p class="lead" style="max-width: 800px; margin: 0 auto; font-size: 1.3rem;">
+            A global community of leaders, innovators, and changemakers shaping the future
+        </p>
+        <p class="mt-4" style="font-size: 1.1rem; opacity: 0.9;">
+            <strong>8,500+ alumni</strong> in over <strong>75 countries</strong>
+        </p>
     </div>
 </div>
 
-<div class="container section-padding">
-    <div class="row">
-        <div class="col-lg-8">
-            <h2 class="mb-4 text-primary">Join the Network</h2>
-            <p class="lead text-muted mb-5">Are you a former student? Connect with fellow alumni, access mentorship
-                opportunities, and stay updated with school news and exclusive events.</p>
+<!-- Notable Alumni -->
+<div class="py-6" style="background: white;">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold mb-3" style="color: #002E5D;">Distinguished Alumni</h2>
+            <p class="lead text-muted">Leading in fields from medicine to technology, arts to public service</p>
+        </div>
 
-            <!-- Upcoming Alumni Events -->
-            <h3 class="mb-4 text-primary"><i class="far fa-calendar-check me-2 text-gold"></i>Upcoming Events</h3>
-
-            <div class="row g-4 mb-5">
-                <div class="col-md-6">
-                    <div class="card border-0 shadow-sm h-100 hover-3d">
-                        <div class="card-body p-4">
-                            <span class="badge bg-primary mb-3">Annual Event</span>
-                            <h5 class="card-title text-primary">Alumni Reunion 2025</h5>
-                            <p class="text-muted small mb-2">
-                                <i class="fas fa-calendar me-2"></i>Saturday, 15th June 2025<br>
-                                <i class="fas fa-clock me-2"></i>6:00 PM - 11:00 PM<br>
-                                <i class="fas fa-map-marker-alt me-2"></i>Greenwood Hall, Main Campus
-                            </p>
-                            <p class="card-text">Reconnect with classmates, tour the new facilities, and celebrate your
-                                Greenwood legacy. Black tie event with dinner and entertainment.</p>
-                            <a href="#" class="btn btn-outline-primary btn-sm">Register Now</a>
+        <div class="row g-4">
+            <!-- Dr. Emily Watson -->
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body p-4 text-center">
+                        <div class="mx-auto mb-4">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Dr. Emily Watson"
+                                style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 4px solid #FF6B6B;">
                         </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6">
-                    <div class="card border-0 shadow-sm h-100 hover-3d">
-                        <div class="card-body p-4">
-                            <span class="badge bg-success mb-3">Networking</span>
-                            <h5 class="card-title text-primary">Alumni Career Fair</h5>
-                            <p class="text-muted small mb-2">
-                                <i class="fas fa-calendar me-2"></i>Friday, 28th March 2025<br>
-                                <i class="fas fa-clock me-2"></i>9:00 AM - 4:00 PM<br>
-                                <i class="fas fa-map-marker-alt me-2"></i>Virtual & In-Person
-                            </p>
-                            <p class="card-text">Meet with current students, offer career guidance, and explore
-                                mentorship opportunities. Help shape the next generation.</p>
-                            <a href="#" class="btn btn-outline-success btn-sm">Learn More</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6">
-                    <div class="card border-0 shadow-sm h-100 hover-3d">
-                        <div class="card-body p-4">
-                            <span class="badge bg-warning text-dark mb-3">Sports</span>
-                            <h5 class="card-title text-primary">Alumni vs Current Students Match</h5>
-                            <p class="text-muted small mb-2">
-                                <i class="fas fa-calendar me-2"></i>Saturday, 10th May 2025<br>
-                                <i class="fas fa-clock me-2"></i>2:00 PM<br>
-                                <i class="fas fa-map-marker-alt me-2"></i>Greenwood Sports Complex
-                            </p>
-                            <p class="card-text">Annual rugby and football matches. Show the current students what
-                                Greenwood spirit means!</p>
-                            <a href="#" class="btn btn-outline-warning btn-sm">Sign Up</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6">
-                    <div class="card border-0 shadow-sm h-100 hover-3d">
-                        <div class="card-body p-4">
-                            <span class="badge" style="background: #D4AF37; color: #000;" class="mb-3">Exclusive</span>
-                            <h5 class="card-title text-primary">Founders' Day Celebration</h5>
-                            <p class="text-muted small mb-2">
-                                <i class="fas fa-calendar me-2"></i>Thursday, 20th November 2025<br>
-                                <i class="fas fa-clock me-2"></i>7:00 PM<br>
-                                <i class="fas fa-map-marker-alt me-2"></i>Great Hall
-                            </p>
-                            <p class="card-text">75th Anniversary celebration with distinguished alumni speakers, awards
-                                ceremony, and gala dinner.</p>
-                            <a href="#" class="btn btn-sm" style="background: #D4AF37; color: #000;">RSVP</a>
-                        </div>
+                        <h4 class="fw-bold mb-2">Dr. Emily Watson</h4>
+                        <p class="text-muted mb-3">Chief Surgeon, Royal Marsden Hospital</p>
+                        <p class="small">"Greenwood instilled in me the discipline and compassion that define my
+                            approach to medicine. The rigorous science program prepared me perfectly for Cambridge
+                            Medical School."</p>
                     </div>
                 </div>
             </div>
 
-            <div class="divider-gold my-5"></div>
-
-            <!-- Alumni Benefits -->
-            <h3 class="mb-4 text-primary"><i class="fas fa-gifts me-2 text-gold"></i>Alumni Benefits</h3>
-            <div class="row g-4 mb-5">
-                <div class="col-md-6">
-                    <div class="glass-panel light p-4 h-100">
-                        <h5 class="text-primary"><i class="fas fa-handshake me-2"></i>Mentorship Program</h5>
-                        <p class="text-muted mb-0">Guide current students and recent graduates. Share your expertise and
-                            give back to the community.</p>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="glass-panel light p-4 h-100">
-                        <h5 class="text-primary"><i class="fas fa-briefcase me-2"></i>Career Network</h5>
-                        <p class="text-muted mb-0">Access exclusive job postings, career resources, and connect with
-                            alumni in your industry.</p>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="glass-panel light p-4 h-100">
-                        <h5 class="text-primary"><i class="fas fa-book-open me-2"></i>Library Access</h5>
-                        <p class="text-muted mb-0">Complimentary access to Greenwood's extensive library and research
-                            facilities.</p>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="glass-panel light p-4 h-100">
-                        <h5 class="text-primary"><i class="fas fa-ticket-alt me-2"></i>Event Discounts</h5>
-                        <p class="text-muted mb-0">Special rates for school concerts, plays, sports fixtures, and
-                            reunions.</p>
+            <!-- James Chen -->
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body p-4 text-center">
+                        <div class="mx-auto mb-4">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="James Chen"
+                                style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 4px solid #4facfe;">
+                        </div>
+                        <h4 class="fw-bold mb-2">James Chen</h4>
+                        <p class="text-muted mb-3">Tech Entrepreneur, AI Startup Founder</p>
+                        <p class="small">"The robotics and programming courses at Greenwood sparked my passion for AI.
+                            Now my company develops cutting-edge machine learning solutions used globally."</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Update Details Form -->
-            <div class="divider-gold my-5"></div>
-            <h3 class="mb-4 text-primary">Update Your Details</h3>
-            <div class="glass-panel light p-5">
-                <p class="text-muted mb-4">Keep us informed of your latest achievements and contact information so we
-                    can celebrate your success and keep you connected.</p>
-                <form>
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label text-primary">Full Name *</label>
-                            <input type="text" class="form-control" required>
+            <!-- Sophie Laurent -->
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body p-4 text-center">
+                        <div class="mx-auto mb-4">
+                            <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Sophie Laurent"
+                                style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 4px solid #43e97b;">
                         </div>
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label text-primary">Graduation Year *</label>
-                            <input type="number" class="form-control" placeholder="e.g., 2015" required>
-                        </div>
+                        <h4 class="fw-bold mb-2">Sophie Laurent</h4>
+                        <p class="text-muted mb-3">Concert Pianist, Royal Philharmonic</p>
+                        <p class="small">"Training under Dr. Richardson at Greenwood gave me the foundation for my
+                            performing career. The school's dedication to excellence in music is unmatched."</p>
                     </div>
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label text-primary">Email Address *</label>
-                            <input type="email" class="form-control" required>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label text-primary">Phone Number</label>
-                            <input type="tel" class="form-control">
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label text-primary">Current Occupation</label>
-                        <input type="text" class="form-control" placeholder="e.g., Software Engineer at Google">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label text-primary">Recent Achievements / News</label>
-                        <textarea class="form-control" rows="3"
-                            placeholder="Share your latest accomplishments, promotions, publications, etc."></textarea>
-                    </div>
-                    <div class="form-check mb-3">
-                        <input class="form-check-input" type="checkbox" id="mentorCheck">
-                        <label class="form-check-label text-muted" for="mentorCheck">
-                            I'm interested in becoming a mentor to current students
-                        </label>
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-lg px-5">
-                        <i class="fas fa-check me-2"></i>Update Details
-                    </button>
-                </form>
+                </div>
             </div>
         </div>
 
-        <!-- Sidebar -->
-        <div class="col-lg-4">
-            <!-- Notable Alumni -->
-            <div class="card border-0 shadow-sm mb-4 hover-3d">
-                <div class="card-header bg-primary text-white fw-bold">
-                    <i class="fas fa-star me-2"></i>Notable Alumni
-                </div>
-                <div class="card-body">
-                    <div class="mb-3 pb-3 border-bottom">
-                        <h6 class="text-primary mb-1">Dame Sarah Mitchell</h6>
-                        <small class="text-muted">Class of 1985</small>
-                        <p class="small mb-0 mt-2">Chief Justice, UK Supreme Court</p>
-                    </div>
-                    <div class="mb-3 pb-3 border-bottom">
-                        <h6 class="text-primary mb-1">Dr. James Chen</h6>
-                        <small class="text-muted">Class of 1998</small>
-                        <p class="small mb-0 mt-2">Nobel Prize in Medicine, 2022</p>
-                    </div>
-                    <div class="mb-3 pb-3 border-bottom">
-                        <h6 class="text-primary mb-1">Rebecca Thompson OBE</h6>
-                        <small class="text-muted">Class of 2005</small>
-                        <p class="small mb-0 mt-2">Olympic Gold Medalist, CEO Tech Startup</p>
-                    </div>
-                    <div>
-                        <h6 class="text-primary mb-1">Prof. David Williams</h6>
-                        <small class="text-muted">Class of 1992</small>
-                        <p class="small mb-0 mt-2">Director, Oxford University Press</p>
+        <div class="row g-4 mt-2">
+            <!-- Marcus Okafor -->
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body p-4 text-center">
+                        <div class="mx-auto mb-4">
+                            <img src="https://randomuser.me/api/portraits/men/59.jpg" alt="Hon. Marcus Okafor"
+                                style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 4px solid #f093fb;">
+                        </div>
+                        <h4 class="fw-bold mb-2">Hon. Marcus Okafor</h4>
+                        <p class="text-muted mb-3">Member of Parliament, Minister of Education</p>
+                        <p class="small">"Greenwood taught me the importance of service and leadership. The debate
+                            society and Model UN prepared me for a career in public service."</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Alumni Statistics -->
-            <div class="card border-0 shadow-sm mb-4 hover-3d">
-                <div class="card-header bg-primary text-white fw-bold">
-                    <i class="fas fa-chart-line me-2"></i>Alumni Network
-                </div>
-                <div class="card-body text-center">
-                    <div class="mb-4">
-                        <h2 class="text-primary mb-0">12,500+</h2>
-                        <p class="text-muted small mb-0">Global Alumni</p>
-                    </div>
-                    <div class="mb-4">
-                        <h2 class="text-primary mb-0">85</h2>
-                        <p class="text-muted small mb-0">Countries Represented</p>
-                    </div>
-                    <div>
-                        <h2 class="text-primary mb-0">40%</h2>
-                        <p class="text-muted small mb-0">Active Mentors</p>
+            <!-- Professor Amelia Singh -->
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body p-4 text-center">
+                        <div class="mx-auto mb-4">
+                            <img src="https://randomuser.me/api/portraits/women/26.jpg" alt="Professor Amelia Singh"
+                                style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 4px solid #667eea;">
+                        </div>
+                        <h4 class="fw-bold mb-2">Professor Amelia Singh</h4>
+                        <p class="text-muted mb-3">Research Fellow, CERN</p>
+                        <p class="small">"The advanced mathematics and physics programs at Greenwood set me on the path
+                            to particle physics research. I'm proud to represent the school in my field."</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Contact -->
-            <div class="card border-0 shadow-sm hover-3d">
-                <div class="card-header bg-primary text-white fw-bold">
-                    <i class="fas fa-envelope me-2"></i>Get In Touch
-                </div>
-                <div class="card-body">
-                    <p class="small text-muted mb-3">Questions about alumni services or events?</p>
-                    <p class="mb-2"><i class="fas fa-envelope text-primary me-2"></i><a
-                            href="mailto:alumni@greenwood.edu">alumni@greenwood.edu</a></p>
-                    <p class="mb-0"><i class="fas fa-phone text-primary me-2"></i>+44 (0) 1491 570001</p>
+            <!-- Rachel Thompson -->
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body p-4 text-center">
+                        <div class="mx-auto mb-4">
+                            <img src="https://randomuser.me/api/portraits/women/33.jpg" alt="Rachel Thompson"
+                                style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 4px solid #FFD700;">
+                        </div>
+                        <h4 class="fw-bold mb-2">Rachel Thompson</h4>
+                        <p class="text-muted mb-3">Olympic Gold Medalist, Swimming</p>
+                        <p class="small">"Training with Coach Anderson's elite squad prepared me for Olympic
+                            competition. The facilities and coaching at Greenwood are world-class."</p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<!-- Career Paths -->
+<div class="py-6" style="background: linear-gradient(to bottom, #f8f9fa, #ffffff);">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold mb-3" style="color: #002E5D;">Where They Are Now</h2>
+            <p class="lead text-muted">Alumni excellence across industries</p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-3 text-center">
+                <div class="p-4">
+                    <h3 class="display-4 fw-bold mb-2" style="color: #0DA49F;">32%</h3>
+                    <p class="fw-bold mb-2">Medicine & Healthcare</p>
+                    <p class="small text-muted">Doctors, Surgeons, Researchers</p>
+                </div>
+            </div>
+            <div class="col-md-3 text-center">
+                <div class="p-4">
+                    <h3 class="display-4 fw-bold mb-2" style="color: #0DA49F;">28%</h3>
+                    <p class="fw-bold mb-2">Technology & Engineering</p>
+                    <p class="small text-muted">Tech Entrepreneurs, Engineers</p>
+                </div>
+            </div>
+            <div class="col-md-3 text-center">
+                <div class="p-4">
+                    <h3 class="display-4 fw-bold mb-2" style="color: #0DA49F;">18%</h3>
+                    <p class="fw-bold mb-2">Finance & Business</p>
+                    <p class="small text-muted">Investment Banking, Consulting</p>
+                </div>
+            </div>
+            <div class="col-md-3 text-center">
+                <div class="p-4">
+                    <h3 class="display-4 fw-bold mb-2" style="color: #0DA49F;">22%</h3>
+                    <p class="fw-bold mb-2">Arts, Law & Public Service</p>
+                    <p class="small text-muted">Artists, Lawyers, Politicians</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Stay Connected -->
+<div class="py-6" style="background: white;">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-6 fw-bold mb-4" style="color: #002E5D;">Stay Connected</h2>
+            <p class="lead mb-4">Join the global Greenwood Alumni Network and maintain lifelong connections with fellow
+                graduates.</p>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body p-5">
+                        <h5 class="fw-bold mb-4 text-center" style="color: #0DA49F;">Alumni Benefits</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <ul class="mb-0">
+                                    <li class="mb-3"><i class="fas fa-check-circle me-2"
+                                            style="color: #0DA49F;"></i>Exclusive networking events and reunions</li>
+                                    <li class="mb-3"><i class="fas fa-check-circle me-2"
+                                            style="color: #0DA49F;"></i>Career mentorship programs</li>
+                                    <li class="mb-3"><i class="fas fa-check-circle me-2"
+                                            style="color: #0DA49F;"></i>Global alumni directory (8,500+ members)</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <ul class="mb-0">
+                                    <li class="mb-3"><i class="fas fa-check-circle me-2"
+                                            style="color: #0DA49F;"></i>Access to school facilities</li>
+                                    <li class="mb-3"><i class="fas fa-check-circle me-2"
+                                            style="color: #0DA49F;"></i>Quarterly alumni magazine</li>
+                                    <li class="mb-3"><i class="fas fa-check-circle me-2"
+                                            style=" color: #0DA49F;"></i>Professional development courses</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Upcoming Events -->
+<div class="py-6" style="background: #f8f9fa;">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-6 fw-bold mb-3" style="color: #002E5D;">Alumni Events</h2>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-start">
+                            <div class="text-center me-4" style="min-width: 80px;">
+                                <div style="background: #0DA49F; color: white; padding: 10px; border-radius: 10px;">
+                                    <div class="h3 fw-bold mb-0">15</div>
+                                    <div class="small">DEC</div>
+                                </div>
+                            </div>
+                            <div>
+                                <h5 class="fw-bold mb-2">Annual Christmas Reception</h5>
+                                <p class="text-muted mb-2"><i class="fas fa-map-marker-alt me-2"></i>Great Hall,
+                                    Greenwood Campus</p>
+                                <p class="mb-0">Join fellow alumni for festive celebrations and networking</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-start">
+                            <div class="text-center me-4" style="min-width: 80px;">
+                                <div style="background: #0DA49F; color: white; padding: 10px; border-radius: 10px;">
+                                    <div class="h3 fw-bold mb-0">28</div>
+                                    <div class="small">MAR</div>
+                                </div>
+                            </div>
+                            <div>
+                                <h5 class="fw-bold mb-2">Careers Networking Evening</h5>
+                                <p class="text-muted mb-2"><i class="fas fa-map-marker-alt me-2"></i>London Guildhall
+                                </p>
+                                <p class="mb-0">Professional networking with alumni across industries</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CTA -->
+<div class="py-6" style="background: linear-gradient(135deg, #002E5D, #0056A3);">
+    <div class="container text-center text-white">
+        <h2 class="display-5 fw-bold mb-4" style="color: white;">Reconnect with Greenwood</h2>
+        <p class="lead mb-5">Be part of our thriving global alumni community</p>
+        <a href="{{ url_for('contact') }}" class="btn btn-lg px-5 py-3"
+            style="background: #0DA49F; border: none; border-radius: 50px; font-weight: 600; color: white;">
+            <i class="fas fa-envelope me-2"></i>Contact Alumni Office
+        </a>
+    </div>
+</div>
+
+<style>
+    .py-6 {
+        padding-top: 5rem;
+        padding-bottom: 5rem;
+    }
+</style>
 {% endblock %}

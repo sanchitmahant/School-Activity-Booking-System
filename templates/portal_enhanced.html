@@ -1,0 +1,319 @@
+{% extends "base.html" %}
+
+{% block title %}Activities Portal{% endblock %}
+
+{% block content %}
+<!-- Header -->
+<div class="py-5" style="background: linear-gradient(135deg, #002E5D 0%, #0056A3 100%);">
+    <div class="container text-center text-white">
+        <h1 class="display-4 fw-bold mb-3" style="color: white;">Explore Our Activities</h1>
+        <p class="lead">Discover the perfect program for your child</p>
+    </div>
+</div>
+
+<!-- Search & Filter Section -->
+<div class="container py-4">
+    <div class="card shadow-sm border-0 p-4 mb-4">
+        <div class="row g-3">
+            <!-- Search -->
+            <div class="col-md-4">
+                <label class="form-label fw-bold">
+                    <i class="fas fa-search me-2"></i>Search Activities
+                </label>
+                <input type="text" id="searchInput" class="form-control" placeholder="Search by name or description...">
+            </div>
+
+            <!-- Day Filter -->
+            <div class="col-md-3">
+                <label class="form-label fw-bold">
+                    <i class="fas fa-calendar me-2"></i>Day of Week
+                </label>
+                <select id="dayFilter" class="form-select">
+                    <option value="">All Days</option>
+                    <option value="Monday">Monday</option>
+                    <option value="Tuesday">Tuesday</option>
+                    <option value="Wednesday">Wed nesday</option>
+                    <option value="Thursday">Thursday</option>
+                    <option value="Friday">Friday</option>
+                    <option value="Saturday">Saturday</option>
+                </select>
+            </div>
+
+            <!-- Price Filter -->
+            <div class="col-md-2">
+                <label class="form-label fw-bold">
+                    <i class="fas fa-pound-sign me-2"></i>Max Price
+                </label>
+                <input type="number" id="priceFilter" class="form-control" placeholder="Any" min="0">
+            </div>
+
+            <!-- Sort -->
+            <div class="col-md-3">
+                <label class="form-label fw-bold">
+                    <i class="fas fa-sort me-2"></i>Sort By
+                </label>
+                <select id="sortSelect" class="form-select">
+                    <option value="name">Name (A-Z)</option>
+                    <option value="price-low">Price (Low to High)</option>
+                    <option value="price-high">Price (High to Low)</option>
+                    <option value="day">Day of Week</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="mt-3 pt-3 border-top">
+            <small class="text-muted">
+                <span id="resultCount">Loading...</span> activities found
+                <button class="btn btn-sm btn-outline-secondary ms-3" id="clearFilters">
+                    <i class="fas fa-times me-1"></i>Clear Filters
+                </button>
+            </small>
+        </div>
+    </div>
+
+    <!-- View Toggle -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h5 class="mb-0">Available Activities</h5>
+        <div class="btn-group" role="group">
+            <button class="btn btn-sm btn-outline-primary active" id="gridView">
+                <i class="fas fa-th"></i> Grid
+            </button>
+            <button class="btn btn-sm btn-outline-primary" id="listView">
+                <i class="fas fa-list"></i> List
+            </button>
+        </div>
+    </div>
+
+    <!-- Activities Grid -->
+    <div id="activitiesContainer" class="row g-4">
+        <!-- Activities will be loaded here via JavaScript -->
+    </div>
+
+    <!-- No Results Message -->
+    <div id="noResults" class="text-center py-5" style="display: none;">
+        <i class="fas fa-search fa-4x text-muted mb-3"></i>
+        <h4 class="text-muted">No activities found</h4>
+        <p class="text-muted">Try adjusting your search or filters</p>
+    </div>
+</div>
+
+<style>
+    .activity-card {
+        height: 100%;
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+        cursor: pointer;
+    }
+
+    .activity-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15) !important;
+        border-color: #0DA49F;
+    }
+
+    .activity-badge {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: rgba(13, 164, 159, 0.9);
+        color: white;
+        padding: 5px 15px;
+        border-radius: 20px;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    .list-view .activity-card {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .list-view .card-body {
+        flex: 1;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .activity-icon {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, #002E5D, #0056A3);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 24px;
+        margin-bottom: 15px;
+    }
+</style>
+
+<script>
+    // Global variables
+    let allActivities = [];
+    let currentView = 'grid';
+
+    // Fetch activities on page load
+    document.addEventListener('DOMContentLoaded', function () {
+        fetchActivities();
+        setupEventListeners();
+    });
+
+    function fetchActivities() {
+        // Show loading
+        document.getElementById('activitiesContainer').innerHTML = `
+        <div class="col-12  text-center py-5">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="mt-3 text-muted">Loading activities...</p>
+        </div>
+    `;
+
+        fetch('/api/activities')
+            .then(response => response.json())
+            .then(data => {
+                allActivities = data;
+                filterAndDisplayActivities();
+            })
+            .catch(error => {
+                console.error('Error fetching activities:', error);
+                document.getElementById('activitiesContainer').innerHTML = `
+                <div class="col-12 text-center py- 5">
+                    <i class="fas fa-exclamation-triangle fa-3x text-warning mb-3"></i>
+                    <p class="text-muted">Unable to load activities. Please refresh the page.</p>
+                </div>
+            `;
+            });
+    }
+
+    function setupEventListeners() {
+        document.getElementById('searchInput').addEventListener('input', filterAndDisplayActivities);
+        document.getElementById('dayFilter').addEventListener('change', filterAndDisplayActivities);
+        document.getElementById('priceFilter').addEventListener('input', filterAndDisplayActivities);
+        document.getElementById('sortSelect').addEventListener('change', filterAndDisplayActivities);
+        document.getElementById('clearFilters').addEventListener('click', clearFilters);
+        document.getElementById('gridView').addEventListener('click', () => switchView('grid'));
+        document.getElementById('listView').addEventListener('click', () => switchView('list'));
+    }
+
+    function filterAndDisplayActivities() {
+        const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+        const selectedDay = document.getElementById('dayFilter').value;
+        const maxPrice = parseFloat(document.getElementById('priceFilter').value) || Infinity;
+        const sortBy = document.getElementById('sortSelect').value;
+
+        // Filter activities
+        let filtered = allActivities.filter(activity => {
+            const matchesSearch = activity.name.toLowerCase().includes(searchTerm) ||
+                (activity.description && activity.description.toLowerCase().includes(searchTerm));
+            const matchesDay = !selectedDay || activity.day === selectedDay;
+            const matchesPrice = activity.price <= maxPrice;
+
+            return matchesSearch && matchesDay && matchesPrice;
+        });
+
+        // Sort activities
+        filtered = sortActivities(filtered, sortBy);
+
+        // Update count
+        document.getElementById('resultCount').textContent = filtered.length;
+
+        // Display
+        if (filtered.length === 0) {
+            document.getElementById('activitiesContainer').innerHTML = '';
+            document.getElementById('noResults').style.display = 'block';
+        } else {
+            document.getElementById('noResults').style.display = 'none';
+            displayActivities(filtered);
+        }
+    }
+
+    function sortActivities(activities, sortBy) {
+        switch (sortBy) {
+            case 'name':
+                return activities.sort((a, b) => a.name.localeCompare(b.name));
+            case 'price-low':
+                return activities.sort((a, b) => a.price - b.price);
+            case 'price-high':
+                return activities.sort((a, b) => b.price - a.price);
+            case 'day':
+                const dayOrder = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+                return activities.sort((a, b) => dayOrder.indexOf(a.day) - dayOrder.indexOf(b.day));
+            default:
+                return activities;
+        }
+    }
+
+    function displayActivities(activities) {
+        const container = document.getElementById('activitiesContainer');
+        const viewClass = currentView === 'list' ? 'col-12' : 'col-md-6 col-lg-4';
+
+        container.innerHTML = activities.map(activity => `
+        <div class="${viewClass}">
+            <div class="card activity-card shadow-sm border-0 position-relative">
+                <span class="activity-badge">£${activity.price.toFixed(2)}</span>
+                <div class="card-body">
+                    <div class="activity-icon">
+                        <i class="fas fa-${getActivityIcon(activity.name)}"></i>
+                    </div>
+                    <h5 class="card-title fw-bold mb-3">${activity.name}</h5>
+                    <div class="mb-3">
+                        <small class="text-muted">
+                            <i class="fas fa-calendar me-2"></i>${activity.day}
+                        </small><br>
+                        <small class="text-muted">
+                            <i class="fas fa-clock me-2"></i>${activity.time}
+                        </small><br>
+                        <small class="text-muted">
+                            <i class="fas fa-users me-2"></i>Max: ${activity.capacity} students
+                        </small>
+                    </div>
+                    <a href="/payment/${activity.id}/0/${getCurrentDate()}" 
+                       class="btn btn-primary w-100 rounded-pill">
+                        <i class="fas fa-plus-circle me-2"></i>Book Now
+                    </a>
+                </div>
+            </div>
+        </div>
+    `).join('');
+    }
+
+    function getActivityIcon(name) {
+        const nameLower = name.toLowerCase();
+        if (nameLower.includes('music') || nameLower.includes('piano')) return 'music';
+        if (nameLower.includes('football') || nameLower.includes('soccer')) return 'futbol';
+        if (nameLower.includes('tennis')) return 'table-tennis';
+        if (nameLower.includes('art') || nameLower.includes('paint')) return 'palette';
+        if (nameLower.includes('chess')) return 'chess';
+        if (nameLower.includes('code') || nameLower.includes('robot')) return 'robot';
+        if (nameLower.includes('swim')) return 'swimming-pool';
+        if (nameLower.includes('drama') || nameLower.includes('theatre')) return 'theater-masks';
+        if (nameLower.includes('yoga')) return 'spa';
+        return 'star';
+    }
+
+    function getCurrentDate() {
+        const today = new Date();
+        return today.toISOString().split('T')[0];
+    }
+
+    function switchView(view) {
+        currentView = view;
+        document.getElementById('gridView').classList.toggle('active', view === 'grid');
+        document.getElementById('listView').classList.toggle('active', view === 'list');
+        filterAndDisplayActivities();
+    }
+
+    function clearFilters() {
+        document.getElementById('searchInput').value = '';
+        document.getElementById('dayFilter').value = '';
+        document.getElementById('priceFilter').value = '';
+        document.getElementById('sortSelect').value = 'name';
+        filterAndDisplayActivities();
+    }
+</script>
+{% endblock %}

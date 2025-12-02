@@ -1,107 +1,238 @@
 {% extends "base.html" %}
 
-{% block title %}Academic Excellence{% endblock %}
+{%block title %}Academic Excellence{% endblock %}
 
 {% block content %}
-<div class="hero-section" style="height: 60vh;">
-    <div class="hero-bg"
-        style="background: linear-gradient(rgba(0,46,93,0.7), rgba(0,46,93,0.6)), url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80'); background-size: cover; background-position: center;">
-    </div>
-    <div class="container text-center">
-        <h1 class="display-3 hero-title fade-in-up">Academic Excellence</h1>
-        <p class="hero-subtitle fade-in-up delay-1">Inspiring a Lifelong Love of Learning</p>
+<!-- Hero Section -->
+<div class="academic-hero"
+    style="background: linear-gradient(135deg, #002E5D 0%, #0056A3 100%); padding: 100px 0; position: relative; overflow: hidden;">
+    <div class="container text-center text-white" style="position: relative; z-index: 2;">
+        <h1 class="display-3 fw-bold mb-4" style="color: white;" data-aos="fade-up" style="color: white;">Academic Excellence</h1>
+        <p class="lead" style="max-width: 700px; margin: 0 auto; font-size: 1.3rem;" data-aos="fade-up"
+            data-aos-delay="100">
+            Inspiring minds, nurturing talents, and preparing global leaders for tomorrow's challenges
+        </p>
     </div>
 </div>
 
-<div class="container section-padding">
-    <div class="row">
-        <div class="col-lg-10 mx-auto">
-            <h2 class="mb-4 text-primary">Our Curriculum</h2>
-            <p class="lead text-muted mb-5">Greenwood International follows an enhanced version of the English National
-                Curriculum, designed to challenge and inspire students at every stage.</p>
-
-            <div class="mb-5 hover-3d p-4 glass-panel light rounded">
-                <h3 class="text-primary"><i class="fas fa-shapes me-2 text-gold"></i>Pre-Prep (Ages 3-7)</h3>
-                <p class="text-muted">In the early years, we focus on learning through play, developing social skills,
-                    and establishing strong foundations in reading and mathematics. Our small class sizes ensure every
-                    child receives individual attention.</p>
+<!-- Stats Bar -->
+<div style="background: #0DA49F; padding: 40px 0;">
+    <div class="container">
+        <div class="row text-center text-white">
+            <div class="col-md-3">
+                <h2 class="display-4 fw-bold mb-2">98%</h2>
+                <p class="mb-0">University Placement Rate</p>
             </div>
-
-            <div class="mb-5 hover-3d p-4 glass-panel light rounded">
-                <h3 class="text-primary"><i class="fas fa-book-reader me-2 text-gold"></i>Prep School (Ages 7-11)</h3>
-                <p class="text-muted">As students move into Prep School, the curriculum broadens to include specialist
-                    teaching in Science, French, Music, and Art. We encourage independence and critical thinking,
-                    preparing students for the transition to Senior School.</p>
+            <div class="col-md-3">
+                <h2 class="display-4 fw-bold mb-2">A*-A</h2>
+                <p class="mb-0">Average A-Level Grade</p>
             </div>
-
-            <div class="mb-5 hover-3d p-4 glass-panel light rounded">
-                <h3 class="text-primary"><i class="fas fa-graduation-cap me-2 text-gold"></i>Senior School (Ages 11-16)
-                </h3>
-                <p class="text-muted mb-3">Students follow a rigorous program leading to GCSEs. Core subjects include
-                    English, Maths, and Sciences, alongside a wide range of options including Humanities, Modern
-                    Languages, and Computer Science.</p>
-                <div class="alert alert-success border-0" style="background: rgba(13, 164, 159, 0.1);">
-                    <i class="fas fa-trophy text-success me-2"></i> <strong>2025 GCSE Results:</strong> 75% of grades
-                    9-7 (A*-A).
-                </div>
+            <div class="col-md-3">
+                <h2 class="display-4 fw-bold mb-2">42</h2>
+                <p class="mb-0">Average IB Diploma Score</p>
             </div>
+            <div class="col-md-3">
+                <h2 class="display-4 fw-bold mb-2">15+</h2>
+                <p class="mb-0">Elite Instructors</p>
+            </div>
+        </div>
+    </div>
+</div>
 
-            <div class="mb-5 hover-3d p-4 glass-panel light rounded">
-                <h3 class="text-primary"><i class="fas fa-university me-2 text-gold"></i>Sixth Form (Ages 16-18)</h3>
-                <p class="text-muted mb-3">Our Sixth Form offers a wide range of A-Level subjects. Students are
-                    supported by expert tutors as they prepare for university applications, including Oxbridge and
-                    Russell Group institutions.</p>
+<!-- Curriculum Overview -->
+<div class="py-6" style="background: white;">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold mb-3" style="color: #002E5D;">World-Class Extended Learning</h2>
+            <p class="lead text-muted">Beyond the classroom: enrichment programs designed by Oxford & Cambridge
+                graduates</p>
+        </div>
 
-                <div class="card border-0 shadow-sm mt-4">
-                    <div class="card-header bg-primary text-white fw-bold">
-                        <i class="fas fa-chalkboard-teacher me-2"></i>Departments
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><i class="fas fa-scroll me-2 text-primary"></i>English & Drama</li>
-                        <li class="list-group-item"><i class="fas fa-calculator me-2 text-primary"></i>Mathematics</li>
-                        <li class="list-group-item"><i class="fas fa-flask me-2 text-primary"></i>Sciences (Biology,
-                            Chemistry, Physics)</li>
-                        <li class="list-group-item"><i class="fas fa-globe me-2 text-primary"></i>Modern Languages
-                            (French, Spanish, Mandarin)</li>
-                        <li class="list-group-item"><i class="fas fa-landmark me-2 text-primary"></i>Humanities
-                            (History, Geography, Philosophy)</li>
-                        <li class="list-group-item"><i class="fas fa-palette me-2 text-primary"></i>Arts & Technology
-                        </li>
+        <div class="row g-4">
+            <div class="col-md-6" data-aos="fade-right">
+                <div class="p-5 h-100"
+                    style="background: linear-gradient(135deg, #667eea, #764ba2); border-radius: 20px; color: white;">
+                    <i class="fas fa-atom fa-3x mb-4" style="opacity: 0.9;"></i>
+                    <h3 class="fw-bold mb-3" style="color: white;">STEM Excellence</h3>
+                    <p style="opacity: 0.95;">Advanced Mathematics, Science Olympiads, and Robotics with PhD-level
+                        instruction. Our students regularly compete at international level in IMO, Science Bowl, and
+                        FIRST Robotics championships.</p>
+                    <ul class="mt-4" style="opacity: 0.9;">
+                        <li>Mathematics Olympiad Preparation (IMO, UKMT)</li>
+                        <li>Advanced AI & Machine Learning</li>
+                        <li>Experimental Science & Research</li>
+                        <li>Competitive Robotics Engineering</li>
                     </ul>
                 </div>
             </div>
 
-            <!-- Excellence in Results -->
-            <div class="row g-4 mt-5">
-                <div class="col-md-4">
-                    <div class="card border-0 shadow-sm text-center h-100">
-                        <div class="card-body p-4">
-                            <i class="fas fa-trophy fa-3x mb-3" style="color: #D4AF37;"></i>
-                            <h3 class="text-primary">92%</h3>
-                            <p class="text-muted">A-Level A*-A Grades</p>
-                        </div>
-                    </div>
+            <div class="col-md-6" data-aos="fade-left">
+                <div class="p-5 h-100"
+                    style="background: linear-gradient(135deg, #f093fb, #f5576c); border-radius: 20px; color: white;">
+                    <i class="fas fa-book-open fa-3x mb-4" style="opacity: 0.9;"></i>
+                    <h3 class="fw-bold mb-3" style="color: white;">Humanities & Languages</h3>
+                    <p style="opacity: 0.95;">Literature, Philosophy, and Multilingual Excellence taught by published
+                        scholars and native speakers. Preparation for Oxford/Cambridge entrance examinations included.
+                    </p>
+                    <ul class="mt-4" style="opacity: 0.9;">
+                        <li>Creative Writing with Published Authors</li>
+                        <li>Advanced Mandarin & French (DELF/HSK)</li>
+                        <li>Classical Literature & Philosophy</li>
+                        <li>International Debate & Public Speaking</li>
+                    </ul>
                 </div>
-                <div class="col-md-4">
-                    <div class="card border-0 shadow-sm text-center h-100">
-                        <div class="card-body p-4">
-                            <i class="fas fa-university fa-3x mb-3 text-primary"></i>
-                            <h3 class="text-primary">15+</h3>
-                            <p class="text-muted">Oxbridge Offers (2024)</p>
-                        </div>
-                    </div>
+            </div>
+        </div>
+
+        <div class="row g-4 mt-4">
+            <div class="col-md-6" data-aos="fade-right" data-aos-delay="100">
+                <div class="p-5 h-100"
+                    style="background: linear-gradient(135deg, #4facfe, #00f2fe); border-radius: 20px; color: white;">
+                    <i class="fas fa-palette fa-3x mb-4" style="opacity: 0.9;"></i>
+                    <h3 class="fw-bold mb-3" style="color: white;">Performing & Visual Arts</h3>
+                    <p style="opacity: 0.95;">Concert-level music instruction and exhibition-quality art programs.
+                        Training by Royal Academy musicians and exhibited contemporary artists.</p>
+                    <ul class="mt-4" style="opacity: 0.9;">
+                        <li>Classical Piano & Violin (ABRSM Diploma)</li>
+                        <li>Contemporary & Digital Art Portfolio</li>
+                        <li>Chamber Music & Orchestra</li>
+                        <li>Art School Application Preparation</li>
+                    </ul>
                 </div>
-                <div class="col-md-4">
-                    <div class="card border-0 shadow-sm text-center h-100">
-                        <div class="card-body p-4">
-                            <i class="fas fa-medal fa-3x mb-3 text-success"></i>
-                            <h3 class="text-primary">Top 10</h3>
-                            <p class="text-muted">UK Independent School Ranking</p>
-                        </div>
-                    </div>
+            </div>
+
+            <div class="col-md-6" data-aos="fade-left" data-aos-delay="100">
+                <div class="p-5 h-100"
+                    style="background: linear-gradient(135deg, #43e97b, #38f9d7); border-radius: 20px; color: white;">
+                    <i class="fas fa-trophy fa-3x mb-4" style="opacity: 0.9;"></i>
+                    <h3 class="fw-bold mb-3" style="color: white;">Elite Athletics</h3>
+                    <p style="opacity: 0.95;">Professional-level coaching in tennis, swimming, and athletics. Trained by
+                        Olympic coaches and former professional athletes.</p>
+                    <ul class="mt-4" style="opacity: 0.9;">
+                        <li>Competitive Tennis (LTA Pathway)</li>
+                        <li>Elite Swimming Squad (ASA Level 4)</li>
+                        <li>Sports Science & Athletic Development</li>
+                        <li>National Competition Preparation</li>
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<!-- Student Achievements -->
+<div class="py-6" style="background: linear-gradient(to bottom, #f8f9fa, #ffffff);">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold mb-3" style="color: #002E5D;" style="color: white;">Recent Student Achievements</h2>
+            <p class="lead text-muted">Excellence recognized globally</p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-4" data-aos="zoom-in">
+                <div class="card border-0 shadow-sm h-100 p-4 text-center">
+                    <div class="mx-auto mb-3"
+                        style="width: 80px; height: 80px; background: linear-gradient(135deg, #FFD700, #FFA500); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-medal fa-2x text-white"></i>
+                    </div>
+                    <h4 class="fw-bold mb-3" style="color: white;">International Awards</h4>
+                    <p class="text-muted">12 students won medals at International Mathematics Olympiad, Science Bowl,
+                        and Model UN conferences in 2024</p>
+                </div>
+            </div>
+
+            <div class="col-md-4" data-aos="zoom-in" data-aos-delay="100">
+                <div class="card border-0 shadow-sm h-100 p-4 text-center">
+                    <div class="mx-auto mb-3"
+                        style="width: 80px; height: 80px; background: linear-gradient(135deg, #8B4513, #D2691E); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-university fa-2x text-white"></i>
+                    </div>
+                    <h4 class="fw-bold mb-3" style="color: white;">Oxbridge Success</h4>
+                    <p class="text-muted">28% of our 2024 leavers secured places at Oxford or Cambridge universities
+                        across various disciplines</p>
+                </div>
+            </div>
+
+            <div class="col-md-4" data-aos="zoom-in" data-aos-delay="200">
+                <div class="card border-0 shadow-sm h-100 p-4 text-center">
+                    <div class="mx-auto mb-3"
+                        style="width: 80px; height: 80px; background: linear-gradient(135deg, #C0C0C0, #A8A8A8); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-globe fa-2x text-white"></i>
+                    </div>
+                    <h4 class="fw-bold mb-3" style="color: white;">Global Recognition</h4>
+                    <p class="text-muted">Graduates accepted to Harvard, Stanford, MIT, ETH Zurich, and other
+                        world-leading institutions</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CTA Section -->
+<div class="py-6" style="background: linear-gradient(135deg, #002E5D, #0056A3);">
+    <div class="container text-center text-white">
+        <h2 class="display-5 fw-bold mb-4" style="color: white;">Join Our Academic Excellence Program</h2>
+        <p class="lead mb-5" style="max-width: 700px; margin: 0 auto;">Unlock your child's potential with world-class
+            instruction</p>
+        <div class="d-flex gap-3 justify-content-center flex-wrap">
+            <a href="{{ url_for('portal_home') }}" class="btn btn-lg px-5 py-3"
+                style="background: #0DA49F; border: none; border-radius: 50px; font-weight: 600; color: white;">
+                Browse Activities
+            </a>
+            <a href="{{ url_for('contact') }}" class="btn btn-lg btn-outline-light px-5 py-3"
+                style="border-radius: 50px; font-weight: 600; border-width: 2px;">
+                Contact Admissions
+            </a>
+        </div>
+    </div>
+</div>
+
+<style>
+    .py-6 {
+        padding-top: 5rem;
+        padding-bottom: 5rem;
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    [data-aos] {
+        animation: fadeInUp 0.8s ease-out;
+    }
+</style>
+
+<script>
+    // Simple AOS-like animation on scroll
+    document.addEventListener('DOMContentLoaded', function () {
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function (entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('[data-aos]').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.8s ease-out';
+            observer.observe(el);
+        });
+    });
+</script>
 {% endblock %}

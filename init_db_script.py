@@ -11,17 +11,17 @@ with app.app_context():
 
     # Admin
     admin = Admin(email='admin@school.edu')
-    admin.set_password('admin123')
+    admin.set_password('change_me')
     db.session.add(admin)
 
     # Tutor
     tutor = Tutor(email='tutor@school.edu', full_name='Sarah Jenkins', specialization='Science & Robotics')
-    tutor.set_password('tutor123')
+    tutor.set_password('change_me')
     db.session.add(tutor)
 
     # Parent
     parent = Parent(email='test@example.com', full_name='Test User', phone='1234567890')
-    parent.set_password('password123')
+    parent.set_password('change_me')
     db.session.add(parent)
     
     db.session.commit()

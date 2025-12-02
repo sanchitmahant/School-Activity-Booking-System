@@ -3,94 +3,132 @@
 {% block title %}Tutor Application - Greenwood International{% endblock %}
 
 {% block content %}
-<div class="container mt-5 mb-5">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card shadow-lg border-0">
-                <div class="card-body p-5">
-                    <h2 class="card-title text-center text-primary mb-4">
-                        <i class="fas fa-chalkboard-teacher"></i> Tutor Application
-                    </h2>
+\u003cdiv class="container mt-5 mb-5"\u003e
+\u003cdiv class="row justify-content-center"\u003e
+\u003cdiv class="col-md-10"\u003e
+\u003cdiv class="card shadow-lg border-0"\u003e
+\u003cdiv class="card-body p-5"\u003e
+\u003ch2 class="card-title text-center text-primary mb-2"\u003e
+\u003ci class="fas fa-chalkboard-teacher"\u003e\u003c/i\u003e Tutor Application
+\u003c/h2\u003e
 
-                    <p class="text-center text-muted mb-4">
-                        Join our team of expert educators at Greenwood International School
-                    </p>
+\u003cp class="text-center text-muted mb-4"\u003e
+Join our team of expert educators at Greenwood International School
+\u003c/p\u003e
 
-                    {% if error %}
-                    <div class="alert alert-danger" role="alert">
-                        <i class="fas fa-exclamation-circle"></i> {{ error }}
-                    </div>
-                    {% endif %}
+{% if error %}
+\u003cdiv class="alert alert-danger" role="alert"\u003e
+\u003ci class="fas fa-exclamation-circle"\u003e\u003c/i\u003e {{ error }}
+\u003c/div\u003e
+{% endif %}
 
-                    <form method="POST" action="{{ url_for('tutor_register') }}">
-                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+\u003cform method="POST" action="{{ url_for('tutor_register') }}"\u003e
+\u003cinput type="hidden" name="csrf_token" value="{{ csrf_token() }}" /\u003e
 
-                        <div class="mb-3">
-                            <label for="full_name" class="form-label"><i class="fas fa-user"></i> Full Name *</label>
-                            <input type="text" class="form-control" id="full_name" name="full_name" required>
-                        </div>
+\u003ch5 class="text-primary mt-3 mb-3 pb-2 border-bottom"\u003e\u003ci class="fas fa-id-card"\u003e\u003c/i\u003e
+Personal Information\u003c/h5\u003e
 
-                        <div class="mb-3">
-                            <label for="email" class="form-label"><i class="fas fa-envelope"></i> Email Address
-                                *</label>
-                            <input type="email" class="form-control" id="email" name="email" required>
-                        </div>
+\u003cdiv class="row"\u003e
+\u003cdiv class="col-md-6 mb-3"\u003e
+\u003clabel for="full_name" class="form-label"\u003eFull Name *\u003c/label\u003e
+\u003cinput type="text" class="form-control" id="full_name" name="full_name" required\u003e
+\u003c/div\u003e
+\u003cdiv class="col-md-6 mb-3"\u003e
+\u003clabel for="email" class="form-label"\u003eEmail Address *\u003c/label\u003e
+\u003cinput type="email" class="form-control" id="email" name="email" required\u003e
+\u003c/div\u003e
+\u003c/div\u003e
 
-                        <div class="mb-3">
-                            <label for="specialization" class="form-label"><i class="fas fa-star"></i> Specialization
-                                *</label>
-                            <input type="text" class="form-control" id="specialization" name="specialization"
-                                placeholder="e.g., Mathematics, Science, Music" required>
-                        </div>
+\u003ch5 class="text-primary mt-4 mb-3 pb-2 border-bottom"\u003e\u003ci class="fas
+fa-graduation-cap"\u003e\u003c/i\u003e Professional Background\u003c/h5\u003e
 
-                        <div class="mb-3">
-                            <label for="qualifications" class="form-label"><i class="fas fa-graduation-cap"></i>
-                                Qualifications *</label>
-                            <textarea class="form-control" id="qualifications" name="qualifications" rows="3"
-                                placeholder="List your degrees, certifications, and relevant qualifications"
-                                required></textarea>
-                        </div>
+\u003cdiv class="row"\u003e
+\u003cdiv class="col-md-8 mb-3"\u003e
+\u003clabel for="specialization" class="form-label"\u003eSubject Specialization *\u003c/label\u003e
+\u003cinput type="text" class="form-control" id="specialization" name="specialization"
+placeholder="e.g., Mathematics, Science, Music, Sports" required\u003e
+\u003c/div\u003e
+\u003cdiv class="col-md-4 mb-3"\u003e
+\u003clabel for="years_experience" class="form-label"\u003eYears of Experience *\u003c/label\u003e
+\u003cinput type="number" class="form-control" id="years_experience" name="years_experience"
+min="0" max="50" required\u003e
+\u003c/div\u003e
+\u003c/div\u003e
 
-                        <div class="mb-3">
-                            <label for="bio" class="form-label"><i class="fas fa-info-circle"></i> Professional
-                                Bio</label>
-                            <textarea class="form-control" id="bio" name="bio" rows="4"
-                                placeholder="Tell us about your teaching experience and philosophy"></textarea>
-                        </div>
+\u003cdiv class="mb-3"\u003e
+\u003clabel for="linkedin_url" class="form-label"\u003e\u003ci class="fab fa-linkedin"\u003e\u003c/i\u003e LinkedIn
+Profile URL\u003c/label\u003e
+\u003cinput type="url" class="form-control" id="linkedin_url" name="linkedin_url"
+placeholder="https://linkedin.com/in/your-profile"\u003e
+\u003csmall class="text-muted"\u003eRecommended for professional credibility\u003c/small\u003e
+\u003c/div\u003e
 
-                        <div class="mb-3">
-                            <label for="password" class="form-label"><i class="fas fa-lock"></i> Password *</label>
-                            <input type="password" class="form-control" id="password" name="password" required>
-                            <small class="text-muted">Must be at least 8 characters long</small>
-                        </div>
+\u003cdiv class="mb-3"\u003e
+\u003clabel for="education" class="form-label"\u003eEducation & Degrees *\u003c/label\u003e
+\u003ctextarea class="form-control" id="education" name="education" rows="2"
+placeholder="e.g., BSc Mathematics (University of Cambridge), PGCE Secondary Mathematics"
+required\u003e\u003c/textarea\u003e
+\u003c/div\u003e
 
-                        <div class="mb-4">
-                            <label for="confirm_password" class="form-label"><i class="fas fa-lock"></i> Confirm
-                                Password *</label>
-                            <input type="password" class="form-control" id="confirm_password" name="confirm_password"
-                                required>
-                        </div>
+\u003cdiv class="mb-3"\u003e
+\u003clabel for="certifications" class="form-label"\u003eCertifications & Qualifications\u003c/label\u003e
+\u003ctextarea class="form-control" id="certifications" name="certifications" rows="2"
+placeholder="List relevant professional certifications, teaching licenses, etc."\u003e\u003c/textarea\u003e
+\u003c/div\u003e
 
-                        <button type="submit" class="btn btn-primary-custom btn-lg w-100">
-                            <i class="fas fa-paper-plane"></i> Submit Application
-                        </button>
-                    </form>
+\u003cdiv class="mb-3"\u003e
+\u003clabel for="teaching_philosophy" class="form-label"\u003eTeaching Philosophy *\u003c/label\u003e
+\u003ctextarea class="form-control" id="teaching_philosophy" name="teaching_philosophy" rows="3"
+placeholder="Describe your approach to teaching and student engagement (100-500 words)"
+required\u003e\u003c/textarea\u003e
+\u003csmall class="text-muted"\u003eHelps us understand your educational values and methods\u003c/small\u003e
+\u003c/div\u003e
 
-                    <div class="text-center mt-4">
-                        <p class="text-muted">
-                            Already have an account?
-                            <a href="{{ url_for('tutor_login') }}" class="text-primary">Login here</a>
-                        </p>
-                    </div>
+\u003cdiv class="mb-3"\u003e
+\u003clabel for="bio" class="form-label"\u003eProfessional Bio *\u003c/label\u003e
+\u003ctextarea class="form-control" id="bio" name="bio" rows="3"
+placeholder="Brief professional biography highlighting your teaching experience and achievements (50-300 words)"
+required\u003e\u003c/textarea\u003e
+\u003c/div\u003e
 
-                    <div class="alert alert-info mt-4">
-                        <i class="fas fa-info-circle"></i> <strong>Application Process:</strong><br>
-                        Your application will be reviewed by our administration team. You will receive an email
-                        notification once your application has been processed.
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+\u003ch5 class="text-primary mt-4 mb-3 pb-2 border-bottom"\u003e\u003ci class="fas fa-lock"\u003e\u003c/i\u003e Account
+Security\u003c/h5\u003e
+
+\u003cdiv class="row"\u003e
+\u003cdiv class="col-md-6 mb-3"\u003e
+\u003clabel for="password" class="form-label"\u003ePassword *\u003c/label\u003e
+\u003cinput type="password" class="form-control" id="password" name="password"
+minlength="8" required\u003e
+\u003csmall class="text-muted"\u003eMinimum 8 characters\u003c/small\u003e
+\u003c/div\u003e
+\u003cdiv class="col-md-6 mb-4"\u003e
+\u003clabel for="confirm_password" class="form-label"\u003eConfirm Password *\u003c/label\u003e
+\u003cinput type="password" class="form-control" id="confirm_password" name="confirm_password"
+required\u003e
+\u003c/div\u003e
+\u003c/div\u003e
+
+\u003cbutton type="submit" class="btn btn-primary-custom btn-lg w-100"\u003e
+\u003ci class="fas fa-paper-plane"\u003e\u003c/i\u003e Submit Application for Review
+\u003c/button\u003e
+\u003c/form\u003e
+
+\u003cdiv class="text-center mt-4"\u003e
+\u003cp class="text-muted"\u003e
+Already have an account?
+\u003ca href="{{ url_for('tutor_login') }}" class="text-primary"\u003eLogin here\u003c/a\u003e
+\u003c/p\u003e
+\u003c/div\u003e
+
+\u003cdiv class="alert alert-info mt-4"\u003e
+\u003ci class="fas fa-info-circle"\u003e\u003c/i\u003e \u003cstrong\u003eApplication
+Process:\u003c/strong\u003e\u003cbr\u003e
+Your application will be reviewed by our administration team within 2-3 business days. You will receive an email
+notification once your application has been approved or if additional information is required.
+\u003c/div\u003e
+\u003c/div\u003e
+\u003c/div\u003e
+\u003c/div\u003e
+\u003c/div\u003e
+\u003c/div\u003e
 {% endblock %}

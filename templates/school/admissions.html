@@ -3,164 +3,251 @@
 {% block title %}Admissions{% endblock %}
 
 {% block content %}
-<div class="hero-section" style="height: 60vh;">
-    <div class="hero-bg"
-        style="background: linear-gradient(rgba(0,46,93,0.7), rgba(0,46,93,0.6)), url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80'); background-size: cover; background-position: center;">
-    </div>
-    <div class="container text-center">
-        <h1 class="display-3 hero-title fade-in-up">Admissions</h1>
-        <p class="hero-subtitle fade-in-up delay-1">Join the Greenwood Legacy</p>
+<!-- Hero Section -->
+<div style="background: linear-gradient(135deg, #002E5D 0%, #0056A3 100%); padding: 100px 0;">
+    <div class="container text-center text-white">
+        <h1 class="display-3 fw-bold mb-4" style="color: white;" style="color: white;">Join Greenwood International</h1>
+        <p class="lead" style="max-width: 800px; margin: 0 auto; font-size: 1.3rem;">
+            Welcoming exceptional students who aspire to excellence, leadership, and lifelong learning
+        </p>
     </div>
 </div>
 
-<div class="container section-padding">
-    <div class="row">
-        <div class="col-lg-8">
-            <h2 class="mb-4 text-primary">Application Process</h2>
-            <p class="lead text-muted">We welcome applications from students of all backgrounds who demonstrate academic
-                potential and a willingness to contribute to school life.</p>
-
-            <div class="timeline mt-5">
-                <div class="d-flex mb-5 hover-3d p-4 rounded glass-panel light">
-                    <div class="flex-shrink-0">
-                        <div class="rounded-circle d-flex align-items-center justify-content-center bg-primary text-white"
-                            style="width: 60px; height: 60px; font-weight: bold; font-size: 1.5rem;">
-                            1</div>
-                    </div>
-                    <div class="flex-grow-1 ms-4">
-                        <h4 class="text-primary">Inquiry & Visit</h4>
-                        <p class="text-muted">Complete the form below to register your interest. We encourage all
-                            families to visit us during an Open Morning.</p>
+<!-- Quick Process Overview -->
+<div style="background: #0DA49F; padding: 50px 0;">
+    <div class="container">
+        <div class="row text-center text-white">
+            <div class="col-md-3">
+                <div class="mb-3">
+                    <div
+                        style="width: 60px; height: 60px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto;">
+                        <span class="display-6 fw-bold">1</span>
                     </div>
                 </div>
-                <div class="d-flex mb-5 hover-3d p-4 rounded glass-panel light">
-                    <div class="flex-shrink-0">
-                        <div class="rounded-circle d-flex align-items-center justify-content-center bg-primary text-white"
-                            style="width: 60px; height: 60px; font-weight: bold; font-size: 1.5rem;">
-                            2</div>
-                    </div>
-                    <div class="flex-grow-1 ms-4">
-                        <h4 class="text-primary">Registration</h4>
-                        <p class="text-muted">Submit a formal registration form along with the non-refundable
-                            registration fee of £150.</p>
-                    </div>
-                </div>
-                <div class="d-flex mb-5 hover-3d p-4 rounded glass-panel light">
-                    <div class="flex-shrink-0">
-                        <div class="rounded-circle d-flex align-items-center justify-content-center bg-primary text-white"
-                            style="width: 60px; height: 60px; font-weight: bold; font-size: 1.5rem;">
-                            3</div>
-                    </div>
-                    <div class="flex-grow-1 ms-4">
-                        <h4 class="text-primary">Assessment</h4>
-                        <p class="text-muted">Candidates are invited for an assessment day involving academic tests and
-                            an interview with the Head of Section.</p>
-                    </div>
-                </div>
+                <p class="fw-bold mb-0">Inquiry & Tour</p>
             </div>
-
-            <div class="divider-gold my-5"></div>
-
-            <h3 class="mb-4 text-primary">Admissions Inquiry Form</h3>
-            <div class="glass-panel light p-5">
-                <form action="{{ url_for('submit_admissions_inquiry') }}" method="POST" id="admissionsForm">
-                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                    <div class="row">
-                        <div class="col-md-6 mb-4">
-                            <label class="form-label text-primary">Parent Name *</label>
-                            <input type="text" name="parent_name" class="form-control" required>
-                        </div>
-                        <div class="col-md-6 mb-4">
-                            <label class="form-label text-primary">Email Address *</label>
-                            <input type="email" name="email" class="form-control" required>
-                        </div>
+            <div class="col-md-3">
+                <div class="mb-3">
+                    <div
+                        style="width: 60px; height: 60px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto;">
+                        <span class="display-6 fw-bold">2</span>
                     </div>
-                    <div class="row">
-                        <div class="col-md-6 mb-4">
-                            <label class="form-label text-primary">Child's Name *</label>
-                            <input type="text" name="child_name" class="form-control" required>
-                        </div>
-                        <div class="col-md-6 mb-4">
-                            <label class="form-label text-primary">Date of Birth *</label>
-                            <input type="date" name="date_of_birth" class="form-control" required>
-                        </div>
-                    </div>
-                    <div class="mb-4">
-                        <label class="form-label text-primary">Proposed Year of Entry *</label>
-                        <select name="year_of_entry" class="form-control" required>
-                            <option value="">Select Year</option>
-                            <option value="2026">2026</option>
-                            <option value="2027">2027</option>
-                            <option value="2028">2028</option>
-                        </select>
-                    </div>
-                    <div class="mb-4">
-                        <label class="form-label text-primary">Message / Questions</label>
-                        <textarea name="message" class="form-control" rows="4"></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-lg w-100">
-                        <i class="fas fa-paper-plane me-2"></i>Submit Inquiry
-                    </button>
-                </form>
+                </div>
+                <p class="fw-bold mb-0">Application</p>
             </div>
-        </div>
-
-        <div class="col-lg-4">
-            <div class="card border-0 shadow-sm mb-4 hover-3d">
-                <div class="card-header bg-primary text-white fw-bold">
-                    <i class="far fa-calendar me-2"></i>Key Dates
+            <div class="col-md-3">
+                <div class="mb-3">
+                    <div
+                        style="width: 60px; height: 60px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto;">
+                        <span class="display-6 fw-bold">3</span>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <ul class="list-unstyled mb-0">
-                        <li class="mb-3">
-                            <strong class="text-primary">15 Oct 2025</strong><br>
-                            <span class="text-muted">Sixth Form Application Deadline</span>
-                        </li>
-                        <li class="mb-3">
-                            <strong class="text-primary">10 Jan 2026</strong><br>
-                            <span class="text-muted">Year 7 Entrance Exams</span>
-                        </li>
-                        <li>
-                            <strong class="text-primary">01 Mar 2026</strong><br>
-                            <span class="text-muted">Offer Letters Sent</span>
-                        </li>
-                    </ul>
-                </div>
+                <p class="fw-bold mb-0">Assessment</p>
             </div>
-
-            <div class="card border-0 shadow-sm hover-3d">
-                <div class="card-header bg-primary text-white fw-bold">
-                    <i class="fas fa-pound-sign me-2"></i>Fees (Per Term)
+            <div class="col-md-3">
+                <div class="mb-3">
+                    <div
+                        style="width: 60px; height: 60px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto;">
+                        <span class="display-6 fw-bold">4</span>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <table class="table table-hover mb-0">
-                        <tbody>
-                            <tr>
-                                <td class="text-muted">Reception</td>
-                                <td class="text-end fw-bold">£4,500</td>
-                            </tr>
-                            <tr>
-                                <td class="text-muted">Year 3-6</td>
-                                <td class="text-end fw-bold">£5,800</td>
-                            </tr>
-                            <tr>
-                                <td class="text-muted">Year 7-13</td>
-                                <td class="text-end fw-bold">£7,200</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <small class="text-muted mt-3 d-block">*Three terms per academic year.</small>
-                </div>
+                <p class="fw-bold mb-0">Offer & Registration</p>
             </div>
         </div>
     </div>
 </div>
 
-<script>
-    document.getElementById('admissionsForm').addEventListener('submit', function (e) {
-        const btn = this.querySelector('button[type="submit"]');
-        btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Sending...';
-        btn.disabled = true;
-    });
-</script>
-{% endblock %}
+<!-- Main Content -->
+<div class="py-6" style="background: white;">
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-lg-8">
+                <h2 class="display-6 fw-bold mb-4" style="color: #002E5D;">Application Process</h2>
+
+                <div class="mb-5">
+                    <h4 class="fw-bold mb-3" style="color: #0DA49F;">
+                        <i class="fas fa-calendar-check me-2"></i>Key Dates
+                    </h4>
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body p-4">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <p class="fw-bold mb-1">Autumn Term Applications</p>
+                                    <p class="text-muted mb-0">Deadline: 31st March 2025</p>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <p class="fw-bold mb-1">Spring Term Applications</p>
+                                    <p class="text-muted mb-0">Deadline: 31st October 2024</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p class="fw-bold mb-1">Assessment Days</p>
+                                    <p class="text-muted mb-0">January & June annually</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p class="fw-bold mb-1">Campus Tours</p>
+                                    <p class="text-muted mb-0">Every Friday at 10:00 AM</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-5">
+                    <h4 class="fw-bold mb-3" style="color: #0DA49F;">
+                        <i class="fas fa-user-graduate me-2"></i>Entry Requirements
+                    </h4>
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body p-4">
+                            <ul class="mb-0">
+                                <li class="mb-2">Completed application form with recent photograph</li>
+                                <li class="mb-2">Previous 2 years academic reports and transcripts</li>
+                                <li class="mb-2">Two teacher references (preferably from English & Mathematics teachers)
+                                </li>
+                                <li class="mb-2">Personal statement (500 words) describing interests and aspirations
+                                </li>
+                                <li class="mb-2">Assessment in English, Mathematics, and Reasoning</li>
+                                <li>Interview with Headmaster and relevant Head of Department</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-5">
+                    <h4 class="fw-bold mb-3" style="color: #0DA49F;">
+                        <i class="fas fa-pound-sign me-2"></i>Fees & Financial Aid
+                    </h4>
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body p-4">
+                            <p><strong>Day Student Fees:</strong> £8,500 per term</p>
+                            <div class="card-body p-4">
+                                <h4 class="fw-bold mb-4" style="color: white;">Admissions Office</h4>
+                                <p class="mb-3">
+                                    <i class="fas fa-envelope me-2"></i>
+                                    greenwoodinternationaluk@gmail.com
+                                </p>
+                                <p class="mb-3">
+                                    <i class="fas fa-phone me-2"></i>
+                                    +44 (0) 1491 570000
+                                </p>
+                                <p class="mb-4">
+                                    <i class="fas fa-clock me-2"></i>
+                                    Mon-Fri: 8:00 AM - 5:00 PM
+                                </p>
+                                <a href="{{ url_for('contact') }}" class="btn btn-light w-100 rounded-pill">
+                                    Contact Us
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Why Choose Us -->
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-body p-4">
+                                <h5 class="fw-bold mb-4" style="color: #002E5D;">Why Greenwood?</h5>
+                                <div class="mb-3">
+                                    <i class="fas fa-check-circle me-2" style="color: #0DA49F;"></i>
+                                    <strong>98%</strong> university placement rate
+                                </div>
+                                <div class="mb-3">
+                                    <i class="fas fa-check-circle me-2" style="color: #0DA49F;"></i>
+                                    <strong>28%</strong> Oxbridge success rate
+                                </div>
+                                <div class="mb-3">
+                                    <i class="fas fa-check-circle me-2" style="color: #0DA49F;"></i>
+                                    <strong>15:1</strong> student-teacher ratio
+                                </div>
+                                <div class="mb-3">
+                                    <i class="fas fa-check-circle me-2" style="color: #0DA49F;"></i>
+                                    <strong>50+</strong> extra-curricular activities
+                                </div>
+                                <div>
+                                    <i class="fas fa-check-circle me-2" style="color: #0DA49F;"></i>
+                                    <strong>PhD-level</strong> specialist instructors
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Testimonials -->
+        <div class="py-6" style="background: #f8f9fa;">
+            <div class="container">
+                <div class="text-center mb-5">
+                    <h2 class="display-6 fw-bold mb-3" style="color: #002E5D;">Parent Testimonials</h2>
+                </div>
+
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="card border-0 shadow-sm h-100 p-4">
+                            <div class="mb-3">
+                                <i class="fas fa-quote-left fa-2x" style="color: #0DA49F; opacity: 0.3;"></i>
+                            </div>
+                            <p class="mb-4">"The level of individual attention and academic rigor at Greenwood is
+                                unparalleled.
+                                Our daughter has flourished beyond our expectations."</p>
+                            <div class="mt-auto">
+                                <p class="fw-bold mb-0">Mr. & Mrs. Harrison</p>
+                                <small class="text-muted">Parents of Year 11 Student</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card border-0 shadow-sm h-100 p-4">
+                            <div class="mb-3">
+                                <i class="fas fa-quote-left fa-2x" style="color: #0DA49F; opacity: 0.3;"></i>
+                            </div>
+                            <p class="mb-4">"From Olympic-level athletics to PhD-taught mathematics, Greenwood offers
+                                the kind
+                                of opportunities we could only dream of elsewhere."</p>
+                            <div class="mt-auto">
+                                <p class="fw-bold mb-0">Dr. & Dr. Patel</p>
+                                <small class="text-muted">Parents of Year 9 & 12 Students</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card border-0 shadow-sm h-100 p-4">
+                            <div class="mb-3">
+                                <i class="fas fa-quote-left fa-2x" style="color: #0DA49F; opacity: 0.3;"></i>
+                            </div>
+                            <p class="mb-4">"The supportive community and world-class facilities have prepared our son
+                                for
+                                success at Cambridge. We couldn't recommend Greenwood more highly."</p>
+                            <div class="mt-auto">
+                                <p class="fw-bold mb-0">Professor & Mrs. Chen</p>
+                                <small class="text-muted">Parents of Cambridge Graduate</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="py-6" style="background: linear-gradient(135deg, #002E5D, #0056A3);">
+            <div class="container text-center text-white">
+                <h2 class="display-5 fw-bold mb-4" style="color: white;">Ready to Begin?</h2>
+                <p class="lead mb-5">Schedule a private tour or speak with our admissions team</p>
+                <div class="d-flex gap-3 justify-content-center flex-wrap">
+                    <a href="#" class="btn btn-lg px-5 py-3"
+                        style="background: #0DA49F; border: none; border-radius: 50px; font-weight: 600; color: white;">
+                        Book a Tour
+                    </a>
+                    <a href="{{ url_for('contact') }}" class="btn btn-lg btn-outline-light px-5 py-3"
+                        style="border-radius: 50px; font-weight: 600; border-width: 2px;">
+                        Contact Admissions
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <style>
+            .py-6 {
+                padding-top: 5rem;
+                padding-bottom: 5rem;
+            }
+        </style>
+        {% endblock %}

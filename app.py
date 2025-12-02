@@ -24,6 +24,10 @@ from flask_wtf.csrf import CSRFProtect
 from functools import wraps
 from config import config
 
+# Enhanced PDF Invoice Generator
+from enhanced_invoice import get_enhanced_invoice_pdf
+
+
 # Initialize extensions
 db = SQLAlchemy()
 mail = Mail()
@@ -254,11 +258,11 @@ BEGIN:VEVENT
 DTSTART:{dtstart}
 DTEND:{dtend}
 DTSTAMP:{dtstamp}
-UID:booking-{booking.id}@greenwood.edu.uk
+UID:booking-{booking.id}@greenwoodinternationaluk.gmail.com
 SUMMARY:{activity.name} - {child.name}
 DESCRIPTION:Activity: {activity.name}\\nStudent: {child.name}\\nTutor: {tutor_name}\\nDay: {activity.day_of_week}\\nTime: {start_time_str} - {end_time_str}\\n\\n{activity.description}
 LOCATION:Greenwood International School\\, Henley-on-Thames
-ORGANIZER;CN={tutor_name}:mailto:info@greenwood.edu.uk
+ORGANIZER;CN={tutor_name}:mailto:greenwoodinternationaluk@gmail.com
 STATUS:CONFIRMED
 SEQUENCE:0
 BEGIN:VALARM
@@ -286,7 +290,7 @@ def send_booking_confirmation_email(booking):
         # === Email to Parent ===
         parent_msg = Message(
             subject=f'Booking Confirmed: {activity.name} for {child.name}',
-            sender=('Greenwood International School', 'noreply@greenwood.edu.uk'),
+            sender=('Greenwood International School', 'greenwoodinternationaluk@gmail.com'),
             recipients=[parent.email]
         )
         
@@ -365,7 +369,7 @@ def send_booking_confirmation_email(booking):
         if tutor and tutor.email:
             tutor_msg = Message(
                 subject=f'New Student Enrolled: {activity.name}',
-                sender=('Greenwood International School', 'noreply@greenwood.edu.uk'),
+                sender=('Greenwood International School', 'greenwoodinternationaluk@gmail.com'),
                 recipients=[tutor.email]
             )
             
@@ -550,8 +554,8 @@ def index():
 
 @app.route('/portal')
 def portal_home():
-    """Portal Entry Point"""
-    return render_template('index.html')
+    """Enhanced Portal with Search and Filters"""
+    return render_template('portal_enhanced.html')
 
 @app.route('/admissions')
 def admissions():
@@ -567,6 +571,50 @@ def academic():
 def alumni():
     """Alumni Page"""
     return render_template('school/alumni.html')
+
+@app.route('/contact')
+def contact():
+    """Contact Page"""
+    return render_template('school/contact.html')
+
+@app.route('/about')
+def about():
+    """About Page"""
+    return render_template('school/about.html')
+
+@app.route('/contact/submit', methods=['POST'])
+def contact_submit():
+    """Handle contact form submission"""
+    name = request.form.get('name')
+    email = request.form.get('email')
+    subject = request.form.get('subject')
+    message = request.form.get('message')
+    
+    try:
+        admin = Admin.query.first()
+        if admin:
+            msg = Message(
+                subject=f'Contact Form: {subject}',
+                recipients=[admin.email],
+                sender=email
+            )
+            msg.body = f'''
+            New contact form submission:
+            
+            Name: {name}
+            Email: {email}
+            Subject: {subject}
+            
+            Message:
+            {message}
+            '''
+            mail.send(msg)
+            flash('Thank you! We will get back to you soon.', 'success')
+    except Exception as e:
+        print(f'Contact email error: {e}')
+        flash('Message received. We will respond shortly.', 'info')
+    
+    return redirect(url_for('contact'))
 
 # --- Authentication ---
 
@@ -1424,12 +1472,15 @@ def init_db():
         db.create_all()
         
         # Create Default Admin
-        if not Admin.query.filter_by(email='admin@school.edu').first():
-            admin = Admin(email='admin@school.edu')
-            admin.set_password('admin123')
+        # Create Default Admin
+        if not Admin.query.filter_by(email='greenwoodinternationaluk@gmail.com').first():
+            admin = Admin(email='greenwoodinternationaluk@gmail.com')
+            # Use environment variable or default (avoiding hardcoded secret for git)
+            import os
+            admin.set_password(os.environ.get('ADMIN_PASSWORD', 'change_me'))
             db.session.add(admin)
             db.session.commit()
-            print("Admin created: admin@school.edu / admin123")
+            print("Admin created: greenwoodinternationaluk@gmail.com")
             
         # Create Sample Tutor
         if not Tutor.query.filter_by(email='tutor@school.edu').first():
@@ -1499,7 +1550,7 @@ def get_email_template(content_html, title="Greenwood International School"):
                                             Oxfordshire, RG9 1AA, United Kingdom<br>
                                             <br>
                                             📞 +44 (0) 1491 570000<br>
-                                            📧 info@greenwood.edu<br>
+                                            📧 greenwoodinternationaluk@gmail.com<br>
                                             🌐 www.greenwood.edu
                                         </td>
                                         <td align="right" style="vertical-align: top;">
