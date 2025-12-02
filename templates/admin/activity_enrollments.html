@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+
+{% block title %}{{ activity.name }} - Enrollments{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="mb-1"><i class="fas fa-user-friends me-2 text-primary"></i>{{ activity.name }} - Enrollments</h2>
+            <p class="text-muted mb-0">
+                <span class="badge bg-secondary">{{ activity.day_of_week }}</span>
+                {{ activity.start_time }} - {{ activity.end_time }}
+            </p>
+        </div>
+        <a href="{{ url_for('admin_dashboard') }}" class="btn btn-outline-primary">
+            <i class="fas fa-arrow-left me-2"></i>Back to Dashboard
+        </a>
+    </div>
+
+    <!-- Stats Row -->
+    <div class="row g-4 mb-4">
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <i class="fas fa-users fa-2x mb-3 text-success"></i>
+                    <h3 class="mb-0">{{ total_enrolled }}</h3>
+                    <p class="text-muted small mb-0">Enrolled Students</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <i class="fas fa-chair fa-2x mb-3 text-info"></i>
+                    <h3 class="mb-0">{{ available_spots }}</h3>
+                    <p class="text-muted small mb-0">Available Spots</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <i class="fas fa-table-cells fa-2x mb-3 text-warning"></i>
+                    <h3 class="mb-0">{{ activity.max_capacity }}</h3>
+                    <p class="text-muted small mb-0">Total Capacity</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <i class="fas fa-pound-sign fa-2x mb-3 text-primary"></i>
+                    <h3 class="mb-0">£{{ "%.2f"|format(activity.price * total_enrolled) }}</h3>
+                    <p class="text-muted small mb-0">Total Revenue</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Enrolled Students List -->
+    <div class="card border-0 shadow-sm">
+        <div class="card-header bg-primary text-white py-3">
+            <h5 class="mb-0"><i class="fas fa-list me-2"></i>Enrolled Students ({{ total_enrolled }})</h5>
+        </div>
+        <div class="card-body p-0">
+            {% if enrollment_data %}
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Student</th>
+                            <th>Year Group</th>
+                            <th>Parent/Guardian</th>
+                            <th>Contact</th>
+                            <th>Booking Date</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for data in enrollment_data %}
+                        <tr>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <div class="avatar bg-success text-white rounded-circle d-flex align-items-center justify-content-center me-2"
+                                        style="width: 35px; height: 35px; font-size: 14px;">
+                                        {{ data.child.name[0] }}
+                                    </div>
+                                    <strong>{{ data.child.name }}</strong>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="badge bg-info">Year {{ data.child.grade }}</span>
+                            </td>
+                            <td>
+                                <strong>{{ data.parent.full_name }}</strong>
+                            </td>
+                            <td>
+                                <small class="text-muted">
+                                    <i class="fas fa-envelope me-1"></i>{{ data.parent.email }}<br>
+                                    <i class="fas fa-phone me-1"></i>{{ data.parent.phone if data.parent.phone else
+                                    'N/A' }}
+                                </small>
+                            </td>
+                            <td>
+                                <small>{{ data.booking.booking_date.strftime('%d %b %Y') }}</small>
+                            </td>
+                            <td>
+                                {% if data.booking.status == 'confirmed' %}
+                                <span class="badge bg-success">
+                                    <i class="fas fa-check-circle me-1"></i>Confirmed
+                                </span>
+                                {% else %}
+                                <span class="badge bg-warning text-dark">
+                                    {{ data.booking.status|title }}
+                                </span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <form action="{{ url_for('admin_cancel_booking', booking_id=data.booking.id) }}"
+                                    method="POST" style="display: inline;"
+                                    onsubmit="return confirm('Are you sure you want to cancel this booking for {{ data.child.name }}? Notifications will be sent to the parent and tutor.');">
+                                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                    <button type="submit" class="btn btn-sm btn-outline-danger" title="Cancel Booking">
+                                        <i class="fas fa-times-circle me-1"></i>Cancel
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <div class="p-5 text-center text-muted">
+                <i class="fas fa-inbox fa-4x mb-3 opacity-50"></i>
+                <h5>No Enrollments Yet</h5>
+                <p class="mb-0">This activity has no enrolled students at the moment.</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    {% if enrollment_data %}
+    <!-- Additional Information -->
+    <div class="alert alert-info mt-4" role="alert">
+        <i class="fas fa-info-circle me-2"></i>
+        <strong>Note:</strong> Cancelling a booking from here will send automatic email notifications to the parent and
+        the assigned tutor.
+        Any students on the waitlist will be automatically promoted.
+    </div>
+    {% endif %}
+</div>
+
+<style>
+    .avatar {
+        font-weight: bold;
+    }
+</style>
+{% endblock %}
