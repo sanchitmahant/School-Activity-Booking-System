@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+
+{% block title %}Tutor Management{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="mb-1"><i class="fas fa-chalkboard-teacher me-2 text-primary"></i>Tutor Management</h2>
+            <p class="text-muted mb-0">View and manage all tutors and their qualifications</p>
+        </div>
+        <a href="{{ url_for('admin_dashboard') }}" class="btn btn-outline-primary">
+            <i class="fas fa-arrow-left me-2"></i>Back to Dashboard
+        </a>
+    </div>
+
+    <!-- Quick Stats -->
+    <div class="row g-4 mb-5">
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <i class="fas fa-users fa-2x mb-3 text-primary"></i>
+                    <h3 class="mb-0">{{ tutor_data|length }}</h3>
+                    <p class="text-muted small mb-0">Total Tutors</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <i class="fas fa-check-circle fa-2x mb-3 text-success"></i>
+                    <h3 class="mb-0">{{ tutor_data|selectattr('tutor.status', 'equalto', 'approved')|list|length }}</h3>
+                    <p class="text-muted small mb-0">Approved</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <i class="fas fa-clock fa-2x mb-3 text-warning"></i>
+                    <h3 class="mb-0">{{ tutor_data|selectattr('tutor.status', 'equalto', 'pending')|list|length }}</h3>
+                    <p class="text-muted small mb-0">Pending Review</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <i class="fas fa-graduation-cap fa-2x mb-3 text-info"></i>
+                    <h3 class="mb-0">{{ tutor_data|sum(attribute='activity_count') }}</h3>
+                    <p class="text-muted small mb-0">Total Activities</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tutors Table -->
+    <div class="card border-0 shadow-sm">
+        <div class="card-header bg-primary text-white py-3">
+            <h5 class="mb-0"><i class="fas fa-list me-2"></i>All Tutors</h5>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Name</th>
+                            <th>Specialization</th>
+                            <th>Qualifications</th>
+                            <th>Activities</th>
+                            <th>Students</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for data in tutor_data %}
+                        <tr>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <div class="avatar bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-2"
+                                        style="width: 40px; height: 40px;">
+                                        {{ data.tutor.full_name[0] }}
+                                    </div>
+                                    <div>
+                                        <strong>{{ data.tutor.full_name }}</strong><br>
+                                        <small class="text-muted">{{ data.tutor.email }}</small>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="badge bg-info">{{ data.tutor.specialization }}</span>
+                            </td>
+                            <td>
+                                <small class="text-muted">{{ data.tutor.qualifications[:80] }}{% if
+                                    data.tutor.qualifications|length > 80 %}...{% endif %}</small>
+                            </td>
+                            <td class="text-center">
+                                <span class="badge bg-secondary">{{ data.activity_count }}</span>
+                            </td>
+                            <td class="text-center">
+                                <span class="badge bg-success">{{ data.total_students }}</span>
+                            </td>
+                            <td>
+                                {% if data.tutor.status == 'approved' %}
+                                <span class="badge bg-success">
+                                    <i class="fas fa-check me-1"></i>Approved
+                                </span>
+                                {% elif data.tutor.status == 'pending' %}
+                                <span class="badge bg-warning text-dark">
+                                    <i class="fas fa-clock me-1"></i>Pending
+                                </span>
+                                {% else %}
+                                <span class="badge bg-danger">
+                                    <i class="fas fa-times me-1"></i>Rejected
+                                </span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <a href="{{ url_for('admin_tutor_detail', tutor_id=data.tutor.id) }}"
+                                    class="btn btn-sm btn-outline-primary">
+                                    <i class="fas fa-eye me-1"></i>View Details
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .avatar {
+        font-weight: bold;
+        font-size: 16px;
+    }
+</style>
+{% endblock %}

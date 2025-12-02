@@ -1992,6 +1992,52 @@ def submit_admissions_inquiry():
         return redirect(url_for('admissions'))
 
 
+
+@app.route('/admin/tutors')
+@admin_required
+def admin_tutors():
+    """Admin view all tutors with full details"""
+    tutors = Tutor.query.all()
+    
+    # Get activity counts for each tutor
+    tutor_data = []
+    for tutor in tutors:
+        tutor_info = {
+            'tutor': tutor,
+            'activity_count': len(tutor.activities),
+            'total_students': sum(len(activity.bookings) for activity in tutor.activities)
+        }
+        tutor_data.append(tutor_info)
+    
+    return render_template('admin/tutors.html', tutor_data=tutor_data)
+
+@app.route('/admin/tutor/<int:tutor_id>')
+@admin_required
+def admin_tutor_detail(tutor_id):
+    """View detailed tutor profile with qualifications and activities"""
+    tutor = Tutor.query.get_or_404(tutor_id)
+    
+    # Get all activities by this tutor with booking counts
+    activity_stats = []
+    for activity in tutor.activities:
+        stats = {
+            'activity': activity,
+            'booked': len(activity.bookings),
+            'capacity': activity.max_capacity,
+            'revenue': activity.price * len(activity.bookings)
+        }
+        activity_stats.append(stats)
+    
+    total_revenue = sum(stat['revenue'] for stat in activity_stats)
+    total_students = sum(stat['booked'] for stat in activity_stats)
+    
+    return render_template('admin/tutor_detail.html', 
+                         tutor=tutor,
+                         activity_stats=activity_stats,
+                         total_revenue=total_revenue,
+                         total_students=total_students)
+
+
 if __name__ == '__main__':
     init_db()
     app.run(debug=True)
