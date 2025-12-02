@@ -5,7 +5,7 @@
 {% block content %}
 <div class="hero-section" style="height: 60vh;">
     <div class="hero-bg"
-        style="background: linear-gradient(rgba(5,5,5,0.7), var(--bg-dark)), url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');">
+        style="background: linear-gradient(rgba(0,46,93,0.7), rgba(0,46,93,0.6)), url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80'); background-size: cover; background-position: center;">
     </div>
     <div class="container text-center">
         <h1 class="display-3 hero-title fade-in-up">Admissions</h1>
@@ -16,43 +16,43 @@
 <div class="container section-padding">
     <div class="row">
         <div class="col-lg-8">
-            <h2 class="mb-4 text-white">Application Process</h2>
+            <h2 class="mb-4 text-primary">Application Process</h2>
             <p class="lead text-muted">We welcome applications from students of all backgrounds who demonstrate academic
                 potential and a willingness to contribute to school life.</p>
 
             <div class="timeline mt-5">
-                <div class="d-flex mb-5 hover-3d p-3 rounded" style="border: 1px solid var(--glass-border);">
+                <div class="d-flex mb-5 hover-3d p-4 rounded glass-panel light">
                     <div class="flex-shrink-0">
-                        <div class="rounded-circle d-flex align-items-center justify-content-center"
-                            style="width: 60px; height: 60px; font-weight: bold; background: var(--primary-gold); color: #000; font-size: 1.5rem;">
+                        <div class="rounded-circle d-flex align-items-center justify-content-center bg-primary text-white"
+                            style="width: 60px; height: 60px; font-weight: bold; font-size: 1.5rem;">
                             1</div>
                     </div>
                     <div class="flex-grow-1 ms-4">
-                        <h4 class="text-white">Inquiry & Visit</h4>
+                        <h4 class="text-primary">Inquiry & Visit</h4>
                         <p class="text-muted">Complete the form below to register your interest. We encourage all
                             families to visit us during an Open Morning.</p>
                     </div>
                 </div>
-                <div class="d-flex mb-5 hover-3d p-3 rounded" style="border: 1px solid var(--glass-border);">
+                <div class="d-flex mb-5 hover-3d p-4 rounded glass-panel light">
                     <div class="flex-shrink-0">
-                        <div class="rounded-circle d-flex align-items-center justify-content-center"
-                            style="width: 60px; height: 60px; font-weight: bold; background: var(--primary-gold); color: #000; font-size: 1.5rem;">
+                        <div class="rounded-circle d-flex align-items-center justify-content-center bg-primary text-white"
+                            style="width: 60px; height: 60px; font-weight: bold; font-size: 1.5rem;">
                             2</div>
                     </div>
                     <div class="flex-grow-1 ms-4">
-                        <h4 class="text-white">Registration</h4>
+                        <h4 class="text-primary">Registration</h4>
                         <p class="text-muted">Submit a formal registration form along with the non-refundable
                             registration fee of £150.</p>
                     </div>
                 </div>
-                <div class="d-flex mb-5 hover-3d p-3 rounded" style="border: 1px solid var(--glass-border);">
+                <div class="d-flex mb-5 hover-3d p-4 rounded glass-panel light">
                     <div class="flex-shrink-0">
-                        <div class="rounded-circle d-flex align-items-center justify-content-center"
-                            style="width: 60px; height: 60px; font-weight: bold; background: var(--primary-gold); color: #000; font-size: 1.5rem;">
+                        <div class="rounded-circle d-flex align-items-center justify-content-center bg-primary text-white"
+                            style="width: 60px; height: 60px; font-weight: bold; font-size: 1.5rem;">
                             3</div>
                     </div>
                     <div class="flex-grow-1 ms-4">
-                        <h4 class="text-white">Assessment</h4>
+                        <h4 class="text-primary">Assessment</h4>
                         <p class="text-muted">Candidates are invited for an assessment day involving academic tests and
                             an interview with the Head of Section.</p>
                     </div>
@@ -61,84 +61,91 @@
 
             <div class="divider-gold my-5"></div>
 
-            <h3 class="mb-4 text-white">Admissions Inquiry Form</h3>
-            <div class="glass-panel p-5">
-                <form>
+            <h3 class="mb-4 text-primary">Admissions Inquiry Form</h3>
+            <div class="glass-panel light p-5">
+                <form action="{{ url_for('submit_admissions_inquiry') }}" method="POST" id="admissionsForm">
                     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                     <div class="row">
                         <div class="col-md-6 mb-4">
-                            <label class="form-label text-gold">Parent Name</label>
-                            <input type="text" class="form-control" required>
+                            <label class="form-label text-primary">Parent Name *</label>
+                            <input type="text" name="parent_name" class="form-control" required>
                         </div>
                         <div class="col-md-6 mb-4">
-                            <label class="form-label text-gold">Email Address</label>
-                            <input type="email" class="form-control" required>
+                            <label class="form-label text-primary">Email Address *</label>
+                            <input type="email" name="email" class="form-control" required>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6 mb-4">
-                            <label class="form-label text-gold">Child's Name</label>
-                            <input type="text" class="form-control" required>
+                            <label class="form-label text-primary">Child's Name *</label>
+                            <input type="text" name="child_name" class="form-control" required>
                         </div>
                         <div class="col-md-6 mb-4">
-                            <label class="form-label text-gold">Date of Birth</label>
-                            <input type="date" class="form-control" required>
+                            <label class="form-label text-primary">Date of Birth *</label>
+                            <input type="date" name="date_of_birth" class="form-control" required>
                         </div>
                     </div>
                     <div class="mb-4">
-                        <label class="form-label text-gold">Proposed Year of Entry</label>
-                        <select class="form-control text-white" style="background: rgba(255,255,255,0.05);">
-                            <option style="color: #000;">2026</option>
-                            <option style="color: #000;">2027</option>
-                            <option style="color: #000;">2028</option>
+                        <label class="form-label text-primary">Proposed Year of Entry *</label>
+                        <select name="year_of_entry" class="form-control" required>
+                            <option value="">Select Year</option>
+                            <option value="2026">2026</option>
+                            <option value="2027">2027</option>
+                            <option value="2028">2028</option>
                         </select>
                     </div>
                     <div class="mb-4">
-                        <label class="form-label text-gold">Message / Questions</label>
-                        <textarea class="form-control" rows="4"></textarea>
+                        <label class="form-label text-primary">Message / Questions</label>
+                        <textarea name="message" class="form-control" rows="4"></textarea>
                     </div>
-                    <button type="submit" class="btn btn-elite w-100">Submit Inquiry</button>
+                    <button type="submit" class="btn btn-primary btn-lg w-100">
+                        <i class="fas fa-paper-plane me-2"></i>Submit Inquiry
+                    </button>
                 </form>
             </div>
         </div>
 
         <div class="col-lg-4">
-            <div class="card glass-panel mb-4 hover-3d">
-                <div class="card-header border-bottom border-secondary text-gold fw-bold">Key Dates</div>
+            <div class="card border-0 shadow-sm mb-4 hover-3d">
+                <div class="card-header bg-primary text-white fw-bold">
+                    <i class="far fa-calendar me-2"></i>Key Dates
+                </div>
                 <div class="card-body">
                     <ul class="list-unstyled mb-0">
                         <li class="mb-3">
-                            <strong class="text-white">15 Oct 2025</strong><br>
+                            <strong class="text-primary">15 Oct 2025</strong><br>
                             <span class="text-muted">Sixth Form Application Deadline</span>
                         </li>
                         <li class="mb-3">
-                            <strong class="text-white">10 Jan 2026</strong><br>
+                            <strong class="text-primary">10 Jan 2026</strong><br>
                             <span class="text-muted">Year 7 Entrance Exams</span>
                         </li>
                         <li>
-                            <strong class="text-white">01 Mar 2026</strong><br>
+                            <strong class="text-primary">01 Mar 2026</strong><br>
                             <span class="text-muted">Offer Letters Sent</span>
                         </li>
                     </ul>
                 </div>
             </div>
 
-            <div class="card glass-panel hover-3d">
-                <div class="card-header border-bottom border-secondary text-gold fw-bold">Fees (Per Term)</div>
+            <div class="card border-0 shadow-sm hover-3d">
+                <div class="card-header bg-primary text-white fw-bold">
+                    <i class="fas fa-pound-sign me-2"></i>Fees (Per Term)
+                </div>
                 <div class="card-body">
-                    <table class="table table-dark table-hover mb-0" style="background: transparent;">
+                    <table class="table table-hover mb-0">
                         <tbody>
                             <tr>
                                 <td class="text-muted">Reception</td>
-                                <td class="text-end text-white">£4,500</td>
+                                <td class="text-end fw-bold">£4,500</td>
                             </tr>
                             <tr>
                                 <td class="text-muted">Year 3-6</td>
-                                <td class="text-end text-white">£5,800</td>
+                                <td class="text-end fw-bold">£5,800</td>
                             </tr>
                             <tr>
                                 <td class="text-muted">Year 7-13</td>
-                                <td class="text-end text-white">£7,200</td>
+                                <td class="text-end fw-bold">£7,200</td>
                             </tr>
                         </tbody>
                     </table>
@@ -148,4 +155,12 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.getElementById('admissionsForm').addEventListener('submit', function (e) {
+        const btn = this.querySelector('button[type="submit"]');
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Sending...';
+        btn.disabled = true;
+    });
+</script>
 {% endblock %}

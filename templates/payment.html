@@ -3,6 +3,13 @@
 {% block title %}Secure Payment{% endblock %}
 
 {% block content %}
+<!-- DEMO MODE BANNER -->
+<div style="position: relative;">
+    <div class="demo-badge">
+        <i class="fas fa-flask"></i> DEMO MODE - Payment Simulation
+    </div>
+</div>
+
 <div class="container py-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
@@ -11,6 +18,13 @@
                     <h4 class="mb-0"><i class="fas fa-lock me-2"></i> Secure Payment</h4>
                 </div>
                 <div class="card-body p-5">
+                    <!-- Demo Notice -->
+                    <div class="alert alert-warning border-0" style="background: rgba(255, 193, 7, 0.1);">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <strong>Demo Payment System</strong><br>
+                        <small>In production, this integrates with Stripe. Use any test card details.</small>
+                    </div>
+
                     <div class="text-center mb-4">
                         <h5 class="text-muted">Total Amount</h5>
                         <h2 class="display-4 fw-bold text-primary">£{{ "%.2f"|format(activity.price) }}</h2>
@@ -19,6 +33,14 @@
                     </div>
 
                     <hr class="my-4">
+
+                    <!-- Stripe Logo (Demo) -->
+                    <div class="text-center mb-3">
+                        <div
+                            style="display: inline-block; padding: 10px 20px; background: #635bff; color: white; border-radius: 5px; font-weight: bold; opacity: 0.5;">
+                            <i class="fab fa-stripe me-2"></i>Stripe Demo
+                        </div>
+                    </div>
 
                     <!-- Standard Form Submission -->
                     <form id="payment-form" action="{{ url_for('book_activity') }}" method="POST">
@@ -30,7 +52,7 @@
                         <div class="mb-3">
                             <label class="form-label">Cardholder Name</label>
                             <input type="text" name="cardholder_name" class="form-control form-control-lg"
-                                placeholder="John Doe" required>
+                                placeholder="John Doe" value="Test User" required>
                         </div>
 
                         <div class="mb-3">
@@ -38,20 +60,22 @@
                             <div class="input-group">
                                 <span class="input-group-text"><i class="fas fa-credit-card"></i></span>
                                 <input type="text" name="card_number" class="form-control form-control-lg"
-                                    id="card-number" placeholder="0000 0000 0000 0000" maxlength="19" required>
+                                    id="card-number" placeholder="4242 4242 4242 4242" value="4242 4242 4242 4242"
+                                    maxlength="19" required>
                             </div>
+                            <small class="text-muted">Demo: Use 4242 4242 4242 4242</small>
                         </div>
 
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Expiry Date</label>
                                 <input type="text" name="expiry_date" class="form-control form-control-lg" id="expiry"
-                                    placeholder="MM/YY" maxlength="5" required>
+                                    placeholder="MM/YY" value="12/25" maxlength="5" required>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">CVV</label>
                                 <input type="text" name="cvv" class="form-control form-control-lg" placeholder="123"
-                                    maxlength="3" required>
+                                    value="123" maxlength="3" required>
                             </div>
                         </div>
 
@@ -64,7 +88,7 @@
                     </form>
                 </div>
                 <div class="card-footer bg-light text-center text-muted small">
-                    <i class="fas fa-shield-alt me-1"></i> 256-bit SSL Encrypted Transaction
+                    <i class="fas fa-shield-alt me-1"></i> Demo Simulation - In production: 256-bit SSL Encrypted
                 </div>
             </div>
         </div>
@@ -73,8 +97,6 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        console.log('Payment page initialized');
-
         // Format Expiry Date (MM/YY)
         const expiryInput = document.getElementById('expiry');
         if (expiryInput) {
@@ -105,15 +127,8 @@
         const form = document.getElementById('payment-form');
         if (form) {
             form.addEventListener('submit', function (e) {
-                // We do NOT preventDefault() here. 
-                // We let the form submit naturally.
-                // We just update the UI to show processing.
-                console.log('Form submitting naturally...');
-
                 const btn = document.getElementById('pay-btn');
                 btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Processing...';
-                // Do not disable the button immediately or it might prevent submission in some browsers
-                // btn.disabled = true; 
                 setTimeout(() => { btn.disabled = true; }, 100);
             });
         }
