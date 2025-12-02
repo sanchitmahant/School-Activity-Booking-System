@@ -12,8 +12,12 @@
                     <h1 class="hero-title">Future Leaders<br>Start Here.</h1>
                     <p class="hero-subtitle">Excellence, Tradition, and Innovation in the heart of Oxfordshire.</p>
                     <div class="mt-4">
-                        <a href="{{ url_for('admissions') }}" class="btn btn-primary-custom">Apply for 2026</a>
-                        <a href="#" class="btn btn-outline-custom">Download Prospectus</a>
+                        <a href="{{ url_for('admissions') }}" class="btn btn-primary-custom btn-lg me-2">
+                            <i class="fas fa-graduation-cap me-2"></i>Apply for 2026
+                        </a>
+                        <a href="{{ url_for('download_prospectus') }}" class="btn btn-outline-custom btn-lg">
+                            <i class="fas fa-download me-2"></i>Download Prospectus
+                        </a>
                     </div>
                 </div>
             </div>
@@ -52,6 +56,26 @@
         </div>
     </div>
 </div>
+
+<!-- Activity Booking Call-to-Action -->
+<section class="section-padding bg-gradient" style="background: linear-gradient(135deg, #0DA49F 0%, #002E5D 100%);">
+    <div class="container">
+        <div class="row align-items-center text-white">
+            <div class="col-lg-8">
+                <h2 class="display-6 fw-bold mb-3">
+                    <i class="fas fa-calendar-alt me-3"></i>Activity Booking Portal
+                </h2>
+                <p class="lead mb-0">Browse and book extracurricular activities for your child instantly. Real-time
+                    availability, instant confirmation, and calendar integration.</p>
+            </div>
+            <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
+                <a href="{{ url_for('portal_home') }}" class="btn btn-light btn-lg px-5">
+                    <i class="fas fa-arrow-right me-2"></i>Book Activities
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
 
 <!-- Headmaster's Welcome -->
 <section class="section-padding bg-light-custom">
@@ -99,44 +123,196 @@
 
         <div class="row g-4">
             <div class="col-md-4">
-                <div class="card h-100">
+                <div class="card h-100 card-hover-3d">
                     <img src="https://images.unsplash.com/photo-1523580494863-6f3031224c94?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
                         class="card-img-top" alt="Academic">
                     <div class="card-body text-center">
                         <h4 class="card-title">Academic</h4>
                         <p class="card-text text-muted">World-class facilities and expert tuition in a historic setting.
                         </p>
-                        <a href="#" class="btn btn-link text-decoration-none fw-bold">Learn More <i
-                                class="fas fa-arrow-right ms-1"></i></a>
+                        <a href="{{ url_for('academic') }}" class="btn btn-link text-decoration-none fw-bold">Learn More
+                            <i class="fas fa-arrow-right ms-1"></i></a>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card h-100">
+                <div class="card h-100 card-hover-3d">
                     <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
                         class="card-img-top" alt="Sports">
                     <div class="card-body text-center">
                         <h4 class="card-title">Athletics</h4>
                         <p class="card-text text-muted">Championship winning teams and state-of-the-art sports complex.
                         </p>
-                        <a href="#" class="btn btn-link text-decoration-none fw-bold">Learn More <i
-                                class="fas fa-arrow-right ms-1"></i></a>
+                        <a href="{{ url_for('portal_home') }}" class="btn btn-link text-decoration-none fw-bold">View
+                            Activities <i class="fas fa-arrow-right ms-1"></i></a>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card h-100">
+                <div class="card h-100 card-hover-3d">
                     <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
                         class="card-img-top" alt="Arts">
                     <div class="card-body text-center">
                         <h4 class="card-title">The Arts</h4>
                         <p class="card-text text-muted">A vibrant culture of music, drama, and fine art expression.</p>
-                        <a href="#" class="btn btn-link text-decoration-none fw-bold">Learn More <i
-                                class="fas fa-arrow-right ms-1"></i></a>
+                        <a href="{{ url_for('portal_home') }}" class="btn btn-link text-decoration-none fw-bold">Explore
+                            Arts <i class="fas fa-arrow-right ms-1"></i></a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
+<!-- Testimonials Section -->
+<section class="section-padding bg-light-custom">
+    <div class="container">
+        <div class="text-center mb-5">
+            <small class="text-uppercase text-primary fw-bold letter-spacing-1">What Our Community Says</small>
+            <h2 class="display-5 mt-2">Testimonials</h2>
+            <div class="divider-teal mx-auto"></div>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body p-4">
+                        <div class="mb-3">
+                            <i class="fas fa-quote-left fa-2x text-primary opacity-25"></i>
+                        </div>
+                        <p class="card-text text-muted mb-4">"Greenwood has transformed my daughter's confidence. The
+                            pastoral care is exceptional, and the academic results speak for themselves."</p>
+                        <div class="d-flex align-items-center">
+                            <div class="flex-shrink-0">
+                                <div class="rounded-circle bg-primary d-flex align-items-center justify-content-center"
+                                    style="width: 50px; height: 50px;">
+                                    <span class="text-white fw-bold">SW</span>
+                                </div>
+                            </div>
+                            <div class="flex-grow-1 ms-3">
+                                <h6 class="mb-0">Mrs. Sarah Williams</h6>
+                                <small class="text-muted">Parent, Year 9</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body p-4">
+                        <div class="mb-3">
+                            <i class="fas fa-quote-left fa-2x text-primary opacity-25"></i>
+                        </div>
+                        <p class="card-text text-muted mb-4">"The quality of teaching is exceptional. I've been
+                            challenged academically and supported every step of the way. Greenwood prepared me perfectly
+                            for university."</p>
+                        <div class="d-flex align-items-center">
+                            <div class="flex-shrink-0">
+                                <div class="rounded-circle bg-primary d-flex align-items-center justify-content-center"
+                                    style="width: 50px; height: 50px;">
+                                    <span class="text-white fw-bold">JC</span>
+                                </div>
+                            </div>
+                            <div class="flex-grow-1 ms-3">
+                                <h6 class="mb-0">James Chen</h6>
+                                <small class="text-muted">Year 13 Student</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body p-4">
+                        <div class="mb-3">
+                            <i class="fas fa-quote-left fa-2x text-primary opacity-25"></i>
+                        </div>
+                        <p class="card-text text-muted mb-4">"As an alumnus, I credit Greenwood for my success. The
+                            values instilled and connections made have lasted a lifetime. A truly world-class
+                            institution."</p>
+                        <div class="d-flex align-items-center">
+                            <div class="flex-shrink-0">
+                                <div class="rounded-circle bg-primary d-flex align-items-center justify-content-center"
+                                    style="width: 50px; height: 50px;">
+                                    <span class="text-white fw-bold">RT</span>
+                                </div>
+                            </div>
+                            <div class="flex-grow-1 ms-3">
+                                <h6 class="mb-0">Dr. Rebecca Thompson</h6>
+                                <small class="text-muted">Alumna, Class of 2010</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Latest News & Events -->
+<section class="section-padding">
+    <div class="container">
+        <div class="text-center mb-5">
+            <small class="text-uppercase text-primary fw-bold letter-spacing-1">Stay Updated</small>
+            <h2 class="display-5 mt-2">Latest News & Events</h2>
+            <div class="divider-teal mx-auto"></div>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body">
+                        <span class="badge bg-primary mb-3">Upcoming Event</span>
+                        <h5 class="card-title">Open Day 2025</h5>
+                        <p class="text-muted small mb-2"><i class="fas fa-calendar me-2"></i>Saturday, 15th March 2025
+                        </p>
+                        <p class="card-text">Join us for our annual Open Day. Tour the campus, meet staff, and
+                            experience Greenwood life firsthand.</p>
+                        <a href="{{ url_for('admissions') }}" class="btn btn-sm btn-outline-primary">Register Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body">
+                        <span class="badge bg-success mb-3">Achievement</span>
+                        <h5 class="card-title">Rugby Champions</h5>
+                        <p class="text-muted small mb-2"><i class="fas fa-trophy me-2"></i>Regional Championship</p>
+                        <p class="card-text">Our U18 rugby team clinched the regional championship with an outstanding
+                            undefeated season!</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Read More</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body">
+                        <span class="badge bg-info text-dark mb-3">Announcement</span>
+                        <h5 class="card-title">New STEM Building</h5>
+                        <p class="text-muted small mb-2"><i class="fas fa-building me-2"></i>Opens September 2025</p>
+                        <p class="card-text">State-of-the-art STEM facility with robotics labs, 3D printing studios, and
+                            collaborative learning spaces.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Add 3D hover effect CSS -->
+<style>
+    .card-hover-3d {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card-hover-3d:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 35px rgba(0, 46, 93, 0.2);
+    }
+</style>
 {% endblock %}
