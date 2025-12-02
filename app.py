@@ -87,25 +87,6 @@ class Tutor(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(200), nullable=False)
-    full_name = db.Column(db.String(120), nullable=False)
-    specialization = db.Column(db.String(100))
-    bio = db.Column(db.Text)
-    qualifications = db.Column(db.Text)  # Educational background
-    photo_url = db.Column(db.String(200), default='default-avatar.png')  # Profile photo
-    
-    # Approval workflow fields
-    status = db.Column(db.String(20), default='pending')  # pending, approved, rejected
-    application_date = db.Column(db.DateTime, default=datetime.utcnow)
-    approved_by = db.Column(db.Integer, db.ForeignKey('admin.id'), nullable=True)
-    approval_date = db.Column(db.DateTime, nullable=True)
-    email_verified = db.Column(db.Boolean, default=False)
-    
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    
-    activities = db.relationship('Activity', backref='tutor', lazy=True)
-
-    def set_password(self, password):
-        self.password = generate_password_hash(password)
     
     def check_password(self, password):
         return check_password_hash(self.password, password)

@@ -86,37 +86,14 @@
                                 <span class="badge bg-secondary">{{
                                     activity.day_of_week }}</span>
                                 <small class="d-block text-muted">{{
-                                    activity.start_time }} - {{
-                                    activity.end_time
-                                    }}</small>
-                            </td>
-                            <td class="align-middle">£{{
-                                "%.2f"|format(activity.price) }}</td>
-                            <td class="align-middle">
-                                {% set booked = activity.bookings|length %}
-                                <div class="d-flex align-items-center" style="width: 150px;">
-                                    <span class="me-2 small">{{ booked }}/{{
-                                        activity.max_capacity
-                                        }}</span>
-                                    <div class="progress flex-grow-1" style="height: 4px;">
-                                        <div class="progress-bar"
-                                            style="width: {{ (booked/activity.max_capacity)*100 }}%">
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="align-middle">
-                                <button class="btn btn-sm btn-outline-info rounded-circle me-1" data-bs-toggle="modal"
-                                    data-bs-target="#editActivityModal" data-id="{{ activity.id }}"
-                                    data-name="{{ activity.name }}" data-price="{{ " %.2f"|format(activity.price) }}"
                                     data-day="{{ activity.day_of_week }}" data-start="{{ activity.start_time }}"
                                     data-end="{{ activity.end_time }}"
                                     data-tutor="{{ activity.tutor_id if activity.tutor_id else '' }}"><i
                                         class="fas fa-edit"></i></button>
-                                <button class="btn btn-sm btn-outline-danger rounded-circle" data-bs-toggle="modal"
-                                    data-bs-target="#deleteModal"
-                                    data-url="{{ url_for('delete_activity', id=activity.id) }}"><i
-                                        class="fas fa-trash"></i></button>
+                                    <button class="btn btn-sm btn-outline-danger rounded-circle" data-bs-toggle="modal"
+                                        data-bs-target="#deleteModal"
+                                        data-url="{{ url_for('delete_activity', id=activity.id) }}"><i
+                                            class="fas fa-trash"></i></button>
                             </td>
                         </tr>
                         {% endfor %}
