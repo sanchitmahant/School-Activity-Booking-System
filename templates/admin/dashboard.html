@@ -162,273 +162,286 @@
                                     }} Activities</span>
                             </td>
                             <td class="align-middle">
+                                <button class="btn btn-sm btn-outline-info rounded-circle me-1" data-bs-toggle="modal"
+                                    data-bs-target="#editTutorModal" data-id="{{ tutor.id }}"
+                                    data-name="{{ tutor.full_name }}" data-email="{{ tutor.email }}"
+                                    data-spec="{{ tutor.specialization }}"><i class="fas fa-edit"></i></button>
+                                <button class="btn btn-sm btn-outline-danger rounded-circle" data-bs-toggle="modal"
+                                    data-bs-target="#deleteModal"
+                                    data-url="{{ url_for('delete_tutor', id=tutor.id) }}"><i
+                                        class="fas fa-trash"></i></button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
         </div>
+    </div>
+</div>
 
-        <!-- Add Tutor Modal -->
-        <div class="modal fade" id="addTutorModal" tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header bg-primary text-white">
-                        <h5 class="modal-title">Add New Tutor</h5>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+<!-- Add Tutor Modal -->
+<div class="modal fade" id="addTutorModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title">Add New Tutor</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ url_for('add_tutor') }}" method="POST">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <div class="mb-3">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" class="form-control" name="full_name" required>
                     </div>
-                    <div class="modal-body">
-                        <form action="{{ url_for('add_tutor') }}" method="POST">
-                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                            <div class="mb-3">
-                                <label class="form-label">Full Name</label>
-                                <input type="text" class="form-control" name="full_name" required>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Email Address</label>
-                                <input type="email" class="form-control" name="email" required>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Password</label>
-                                <input type="password" class="form-control" name="password" required>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Specialization</label>
-                                <input type="text" class="form-control" name="specialization"
-                                    placeholder="e.g. Science, Music" required>
-                            </div>
-                            <button type="submit" class="btn btn-primary-custom w-100">Create Tutor
-                                Profile</button>
-                        </form>
+                    <div class="mb-3">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" class="form-control" name="email" required>
                     </div>
-                </div>
+                    <div class="mb-3">
+                        <label class="form-label">Password</label>
+                        <input type="password" class="form-control" name="password" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Specialization</label>
+                        <input type="text" class="form-control" name="specialization" placeholder="e.g. Science, Music"
+                            required>
+                    </div>
+                    <button type="submit" class="btn btn-primary-custom w-100">Create Tutor
+                        Profile</button>
+                </form>
             </div>
         </div>
+    </div>
+</div>
 
-        <!-- Edit Tutor Modal -->
-        <div class="modal fade" id="editTutorModal" tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header bg-info text-white">
-                        <h5 class="modal-title">Edit Tutor</h5>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+<!-- Edit Tutor Modal -->
+<div class="modal fade" id="editTutorModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-info text-white">
+                <h5 class="modal-title">Edit Tutor</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editTutorForm" method="POST">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <div class="mb-3">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" class="form-control" name="full_name" id="editTutorName" required>
                     </div>
-                    <div class="modal-body">
-                        <form id="editTutorForm" method="POST">
-                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                            <div class="mb-3">
-                                <label class="form-label">Full Name</label>
-                                <input type="text" class="form-control" name="full_name" id="editTutorName" required>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Email Address</label>
-                                <input type="email" class="form-control" name="email" id="editTutorEmail" required>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">New Password (leave blank to keep
-                                    current)</label>
-                                <input type="password" class="form-control" name="password" placeholder="New Password">
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Specialization</label>
-                                <input type="text" class="form-control" name="specialization" id="editTutorSpec"
-                                    required>
-                            </div>
-                            <button type="submit" class="btn btn-info w-100 text-white">Update
-                                Tutor</button>
-                        </form>
+                    <div class="mb-3">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" class="form-control" name="email" id="editTutorEmail" required>
                     </div>
-                </div>
+                    <div class="mb-3">
+                        <label class="form-label">New Password (leave blank to keep
+                            current)</label>
+                        <input type="password" class="form-control" name="password" placeholder="New Password">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Specialization</label>
+                        <input type="text" class="form-control" name="specialization" id="editTutorSpec" required>
+                    </div>
+                    <button type="submit" class="btn btn-info w-100 text-white">Update
+                        Tutor</button>
+                </form>
             </div>
         </div>
+    </div>
+</div>
 
-        <!-- Add Activity Modal -->
-        <div class="modal fade" id="addActivityModal" tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header bg-primary text-white">
-                        <h5 class="modal-title">Create New Activity</h5>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+<!-- Add Activity Modal -->
+<div class="modal fade" id="addActivityModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title">Create New Activity</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ url_for('add_activity') }}" method="POST">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <div class="mb-3">
+                        <label class="form-label">Activity Name</label>
+                        <input type="text" class="form-control" name="name" required>
                     </div>
-                    <div class="modal-body">
-                        <form action="{{ url_for('add_activity') }}" method="POST">
-                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                            <div class="mb-3">
-                                <label class="form-label">Activity Name</label>
-                                <input type="text" class="form-control" name="name" required>
-                            </div>
-                            <div class="row">
-                                <div class="col-6 mb-3">
-                                    <label class="form-label">Price (£)</label>
-                                    <input type="number" step="0.01" class="form-control" name="price" required>
-                                </div>
-                                <div class="col-6 mb-3">
-                                    <label class="form-label">Day</label>
-                                    <select class="form-select" name="day" required>
-                                        <option>Monday</option>
-                                        <option>Tuesday</option>
-                                        <option>Wednesday</option>
-                                        <option>Thursday</option>
-                                        <option>Friday</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-6 mb-3">
-                                    <label class="form-label">Start Time</label>
-                                    <input type="time" class="form-control" name="start" required>
-                                </div>
-                                <div class="col-6 mb-3">
-                                    <label class="form-label">End Time</label>
-                                    <input type="time" class="form-control" name="end" required>
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Assign Tutor</label>
-                                <select class="form-select" name="tutor_id">
-                                    <option value="">Select Tutor (Optional)</option>
-                                    {% for tutor in tutors %}
-                                    <option value="{{ tutor.id }}">{{ tutor.full_name }} ({{
-                                        tutor.specialization }})</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                            <button type="submit" class="btn btn-primary-custom w-100">Create
-                                Activity</button>
-                        </form>
+                    <div class="row">
+                        <div class="col-6 mb-3">
+                            <label class="form-label">Price (£)</label>
+                            <input type="number" step="0.01" class="form-control" name="price" required>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label class="form-label">Day</label>
+                            <select class="form-select" name="day" required>
+                                <option>Monday</option>
+                                <option>Tuesday</option>
+                                <option>Wednesday</option>
+                                <option>Thursday</option>
+                                <option>Friday</option>
+                            </select>
+                        </div>
                     </div>
-                </div>
+                    <div class="row">
+                        <div class="col-6 mb-3">
+                            <label class="form-label">Start Time</label>
+                            <input type="time" class="form-control" name="start" required>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label class="form-label">End Time</label>
+                            <input type="time" class="form-control" name="end" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Assign Tutor</label>
+                        <select class="form-select" name="tutor_id">
+                            <option value="">Select Tutor (Optional)</option>
+                            {% for tutor in tutors %}
+                            <option value="{{ tutor.id }}">{{ tutor.full_name }} ({{
+                                tutor.specialization }})</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary-custom w-100">Create
+                        Activity</button>
+                </form>
             </div>
         </div>
+    </div>
+</div>
 
-        <!-- Edit Activity Modal -->
-        <div class="modal fade" id="editActivityModal" tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header bg-info text-white">
-                        <h5 class="modal-title">Edit Activity</h5>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+<!-- Edit Activity Modal -->
+<div class="modal fade" id="editActivityModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-info text-white">
+                <h5 class="modal-title">Edit Activity</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editActivityForm" method="POST">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <div class="mb-3">
+                        <label class="form-label">Activity Name</label>
+                        <input type="text" class="form-control" name="name" id="editActivityName" required>
                     </div>
-                    <div class="modal-body">
-                        <form id="editActivityForm" method="POST">
-                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                            <div class="mb-3">
-                                <label class="form-label">Activity Name</label>
-                                <input type="text" class="form-control" name="name" id="editActivityName" required>
-                            </div>
-                            <div class="row">
-                                <div class="col-6 mb-3">
-                                    <label class="form-label">Price (£)</label>
-                                    <input type="number" step="0.01" class="form-control" name="price"
-                                        id="editActivityPrice" required>
-                                </div>
-                                <div class="col-6 mb-3">
-                                    <label class="form-label">Day</label>
-                                    <select class="form-select" name="day" id="editActivityDay" required>
-                                        <option>Monday</option>
-                                        <option>Tuesday</option>
-                                        <option>Wednesday</option>
-                                        <option>Thursday</option>
-                                        <option>Friday</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-6 mb-3">
-                                    <label class="form-label">Start Time</label>
-                                    <input type="time" class="form-control" name="start" id="editActivityStart"
-                                        required>
-                                </div>
-                                <div class="col-6 mb-3">
-                                    <label class="form-label">End Time</label>
-                                    <input type="time" class="form-control" name="end" id="editActivityEnd" required>
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Assign Tutor</label>
-                                <select class="form-select" name="tutor_id" id="editActivityTutor">
-                                    <option value="">Select Tutor (Optional)</option>
-                                    {% for tutor in tutors %}
-                                    <option value="{{ tutor.id }}">{{ tutor.full_name }} ({{
-                                        tutor.specialization }})</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                            <button type="submit" class="btn btn-info w-100 text-white">Update
-                                Activity</button>
-                        </form>
+                    <div class="row">
+                        <div class="col-6 mb-3">
+                            <label class="form-label">Price (£)</label>
+                            <input type="number" step="0.01" class="form-control" name="price" id="editActivityPrice"
+                                required>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label class="form-label">Day</label>
+                            <select class="form-select" name="day" id="editActivityDay" required>
+                                <option>Monday</option>
+                                <option>Tuesday</option>
+                                <option>Wednesday</option>
+                                <option>Thursday</option>
+                                <option>Friday</option>
+                            </select>
+                        </div>
                     </div>
-                </div>
+                    <div class="row">
+                        <div class="col-6 mb-3">
+                            <label class="form-label">Start Time</label>
+                            <input type="time" class="form-control" name="start" id="editActivityStart" required>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label class="form-label">End Time</label>
+                            <input type="time" class="form-control" name="end" id="editActivityEnd" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Assign Tutor</label>
+                        <select class="form-select" name="tutor_id" id="editActivityTutor">
+                            <option value="">Select Tutor (Optional)</option>
+                            {% for tutor in tutors %}
+                            <option value="{{ tutor.id }}">{{ tutor.full_name }} ({{
+                                tutor.specialization }})</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-info w-100 text-white">Update
+                        Activity</button>
+                </form>
             </div>
         </div>
+    </div>
+</div>
 
-        <!-- Delete Confirmation Modal -->
-        <div class="modal fade" id="deleteModal" tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header bg-danger text-white">
-                        <h5 class="modal-title">Confirm Deletion</h5>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p>Are you sure you want to delete this item? This action cannot be
-                            undone.</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <form id="deleteForm" method="POST" style="display: inline;">
-                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                            <button type="submit" class="btn btn-danger">Delete</button>
-                        </form>
-                    </div>
-                </div>
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title">Confirm Deletion</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete this item? This action cannot be
+                    undone.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <form id="deleteForm" method="POST" style="display: inline;">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
             </div>
         </div>
+    </div>
+</div>
 
-        <script>
-            // Handle Edit Tutor
-            var editTutorModal = document.getElementById('editTutorModal');
-            editTutorModal.addEventListener('show.bs.modal', function (event) {
-                var button = event.relatedTarget;
-                var id = button.getAttribute('data-id');
-                var name = button.getAttribute('data-name');
-                var email = button.getAttribute('data-email');
-                var spec = button.getAttribute('data-spec');
+<script>
+    // Handle Edit Tutor
+    var editTutorModal = document.getElementById('editTutorModal');
+    editTutorModal.addEventListener('show.bs.modal', function (event) {
+        var button = event.relatedTarget;
+        var id = button.getAttribute('data-id');
+        var name = button.getAttribute('data-name');
+        var email = button.getAttribute('data-email');
+        var spec = button.getAttribute('data-spec');
 
-                var form = document.getElementById('editTutorForm');
-                form.action = '/admin/tutor/edit/' + id;
+        var form = document.getElementById('editTutorForm');
+        form.action = '/admin/tutor/edit/' + id;
 
-                document.getElementById('editTutorName').value = name;
-                document.getElementById('editTutorEmail').value = email;
-                document.getElementById('editTutorSpec').value = spec;
-            });
+        document.getElementById('editTutorName').value = name;
+        document.getElementById('editTutorEmail').value = email;
+        document.getElementById('editTutorSpec').value = spec;
+    });
 
-            // Handle Edit Activity
-            var editActivityModal = document.getElementById('editActivityModal');
-            editActivityModal.addEventListener('show.bs.modal', function (event) {
-                var button = event.relatedTarget;
-                var id = button.getAttribute('data-id');
-                var name = button.getAttribute('data-name');
-                var price = button.getAttribute('data-price');
-                var day = button.getAttribute('data-day');
-                var start = button.getAttribute('data-start');
-                var end = button.getAttribute('data-end');
-                var tutor = button.getAttribute('data-tutor');
+    // Handle Edit Activity
+    var editActivityModal = document.getElementById('editActivityModal');
+    editActivityModal.addEventListener('show.bs.modal', function (event) {
+        var button = event.relatedTarget;
+        var id = button.getAttribute('data-id');
+        var name = button.getAttribute('data-name');
+        var price = button.getAttribute('data-price');
+        var day = button.getAttribute('data-day');
+        var start = button.getAttribute('data-start');
+        var end = button.getAttribute('data-end');
+        var tutor = button.getAttribute('data-tutor');
 
-                var form = document.getElementById('editActivityForm');
-                form.action = '/admin/activity/edit/' + id;
+        var form = document.getElementById('editActivityForm');
+        form.action = '/admin/activity/edit/' + id;
 
-                document.getElementById('editActivityName').value = name;
-                document.getElementById('editActivityPrice').value = price;
-                document.getElementById('editActivityDay').value = day;
-                document.getElementById('editActivityStart').value = start;
-                document.getElementById('editActivityEnd').value = end;
-                document.getElementById('editActivityTutor').value = tutor ? tutor : "";
-            });
+        document.getElementById('editActivityName').value = name;
+        document.getElementById('editActivityPrice').value = price;
+        document.getElementById('editActivityDay').value = day;
+        document.getElementById('editActivityStart').value = start;
+        document.getElementById('editActivityEnd').value = end;
+        document.getElementById('editActivityTutor').value = tutor ? tutor : "";
+    });
 
-            // Handle Delete
-            var deleteModal = document.getElementById('deleteModal');
-            deleteModal.addEventListener('show.bs.modal', function (event) {
-                var button = event.relatedTarget;
-                var url = button.getAttribute('data-url');
-                var form = document.getElementById('deleteForm');
-                form.action = url;
-            });
-        </script>
-        {% endblock %}
+    // Handle Delete
+    var deleteModal = document.getElementById('deleteModal');
+    deleteModal.addEventListener('show.bs.modal', function (event) {
+        var button = event.relatedTarget;
+        var url = button.getAttribute('data-url');
+        var form = document.getElementById('deleteForm');
+        form.action = url;
+    });
+</script>
+{% endblock %}
