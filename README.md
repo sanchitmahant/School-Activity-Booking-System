@@ -29,12 +29,16 @@ A comprehensive web-based application for managing school activity bookings, des
 - **Invoices**: Download professional PDF invoices.
 
 ### 👨‍🏫 For Tutors
-- **Class Management**: View assigned activities and student lists.
+- **🆕 Self-Registration**: Apply to become a tutor via public application form.
+- **🆕 Application Tracking**: Receive email updates on application status.
+- **Class Management**: View assigned activities and student lists (approved tutors only).
 - **Attendance Tracking**: Mark student attendance digitally.
 - **Real-time Updates**: See class capacity and enrollment.
 
 ### 🛡️ For Administrators
 - **Control Panel**: Manage activities, tutors, and users.
+- **🆕 Tutor Approval System**: Review and approve/reject tutor applications.
+- **🆕 Email Notifications**: Automatic notifications for new applications.
 - **Analytics**: View booking statistics and revenue.
 - **Security**: RBAC (Role-Based Access Control) and CSRF protection.
 
