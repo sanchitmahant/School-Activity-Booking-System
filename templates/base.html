@@ -32,6 +32,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="{{ url_for('index') }}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('about') }}">About</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ url_for('academic') }}">Academic</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ url_for('admissions') }}">Admissions</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ url_for('alumni') }}">Alumni</a></li>
@@ -91,7 +92,7 @@
                         <li><a href="#">Term Dates</a></li>
                         <li><a href="#">School Policies</a></li>
                         <li><a href="#">Careers</a></li>
-                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4 mb-4">

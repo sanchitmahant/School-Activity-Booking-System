@@ -12,6 +12,7 @@ from email.mime.text import MIMEText
 from email.mime.base import MIMEBase
 from email import encoders
 import os
+from itsdangerous import URLSafeTimedSerializer
 from reportlab.lib.pagesizes import letter
 from reportlab.lib import colors
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer
@@ -91,9 +92,24 @@ class Tutor(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(200), nullable=False)
+    full_name = db.Column(db.String(120), nullable=False)
+    specialization = db.Column(db.String(200))
+    qualification = db.Column(db.String(300))
+    bio = db.Column(db.Text)
+    linkedin_url = db.Column(db.String(200))
+    teaching_philosophy = db.Column(db.Text)
+    years_experience = db.Column(db.Integer)
+    education = db.Column(db.Text)
+    certifications = db.Column(db.Text)
+    status = db.Column(db.String(20), default='approved')  # pending, approved, rejected
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    
+    def set_password(self, password):
+        self.password = generate_password_hash(password)
     
     def check_password(self, password):
         return check_password_hash(self.password, password)
+
 
 class Child(db.Model):
     """Child model"""
@@ -120,6 +136,8 @@ class Activity(db.Model):
     end_time = db.Column(db.String(10), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     
+    # Relationships
+    tutor = db.relationship('Tutor', backref='activities', lazy=True)
     bookings = db.relationship('Booking', backref='activity', lazy=True, cascade='all, delete-orphan')
     waitlists = db.relationship('Waitlist', backref='activity', lazy=True, cascade='all, delete-orphan')
 
@@ -431,6 +449,62 @@ def send_booking_confirmation_email(booking):
             
             mail.send(tutor_msg)
         
+        # === Email to Admin ===
+        admin = Admin.query.first()
+        if admin:
+            admin_msg = Message(
+                subject=f'New Booking Alert: {activity.name} - {child.name}',
+                sender=('Greenwood International School', 'greenwoodinternationaluk@gmail.com'),
+                recipients=[admin.email]
+            )
+            
+            admin_msg.html = f"""
+            <html>
+            <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+                <div style="max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px;">
+                    <h2 style="color: #002E5D;">New Booking Received</h2>
+                    
+                    <p><strong>Admin Notification</strong></p>
+                    
+                    <p>A new booking has been successfully processed.</p>
+                    
+                    <div style="background-color: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                        <h3 style="color: #002E5D; margin-top: 0;">Booking Details</h3>
+                        <table style="width: 100%; border-collapse: collapse;">
+                            <tr>
+                                <td style="padding: 8px 0; font-weight: bold; width: 40%;">Booking ID:</td>
+                                <td style="padding: 8px 0;">#{booking.id}</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 8px 0; font-weight: bold;">Activity:</td>
+                                <td style="padding: 8px 0;">{activity.name}</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 8px 0; font-weight: bold;">Student:</td>
+                                <td style="padding: 8px 0;">{child.name} (Year {child.grade})</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 8px 0; font-weight: bold;">Parent:</td>
+                                <td style="padding: 8px 0;">{parent.full_name} ({parent.email})</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 8px 0; font-weight: bold;">Date:</td>
+                                <td style="padding: 8px 0;">{booking.booking_date.strftime('%A, %d %B %Y')}</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 8px 0; font-weight: bold;">Amount Paid:</td>
+                                <td style="padding: 8px 0; color: #28a745; font-weight: bold;">£{booking.cost:.2f}</td>
+                            </tr>
+                        </table>
+                    </div>
+                    
+                    <p style="font-size: 12px; color: #666;">This is an automated notification for the school administrator.</p>
+                </div>
+            </body>
+            </html>
+            """
+            mail.send(admin_msg)
+        
         # Send parent email
         mail.send(parent_msg)
         
@@ -544,8 +618,141 @@ def send_tutor_rejection_email(tutor):
         print(f'Email error: {e}')
         return False
 
+def send_password_reset_email(user_email, token, user_type):
+    """Send password reset link"""
+    try:
+        reset_url = url_for('reset_password', token=token, _external=True)
+        
+        msg = Message(
+            subject='Password Reset Request - Greenwood International',
+            sender=('Greenwood International School', 'greenwoodinternationaluk@gmail.com'),
+            recipients=[user_email]
+        )
+        
+        msg.html = f"""
+        <html>
+        <body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; background-color: #f4f4f4; padding: 20px;">
+            <div style="max-width: 600px; margin: 0 auto; background: #ffffff; padding: 40px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <h2 style="color: #002E5D; margin: 0;">Password Reset</h2>
+                    <p style="color: #666; font-size: 14px;">Greenwood International School</p>
+                </div>
+                
+                <p>Hello,</p>
+                
+                <p>We received a request to reset the password for your <strong>{user_type}</strong> account.</p>
+                
+                <p>Click the button below to set a new password. This link is valid for 1 hour.</p>
+                
+                <div style="text-align: center; margin: 30px 0;">
+                    <a href="{reset_url}" style="background-color: #0DA49F; color: white; padding: 14px 28px; text-decoration: none; border-radius: 50px; font-weight: bold; display: inline-block; box-shadow: 0 4px 6px rgba(13, 164, 159, 0.2);">
+                        Reset Password
+                    </a>
+                </div>
+                
+                <p style="font-size: 13px; color: #666;">
+                    If you didn't request this, you can safely ignore this email. Your password will remain unchanged.
+                </p>
+                
+                <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee; font-size: 12px; color: #999; text-align: center;">
+                    <p>&copy; {datetime.now().year} Greenwood International School. All rights reserved.</p>
+                </div>
+            </div>
+        </body>
+        </html>
+        """
+        mail.send(msg)
+        return True
+    except Exception as e:
+        print(f'Email error: {e}')
+        return False
+
 
 # ==================== Routes ====================
+
+@app.route('/forgot-password', methods=['GET', 'POST'])
+def forgot_password():
+    """Handle forgot password request"""
+    if request.method == 'POST':
+        email = request.form.get('email')
+        user_type = None
+        user = None
+        
+        # Check Parent
+        parent = Parent.query.filter_by(email=email).first()
+        if parent:
+            user = parent
+            user_type = 'Parent'
+        
+        # Check Tutor
+        if not user:
+            tutor = Tutor.query.filter_by(email=email).first()
+            if tutor:
+                user = tutor
+                user_type = 'Tutor'
+        
+        # Check Admin (Explicitly Excluded)
+        if not user:
+            admin = Admin.query.filter_by(email=email).first()
+            if admin:
+                flash('Admin accounts cannot reset passwords via email. Please contact system support.', 'danger')
+                return redirect(url_for('forgot_password'))
+
+        if user:
+            s = URLSafeTimedSerializer(app.config['SECRET_KEY'])
+            token = s.dumps(user.email, salt='password-reset-salt')
+            
+            if send_password_reset_email(user.email, token, user_type):
+                flash('A password reset link has been sent to your email.', 'success')
+            else:
+                flash('Error sending email. Please try again later.', 'danger')
+        else:
+            # Security: Don't reveal if email exists or not, but for UX we might want to be vague
+            # "If an account exists with this email, a reset link has been sent."
+            flash('If an account exists with this email, a reset link has been sent.', 'info')
+            
+        return redirect(url_for('login'))
+        
+    return render_template('forgot_password.html')
+
+@app.route('/reset-password/<token>', methods=['GET', 'POST'])
+def reset_password(token):
+    """Handle password reset with token"""
+    try:
+        s = URLSafeTimedSerializer(app.config['SECRET_KEY'])
+        email = s.loads(token, salt='password-reset-salt', max_age=3600) # 1 hour expiration
+    except:
+        flash('The password reset link is invalid or has expired.', 'danger')
+        return redirect(url_for('forgot_password'))
+    
+    if request.method == 'POST':
+        password = request.form.get('password')
+        confirm_password = request.form.get('confirm_password')
+        
+        if password != confirm_password:
+            flash('Passwords do not match.', 'danger')
+            return redirect(url_for('reset_password', token=token))
+            
+        # Update password
+        user = Parent.query.filter_by(email=email).first()
+        if not user:
+            user = Tutor.query.filter_by(email=email).first()
+            
+        if user:
+            user.set_password(password)
+            db.session.commit()
+            flash('Your password has been updated! You can now log in.', 'success')
+            
+            # Redirect based on user type
+            if isinstance(user, Tutor):
+                return redirect(url_for('tutor_login'))
+            else:
+                return redirect(url_for('login'))
+        else:
+            flash('User account not found.', 'danger')
+            return redirect(url_for('login'))
+            
+    return render_template('reset_password.html', token=token)
 
 @app.route('/')
 def index():
@@ -903,7 +1110,16 @@ def generate_invoice(booking_id):
         abort(403)
     
     buffer = BytesIO()
-    doc = SimpleDocTemplate(buffer, pagesize=letter, topMargin=0.5*inch, bottomMargin=0.5*inch)
+    doc = SimpleDocTemplate(
+        buffer, 
+        pagesize=letter, 
+        topMargin=0.6*inch, 
+        bottomMargin=0.75*inch,
+        leftMargin=0.75*inch,
+        rightMargin=0.75*inch,
+        title=f'Invoice #{booking.id:06d}',
+        author='Greenwood International School'
+    )
     elements = []
     styles = getSampleStyleSheet()
     

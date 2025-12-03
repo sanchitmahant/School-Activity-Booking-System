@@ -19,8 +19,8 @@ class Config:
     MAIL_SERVER = os.environ.get('MAIL_SERVER', 'smtp.gmail.com')
     MAIL_PORT = int(os.environ.get('MAIL_PORT', 587))
     MAIL_USE_TLS = os.environ.get('MAIL_USE_TLS', 'true').lower() == 'true'
-    MAIL_USERNAME = os.environ.get('MAIL_USERNAME', 'taranjob321@gmail.com')
-    MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD', 'aqao kkja jwla rxkx')
+    MAIL_USERNAME = os.environ.get('MAIL_USERNAME', 'greenwoodinternationaluk@gmail.com')
+    MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD', 'muesmgjpulyscdmv')
     MAIL_DEFAULT_SENDER = os.environ.get('MAIL_DEFAULT_SENDER', 'greenwoodinternationaluk@gmail.com')
     
     # Payment Configuration (Stripe)

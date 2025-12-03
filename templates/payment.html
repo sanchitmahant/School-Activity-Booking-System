@@ -1,135 +1,268 @@
 {% extends "base.html" %}
 
-{% block title %}Secure Payment{% endblock %}
+{% block title %}Secure Checkout{% endblock %}
 
 {% block content %}
-<!-- DEMO MODE BANNER -->
-<div style="position: relative;">
-    <div class="demo-badge">
-        <i class="fas fa-flask"></i> DEMO MODE - Payment Simulation
-    </div>
-</div>
-
 <div class="container py-5">
     <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card shadow-lg border-0">
-                <div class="card-header bg-primary text-white py-3">
-                    <h4 class="mb-0"><i class="fas fa-lock me-2"></i> Secure Payment</h4>
+        <div class="col-lg-8">
+            <div class="row g-4">
+                <!-- Left Side: Payment Form -->
+                <div class="col-md-7">
+                    <div class="card shadow-sm border-0" style="border-radius: 12px;">
+                        <div class="card-body p-4">
+                            <div class="mb-4">
+                                <h5 class="fw-bold mb-1" style="color: #1a1a1a;">Payment Details</h5>
+                                <p class="text-muted small mb-0">Complete your secure checkout</p>
+                            </div>
+
+                            <form id="payment-form" action="{{ url_for('book_activity') }}" method="POST">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                <input type="hidden" name="activity_id" value="{{ activity.id }}">
+                                <input type="hidden" name="child_id" value="{{ child.id }}">
+                                <input type="hidden" name="booking_date" value="{{ date }}">
+
+                                <!-- Email -->
+                                <div class="mb-4">
+                                    <label class="form-label small fw-600 mb-2"
+                                        style="color: #4a4a4a; letter-spacing: 0.3px;">Email Address</label>
+                                    <input type="email" name="email" class="form-control" placeholder="you@example.com"
+                                        required
+                                        style="padding: 13px 15px; font-size: 15px; border: 1px solid #d1d5db; border-radius: 8px;">
+                                </div>
+
+                                <!-- Card Information -->
+                                <div class="mb-4">
+                                    <label class="form-label small fw-600 mb-2"
+                                        style="color: #4a4a4a; letter-spacing: 0.3px;">Card Information</label>
+                                    <div class="border rounded-3"
+                                        style="overflow: hidden; border-color: #d1d5db !important;">
+                                        <!-- Card Number -->
+                                        <div class="position-relative" style="border-bottom: 1px solid #e5e7eb;">
+                                            <input type="text" name="card_number" id="card-number"
+                                                class="form-control border-0" placeholder="1234 5678 9012 3456"
+                                                maxlength="19" required
+                                                style="padding: 14px 50px 14px 45px; font-size: 15px; font-family: 'Courier New', monospace;">
+                                            <div class="position-absolute top-50 start-0 translate-middle-y ms-3">
+                                                <i class="fas fa-credit-card text-muted" id="card-icon"></i>
+                                            </div>
+                                            <div class="position-absolute top-50 end-0 translate-middle-y me-3">
+                                                <i class="fab fa-cc-visa text-muted opacity-50"
+                                                    style="font-size: 24px;"></i>
+                                            </div>
+                                        </div>
+                                        <!-- Expiry & CVC -->
+                                        <div class="row g-0">
+                                            <div class="col-6" style="border-right: 1px solid #e5e7eb;">
+                                                <input type="text" name="expiry_date" id="expiry"
+                                                    class="form-control border-0" placeholder="MM / YY" maxlength="7"
+                                                    required
+                                                    style="padding: 14px 15px; font-size: 15px; font-family: 'Courier New', monospace;">
+                                            </div>
+                                            <div class="col-6">
+                                                <input type="text" name="cvv" id="cvc" class="form-control border-0"
+                                                    placeholder="CVV" maxlength="4" required
+                                                    style="padding: 14px 15px; font-size: 15px; font-family: 'Courier New', monospace;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <small class="text-muted d-block mt-2"><i class="fas fa-lock me-1"></i> Your payment
+                                        information is encrypted</small>
+                                </div>
+
+                                <!-- Cardholder Name -->
+                                <div class="mb-4">
+                                    <label class="form-label small fw-600 mb-2"
+                                        style="color: #4a4a4a; letter-spacing: 0.3px;">Cardholder Name</label>
+                                    <input type="text" name="cardholder_name" class="form-control"
+                                        placeholder="John Doe" required
+                                        style="padding: 13px 15px; font-size: 15px; border: 1px solid #d1d5db; border-radius: 8px;">
+                                </div>
+
+                                <!-- Billing Address -->
+                                <div class="mb-4">
+                                    <label class="form-label small fw-600 mb-2"
+                                        style="color: #4a4a4a; letter-spacing: 0.3px;">Billing Address</label>
+                                    <input type="text" class="form-control mb-3" placeholder="Street address" required
+                                        style="padding: 13px 15px; font-size: 15px; border: 1px solid #d1d5db; border-radius: 8px;">
+                                    <div class="row g-3">
+                                        <div class="col-6">
+                                            <input type="text" class="form-control" placeholder="City" required
+                                                style="padding: 13px 15px; font-size: 15px; border: 1px solid #d1d5db; border-radius: 8px;">
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="text" class="form-control" placeholder="Postcode" required
+                                                style="padding: 13px 15px; font-size: 15px; border: 1px solid #d1d5db; border-radius: 8px;">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Payment Button -->
+                                <button type="submit" id="pay-btn" class="btn w-100 py-3 fw-semibold shadow-sm"
+                                    style="background: #0DA49F; border: none; font-size: 16px; border-radius: 8px; color: white; transition: all 0.2s;">
+                                    <i class="fas fa-lock me-2"></i>Pay £{{ "%.2f"|format(activity.price) }}
+                                </button>
+
+                                <!-- Security Notice -->
+                                <div class="text-center mt-4">
+                                    <div
+                                        class="d-flex justify-content-center align-items-center gap-3 text-muted small">
+                                        <span><i class="fas fa-shield-alt me-1"></i> Secure checkout</span>
+                                        <span>•</span>
+                                        <span><i class="fas fa-lock me-1"></i> 256-bit encryption</span>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-                <div class="card-body p-5">
-                    <!-- Demo Notice -->
-                    <div class="alert alert-warning border-0" style="background: rgba(255, 193, 7, 0.1);">
-                        <i class="fas fa-info-circle me-2"></i>
-                        <strong>Demo Payment System</strong><br>
-                        <small>In production, this integrates with Stripe. Use any test card details.</small>
-                    </div>
 
-                    <div class="text-center mb-4">
-                        <h5 class="text-muted">Total Amount</h5>
-                        <h2 class="display-4 fw-bold text-primary">£{{ "%.2f"|format(activity.price) }}</h2>
-                        <p class="mb-0">{{ activity.name }}</p>
-                        <small class="text-muted">Student: {{ child.name }}</small>
-                    </div>
+                <!-- Right Side: Order Summary -->
+                <div class="col-md-5">
+                    <div class="card shadow-sm border-0" style="border-radius: 12px; background: #f9fafb;">
+                        <div class="card-body p-4">
+                            <h6 class="fw-bold mb-4" style="color: #1a1a1a;">Order Summary</h6>
 
-                    <hr class="my-4">
-
-                    <!-- Stripe Logo (Demo) -->
-                    <div class="text-center mb-3">
-                        <div
-                            style="display: inline-block; padding: 10px 20px; background: #635bff; color: white; border-radius: 5px; font-weight: bold; opacity: 0.5;">
-                            <i class="fab fa-stripe me-2"></i>Stripe Demo
-                        </div>
-                    </div>
-
-                    <!-- Standard Form Submission -->
-                    <form id="payment-form" action="{{ url_for('book_activity') }}" method="POST">
-                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                        <input type="hidden" name="activity_id" id="activity_id" value="{{ activity.id }}">
-                        <input type="hidden" name="child_id" id="child_id" value="{{ child.id }}">
-                        <input type="hidden" name="booking_date" id="date" value="{{ date }}">
-
-                        <div class="mb-3">
-                            <label class="form-label">Cardholder Name</label>
-                            <input type="text" name="cardholder_name" class="form-control form-control-lg"
-                                placeholder="John Doe" value="Test User" required>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">Card Number</label>
-                            <div class="input-group">
-                                <span class="input-group-text"><i class="fas fa-credit-card"></i></span>
-                                <input type="text" name="card_number" class="form-control form-control-lg"
-                                    id="card-number" placeholder="4242 4242 4242 4242" value="4242 4242 4242 4242"
-                                    maxlength="19" required>
+                            <!-- Activity Details -->
+                            <div class="mb-4 pb-4" style="border-bottom: 1px solid #e5e7eb;">
+                                <div class="fw-semibold mb-2" style="color: #1a1a1a;">{{ activity.name }}</div>
+                                <div class="small text-muted mb-1">
+                                    <i class="fas fa-user me-2"></i>{{ child.name }}
+                                </div>
+                                <div class="small text-muted mb-1">
+                                    <i class="fas fa-calendar me-2"></i>{{ activity.day_of_week }}, {{ date }}
+                                </div>
+                                <div class="small text-muted">
+                                    <i class="fas fa-clock me-2"></i>{{ activity.start_time }} - {{ activity.end_time }}
+                                </div>
                             </div>
-                            <small class="text-muted">Demo: Use 4242 4242 4242 4242</small>
-                        </div>
 
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">Expiry Date</label>
-                                <input type="text" name="expiry_date" class="form-control form-control-lg" id="expiry"
-                                    placeholder="MM/YY" value="12/25" maxlength="5" required>
+                            <!-- Price Breakdown -->
+                            <div class="mb-4 pb-4" style="border-bottom: 1px solid #e5e7eb;">
+                                <div class="d-flex justify-content-between mb-3">
+                                    <span class="text-muted">Activity Fee</span>
+                                    <span class="fw-semibold">£{{ "%.2f"|format(activity.price) }}</span>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <span class="text-muted">Service Fee</span>
+                                    <span class="text-success fw-semibold">FREE</span>
+                                </div>
                             </div>
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">CVV</label>
-                                <input type="text" name="cvv" class="form-control form-control-lg" placeholder="123"
-                                    value="123" maxlength="3" required>
+
+                            <!-- Total -->
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <span class="fw-bold" style="font-size: 17px; color: #1a1a1a;">Total</span>
+                                <span class="h4 fw-bold mb-0" style="color: #0DA49F;">£{{ "%.2f"|format(activity.price)
+                                    }}</span>
+                            </div>
+
+                            <!-- Guarantee Badge -->
+                            <div class="p-3 rounded-3" style="background: #ecfdf5; border: 1px solid #d1fae5;">
+                                <div class="d-flex align-items-start">
+                                    <i class="fas fa-check-circle text-success mt-1 me-2"></i>
+                                    <div class="small">
+                                        <div class="fw-semibold text-dark mb-1">Money-back Guarantee</div>
+                                        <div class="text-muted" style="font-size: 13px;">100% refund if cancelled 24hrs
+                                            before</div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="d-grid gap-2 mt-4">
-                            <button type="submit" class="btn btn-success btn-lg" id="pay-btn">
-                                <i class="fas fa-check-circle me-2"></i> Pay & Confirm Booking
-                            </button>
-                            <a href="{{ url_for('dashboard') }}" class="btn btn-outline-secondary">Cancel</a>
+                    <!-- Payment Methods -->
+                    <div class="card shadow-sm border-0 mt-3" style="border-radius: 12px;">
+                        <div class="card-body p-3 text-center">
+                            <div class="text-muted small mb-2">We Accept</div>
+                            <div class="d-flex justify-content-center gap-3 align-items-center">
+                                <i class="fab fa-cc-visa fa-2x" style="color: #1434CB;"></i>
+                                <i class="fab fa-cc-mastercard fa-2x" style="color: #EB001B;"></i>
+                                <i class="fab fa-cc-amex fa-2x" style="color: #006FCF;"></i>
+                                <i class="fab fa-cc-discover fa-2x" style="color: #FF6000;"></i>
+                            </div>
                         </div>
-                    </form>
-                </div>
-                <div class="card-footer bg-light text-center text-muted small">
-                    <i class="fas fa-shield-alt me-1"></i> Demo Simulation - In production: 256-bit SSL Encrypted
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+<style>
+    .form-control:focus {
+        border-color: #0DA49F !important;
+        box-shadow: 0 0 0 3px rgba(13, 164, 159, 0.1) !important;
+    }
+
+    #pay-btn:hover {
+        background: #0c9189 !important;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(13, 164, 159, 0.3) !important;
+    }
+</style>
+
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        // Format Expiry Date (MM/YY)
-        const expiryInput = document.getElementById('expiry');
-        if (expiryInput) {
-            expiryInput.addEventListener('input', function (e) {
-                let input = e.target.value.replace(/\D/g, '');
-                if (input.length > 2) {
-                    input = input.substring(0, 2) + '/' + input.substring(2, 4);
-                }
-                e.target.value = input;
-            });
-        }
-
-        // Format Card Number (Groups of 4)
+        // Card Number Formatting with Icon Detection
         const cardInput = document.getElementById('card-number');
+        const cardIcon = document.getElementById('card-icon');
+
         if (cardInput) {
             cardInput.addEventListener('input', function (e) {
                 let input = e.target.value.replace(/\D/g, '');
                 input = input.substring(0, 16);
                 let sections = input.match(/.{1,4}/g);
-                if (sections) {
-                    e.target.value = sections.join(' ');
+                e.target.value = sections ? sections.join(' ') : input;
+
+                // Update card icon based on first digit
+                const firstDigit = input.charAt(0);
+                if (firstDigit === '4') {
+                    cardIcon.className = 'fab fa-cc-visa';
+                    cardIcon.style.color = '#1434CB';
+                } else if (firstDigit === '5') {
+                    cardIcon.className = 'fab fa-cc-mastercard';
+                    cardIcon.style.color = '#EB001B';
+                } else if (firstDigit === '3') {
+                    cardIcon.className = 'fab fa-cc-amex';
+                    cardIcon.style.color = '#006FCF';
+                } else if (firstDigit === '6') {
+                    cardIcon.className = 'fab fa-cc-discover';
+                    cardIcon.style.color = '#FF6000';
                 } else {
-                    e.target.value = input;
+                    cardIcon.className = 'fas fa-credit-card';
+                    cardIcon.style.color = '#9ca3af';
                 }
             });
         }
 
+        // Expiry Date Formatting
+        const expiryInput = document.getElementById('expiry');
+        if (expiryInput) {
+            expiryInput.addEventListener('input', function (e) {
+                let input = e.target.value.replace(/\D/g, '');
+                if (input.length >= 2) {
+                    input = input.substring(0, 2) + ' / ' + input.substring(2, 4);
+                }
+                e.target.value = input;
+            });
+        }
+
+        // CVC Input - numbers only
+        const cvcInput = document.getElementById('cvc');
+        if (cvcInput) {
+            cvcInput.addEventListener('input', function (e) {
+                e.target.value = e.target.value.replace(/\D/g, '').substring(0, 4);
+            });
+        }
+
+        // Form Submission with Loading State
         const form = document.getElementById('payment-form');
         if (form) {
             form.addEventListener('submit', function (e) {
                 const btn = document.getElementById('pay-btn');
-                btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Processing...';
-                setTimeout(() => { btn.disabled = true; }, 100);
+                btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Processing...';
+                btn.disabled = true;
+                btn.style.opacity = '0.7';
             });
         }
     });

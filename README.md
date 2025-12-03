@@ -10,12 +10,7 @@ A comprehensive web-based application for managing school activity bookings, des
 
 ## 👥 The Team
 
-| Member | Role | Key Contributions |
-|--------|------|-------------------|
-| **Sanchit Kaushal** | Team Lead & Backend Security | Architecture, Auth System, Admin Portal, Security |
-| **Chichebendu Blessed Umeh** | Integration Specialist | Email Notifications, PDF Generation, Tutor Portal |
-| **Shiva Kasula** | Database Specialist | Database Design, Booking Logic, Waitlist System |
-| **Mohd Sharjeel** | Integration & Performance | AJAX System, Query Optimization, Algorithms |
+*Contributors to be added.*
 
 ---
 
@@ -56,13 +51,7 @@ A comprehensive web-based application for managing school activity bookings, des
 
 ## 📚 Documentation
 
-Detailed documentation is available in the `Documentation/` directory:
-
-1. **[Security & Architecture (Sanchit)](Documentation/1_Sanchit_Kaushal_Contribution.md)**
-2. **[Email & Integration (Chichebendu)](Documentation/2_Chichebendu_Umeh_Contribution.md)**
-3. **[Database & Logic (Shiva)](Documentation/3_Shiva_Kasula_Contribution.md)**
-4. **[UI/UX Design (Sharjeel)](Documentation/4_Mohd_Sharjeel_Contribution.md)**
-5. **[Installation Guide](Documentation/6_Requirements_and_Installation.md)**
+Detailed documentation is available in the `Documentation/` directory.
 
 ---
 
