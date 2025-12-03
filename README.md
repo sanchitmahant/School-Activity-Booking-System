@@ -16,10 +16,10 @@ This project was developed by a team of 4 students who contributed equally to al
 ### Core Contributors
 | Name | Role |
 |------|------|
-| **Chichebendu Blessed Umeh** | Full Stack Developer & Architect |
-| **Mohd Sharjeel** | Full Stack Developer & QA Engineer |
-| **Sanchit Kaushal** | Full Stack Developer & Security Lead |
-| **Shiva Kasula** | Full Stack Developer & Database Designer |
+| **Chichebendu Blessed Umeh** | Security & Admin Specialist |
+| **Mohd Sharjeel** | Backend & Attendance Specialist |
+| **Sanchit Kaushal** | Email & Integration Specialist |
+| **Shiva Kasula** | Database & Logic Specialist |
 
 *All members contributed equally to the project success.*
 
