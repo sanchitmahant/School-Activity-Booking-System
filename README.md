@@ -10,7 +10,18 @@ A comprehensive web-based application for managing school activity bookings, des
 
 ## 👥 The Team
 
-*Contributors to be added.*
+### 🤝 Equal Contribution Statement
+This project was developed by a team of 4 students who contributed equally to all phases of the software development lifecycle, including requirements engineering, architecture design, implementation, testing, and documentation.
+
+### Core Contributors
+| Name | Role |
+|------|------|
+| **Chichebendu Blessed Umeh** | Full Stack Developer & Architect |
+| **Mohd Sharjeel** | Full Stack Developer & QA Engineer |
+| **Sanchit Kaushal** | Full Stack Developer & Security Lead |
+| **Shiva Kasula** | Full Stack Developer & Database Designer |
+
+*All members contributed equally to the project success.*
 
 ---
 
