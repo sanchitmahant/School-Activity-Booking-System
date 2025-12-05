@@ -12,7 +12,7 @@ from email.mime.text import MIMEText
 from email.mime.base import MIMEBase
 from email import encoders
 import os
-from itsdangerous import URLSafeTimedSerializer
+from itsdangerous import URLSafeTimedSerializer, BadSignature, SignatureExpired
 from reportlab.lib.pagesizes import letter
 from reportlab.lib import colors
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer
@@ -721,7 +721,7 @@ def reset_password(token):
     try:
         s = URLSafeTimedSerializer(app.config['SECRET_KEY'])
         email = s.loads(token, salt='password-reset-salt', max_age=3600) # 1 hour expiration
-    except:
+    except (BadSignature, SignatureExpired, Exception):
         flash('The password reset link is invalid or has expired.', 'danger')
         return redirect(url_for('forgot_password'))
     
@@ -955,7 +955,7 @@ def check_availability():
     
     try:
         booking_date = datetime.strptime(date_str, '%Y-%m-%d').date()
-    except:
+    except (ValueError, TypeError):
         return jsonify({'error': 'Invalid date'}), 400
         
     activity = Activity.query.get(activity_id)
@@ -1086,7 +1086,7 @@ def join_waitlist():
     
     try:
         date = datetime.strptime(date_str, '%Y-%m-%d').date()
-    except:
+    except (ValueError, TypeError):
         return jsonify({'error': 'Invalid date'}), 400
         
     waitlist = Waitlist(
@@ -1504,7 +1504,7 @@ def approve_tutor(tutor_id):
     
     try:
         send_tutor_approval_email(tutor)
-    except:
+    except Exception:
         pass
     
     flash(f'{tutor.full_name} approved!', 'success')
@@ -1522,7 +1522,7 @@ def reject_tutor(tutor_id):
     
     try:
         send_tutor_rejection_email(tutor)
-    except:
+    except Exception:
         pass
     
     flash(f'{tutor.full_name} rejected.', 'info')
@@ -1576,7 +1576,7 @@ def tutor_register():
         
         try:
             send_tutor_application_email(tutor)
-        except:
+        except Exception:
             pass
         
         flash('Application submitted! You will receive an email once reviewed.', 'success')
@@ -1607,7 +1607,7 @@ def tutor_attendance(activity_id):
         date_str = request.form.get('date')
         try:
             date = datetime.strptime(date_str, '%Y-%m-%d').date()
-        except:
+        except (ValueError, TypeError):
             date = datetime.utcnow().date()
             
         # Process attendance for each student
@@ -2456,4 +2456,7 @@ def admin_cancel_booking(booking_id):
 
 if __name__ == '__main__':
     init_db()
-    app.run(debug=True)
+    # Use environment variable for debug mode in production
+    import os
+    debug_mode = os.environ.get('FLASK_DEBUG', 'False').lower() == 'true'
+    app.run(debug=debug_mode)
