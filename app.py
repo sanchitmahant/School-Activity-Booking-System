@@ -42,6 +42,9 @@ def create_app(config_name='default'):
     mail.init_app(app)
     csrf.init_app(app)
     
+    # Enable template auto-reload for development
+    app.config['TEMPLATES_AUTO_RELOAD'] = True
+    
     # Register context processors
     @app.context_processor
     def inject_now():
