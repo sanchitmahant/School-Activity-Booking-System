@@ -1,0 +1,21 @@
+﻿Task Name,Description,Start Date,End Date,Assigned To,Status,Priority
+Project Initiation,Topic selection and initial team meeting. Decision to build 'School Activity Booking System'.,2025-10-14,2025-10-16,Sanchit Kaushal (Lead),Completed,High
+Requirement Analysis,"Gathering requirements for Parents, Tutors, and Admins. Defining scope and deliverables.",2025-10-17,2025-10-20,All Members,Completed,High
+Database Design,"Designing the Entity Relationship Diagram (ERD). Defining User, Activity, and Booking tables.",2025-10-21,2025-10-25,Shiva Kasula,Completed,High
+Infrastructure Setup,"Setting up GitHub repository, Flask environment, virtual environment, and directory structure.",2025-10-21,2025-10-23,Mohd Sharjeel,Completed,Medium
+Authentication System,"Implementing Login, Register, Password Hashing, and Session Management logic.",2025-10-24,2025-10-31,Chichebendu Umeh,Completed,Critical
+Database Implementation,Coding the SQLAlchemy models (db.Model) and setting up migrations.,2025-10-26,2025-10-31,Shiva Kasula,Completed,Critical
+Booking Logic Core,Implementing conflict detection (double booking prevention) and availability checks.,2025-11-01,2025-11-07,Shiva Kasula,Completed,Critical
+Attendance Module,Creating the Tutor Dashboard for marking attendance and tracking student progress.,2025-11-01,2025-11-07,Mohd Sharjeel,Completed,High
+Security Integration,"Adding CSRF protection (Flask-WTF), RBAC decorators, and Secure Headers.",2025-11-08,2025-11-14,Chichebendu Umeh,Completed,Critical
+Email System,"Configuring SMTP with Gmail, creating HTML email templates, and Flask-Mail setup.",2025-11-15,2025-11-20,Sanchit Kaushal (Lead),Completed,High
+PDF Invoice Generation,Implementing ReportLab for generating downloadable PDF invoices with QR codes.,2025-11-21,2025-11-25,Sanchit Kaushal (Lead),Completed,High
+Waitlist Automation,Developing logic to auto-promote students from waitlist when spots open up.,2025-11-21,2025-11-25,Shiva Kasula,Completed,Medium
+Calendar Integration,Implementing iCalendar (RFC 5545) for .ics attachment generation.,2025-11-26,2025-11-30,Sanchit Kaushal (Lead),Completed,Medium
+Data Analytics & API,Creating API endpoints for dashboard statistics and financial aggregation.,2025-11-26,2025-11-30,Mohd Sharjeel,Completed,Medium
+System Integration Testing,Full team testing of all modules working together. Bug fixing phase.,2025-12-01,2025-12-04,All Members,Completed,Critical
+Documentation - Sanchit,"Comprehensive technical documentation of Email, PDF, and Integration modules.",2025-12-05,2025-12-06,Sanchit Kaushal (Lead),Completed,Critical
+Documentation - Chichebendu,"Comprehensive technical documentation of Security, Auth, and RBAC modules.",2025-12-05,2025-12-06,Chichebendu Umeh,Completed,Critical
+Documentation - Shiva,"Comprehensive technical documentation of Database, Models, and Booking Logic.",2025-12-05,2025-12-06,Shiva Kasula,Completed,Critical
+Documentation - Mohd,Comprehensive technical documentation of Backend Architecture and Attendance.,2025-12-05,2025-12-06,Mohd Sharjeel,Completed,Critical
+Final Report Compilation,Merging all individual explanations and viva questions into final submission files.,2025-12-06,2025-12-07,Sanchit Kaushal (Lead),Completed,Critical
