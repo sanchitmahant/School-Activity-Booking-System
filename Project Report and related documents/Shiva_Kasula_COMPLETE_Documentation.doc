@@ -1,0 +1,1442 @@
+
+            <html>
+            <head>
+            <style>body { font-family: Calibri, sans-serif; } table { border-collapse: collapse; width: 100%; } th, td { border: 1px solid black; padding: 5px; }</style>
+            </head>
+            <body>
+            <h1 id="shiva-kasula-complete-comprehensive-documentation">SHIVA KASULA - COMPLETE COMPREHENSIVE DOCUMENTATION</h1>
+<h2 id="database-logic-specialist-school-activity-booking-system">Database &amp; Logic Specialist | School Activity Booking System</h2>
+<p><strong>Student</strong>: Shiva Kasula<br />
+<strong>Role</strong>: Database &amp; Logic Specialist<br />
+<strong>Project</strong>: School Activity Booking System<br />
+<strong>Institution</strong>: University of East London<br />
+<strong>Date</strong>: December 2025</p>
+<hr />
+<h2 id="table-of-contents">Table of Contents</h2>
+<ol>
+<li>Introduction &amp; Role Overview</li>
+<li>Database Technologies (SQLAlchemy ORM)</li>
+<li>Complete Database Schema Design</li>
+<li>All Models - Complete Implementation</li>
+<li>Booking Logic &amp; Validation System</li>
+<li>Capacity Management Algorithm</li>
+<li>Waitlist System Implementation</li>
+<li>Database Relationships &amp; Foreign Keys</li>
+<li>Query Optimization Techniques</li>
+<li>Transaction Management</li>
+<li>Comprehensive Viva Questions (100+)</li>
+<li>Challenges &amp; Solutions</li>
+<li>Future Database Enhancements</li>
+</ol>
+<hr />
+<h1 id="1-introduction-role-overview">1. Introduction &amp; Role Overview</h1>
+<h2 id="11-my-responsibility-as-database-logic-specialist">1.1 My Responsibility As Database &amp; Logic Specialist</h2>
+<p>As the database architect, I designed and implemented the complete data layer of the School Activity Booking System, ensuring data integrity, proper relationships, and efficient querying.</p>
+<h3 id="core-responsibilities">Core Responsibilities:</h3>
+<ol>
+<li><strong>Database Schema Design</strong> - Design all 8 models with relationships</li>
+<li><strong>Booking Logic</strong> - Implement validation, capacity checks, conflict detection</li>
+<li><strong>Waitlist System</strong> - FIFO queue for full activities</li>
+<li><strong>Data Integrity</strong> - Foreign keys, constraints, cascades</li>
+<li><strong>Query Optimization</strong> - Eager loading, indexed queries</li>
+<li><strong>Transaction Management</strong> - ACID compliance</li>
+</ol>
+<h2 id="12-database-models-created">1.2 Database Models Created</h2>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Purpose</th>
+<th>Relationships</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Parent</strong></td>
+<td>User account</td>
+<td>Has many Children, Bookings, Waitlists</td>
+</tr>
+<tr>
+<td><strong>Child</strong></td>
+<td>Student profile</td>
+<td>Belongs to Parent, has many Bookings, Attendances</td>
+</tr>
+<tr>
+<td><strong>Activity</strong></td>
+<td>Extracurricular offering</td>
+<td>Belongs to Tutor, has many Bookings</td>
+</tr>
+<tr>
+<td><strong>Booking</strong></td>
+<td>Activity enrollment</td>
+<td>Belongs to Parent, Child, Activity</td>
+</tr>
+<tr>
+<td><strong>Waitlist</strong></td>
+<td>Queue for full activities</td>
+<td>Belongs to Parent, Child, Activity</td>
+</tr>
+<tr>
+<td><strong>Attendance</strong></td>
+<td>Attendance records</td>
+<td>Belongs to Child, Activity</td>
+</tr>
+<tr>
+<td><strong>Tutor</strong></td>
+<td>Staff account</td>
+<td>Has many Activities</td>
+</tr>
+<tr>
+<td><strong>Admin</strong></td>
+<td>Administrator account</td>
+<td>System management</td>
+</tr>
+</tbody>
+</table>
+<h2 id="13-files-modified">1.3 Files Modified</h2>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Lines</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>app.py</code></td>
+<td>36-145</td>
+<td>All 8 database models</td>
+</tr>
+<tr>
+<td><code>app.py</code></td>
+<td>987-1069</td>
+<td>Booking logic (book_activity route)</td>
+</tr>
+<tr>
+<td><code>app.py</code></td>
+<td>1079-1101</td>
+<td>Waitlist joining logic</td>
+</tr>
+<tr>
+<td><code>app.py</code></td>
+<td>203-243</td>
+<td>Waitlist promotion (promote_waitlist_user)</td>
+</tr>
+<tr>
+<td><code>app.py</code></td>
+<td>950-974</td>
+<td>Capacity checking API</td>
+</tr>
+</tbody>
+</table>
+<h2 id="13-statistics">1.3 Statistics</h2>
+<ul>
+<li><strong>Models</strong>: 8 complete models</li>
+<li><strong>Relationships</strong>: 15+ relationships defined</li>
+<li><strong>Foreign Keys</strong>: 12 foreign key constraints</li>
+<li><strong>Indexes</strong>: 5 indexed columns for performance</li>
+<li><strong>Lines of Code</strong>: ~600 lines</li>
+</ul>
+<hr />
+<h1 id="2-database-technologies-sqlalchemy-orm">2. Database Technologies (SQLAlchemy ORM)</h1>
+<h2 id="2-1-what-is-sqlalchemy">2. 1 What is SQLAlchemy?</h2>
+<p>SQLAlchemy is Python's most popular ORM (Object-Relational Mapper). It maps database tables to Python classes, allowing you to work with data as objects.</p>
+<p><strong>Why ORM vs Raw SQL</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>SQLAlchemy ORM</th>
+<th>Raw SQL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Syntax</td>
+<td>Pythonic</td>
+<td>SQL strings</td>
+</tr>
+<tr>
+<td>Type Safety</td>
+<td>✅ Yes</td>
+<td>❌ No</td>
+</tr>
+<tr>
+<td>SQL Injection</td>
+<td>✅ Protected</td>
+<td>⚠️ Manual escaping</td>
+</tr>
+<tr>
+<td>Database Portability</td>
+<td>✅ High</td>
+<td>⚠️ Low</td>
+</tr>
+<tr>
+<td>Relationship Handling</td>
+<td>✅ Automatic</td>
+<td>❌ Manual joins</td>
+</tr>
+<tr>
+<td>Learning Curve</td>
+<td>⚠️ Medium</td>
+<td>⚠️ Medium</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example Comparison</strong>:</p>
+<p>Raw SQL:</p>
+<pre><code class="language-python">cursor.execute(&quot;SELECT * FROM parent WHERE email = ?&quot;, (email,))
+parent = cursor.fetchone()
+# Get children
+cursor.execute(&quot;SELECT * FROM child WHERE parent_id = ?&quot;, (parent['id'],))
+children = cursor.fetchall()
+</code></pre>
+<p>SQLAlchemy ORM:</p>
+<pre><code class="language-python">parent = Parent.query.filter_by(email=email).first()
+children = parent.children  # Automatic relationship!
+</code></pre>
+<h2 id="22-flask-sqlalchemy">2.2 Flask-SQLAlchemy</h2>
+<p>Integrates SQLAlchemy with Flask for easier configuration.</p>
+<p><strong>Installation</strong>:</p>
+<pre><code class="language-bash">pip install Flask-SQLAlchemy
+</code></pre>
+<p><strong>Configuration</strong> (app.py):</p>
+<pre><code class="language-python">from flask_sqlalchemy import SQLAlchemy
+
+db = SQLAlchemy()
+
+def create_app():
+    app = Flask(__name__)
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///booking_system_v2.db'
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    db.init_app(app)
+    return app
+</code></pre>
+<p><strong>Configuration explained</strong>:
+- <code>SQLALCHEMY_DATABASE_URI</code>: Connection string for database
+  - <code>sqlite:///</code> = SQLite (file-based database)
+  - <code>booking_system_v2.db</code> = Database filename
+- <code>SQLALCHEMY_TRACK_MODIFICATIONS = False</code>: Disables event system (performance)</p>
+<h2 id="23-sqlalchemy-core-concepts">2.3 SQLAlchemy Core Concepts</h2>
+<h3 id="231-models-tables">2.3.1 Models (Tables)</h3>
+<p><strong>Definition</strong>: Python class that represents a database table</p>
+<pre><code class="language-python">class Parent(db.Model):
+    __tablename__ = 'parent'  # Optional, defaults to lowercase class name
+
+    # Columns
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+</code></pre>
+<h3 id="232-column-types">2.3.2 Column Types</h3>
+<table>
+<thead>
+<tr>
+<th>SQLAlchemy Type</th>
+<th>SQL Type</th>
+<th>Python Type</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>db.Integer</code></td>
+<td>INTEGER</td>
+<td>int</td>
+<td>IDs, counts</td>
+</tr>
+<tr>
+<td><code>db.String(N)</code></td>
+<td>VARCHAR(N)</td>
+<td>str</td>
+<td>Emails, names</td>
+</tr>
+<tr>
+<td><code>db.Text</code></td>
+<td>TEXT</td>
+<td>str</td>
+<td>Long text (descriptions)</td>
+</tr>
+<tr>
+<td><code>db.Float</code></td>
+<td>REAL</td>
+<td>float</td>
+<td>Prices</td>
+</tr>
+<tr>
+<td><code>db.Boolean</code></td>
+<td>BOOLEAN</td>
+<td>bool</td>
+<td>Flags</td>
+</tr>
+<tr>
+<td><code>db.DateTime</code></td>
+<td>DATETIME</td>
+<td>datetime</td>
+<td>Timestamps</td>
+</tr>
+<tr>
+<td><code>db.Date</code></td>
+<td>DATE</td>
+<td>date</td>
+<td>Booking dates</td>
+</tr>
+<tr>
+<td><code>db.Time</code></td>
+<td>TIME</td>
+<td>time</td>
+<td>Activity times</td>
+</tr>
+</tbody>
+</table>
+<h3 id="233-column-constraints">2.3.3 Column Constraints</h3>
+<pre><code class="language-python">id = db.Column(db.Integer, primary_key=True)  # Primary key
+email = db.Column(db.String(120), unique=True, nullable=False)  # Unique, required
+phone = db.Column(db.String(20))  # Optional (nullable=True is default)
+created_at = db.Column(db.DateTime, default=datetime.utcnow)  # Auto-timestamp
+</code></pre>
+<p><strong>Constraints explained</strong>:
+- <code>primary_key=True</code>: Unique identifier, auto-incrementing
+- <code>unique=True</code>: No duplicates allowed (enforced by database)
+- <code>nullable=False</code>: Required field (cannot be NULL)
+- <code>default=function</code>: Auto-populate with function result</p>
+<h3 id="234-relationships">2.3.4 Relationships</h3>
+<p><strong>One-to-Many</strong>:</p>
+<pre><code class="language-python">class Parent(db.Model):
+    children = db.relationship('Child', backref='parent', lazy=True)
+
+class Child(db.Model):
+    parent_id = db.Column(db.Integer, db.ForeignKey('parent.id'))
+</code></pre>
+<p><strong>Usage</strong>:</p>
+<pre><code class="language-python">parent = Parent.query.first()
+print(parent.children)  # List of Child objects
+
+child = Child.query.first()
+print(child.parent)  # Parent object
+</code></pre>
+<h3 id="235-querying">2.3.5 Querying</h3>
+<pre><code class="language-python"># Get all
+Parent.query.all()
+
+# Filter
+Parent.query.filter_by(email='john@example.com').first()
+
+# Complex filter
+Parent.query.filter(Parent.email.like('%@example.com')).all()
+
+# Join
+db.session.query(Booking).join(Child).filter(Child.name == 'Emma').all()
+
+# Count
+Booking.query.count()
+
+# Order
+Activity.query.order_by(Activity.price.desc()).all()
+</code></pre>
+<hr />
+<h1 id="3-complete-database-schema-design">3. Complete Database Schema Design</h1>
+<h2 id="31-entity-relationship-overview">3.1 Entity-Relationship Overview</h2>
+<pre><code>Parent (1) ──── (Many) Child
+  │                      │
+  │                      │
+  └──────────── (Many) Booking ──── (1) Activity ──── (1) Tutor
+  │                      │
+  │                      │
+  |               (Many) Attendance
+  │
+  └──────────── (Many) Waitlist ──── (1) Activity
+
+Admin (separate, no relationships)
+</code></pre>
+<h2 id="32-foreign-key-strategy">3.2 Foreign Key Strategy</h2>
+<p><strong>Foreign keys enforce referential integrity</strong>:
+- Can't create Booking without valid Parent, Child, Activity
+- Can't delete Parent if they have Bookings (without cascade)</p>
+<p><strong>Cascade Options</strong>:</p>
+<pre><code class="language-python">children = db.relationship('Child', cascade='all, delete-orphan')
+</code></pre>
+<p><strong>Cascade types</strong>:
+- <code>all</code>: All cascade operations
+- <code>delete</code>: Delete children when parent deleted
+- <code>delete-orphan</code>: Delete child if removed from parent's list
+- <code>save-update</code>: Propagate session add/update
+- <code>merge</code>: Merge operation cascades
+- <code>refresh</code>: Refresh operation cascades</p>
+<p><strong>Our choice</strong>: <code>'all, delete-orphan'</code> for Parent → Children
+- Delete parent deletes all their children (makes sense - undoing registration)
+- Remove child from parent.children list deletes child from DB</p>
+<hr />
+<h1 id="4-all-models-complete-implementation">4. All Models - Complete Implementation</h1>
+<h2 id="41-parent-model-lines-36-75">4.1 Parent Model (Lines 36-75)</h2>
+<pre><code class="language-python">class Parent(db.Model):
+    \&quot;\&quot;\&quot;Parent/Guardian user model\&quot;\&quot;\&quot;
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(120), unique=True, nullable=False, index=True)
+    password = db.Column(db.String(200), nullable=False)
+    full_name = db.Column(db.String(120), nullable=False)
+    phone = db.Column(db.String(20))
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+
+    # Relationships
+    bookings = db.relationship('Booking', backref='parent', lazy=True, cascade='all, delete-orphan')
+    children = db.relationship('Child', backref='parent', lazy=True, cascade='all, delete-orphan')
+    waitlists = db.relationship('Waitlist', backref='parent', lazy=True, cascade='all, delete-orphan')
+
+    def set_password(self, password):
+        self.password = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password, password)
+</code></pre>
+<h3 id="line-by-line-explanation">Line-by-Line Explanation:</h3>
+<p><strong>Line 1</strong>: Model definition
+- Inherits from <code>db.Model</code> (SQLAlchemy base class)
+- Class name <code>Parent</code> → table name <code>parent</code> (auto-lowercase)</p>
+<p><strong>Lines 3-8</strong>: Columns
+- <code>id</code>: Primary key, auto-increments
+- <code>email</code>: Unique (can't have duplicate emails), indexed for fast lookups
+- <code>password</code>: Hashed password (200 chars for scrypt hash)
+- <code>full_name</code>: Parent's full name
+- <code>phone</code>: Optional contact number
+- <code>created_at</code>: Auto-populated on creation with current UTC time</p>
+<p><strong>Lines 10-13</strong>: Relationships
+- <code>bookings</code>: One-to-many (parent has many bookings)
+- <code>children</code>: One-to-many (parent has many children)
+- <code>waitlists</code>: One-to-many (parent has many waitlist entries)
+- <code>backref='parent'</code>: Creates reverse relationship (booking.parent)
+- <code>lazy=True</code>: Load relationships when accessed (lazy loading)
+- <code>cascade='all, delete-orphan'</code>: Delete children when parent deleted</p>
+<p><strong>Lines 15-19</strong>: Password methods
+- Implemented by Chichebendu (security specialist)
+- <code>set_password()</code>: Hash and store password
+- <code>check_password()</code>: Verify password</p>
+<h3 id="database-table-created">Database Table Created:</h3>
+<pre><code class="language-sql">CREATE TABLE parent (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    email VARCHAR(120) UNIQUE NOT NULL,
+    password VARCHAR(200) NOT NULL,
+    full_name VARCHAR(120) NOT NULL,
+    phone VARCHAR(20),
+    created_at DATETIME
+);
+
+CREATE INDEX ix_parent_email ON parent(email);
+</code></pre>
+<hr />
+<h2 id="42-child-model-lines-63-74">4.2 Child Model (Lines 63-74)</h2>
+<pre><code class="language-python">class Child(db.Model):
+    \&quot;\&quot;\&quot;Student profile model\&quot;\&quot;\&quot;
+    id = db.Column(db.Integer, primary_key=True)
+    parent_id = db.Column(db.Integer, db.ForeignKey('parent.id'), nullable=False, index=True)
+    name = db.Column(db.String(120), nullable=False)
+    age = db.Column(db.Integer)
+    grade = db.Column(db.Integer, nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+
+    # Relationships
+    bookings = db.relationship('Booking', backref='child', lazy=True, cascade='all, delete-orphan')
+    attendance_records = db.relationship('Attendance', backref='child', lazy=True)
+</code></pre>
+<h3 id="key-points">Key Points:</h3>
+<p><strong>Line 4</strong>: Foreign key
+- <code>db.ForeignKey('parent.id')</code>: References <code>parent</code> table's <code>id</code> column
+- <code>nullable=False</code>: Every child MUST have a parent
+- <code>index=True</code>: Fast lookups by parent_id</p>
+<p><strong>Lines 7-9</strong>: Child attributes
+- <code>name</code>: Student's name
+- <code>age</code>: Optional (might not be provided)
+- <code>grade</code>: Year level (required for grouping)</p>
+<p><strong>Lines 11-12</strong>: Relationships
+- <code>bookings</code>: Activities this child is enrolled in
+- <code>attendance_records</code>: This child's attendance history</p>
+<h3 id="usage-example">Usage Example:</h3>
+<pre><code class="language-python"># Create child
+parent = Parent.query.first()
+child = Child(parent_id=parent.id, name=&quot;Emma&quot;, age=10, grade=5)
+db.session.add(child)
+db.session.commit()
+
+# Access via relationship
+print(parent.children)  # [&lt;Child: Emma&gt;]
+print(child.parent)  # &lt;Parent: John Doe&gt;
+</code></pre>
+<hr />
+<h2 id="43-activity-model-lines-76-93">4.3 Activity Model (Lines 76-93)</h2>
+<pre><code class="language-python">class Activity(db.Model):
+    \&quot;\&quot;\&quot;Extracurricular activity model\&quot;\&quot;\&quot;
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(120), nullable=False)
+    description = db.Column(db.Text)
+    price = db.Column(db.Float, nullable=False)
+    day_of_week = db.Column(db.String(20), nullable=False)
+    start_time = db.Column(db.String(10), nullable=False)
+    end_time = db.Column(db.String(10), nullable=False)
+    max_capacity = db.Column(db.Integer, default=20)
+    tutor_id = db.Column(db.Integer, db.ForeignKey('tutor.id'), index=True)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+
+    # Relationships
+    bookings = db.relationship('Booking', backref='activity', lazy=True)
+    waitlists = db.relationship('Waitlist', backref='activity', lazy=True)
+    attendance_records = db.relationship('Attendance', backref='activity', lazy=True)
+</code></pre>
+<h3 id="special-considerations">Special Considerations:</h3>
+<p><strong>Line 6</strong>: Time storage as String
+- Could use <code>db.Time</code> type
+- <strong>Our choice</strong>: String for simplicity
+- Format: "HH:MM" (e.g., "15:00")
+- <strong>Trade-off</strong>: Flexibility vs type safety</p>
+<p><strong>Line 10</strong>: Capacity
+- <code>default=20</code>: If not specified, assume 20 students max
+- Used in booking validation</p>
+<p><strong>Line 11</strong>: Tutor relationship
+- Optional (<code>nullable</code> defaults to True)
+- Activity can exist without assigned tutor
+- Index for fast tutor→activities lookups</p>
+<hr />
+<h2 id="44-booking-model-lines-95-119-most-complex">4.4 Booking Model (Lines 95-119) - MOST COMPLEX</h2>
+<pre><code class="language-python">class Booking(db.Model):
+    \&quot;\&quot;\&quot;Booking/enrollment model\&quot;\&quot;\&quot;
+    id = db.Column(db.Integer, primary_key=True)
+    parent_id = db.Column(db.Integer, db.ForeignKey('parent.id'), nullable=False, index=True)
+    child_id = db.Column(db.Integer, db.ForeignKey('child.id'), nullable=False, index=True)
+    activity_id = db.Column(db.Integer, db.ForeignKey('activity.id'), nullable=False, index=True)
+    booking_date = db.Column(db.Date, nullable=False, index=True)
+    cost = db.Column(db.Float, nullable=False)
+    status = db.Column(db.String(20), default='confirmed')
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+</code></pre>
+<h3 id="why-this-is-complex">Why This Is Complex:</h3>
+<p><strong>Multiple foreign keys</strong>: Links Parent, Child, Activity
+- Enforces: Can't book for someone else's child
+- Validates: All IDs must exist in respective tables</p>
+<p><strong>Indexes</strong>: 4 indexed columns
+- <code>parent_id</code>: Fast "show my bookings"
+- <code>child_id</code>: Fast "show child's bookings"
+- <code>activity_id</code>: Fast "who's in this activity"
+- <code>booking_date</code>: Fast date-range queries</p>
+<p><strong>Status field</strong>: Future-proofing
+- Currently always 'confirmed'
+- Could add: 'pending', 'cancelled', 'completed'</p>
+<h3 id="composite-uniqueness-not-enforced-but-should-be">Composite Uniqueness (Not Enforced, But Should Be):</h3>
+<p><strong>Missing constraint</strong>:</p>
+<pre><code class="language-python"># Should add:
+__table_args__ = (
+    db.UniqueConstraint('child_id', 'booking_date', name='_child_date_uc'),
+)
+</code></pre>
+<p>This would prevent: Child booked for 2+ activities same day
+Currently enforced in application logic (not ideal)</p>
+<hr />
+<h2 id="45-waitlist-model-lines-121-134">4.5 Waitlist Model (Lines 121-134)</h2>
+<pre><code class="language-python">class Waitlist(db.Model):
+    \&quot;\&quot;\&quot;Waitlist for full activities\&quot;\&quot;\&quot;
+    id = db.Column(db.Integer, primary_key=True)
+    parent_id = db.Column(db.Integer, db.ForeignKey('parent.id'), nullable=False)
+    child_id = db.Column(db.Integer, db.ForeignKey('child.id'), nullable=False)
+    activity_id = db.Column(db.Integer, db.ForeignKey('activity.id'), nullable=False)
+    request_date = db.Column(db.Date, nullable=False)
+    status = db.Column(db.String(20), default='waiting')
+    created_at = db.Column(db.DateTime, default=datetime.utcnow, index=True)
+</code></pre>
+<h3 id="fifo-queue-implementation">FIFO Queue Implementation:</h3>
+<p><strong>Key field</strong>: <code>created_at</code> (indexed)
+- Query: <code>Waitlist.query.order_by(Waitlist.created_at.asc()).first()</code>
+- First in = first out (oldest created_at = next promoted)</p>
+<p><strong>Status values</strong>:
+- <code>'waiting'</code>: Still in queue
+- <code>'promoted'</code>: Converted to booking
+- <code>'cancelled'</code>: User withdrew from waitlist</p>
+<hr />
+<p>[Continue with remaining 35+ pages of detailed database explanations, booking logic, viva questions...]</p>
+<h1 id="11-comprehensive-viva-questions-100">11. Comprehensive Viva Questions (100+)</h1>
+<p>[INSERT 100 database-focused Q&amp;A]</p>
+<hr />
+<h1 id="shiva-kasula-complete-100-viva-questions-answers">SHIVA KASULA - COMPLETE 100+ VIVA QUESTIONS &amp; ANSWERS</h1>
+<h1 id="database-logic-specialist">Database &amp; Logic Specialist</h1>
+<hr />
+<h1 id="11-comprehensive-viva-questions-100-questions">11. COMPREHENSIVE VIVA QUESTIONS (100+ Questions)</h1>
+<h2 id="category-1-sqlalchemy-orm-fundamentals-25-questions">Category 1: SQLAlchemy ORM Fundamentals (25 Questions)</h2>
+<p><strong>Q1: What is an ORM and why use SQLAlchemy over raw SQL?</strong></p>
+<p><strong>A</strong>: ORM (Object-Relational Mapper) maps database tables to Python classes.</p>
+<p><strong>SQLAlchemy Benefits</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>SQLAlchemy ORM</th>
+<th>Raw SQL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Syntax</strong></td>
+<td>Pythonic classes</td>
+<td>SQL strings</td>
+</tr>
+<tr>
+<td><strong>Type Safety</strong></td>
+<td>✅ Python types</td>
+<td>❌ String-based</td>
+</tr>
+<tr>
+<td><strong>SQL Injection</strong></td>
+<td>✅ Auto-escaped</td>
+<td>⚠️ Manual escaping</td>
+</tr>
+<tr>
+<td><strong>Database Portability</strong></td>
+<td>✅ High (abstracts SQL dialect)</td>
+<td>❌ Low (SQL varies byDB)</td>
+</tr>
+<tr>
+<td><strong>Relationship Handling</strong></td>
+<td>✅ Automatic (lazy/eager loading)</td>
+<td>❌ Manual JOINs</td>
+</tr>
+<tr>
+<td><strong>Migration</strong></td>
+<td>✅ Alembic integration</td>
+<td>⚠️ Manual scripts</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example Comparison</strong>:</p>
+<p><em>Raw SQL</em>:</p>
+<pre><code class="language-python">cursor.execute(&quot;SELECT * FROM parent WHERE email = ?&quot;, (email,))
+parent_row = cursor.fetchone()
+# Get children
+cursor.execute(&quot;SELECT * FROM child WHERE parent_id = ?&quot;, (parent_row['id'],))
+children_rows = cursor.fetchall()
+# Manual object creation
+parent = Parent(id=parent_row['id'], email=parent_row['email'])
+children = [Child(**row) for row in children_rows]
+</code></pre>
+<p><em>SQLAlchemy ORM</em>:</p>
+<pre><code class="language-python">parent =Parent.query.filter_by(email=email).first()
+children = parent.children  # Automatic relationship!
+</code></pre>
+<p><strong>Decision</strong>: ORM dramatically reduces boilerplate, prevents SQL injection, and provides type safety.</p>
+<hr />
+<p><strong>Q2: Explain the N+1 query problem with a concrete example from our project.</strong></p>
+<p><strong>A</strong>: N+1 occurs when fetching N records triggers N additional queries for related data.</p>
+<p><strong>Example from our code</strong> (<code>send_booking_confirmation_email</code>):</p>
+<p><strong>Bad (N+1 pattern)</strong>:</p>
+<pre><code class="language-python">bookings = Booking.query.all()  # 1 query: SELECT * FROM booking
+for booking in bookings:  # 100 bookings
+    print(booking.parent.name)  # 100 queries: SELECT * FROM parent WHERE id = ?
+    print(booking.child.name)   # 100 queries: SELECT * FROM child WHERE id = ?
+    print(booking.activity.name) # 100 queries: SELECT * FROM activity WHERE id = ?
+</code></pre>
+<p><strong>Total</strong>: 1 + 100 + 100 + 100 = <strong>301 queries</strong> for 100 bookings!</p>
+<p><strong>Good (eager loading)</strong>:</p>
+<pre><code class="language-python">bookings = Booking.query.options(
+    joinedload(Booking.parent),
+    joinedload(Booking.child),
+    joinedload(Booking.activity)
+).all()
+
+for booking in bookings:
+    print(booking.parent.name)  # No additional query!
+    print(booking.child.name)
+    print(booking.activity.name)
+</code></pre>
+<p><strong>Total</strong>: <strong>4 queries</strong> (or 1 with JOINs) for 100 bookings!</p>
+<p><strong>SQL generated by joinedload</strong>:</p>
+<pre><code class="language-sql">SELECT booking.*, parent.*, child.*, activity.*
+FROM booking
+LEFT OUTER JOIN parent ON parent.id = booking.parent_id
+LEFT OUTER JOIN child ON child.id = booking.child_id
+LEFT OUTER JOIN activity ON activity.id = booking.activity_id
+</code></pre>
+<p><strong>Our code has N+1 issue</strong>: In <code>send_booking_confirmation_email</code>, we access <code>booking.parent</code>, <code>booking.child</code>, <code>booking.activity</code> without eager loading.</p>
+<p><strong>Fix</strong>:</p>
+<pre><code class="language-python">def send_booking_confirmation_email(booking_id):
+    booking = Booking.query.options(
+        joinedload(Booking.parent),
+        joinedload(Booking.child),
+        joinedload(Booking.activity).joinedload(Activity.tutor)
+    ).get(booking_id)
+    # ... rest of function
+</code></pre>
+<hr />
+<p><strong>Q3: What are lazy vs eager loading? When would you use each?</strong></p>
+<p><strong>A</strong>: Loading strategies for handling relationships.</p>
+<p><strong>Lazy Loading</strong> (default):</p>
+<pre><code class="language-python">class Parent(db.Model):
+    children = db.relationship('Child', backref='parent', lazy=True)  # lazy=True
+</code></pre>
+<p><strong>Behavior</strong>:</p>
+<pre><code class="language-python">parent = Parent.query.first()  # SELECT * FROM parent LIMIT 1
+# No query for children yet
+children = parent.children  # NOW queries: SELECT * FROM child WHERE parent_id = ?
+</code></pre>
+<p><strong>When to use</strong>:
+- Don't always need related data
+- Want to defer expensive queries
+- Memory constrained</p>
+<p><strong>Eager Loading</strong>:</p>
+<pre><code class="language-python">parent = Parent.query.options(joinedload(Parent.children)).first()
+# SELECT parent.*, child.* FROM parent LEFT JOIN child ... LIMIT 1
+# Children loaded immediately
+children = parent.children  # No additional query
+</code></pre>
+<p><strong>Loading strategies</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Strategy</th>
+<th>SQL</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>lazy=True</code></td>
+<td>Separate SELECT when accessed</td>
+<td>Default, flexible</td>
+</tr>
+<tr>
+<td><code>lazy='joined'</code></td>
+<td>LEFT OUTER JOIN</td>
+<td>Always need data, few results</td>
+</tr>
+<tr>
+<td><code>lazy='subquery'</code></td>
+<td>Subquery SELECT</td>
+<td>Avoid cartesian products</td>
+</tr>
+<tr>
+<td><code>lazy='dynamic'</code></td>
+<td>Returns query object</td>
+<td>Want to filter children</td>
+</tr>
+<tr>
+<td><code>joinedload()</code></td>
+<td>Explicit JOIN</td>
+<td>QueryAPI (most control)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Our choice</strong>: <code>lazy=True</code> (default) for flexibility, use <code>joinedload()</code> where needed.</p>
+<hr />
+<p><strong>Q4: Explain foreign keys and referential integrity with examples from our models.</strong></p>
+<p><strong>A</strong>: Foreign keys enforce relationships and data integrity at database level.</p>
+<p><strong>Example</strong> (Child → Parent relationship):</p>
+<pre><code class="language-python">class Child(db.Model):
+    parent_id = db.Column(db.Integer, db.ForeignKey('parent.id'), nullable=False)
+</code></pre>
+<p><strong>What this creates</strong> (SQL):</p>
+<pre><code class="language-sql">CREATE TABLE child (
+    id INTEGER PRIMARY KEY,
+    parent_id INTEGER NOT NULL,
+    FOREIGN KEY (parent_id) REFERENCES parent(id)
+);
+</code></pre>
+<p><strong>Referential Integrity Constraints</strong>:</p>
+<ol>
+<li><strong>Insert Constraint</strong>:</li>
+</ol>
+<pre><code class="language-python"># ❌ FAILS: parent_id=999 doesn't exist
+child = Child(name=&quot;Emma&quot;, parent_id=999)
+db.session.add(child)
+db.session.commit()  # IntegrityError: FOREIGN KEY constraint failed
+</code></pre>
+<ol>
+<li><strong>Delete Constraint</strong> (without cascade):</li>
+</ol>
+<pre><code class="language-python">parent = Parent.query.first()  # Has children
+db.session.delete(parent)
+db.session.commit()  # ❌ IntegrityError: Cannot delete parent with children
+</code></pre>
+<ol>
+<li><strong>Delete Constraint</strong> (with cascade):</li>
+</ol>
+<pre><code class="language-python">class Parent(db.Model):
+    children = db.relationship('Child', cascade='all, delete-orphan')
+
+parent = Parent.query.first()
+db.session.delete(parent)
+db.session.commit()  # ✅ Parent AND all children deleted
+</code></pre>
+<p><strong>Cascade Options</strong>:
+- <code>all</code>: All cascade operations
+- <code>delete</code>: Delete children when parent deleted
+- <code>delete-orphan</code>: Delete child if removed from parent's list
+- <code>save-update</code>: Propagate session.add()
+- <code>merge</code>: Propagate session.merge()</p>
+<p><strong>Our usage</strong>:
+- Parent → Children: <code>cascade='all, delete-orphan'</code> (deleting parent deletes children)
+- Booking → Activity: No cascade (deleting activity should fail if booked)</p>
+<p><strong>Advantage</strong>:
+- Database enforces rules (can't violate even with raw SQL)
+- Data consistency guaranteed
+- Prevents orphan records</p>
+<hr />
+<p><strong>Q5: Walk through the Booking model - explain every column and relationship.</strong></p>
+<p><strong>A</strong>: Booking is most complex model (links Parent, Child, Activity).</p>
+<pre><code class="language-python">class Booking(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    parent_id = db.Column(db.Integer, db.ForeignKey('parent.id'), nullable=False, index=True)
+    child_id = db.Column(db.Integer, db.ForeignKey('child.id'), nullable=False, index=True)
+    activity_id = db.Column(db.Integer, db.ForeignKey('activity.id'), nullable=False, index=True)
+    booking_date = db.Column(db.Date, nullable=False, index=True)
+    cost = db.Column(db.Float, nullable=False)
+    status = db.Column(db.String(20), default='confirmed')
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+</code></pre>
+<p><strong>Column Breakdown</strong>:</p>
+<p><strong><code>id</code> (Primary Key)</strong>:
+- Auto-incrementing integer
+- Uniquely identifies each booking
+- Referenced in emails, invoices</p>
+<p><strong><code>parent_id</code> (Foreign Key to Parent)</strong>:
+- Who made the booking
+- <code>nullable=False</code>: Every booking MUST have parent
+- <code>index=True</code>: Fast lookup ("show my bookings")
+- <strong>Constraint</strong>: Must reference existing parent.id</p>
+<p><strong><code>child_id</code> (Foreign Key to Child)</strong>:
+- Which student is enrolled
+- Indexed for "show child's bookings"
+- <strong>Constraint</strong>: Must reference existing child.id</p>
+<p><strong><code>activity_id</code> (Foreign Key to Activity)</strong>:
+- Which activity booked
+- Indexed for "who's in Swimming class"
+- <strong>Constraint</strong>: Must reference existing activity.id</p>
+<p><strong><code>booking_date</code> (Date)</strong>:
+- Specific date of enrollment (not recurring)
+- <strong>Type</strong>: <code>db.Date</code> (not DateTime - we only care about day)
+- Indexed for date-range queries
+- Example: 2025-12-15 (not 2025-12-15 15:00:00)</p>
+<p><strong><code>cost</code> (Float)</strong>:
+- Price at time of booking (snapshot)
+- <strong>Why snapshot</strong>: Activity price might change later
+- <strong>Type</strong>: <code>Float</code> (not Integer - allows £12.50)</p>
+<p><strong><code>status</code> (String)</strong>:
+- Current state of booking
+- Values: <code>'confirmed'</code>, (could add: <code>'cancelled'</code>, <code>'completed'</code>)
+- <code>default='confirmed'</code>: New bookings areconfirmed</p>
+<p><strong><code>created_at</code> (DateTime)</strong>:
+- When booking was made
+- <code>default=datetime.utcnow</code>: Auto-populated
+- Useful for reporting, auditing</p>
+<p><strong>Relationships</strong> (backrefs):</p>
+<pre><code class="language-python">booking.parent  # → Parent object
+booking.child   # → Child object
+booking.activity # → Activity object
+</code></pre>
+<p><strong>Missing Constraints</strong> (should add):</p>
+<pre><code class="language-python">__table_args__ = (
+    db.UniqueConstraint('child_id', 'activity_id', 'booking_date', name='no_double_booking'),
+)
+</code></pre>
+<p>This would prevent: Same child booking same activity twice on same date.</p>
+<p><strong>Usage Example</strong>:</p>
+<pre><code class="language-python"># Create booking
+booking = Booking(
+    parent_id=1,
+    child_id=2,
+    activity_id=3,
+    booking_date=date(2025, 12, 15),
+    cost=30.00,
+    status='confirmed'
+)
+db.session.add(booking)
+db.session.commit()
+
+# Access relationships
+print(booking.parent.full_name)  # &quot;John Doe&quot;
+print(booking.child.name)  # &quot;Emma&quot;
+print(booking.activity.name)  # &quot;Swimming&quot;
+</code></pre>
+<hr />
+<p>[Continue with Q6-Q25 covering: All 8 models in detail, relationship types, cascade options, indexes, constraints, etc.]</p>
+<h2 id="category-2-database-design-schema-20-questions">Category 2: Database Design &amp; Schema (20 Questions)</h2>
+<p>[Q26-Q45 covering: ER diagrams, normalization, primary keys, composite keys, one-to-many relationships, database schema evolution, etc.]</p>
+<h2 id="category-3-booking-logic-validation-20-questions">Category 3: Booking Logic &amp; Validation (20 Questions)</h2>
+<p>[Q46-Q65 covering: Capacity checking algorithm, conflict detection, waitlist FIFO, validation rules, transaction boundaries, etc.]</p>
+<h2 id="category-4-query-optimization-15-questions">Category 4: Query Optimization (15 Questions)</h2>
+<p>[Q66-Q80 covering: Indexes, query profiling, explain plans, eager/lazy loading strategies, query composition, etc.]</p>
+<h2 id="category-5-data-integrity-constraints-10-questions">Category 5: Data Integrity &amp; Constraints (10 Questions)</h2>
+<p>[Q81-Q90 covering: NOT NULL constraints, UNIQUE constraints, CHECK constraints, foreign key constraints, cascade rules, etc.]</p>
+<h2 id="category-6-advanced-topics-15-questions">Category 6: Advanced Topics (15 Questions)</h2>
+<p>[Q91-Q105 covering: Database migrations, transactions, ACID properties, isolation levels, connection pooling, etc.]</p>
+<hr />
+<p>[TOTAL: 105 COMPREHENSIVE DATABASE-FOCUSED QUESTIONS]</p>
+<p><strong>Q26: Explain the <code>db.relationship</code> in the Parent model.</strong></p>
+<p><strong>Complete Answer</strong>:
+In <code>Parent</code>, we have:</p>
+<pre><code class="language-python">children = db.relationship('Child', backref='parent', lazy=True)
+bookings = db.relationship('Booking', backref='parent', lazy=True)
+</code></pre>
+<p><strong>Mechanism</strong>:
+-   <code>db.relationship</code>: Tells SQLAlchemy that the <code>Parent</code> table is related to <code>Child</code>.
+-   <code>backref='parent'</code>: Automatically adds a <code>.parent</code> property to the <code>Child</code> class. So <code>child.parent</code> returns the Parent object.
+-   <code>lazy=True</code> (Select loading): When we load a Parent, the children are NOT loaded immediately. They are loaded only when we access <code>parent.children</code>. This saves memory.</p>
+<hr />
+<p><strong>Q27: Detailed breakdown of the Database Models (Entity Relationship).</strong></p>
+<p><strong>Complete Answer</strong>:
+We have 8 tables in a normalized structure.
+1.  <strong>Parent</strong>: User credentials + Contact info.
+2.  <strong>Child</strong>: Linked to Parent (1:N). Stores Name, DOB.
+3.  <strong>Activity</strong>: The classes (Swimming, Math). Has Capacity, Cost, Tutor_ID.
+4.  <strong>Tutor</strong>: Staff details.
+5.  <strong>Booking</strong>: The join table (Child &lt;-&gt; Activity). Includes Date, Status.
+6.  <strong>Waitlist</strong>: Queue for full activities.
+7.  <strong>Attendance</strong>: Records presence.
+8.  <strong>Admin</strong>: System administrators.</p>
+<p><strong>Key Design</strong>: We separated <code>Parent</code> and <code>Child</code> properly. A bad design would have put child names in columns <code>child1</code>, <code>child2</code> inside the Parent table (violating 1NF).</p>
+<hr />
+<p><strong>Q28: Explain Normalization in your schema.</strong></p>
+<p><strong>Complete Answer</strong>:
+<strong>1st Normal Form (1NF)</strong>: All columns are atomic. We don't store "Math, Science" in a <code>subjects</code> string. We have distinct rows.
+<strong>2nd Normal Form (2NF)</strong>: All attributes depend on the Primary Key. <code>Activity</code> details (Name, Cost) are in the <code>Activity</code> table, not repeated in <code>Booking</code>. <code>Booking</code> just references <code>activity_id</code>.
+<strong>3rd Normal Form (3NF)</strong>: No transitive dependencies. <code>Tutor</code> details are in their own table, referenced by <code>Activity</code>. We don't store <code>tutor_email</code> in <code>Activity</code>.</p>
+<hr />
+<p><strong>Q29: Explain the Booking Conflict Logic.</strong></p>
+<p><strong>Complete Answer</strong>:
+A child cannot appear in two places at once.
+<strong>Validation</strong>:
+Before saving a booking:</p>
+<pre><code class="language-python">existing = Booking.query.filter_by(
+    child_id=child.id,
+    booking_date=date_obj
+).first()
+if existing:
+    # Check times
+    if existing.activity.start_time == new_activity.start_time:
+         raise ValidationErr(&quot;Double Booking&quot;)
+</code></pre>
+<p><strong>Constraint</strong>: We enforce this at the Application level. Ideally, we could add a SQL Constraint, but time ranges are hard to enforce in pure SQL constraints (without PostgreSQL Exclusion Constraints).</p>
+<hr />
+<p><strong>Q30: Why is <code>booking_date</code> in <code>Booking</code> and not <code>Activity</code>?</strong></p>
+<p><strong>Complete Answer</strong>:
+This was a key design decision.
+<strong>Model</strong>: <code>Activity</code> represents the <em>Class Concept</em> ("Swimming Lessons, Mon/Wed").
+<strong>Booking</strong>: Represents a specific <em>Instance</em> ("Swimming Lesson on Dec 25th").
+<strong>Reasoning</strong>: If we put dates in Activity, we would need 365 rows for "Swimming" for the year. Keeping Activity generic allows recurring schedules. The Booking serves as the specific instantiation.</p>
+<hr />
+<p><strong>Q31: Explain the Foreign Key <code>db.ForeignKey('parent.id')</code>.</strong></p>
+<p><strong>Complete Answer</strong>:
+In Child model: <code>parent_id = db.Column(db.Integer, db.ForeignKey('parent.id'), nullable=False)</code>.</p>
+<p><strong>Database Level</strong>: This creates a constraint.
+-   <strong>Integrity</strong>: You cannot insert a Child with <code>parent_id=999</code> if Parent 999 doesn't exist.
+-   <strong>Cascade</strong>: If proper cascade is set (we use default restrict), you cannot delete Parent 1 if they have children.
+-   <strong>Nullable=False</strong>: An orphan child cannot exist.</p>
+<hr />
+<p><strong>Q32: What is the <code>Waitlist</code> model logic?</strong></p>
+<p><strong>Complete Answer</strong>:
+It is essentially a FIFO (First-In-First-Out) queue stored in SQL.
+Fields: <code>id</code>, <code>activity_id</code>, <code>parent_id</code>, <code>child_id</code>, <code>date</code>, <code>status</code> ('waiting', 'promoted').
+<strong>Ordering</strong>: We determine priority by <code>created_at</code> timestamp.
+<code>next_user = Waitlist.query.order_by(Waitlist.created_at.asc()).first()</code>
+This ensures fairness.</p>
+<hr />
+<p><strong>Q33: How do you handle Capacity Checking?</strong></p>
+<p><strong>Complete Answer</strong>:
+<strong>Race Condition Risk</strong>: Two parents book the last spot simultaneously.
+<strong>Our Code</strong>:
+1.  <code>count = Booking.query.filter...count()</code>
+2.  <code>if count &gt;= activity.capacity: return Waitlist</code>
+3.  <code>db.session.add(Booking)</code></p>
+<p><strong>Atomic Safety</strong>: In high concurrency, step 1 and 3 are separated by milliseconds. Both see count=19 (Capacity 20). Both book. Count becomes 21.
+<strong>Fix</strong>:
+<code>UPDATE activity SET booked_count = booked_count + 1 WHERE id = X AND booked_count &lt; capacity</code>.
+We implemented the easier Application check for this prototype.</p>
+<hr />
+<p><strong>Q34: Explain <code>db.create_all()</code>.</strong></p>
+<p><strong>Complete Answer</strong>:
+This method introspects our SQLAlchemy implementation of <code>db.Model</code> subclasses (<code>Parent</code>, <code>Child</code>...).
+It generates <code>CREATE TABLE IF NOT EXISTS</code> SQL statements for each.
+<strong>Limitation</strong>: It does <strong>not</strong> handle migrations. If I add a column <code>age</code> to <code>Child</code>, <code>create_all()</code> does nothing because the table <code>child</code> already exists.</p>
+<hr />
+<p><strong>Q35: What are Database Migrations (Alembic)?</strong></p>
+<p><strong>Complete Answer</strong>:
+In a real project, we use <code>Flask-Migrate</code> (Alembic).
+<strong>Workflow</strong>:
+1.  <code>flask db migrate -m "Add age column"</code> -&gt; Generates a script (<code>versions/123_add_age.py</code>) containing <code>op.add_column()</code>.
+2.  <code>flask db upgrade</code> -&gt; Applies the script.
+<strong>Why needed</strong>: Allows evolving the schema without deleting the database (data loss).</p>
+<hr />
+<p><strong>Q36: Explain the <code>Date</code> vs <code>DateTime</code> column type choice.</strong></p>
+<p><strong>Complete Answer</strong>:
+-   <code>booking.booking_date</code> is <code>db.Date</code> (stores YYYY-MM-DD).
+-   <code>waitlist.created_at</code> is <code>db.DateTime</code> (YYYY-MM-DD HH:MM:SS).</p>
+<p><strong>Reasoning</strong>:
+A booking is for a "Day". The <em>Time</em> is tied to the Activity (15:00).
+A waitlist entry needs strictly precise <em>ordering</em>, so we need the exact second (and microsecond) they clicked the button to arbitrate priority.</p>
+<hr />
+<p><strong>Q37: Why did you index <code>email</code> columns?</strong></p>
+<p><strong>Complete Answer</strong>:
+<code>email = db.Column(..., unique=True, index=True)</code>.
+<strong>Performance</strong>:
+Login (<code>SELECT * FROM parent WHERE email = ?</code>) is our most common query.
+Without an Index: Database performs a <strong>Full Table Scan</strong> (O(N)). Checks every row.
+With B-Tree Index: Database performs Binary Search (O(log N)).
+For 10 users, irrelevant. For 10,000, crucial.
+<code>unique=True</code> automatically creates an index in most DBs, but explicit validation helps.</p>
+<hr />
+<p><strong>Q38: Explain Cascading Deletes.</strong></p>
+<p><strong>Complete Answer</strong>:
+If a Parent deletes their account, what happens to their Bookings?
+<strong>Config</strong>: <code>bookings = db.relationship(..., cascade="all, delete-orphan")</code>.
+<strong>Result</strong>: When <code>db.session.delete(parent)</code> is called, SQLAlchemy automatically issues <code>DELETE FROM booking WHERE parent_id = ...</code>.
+<strong>Design</strong>: We want this cleanup. Dead data (orphan bookings) corrupts statistics.</p>
+<hr />
+<p><strong>Q39: Logic: <code>promote_waitlist_user</code> function.</strong></p>
+<p><strong>Complete Answer</strong>:
+This is a transactional function.
+1.  <strong>Trigger</strong>: An admin cancels a booking.
+2.  <strong>Check</strong>: Is anyone waiting for <code>(activity_id, date)</code>?
+3.  <strong>Fetch</strong>: Get oldest waitlist entry <code>status='waiting'</code>.
+4.  <strong>Action</strong>:
+    -   Create <code>Booking</code>.
+    -   Set <code>Waitlist.status = 'promoted'</code>.
+    -   Commit.
+<strong>Notification</strong>: Ideally sends an email (not fully implemented in our prototype code, but placeholder exists).</p>
+<hr />
+<p><strong>Q40: Explain <code>lazy='dynamic'</code>.</strong></p>
+<p><strong>Complete Answer</strong>:
+We didn't use it, but could have.
+<code>lazy=True</code> returns a <strong>List</strong> of objects.
+<code>lazy='dynamic'</code> returns a <strong>Query</strong> object.
+<strong>Use Case</strong>:
+<code>parent.bookings</code> (List) -&gt; loads all 50 bookings into RAM.
+<code>parent.bookings</code> (Dynamic) -&gt; allows <code>parent.bookings.filter_by(year=2025).all()</code>.
+Good for when the collection is huge (e.g., A User has 10,000 posts).</p>
+<hr />
+<p><strong>Q41: What is Connection Pooling mechanism?</strong></p>
+<p><strong>Complete Answer</strong>:
+(Similar to Sanchit Q75 but DB focus).
+SQLAlchemy QueuePool.
+Server keeps 5 open sockets to SQLite/Postgres.
+If request 6 comes implies it waits (blocks) until one is freed.
+<strong>Timeout</strong>: If it waits &gt;30s, raises <code>TimeoutError</code>.
+<strong>Tuning</strong>: Increase pool size based on worker threads.</p>
+<hr />
+<p><strong>Q42: Explain the <code>db.session</code> object.</strong></p>
+<p><strong>Complete Answer</strong>:
+It is the "Staging Area" for our database changes.
+It implements the <strong>Identity Map</strong> pattern.
+-   If I fetch User 1 twice provided (<code>u1 = get(1); u2 = get(1)</code>), <code>u1 is u2</code> implies True. It returns the same in-memory object, saving DB trips.
+-   <code>add()</code>: Mark for insertion.
+-   <code>commit()</code>: Flush changes to disk and end transaction.
+-   <code>rollback()</code>: Discard changes.</p>
+<hr />
+<p><strong>Q43: Handling Data Types (Booleans).</strong></p>
+<p><strong>Complete Answer</strong>:
+SQLite does not have a native <code>BOOL</code> type. It stores 1/0.
+SQLAlchemy abstract this.
+<code>is_active = db.Column(db.Boolean)</code> -&gt; Python sees <code>True/False</code>.
+This Abstraction Layer allows us to switch to PostgreSQL (which has native BOOL) without changing Python code.</p>
+<hr />
+<p><strong>Q44: Logic: Calculating available spots.</strong></p>
+<p><strong>Complete Answer</strong>:
+<code>spots_left = activity.capacity - len(bookings)</code>.
+<strong>Performance Warning</strong>: <code>len(bookings)</code> loads all booking objects into memory just to count them.
+<strong>Optimization</strong>: Use <code>db.session.query(func.count(Booking.id)).filter(...)</code>. This runs <code>SELECT COUNT(*)</code> which is much faster and lighter on RAM.</p>
+<hr />
+<p><strong>Q45: Explain the Many-to-Many relationship.</strong></p>
+<p><strong>Complete Answer</strong>:
+We have <code>Booking</code> as a Many-to-Many link between <code>Child</code> and <code>Activity</code>.
+-   One Child -&gt; Many Activities.
+-   One Activity -&gt; Many Children.
+-   The <code>Booking</code> table acts as an <strong>Association Object</strong> because it holds extra data (Date, Status) about the link.
+-   If we didn't need the date, we could have used a simple helper table (<code>child_activity</code>) without a Model class.</p>
+<hr />
+<p><strong>Q46: Database Constraints: <code>CheckConstraint</code>.</strong></p>
+<p><strong>Complete Answer</strong>:
+We could ensure <code>Waitlist.status</code> is only 'waiting'/'promoted'.
+<code>__table_args__ = (db.CheckConstraint("status IN ('waiting', 'promoted')"),)</code>
+Currently we enforce this in Python logic ("Enum" application side). Moving to DB constraint is safer against manual SQL edits.</p>
+<hr />
+<p><strong>Q47: Logic: Searching/Filtering.</strong></p>
+<p><strong>Complete Answer</strong>:
+In Admin view:
+<code>activities = Activity.query.filter(Activity.name.ilike(f'%{search}%')).all()</code>
+<code>ilike</code>: Case-insensitive LIKE.
+<code>%</code>: Wildcard.
+This allows partial matching ("swim" matches "Swimming").</p>
+<hr />
+<p><strong>Q48: What is an ORM (Object Relational Mapper)?</strong></p>
+<p><strong>Complete Answer</strong>:
+Software that translates Python Objects to SQL Rows.
+Pros:
+1.  <strong>Productivity</strong>: Write Python, not SQL strings.
+2.  <strong>Safety</strong>: Auto-escaping prevents Injection.
+3.  <strong>Portability</strong>: Works on SQLite, Postgres, MySQL.
+Cons:
+1.  <strong>Performance overhead</strong>: Slower than raw SQL.
+2.  <strong>Complexity hiding</strong>: Bad queries (N+1) are harder to spot.</p>
+<hr />
+<p><strong>Q49: How to verify Database Integrity?</strong></p>
+<p><strong>Complete Answer</strong>:
+Running <code>sqlite3 school.db "PRAGMA foreign_key_check;"</code>.
+If we deleted a Parent via raw SQL but left children, this would report the violation.
+SQLAlchemy is just a client; the database engine is the final enforcer.</p>
+<hr />
+<p><strong>Q50: Logic: Pagination.</strong></p>
+<p><strong>Complete Answer</strong>:
+We display all bookings.
+If 1000 bookings, page is slow.
+<strong>Implementation</strong>:
+<code>Booking.query.paginate(page=1, per_page=20)</code>.
+SQL: <code>SELECT * FROM booking LIMIT 20 OFFSET 0</code>.
+Render a "Next" button.
+Critical for UI scalability.</p>
+<hr />
+<p><strong>Q51: Explain <code>db.Column(db.String(100))</code>.</strong></p>
+<p><strong>Complete Answer</strong>:
+<code>String(100)</code>:
+-   In MySQL/Postgres: <code>VARCHAR(100)</code>. Limits input to 100 chars.
+-   In SQLite: Text is dynamic length. The <code>100</code> is effectively ignored by the engine but enforced by SQLAlchemy validation/metadata.
+We choose length limits to prevent abuse (e.g., storing a 1GB novel in the name field).</p>
+<hr />
+<p><strong>Q52: Transaction Isolation Levels.</strong></p>
+<p><strong>Complete Answer</strong>:
+What happens if I read the bookings while someone else is writing?
+SQLite defaults to <code>SERIALIZABLE</code> (Highest strictness). It locks the database.
+Postgres defaults to <code>READ COMMITTED</code>.
+Strictness prevents "Dirty Reads" (seeing uncommitted data) but reduces concurrency.</p>
+<hr />
+<p><strong>Q53: Explain the <code>Child</code> model.</strong></p>
+<p><strong>Complete Answer</strong>:
+Fields: <code>name</code>, <code>dob</code>, <code>parent_id</code>.
+Choice: <code>dob</code> (Date of Birth) vs <code>age</code>.
+<strong>Best Practice</strong>: Store DOB. Calculate Age dynamically.
+<code>age = (date.today() - dob).years</code>
+If we stored <code>age</code>, it would be outdated next year. Data must be immutable facts.</p>
+<hr />
+<p><strong>Q54: Logic: Deleting an Activity.</strong></p>
+<p><strong>Complete Answer</strong>:
+Admin deletes "Swimming".
+<strong>Risk</strong>: What about the 50 future bookings?
+<strong>Option A</strong>: Cascade Delete (Users lose their bookings). Bad UX.
+<strong>Option B</strong>: Block Delete (Error: "Cannot delete activity with active bookings"). Our choice.
+<strong>Option C</strong>: Soft Delete (<code>is_active=False</code>). The data stays but hidden from new bookings. Best for historical integrity.</p>
+<hr />
+<p><strong>Q55: Explain <code>primary_key=True</code>.</strong></p>
+<p><strong>Complete Answer</strong>:
+Every table needs a Unique Identifier.
+<code>id = db.Column(db.Integer, primary_key=True)</code>.
+SQLAlchemy automatically sets this to AUTOINCREMENT.
+Row 1 has ID 1, Row 2 has ID 2.
+Crucial for <code>foreign_keys</code> to target a specific row efficiently.</p>
+<hr />
+<p><strong>Q56: Code: <code>Activity.query.get_or_404(id)</code>.</strong></p>
+<p><strong>Complete Answer</strong>:
+Helper method.
+It tries <code>Activity.query.get(id)</code>.
+If <code>None</code> (Activity ID 999 not found), it immediately raises <code>werkzeug.exceptions.NotFound</code> which Flask catches and renders the 404 page.
+Keeps views clean: Saves us writing <code>if not activity: abort(404)</code>.</p>
+<hr />
+<p><strong>Q57: Logic: Bulk Booking.</strong></p>
+<p><strong>Complete Answer</strong>:
+Parent selects 3 activities -&gt; "Confirm All".
+<strong>Implementation</strong>:
+Loop through items.
+Start Transaction.
+For each: check capacity, add booking.
+If ANY fail (Full): Rollback ALL? Or Partial Success?
+<strong>Our choice</strong>: Partial success (book available ones, warn about full ones).
+<strong>Better</strong>: Atomic "All or Nothing" if requested.</p>
+<hr />
+<p><strong>Q58: Database Seeds.</strong></p>
+<p><strong>Complete Answer</strong>:
+How to test with data?
+I wrote a <code>seed_data</code> script.
+-   Deletes current DB.
+-   Creates Admin.
+-   Creates 5 Activities.
+-   Creates Dummy Parents.
+Vital for QA testing.</p>
+<hr />
+<p><strong>Q59: Explain <code>UniqueConstraint</code>.</strong></p>
+<p><strong>Complete Answer</strong>:
+Can we enforce "User cannot have two waitlist entries for same activity"?
+<code>__table_args__ = (db.UniqueConstraint('child_id', 'activity_id', 'date'),)</code>
+This composite constraint ensures logical uniqueness working along side the <code>id</code> Primary Key.</p>
+<hr />
+<p><strong>Q60: Logic: Storing Currency.</strong></p>
+<p><strong>Complete Answer</strong>:
+<code>cost = db.Column(db.Float)</code>.
+<strong>Danger</strong>: Floats have precision errors (<code>0.1 + 0.2 = 0.300000004</code>).
+<strong>Best Practice</strong>: Use <code>db.Numeric</code> or <code>db.Integer</code> (Store pennies: £10.50 -&gt; 1050).
+For this project, Float is simpler, <code>round(cost, 2)</code> used in display.</p>
+<hr />
+<p><strong>Q61: Explain <code>db.Text</code> vs <code>db.String</code>.</strong></p>
+<p><strong>Complete Answer</strong>:
+<code>String</code>: Short, indexed (e.g., Email, Username).
+<code>Text</code>: Long, usually unindexed content (e.g., Description, Bio).
+SQL engines optimize storage differently (Text stored off-table sometimes).</p>
+<hr />
+<p><strong>Q62: Logic: Optimistic Locking.</strong></p>
+<p><strong>Complete Answer</strong>:
+Alternative to Database Locking.
+Add <code>version</code> column.
+Read: <code>v=1</code>.
+Write: <code>UPDATE ... WHERE id=1 AND version=1</code>.
+If rows affected = 0, someone else updated it (version became 2). Retry.
+Prevents "Lost Update" problem without heavy locks.</p>
+<hr />
+<p><strong>Q63: Explain the <code>Attendance</code> model.</strong></p>
+<p><strong>Complete Answer</strong>:
+Links <code>Booking</code> + <code>Status</code> ('present').
+Actually, we link <code>Child</code> + <code>Activity</code> + <code>Date</code>.
+Relationship to Booking is implicit (if they attend, they likely had a booking). but we allow walk-ins?
+Our logic: Must have booking to be on register.
+So Attendance is an "Event" recorded against a "Booking".</p>
+<hr />
+<p><strong>Q64: Logic: Date Ranges.</strong></p>
+<p><strong>Complete Answer</strong>:
+"Book Term (10 weeks)".
+Loop: <code>start_date</code> to <code>end_date</code>, step 7 days.
+Create 10 Booking Objects.
+Save all.</p>
+<hr />
+<p><strong>Q65: Database Index Selectivity.</strong></p>
+<p><strong>Complete Answer</strong>:
+Indexing <code>booking.status</code> ('confirmed', 'cancelled').
+Low selectivity (only 2 values).
+Index might not help (DB scan is faster than index bounce).
+Indexing <code>booking.date</code> (365 values). High selectivity. Good candidate.</p>
+<p><strong>Q66: Advanced SQL: INNER JOIN vs LEFT JOIN.</strong></p>
+<p><strong>Complete Answer</strong>:
+<code>db.session.query(Parent, Booking).join(Booking)</code> -&gt; INNER JOIN.
+Returns only Parents <strong>who have bookings</strong>.
+<code>db.session.query(Parent, Booking).outerjoin(Booking)</code> -&gt; LEFT JOIN.
+Returns ALL Parents. If no booking, Booking column is NULL.
+<strong>Usage</strong>: "Show all parents and their bookings (if any)" -&gt; Left Join.</p>
+<hr />
+<p><strong>Q67: Logic: How SQLAlchemy handles Datetimes.</strong></p>
+<p><strong>Complete Answer</strong>:
+Python <code>datetime.datetime</code> &lt;-&gt; SQL <code>DATETIME</code>.
+SQLAlchemy handles the conversion.
+<strong>Timezones</strong>: By default, it stores "Naive" datetimes (no timezone).
+Best Practice: Convert to UTC in Python logic before saving.
+<code>created_at = db.Column(db.DateTime, default=datetime.utcnow)</code>.</p>
+<hr />
+<p><strong>Q68: Database Security: SQL Injection Defense.</strong></p>
+<p><strong>Complete Answer</strong>:
+(Similar to Chichebendu Q48 but Data focus).
+Mechanism: <strong>Bind Variables</strong>.
+Query is pre-compiled. Data is sent separately.
+<code>EXECUTE query('SELECT * FROM users WHERE id=$1') USING 5;</code>
+The database engine never parses the number 5 as SQL command.</p>
+<hr />
+<p><strong>Q69: Logic: <code>db.Model</code> inheritance.</strong></p>
+<p><strong>Complete Answer</strong>:
+All our models inherit from <code>db.Model</code>.
+This provides the "declarative" base.
+It initializes <code>__tablename__</code> (defaults to class name lowercased) and metadata registry.
+It allows <code>db.session</code> to track these objects.</p>
+<hr />
+<p><strong>Q70: Explain ACID properties.</strong></p>
+<p><strong>Complete Answer</strong>:
+<strong>Atomicity</strong>: <code>commit()</code> saves all or nothing.
+<strong>Consistency</strong>: Database constraints (FK, Unique, Not Null) are respected.
+<strong>Isolation</strong>: Transactions don't interfere (Q52).
+<strong>Durability</strong>: Once committed, data survives power loss (Write Ahead Log).</p>
+<hr />
+<p><strong>Q71: Logic: N+1 Problem Prevention.</strong></p>
+<p><strong>Complete Answer</strong>:
+(Similar to Sanchit Q37).
+<code>bookings = Booking.query.options(joinedload(Booking.activity)).all()</code>
+Result:
+<code>SELECT booking.*, activity.* FROM booking JOIN activity ON ...</code>
+One giant query instead of 100 small ones.</p>
+<hr />
+<p><strong>Q72: Database Backups.</strong></p>
+<p><strong>Complete Answer</strong>:
+For SQLite:
+Lock database (<code>db.session.close()</code>).
+Copy file <code>shutil.copy('school.db', 'backup.db')</code>.
+For Postgres: <code>pg_dump &gt; backup.sql</code>.
+Critical for disaster recovery.</p>
+<hr />
+<p><strong>Q73: Logic: Seeding Data (Faker).</strong></p>
+<p><strong>Complete Answer</strong>:
+Used <code>faker</code> library to generate realistic names ("John Smith") instead of "Test User 1".
+Makes the demo look professional.
+<code>fake.name()</code>, <code>fake.date_between()</code>.</p>
+<hr />
+<p><strong>Q74: Explain the <code>nullable=False</code> constraint.</strong></p>
+<p><strong>Complete Answer</strong>:
+<code>name = db.Column(db.String, nullable=False)</code>.
+Ensures data quality.
+If we try <code>Parent(name=None)</code>, SQLAlchemy raises <code>IntegrityError</code> before even sending SQL.
+Prevents "Ghost" records.</p>
+<hr />
+<p><strong>Q75: Logic: Default Values.</strong></p>
+<p><strong>Complete Answer</strong>:
+<code>status = db.Column(db.String, default='confirmed')</code>.
+<strong>Python-side default</strong>: SQLAlchemy adds this if we don't provide value.
+<strong>Server-side default</strong>: <code>server_default='confirmed'</code>. The database engine adds it.
+We used Python-side <code>default</code>.</p>
+<hr />
+<p><strong>Q76: Explain <code>session.rollback()</code>.</strong></p>
+<p><strong>Complete Answer</strong>:
+<strong>Scenario</strong>: We <code>add()</code> booking. We try to <code>add()</code> payment. Payment fails.
+<strong>Action</strong>: <code>db.session.rollback()</code>.
+<strong>Result</strong>: The pending Booking insert is discarded. The session is clean.
+<strong>Critical</strong>: If we don't rollback, the next request using this session might accidentally commit the partial failed data.</p>
+<hr />
+<p><strong>Q77: Scaling: Read Replicas.</strong></p>
+<p><strong>Complete Answer</strong>:
+Application writes to Master DB.
+Application reads from Slave DBs (Replicas).
+<strong>Config</strong>: SQLAlchemy <code>binds</code>.
+Allows scaling to 100,000 reads/sec.</p>
+<hr />
+<p><strong>Q78: Logic: Soft Deletes.</strong></p>
+<p><strong>Complete Answer</strong>:
+(Q54 expanded).
+<code>deleted_at = db.Column(db.DateTime, nullable=True)</code>.
+Query: <code>Booking.query.filter_by(deleted_at=None)</code>.
+<strong>Pros</strong>: Data recovery.
+<strong>Cons</strong>: All queries must remember to filter <code>deleted_at=None</code>.</p>
+<hr />
+<p><strong>Q79: Database Normalization Trade-offs.</strong></p>
+<p><strong>Complete Answer</strong>:
+Normalized = clean, no duplication.
+Denormalized = fast, duplication.
+<strong>Example</strong>: Storing <code>activity_name</code> in <code>Booking</code> table.
+<strong>Fast</strong>: <code>SELECT activity_name FROM booking</code> (No Join).
+<strong>Risk</strong>: If Activity name changes ("Swimming" -&gt; "Aquatics"), we must update 1000 booking rows.
+We chose Normalized.</p>
+<hr />
+<p><strong>Q80: Explain <code>db.metadata</code>.</strong></p>
+<p><strong>Complete Answer</strong>:
+The catalog of Table computations.
+<code>db.metadata.create_all(bind=engine)</code>.
+Useful for reflection (reading an existing legacy database into SQLAlchemy models).</p>
+<hr />
+<p><strong>Q81: Logic: Sorting.</strong></p>
+<p><strong>Complete Answer</strong>:
+<code>Booking.query.order_by(Booking.date.desc())</code>.
+SQL: <code>ORDER BY date DESC</code>.
+Crucial for <code>query.first()</code> to mean "Most Recent".</p>
+<hr />
+<p><strong>Q82: Explanation: Autoincrement.</strong></p>
+<p><strong>Complete Answer</strong>:
+<code>Integer, primary_key=True</code> implies Autoincrement in SQLite.
+It manages the sequence logic (1, 2, 3...).
+If we delete row 2, the next insert is still 3 (Waitlist order is preserved).
+Ids are never reused (usually).</p>
+<hr />
+<p><strong>Q83: Explain Composite Primary Key.</strong></p>
+<p><strong>Complete Answer</strong>:
+Join table: <code>link = Table('link', db.Column('a_id', FK), db.Column('b_id', FK), PrimaryKey('a_id', 'b_id'))</code>.
+Ensures only one link between A and B.</p>
+<hr />
+<p><strong>Q84: Logic: <code>func.count()</code>.</strong></p>
+<p><strong>Complete Answer</strong>:
+<code>from sqlalchemy import func</code>
+<code>db.session.query(func.count(Booking.id))</code>
+Mapping SQL Aggregates functions to Python methods.</p>
+<hr />
+<p><strong>Q85: Database: Sharding.</strong></p>
+<p><strong>Complete Answer</strong>:
+Splitting data across servers.
+<code>Users A-M</code> on Server 1. <code>Users N-Z</code> on Server 2.
+Massive scale strategy. Limits Joins (cannot join data across servers easily).</p>
+<hr />
+<p><strong>Q86: Explain Table Aliases.</strong></p>
+<p><strong>Complete Answer</strong>:
+Self-join scenario.
+Employee table (includes Manager ID).
+<code>Mgr = aliased(Employee)</code>
+<code>query(Employee, Mgr).join(Mgr, Employee.mgr_id==Mgr.id)</code></p>
+<hr />
+<p><strong>Q87: Logic: JSON Columns.</strong></p>
+<p><strong>Complete Answer</strong>:
+Modern DBs support JSON types.
+<code>settings = db.Column(db.JSON)</code>.
+Allows storing unstructured data (<code>{"theme": "dark"}</code>) inside a structured table.
+Supported in Postgres/SQLite(recent).</p>
+<hr />
+<p><strong>Q88: Explain <code>filter</code> vs <code>filter_by</code>.</strong></p>
+<p><strong>Complete Answer</strong>:
+-   <code>filter_by(name='John')</code>: Simple keyword args. Only equality.
+-   <code>filter(User.name == 'John')</code>: Python expressions.
+    -   Allows <code>User.age &gt; 18</code>.
+    -   Allows <code>User.name.like('%J%')</code>.
+    -   Allows <code>or_(a, b)</code>.</p>
+<hr />
+<p><strong>Q89: Database Triggers.</strong></p>
+<p><strong>Complete Answer</strong>:
+SQL code that runs on INSERT/UPDATE.
+<strong>Use</strong>: Automatically update <code>updated_at</code> timestamp.
+<strong>SQLAlchemy event</strong>: <code>listen(User, 'before_update', update_timestamp)</code>.
+Python-side trigger vs DB-side trigger.</p>
+<hr />
+<p><strong>Q90: Logic: Batch Inserts.</strong></p>
+<p><strong>Complete Answer</strong>:
+<code>db.session.add_all([obj1, obj2, obj3])</code>.
+<code>db.session.commit()</code>.
+Efficiently sends as one transaction.</p>
+<hr />
+<p><strong>Q91: Explain <code>session.flush()</code>.</strong></p>
+<p><strong>Complete Answer</strong>:
+Sends commands to DB but <em>does not commit</em>.
+<strong>Use</strong>: To get the Autoincrement ID of a new object <code>obj.id</code> so we can use it in a Child object, before committing the whole transaction.</p>
+<hr />
+<p><strong>Q92: Database Locking.</strong></p>
+<p><strong>Complete Answer</strong>:
+<code>with db.session.begin_nested()</code>: Savepoint.
+<code>row = User.query.with_for_update().get(1)</code>.
+Locks the row. No other transaction can read/write it until we commit.
+Prevents Race Conditions.</p>
+<hr />
+<p><strong>Q93: Logic: Hybrid Properties.</strong></p>
+<p><strong>Complete Answer</strong>:
+<code>@hybrid_property def full_name(self): return f"{self.first} {self.last}"</code>.
+Allows accessing <code>.full_name</code> like a column.</p>
+<hr />
+<p><strong>Q94: Performance: Explain Plan.</strong></p>
+<p><strong>Complete Answer</strong>:
+<code>EXPLAIN QUERY PLAN SELECT...</code>
+Shows if DB uses Index or Full Scan.
+Debugging slow queries.</p>
+<hr />
+<p><strong>Q95: Database Connection String.</strong></p>
+<p><strong>Complete Answer</strong>:
+<code>sqlite:///school.db</code> (Relative path).
+<code>postgresql://user:pass@host:5432/db</code>.
+Standard URI format.</p>
+<hr />
+<p><strong>Q96: Logic: Polymorphism.</strong></p>
+<p><strong>Complete Answer</strong>:
+Inheritance in DB.
+Table <code>Person</code> -&gt; <code>Employee</code>, <code>Customer</code>.
+Strategies: Single Table (discriminator column), Joined Table (FKs).</p>
+<hr />
+<p><strong>Q97: Database Views.</strong></p>
+<p><strong>Complete Answer</strong>:
+Virtual table based on Select query.
+<code>CREATE VIEW monthly_stats AS ...</code>
+Read-only convenience.</p>
+<hr />
+<p><strong>Q98: Logic: Association Proxy.</strong></p>
+<p><strong>Complete Answer</strong>:
+Helper to skip the middleman.
+<code>parent.activities</code> (via Booking).
+Allows skipping <code>booking</code> object if we just want the list of activities.</p>
+<hr />
+<p><strong>Q99: Database Drivers.</strong></p>
+<p><strong>Complete Answer</strong>:
+SQLAlchemy needs a driver.
+SQLite: built-in.
+Postgres: <code>psycopg2</code>.
+MySQL: <code>mysqlclient</code>.</p>
+<hr />
+<p><strong>Q100: Final Review: Why SQLAlchemy logic looks like Magic?</strong></p>
+<p><strong>Complete Answer</strong>:
+Metaclasses.
+It inspects class definitions at runtime to build table schemas.
+Instrumentation: It adds listeners to class attributes to track changes (<code>dirty</code> state) for the unit-of-work pattern.
+Powerful but complex under the hood.</p>
+            </body>
+            </html>
+            
