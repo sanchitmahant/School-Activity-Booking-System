@@ -1,0 +1,85 @@
+<html><head><style>body{font-family:'Segoe UI', Calibri, sans-serif; line-height:1.6;} h1{color:#2E4053; border-bottom:2px solid #2E4053;} h2{color:#2874A6;} code{background:#F4F6F6; padding:2px; font-family:Consolas, monospace;}</style></head><body><h1>Stylesheet: missing_classes.css</h1>
+<h2>1. Executive Summary</h2>
+<p>Controls the visual presentation, formatting, and layout of the HTML documents.</p>
+<h2>2. Code Logic &amp; Functionality</h2>
+<p>Defines CSS classes and ID selectors. Sets properties such as color, font-family, margin, and padding to create a responsive and cohesive visual design.</p>
+<h2>3. Key Concepts &amp; Definitions</h2>
+<ul>
+<li><strong>CSS3</strong>: Cascading Style Sheets Level 3.</li>
+<li><strong>Responsive Design</strong>: Web design approach that makes web pages render well on a variety of devices and window or screen sizes.</li>
+<li><strong>Selector</strong>: The part of a CSS rule that describes the elements to be styled.</li>
+</ul>
+<h2>4. Location Details</h2>
+<p><strong>Path</strong>: <code>static\css\missing_classes.css</code>
+<strong>Type</strong>: .CSS File</p>
+<h2>5. Source Code Preview (Snippet)</h2>
+<p>Running typical software analysis on this file:</p>
+<p>```css
+/<em> Add missing CSS classes that templates reference </em>/</p>
+<p>/<em> Gold Text and Borders </em>/
+.text-gold {
+    color: var(--accent-gold) !important;
+}</p>
+<p>.border-gold {
+    border-color: var(--accent-gold) !important;
+}</p>
+<p>.bg-gold {
+    background-color: var(--accent-gold) !important;
+}</p>
+<p>/<em> Gold Divider </em>/
+.divider-gold {
+    height: 4px;
+    width: 80px;
+    background-color: var(--accent-gold);
+    margin: 1.5rem 0;
+    border-radius: 2px;
+}</p>
+<p>/<em> Glass Panel Effect </em>/
+.glass-panel {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 1.5rem;
+}</p>
+<p>.glass-panel.light {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(0, 46, 93, 0.1);
+}</p>
+<p>/<em> Hover 3D Effect </em>/
+.hover-3d {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}</p>
+<p>.hover-3d:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}</p>
+<p>/<em> Icon Colors </em>/
+.icon-teal {
+    color: var(--accent-teal);
+}</p>
+<p>.icon-gold {
+    color: var(--accent-gold);
+}</p>
+<p>.icon-navy {
+    color: var(--primary-blue);
+}</p>
+<p>/<em> Demo/Simulation Badge </em>/
+.demo-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: linear-gradient(135deg, #ffd700, #ffed4e);
+    color: #000;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    box-shadow: 0 4px 10px rgba(255, 215, 0, 0.4);
+    z-index: 10;
+}</p>
+<p>.demo-badge i {
+    margin-right: 5px;
+}
+```</p></body></html>

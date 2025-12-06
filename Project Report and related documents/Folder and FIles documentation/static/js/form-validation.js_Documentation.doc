@@ -1,0 +1,163 @@
+<html><head><style>body{font-family:'Segoe UI', Calibri, sans-serif; line-height:1.6;} h1{color:#2E4053; border-bottom:2px solid #2E4053;} h2{color:#2874A6;} code{background:#F4F6F6; padding:2px; font-family:Consolas, monospace;}</style></head><body><h1>Resource File: form-validation.js</h1>
+<h2>1. Executive Summary</h2>
+<p>A supporting file used by the application for configuration or data storage.</p>
+<h2>2. Code Logic &amp; Functionality</h2>
+<p>Contains static data or configuration parameters read by the application at runtime.</p>
+<h2>3. Key Concepts &amp; Definitions</h2>
+<ul>
+<li><strong>Static Asset</strong>: A file that is not generated dynamically (e.g., images, text files).</li>
+<li><strong>Configuration</strong>: Settings that determine the behavior of the software.</li>
+</ul>
+<h2>4. Location Details</h2>
+<p><strong>Path</strong>: <code>static\js\form-validation.js</code>
+<strong>Type</strong>: .JS File</p>
+<h2>5. Source Code Preview (Snippet)</h2>
+<p>Running typical software analysis on this file:</p>
+<p>```js
+/*<em>
+ * Professional Form Validation &amp; UX Enhancements
+ * Client-side validation with visual feedback
+ </em>/</p>
+<p>// Real-time Email Validation
+function validateEmail(email) {
+    const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$/;
+    return regex.test(email);
+}</p>
+<p>// Real-time Phone Validation
+function validatePhone(phone) {
+    const regex = /^[0-9+\s-]{10,15}$/;
+    return regex.test(phone);
+}</p>
+<p>// Password Strength Checker
+function checkPasswordStrength(password) {
+    let strength = 0;
+    if (password.length &gt;= 8) strength++;
+    if (password.length &gt;= 12) strength++;
+    if (/[a-z]/.test(password)) strength++;
+    if (/[A-Z]/.test(password)) strength++;
+    if (/[0-9]/.test(password)) strength++;
+    if (/[^a-zA-Z0-9]/.test(password)) strength++;</p>
+<pre><code>if (strength &lt;= 2) return { level: 'weak', color: '#dc3545', text: 'Weak' };
+if (strength &lt;= 4) return { level: 'medium', color: '#ffc107', text: 'Medium' };
+return { level: 'strong', color: '#28a745', text: 'Strong' };
+</code></pre>
+<p>}</p>
+<p>// Add visual feedback to input fields
+function addFieldFeedback(input, isValid, message = '') {
+    const feedback = input.nextElementSibling;</p>
+<pre><code>if (isValid) {
+    input.classList.remove('is-invalid');
+    input.classList.add('is-valid');
+    if (feedback &amp;&amp; feedback.classList.contains('invalid-feedback')) {
+        feedback.style.display = 'none';
+    }
+} else {
+    input.classList.remove('is-valid');
+    input.classList.add('is-invalid');
+    if (feedback &amp;&amp; feedback.classList.contains('invalid-feedback')) {
+        feedback.textContent = message;
+        feedback.style.display = 'block';
+    }
+}
+</code></pre>
+<p>}</p>
+<p>// Initialize form validation on page load
+document.addEventListener('DOMContentLoaded', function () {</p>
+<pre><code>// Email fields validation
+const emailInputs = document.querySelectorAll('input[type="email"]');
+emailInputs.forEach(input =&gt; {
+    input.addEventListener('blur', function () {
+        if (this.value) {
+            const isValid = validateEmail(this.value);
+            addFieldFeedback(this, isValid, 'Please enter a valid email address');
+        }
+    });
+
+    input.addEventListener('input', function () {
+        if (this.classList.contains('is-invalid') &amp;&amp; validateEmail(this.value)) {
+            addFieldFeedback(this, true);
+        }
+    });
+});
+
+// Phone fields validation
+const phoneInputs = document.querySelectorAll('input[name="phone"]');
+phoneInputs.forEach(input =&gt; {
+    input.addEventListener('blur', function () {
+        if (this.value) {
+            const isValid = validatePhone(this.value);
+            addFieldFeedback(this, isValid, 'Please enter a valid phone number (10-15 digits)');
+        }
+    });
+});
+
+// Password strength indicator
+const passwordInputs = document.querySelectorAll('input[type="password"][name="password"]');
+passwordInputs.forEach(input =&gt; {
+    // Create strength indicator
+    const strengthDiv = document.createElement('div');
+    strengthDiv.className = 'password-strength mt-2';
+    strengthDiv.innerHTML = `
+        &lt;div class="d-flex justify-content-between align-items-center"&gt;
+            &lt;small class="text-muted"&gt;Password Strength:&lt;/small&gt;
+            &lt;small class="strength-text fw-bold"&gt;-&lt;/small&gt;
+        &lt;/div&gt;
+        &lt;div class="progress" style="height: 4px;"&gt;
+            &lt;div class="progress-bar" role="progressbar" style="width: 0%"&gt;&lt;/div&gt;
+        &lt;/div&gt;
+    `;
+    input.parentNode.insertBefore(strengthDiv, input.nextSibling);
+
+    input.addEventListener('input', function () {
+        const strength = checkPasswordStrength(this.value);
+        const progressBar = strengthDiv.querySelector('.progress-bar');
+        const strengthText = strengthDiv.querySelector('.strength-text');
+
+        if (this.value.length &gt; 0) {
+            const widthMap = { weak: '33%', medium: '66%', strong: '100%' };
+            progressBar.style.width = widthMap[strength.level];
+            progressBar.style.backgroundColor = strength.color;
+            strengthText.textContent = strength.text;
+            strengthText.style.color = strength.color;
+            strengthDiv.style.display = 'block';
+        } else {
+            strengthDiv.style.display = 'none';
+        }
+    });
+});
+
+// Password confirmation matching
+const confirmInputs = document.querySelectorAll('input[name="confirm_password"]');
+confirmInputs.forEach(input =&gt; {
+    input.addEventListener('input', function () {
+        const password = document.querySelector('input[name="password"]').value;
+        if (this.value) {
+            const isValid = this.value === password;
+            addFieldFeedback(this, isValid, 'Passwords do not match');
+        }
+    });
+});
+
+// Required field indicators
+const requiredInputs = document.querySelectorAll('input[required], select[required], textarea[required]');
+requiredInputs.forEach(input =&gt; {
+    // Add asterisk to labels
+    const label = input.previousElementSibling;
+    if (label &amp;&amp; label.tagName === 'LABEL' &amp;&amp; !label.querySelector('.text-danger')) {
+        label.innerHTML += ' &lt;span class="text-danger"&gt;*&lt;/span&gt;';
+    }
+
+    // Validate on blur
+    input.addEventListener('blur', function () {
+        if (!this.value.trim()) {
+            addFieldFeedback(this, false, 'This field is required');
+        } else {
+            if (!this.classList.contains('is-invalid')) {
+                addFieldFeedback(this, true);
+            }
+        }
+    });
+});
+</code></pre>
+<p>... [Code Truncated for Documentation Readability - See Source File for Complete Logic] ...
+```</p></body></html>

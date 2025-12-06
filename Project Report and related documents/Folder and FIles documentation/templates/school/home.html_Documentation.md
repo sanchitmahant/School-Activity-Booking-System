@@ -1,0 +1,175 @@
+# HTML Template: home.html
+
+## 1. Executive Summary
+Defines the structural layout and content for a specific web page view.
+
+## 2. Code Logic & Functionality
+Uses the Jinja2 templating engine. The file allows for dynamic data insertion using `{{ variable }}` syntax and control structures like `{% if %}` loops within standard HTML markup.
+
+## 3. Key Concepts & Definitions
+- **Jinja2**: A modern and designer-friendly templating language for Python.
+- **Template Inheritance**: The ability to extend a base layout (`base.html`) to avoid code duplication.
+- **DOM**: Document Object Model, the data representation of the objects that comprise the structure and content of a document on the web.
+
+## 4. Location Details
+**Path**: `templates\school\home.html`
+**Type**: .HTML File
+
+## 5. Source Code Preview (Snippet)
+
+Running typical software analysis on this file:
+
+```html
+{% extends "base.html" %}
+
+{% block title %}Welcome to Greenwood International School{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<div class="hero-section"
+    style="background: linear-gradient(135deg, #002E5D 0%, #0056A3 100%); min-height: 90vh; position: relative; overflow: hidden;">
+
+    <div class="container" style="position: relative; z-index: 2;">
+        <div class="row align-items-center" style="min-height: 90vh;">
+            <div class="col-lg-6 text-white">
+                <div class="fade-in-up">
+                    <h1 class="display-3 fw-bold mb-4" style="line-height: 1.2; color: white;">
+                        Inspiring Excellence,<br>
+                        <span style="color: #0DA49F;">Enriching Lives</span>
+                    </h1>
+                    <p class="lead mb-4" style="font-size: 1.3rem; opacity: 0.95;">
+                        World-class extra-curricular activities designed to unlock your child's potential and foster
+                        lifelong learning.
+                    </p>
+                    <div class="d-flex gap-3 flex-wrap">
+                        <a href="{{ url_for('portal_home') }}" class="btn btn-lg px-5 py-3"
+                            style="background: #0DA49F; border: none; border-radius: 50px; font-weight: 600; color: white; box-shadow: 0 8px 20px rgba(13,164,159,0.3); transition: all 0.3s;">
+                            <i class="fas fa-rocket me-2"></i>Book Activities
+                        </a>
+                        <a href="#activities" class="btn btn-lg btn-outline-light px-5 py-3"
+                            style="border-radius: 50px; font-weight: 600; border-width: 2px;">
+                            Explore Programs
+                        </a>
+                    </div>
+
+                    <!-- Quick Stats -->
+                    <div class="row mt-5 pt-4">
+                        <div class="col-4">
+                            <h3 class="fw-bold mb-0" style="color: #0DA49F;" style="color: white;">150+</h3>
+                            <small style="opacity: 0.9;">Active Students</small>
+                        </div>
+                        <div class="col-4">
+                            <h3 class="fw-bold mb-0" style="color: #0DA49F;">20+</h3>
+                            <small style="opacity: 0.9;">Programs</small>
+                        </div>
+                        <div class="col-4">
+                            <h3 class="fw-bold mb-0" style="color: #0DA49F;">15+</h3>
+                            <small style="opacity: 0.9;">Expert Tutors</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="hero-image" style="animation: float 6s ease-in-out infinite;">
+                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 500'><circle cx='250' cy='250' r='200' fill='%230DA49F' opacity='0.2'/><circle cx='250' cy='250' r='150' fill='%23ffffff' opacity='0.1'/><path d='M250 150 L300 200 L350 180 L350 320 L150 320 L150 180 L200 200 Z' fill='%23ffffff' opacity='0.9'/><rect x='200' y='230' width='40' height='50' fill='%23002E5D'/><rect x='260' y='230' width='40' height='50' fill='%23002E5D'/><rect x='220' y='270' width='60' height='20' fill='%230DA49F'/></svg>"
+                        alt="School" style="width: 100%; filter: drop-shadow(0 20px 40px rgba(0,0,0,0.3));">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator"
+        style="position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); color: white; animation: bounce 2s infinite;">
+        <i class="fas fa-chevron-down fa-2x" style="opacity: 0.7;"></i>
+    </div>
+</div>
+
+<!-- Features Section -->
+<div class="py-6" style="background: linear-gradient(to bottom, #ffffff, #f8f9fa);" id="activities">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold mb-3" style="color: #002E5D;" style="color: white;">Why Choose Greenwood?</h2>
+            <p class="lead text-muted" style="max-width: 600px; margin: 0 auto;">
+                We provide a comprehensive range of activities to nurture every aspect of your child's development
+            </p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="feature-card p-4 h-100 text-center"
+                    style="background: white; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); transition: all 0.3s; border: 2px solid transparent;">
+                    <div class="icon-wrapper mb-3"
+                        style="width: 80px; height: 80px; background: linear-gradient(135deg, #002E5D, #0056A3); border-radius: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto;">
+                        <i class="fas fa-chalkboard-teacher fa-2x text-white"></i>
+                    </div>
+                    <h4 class="fw-bold mb-3" style="color: #002E5D;" style="color: white;">Expert Tutors</h4>
+                    <p class="text-muted">Qualified professionals with proven track records and passion for teaching
+                        excellence</p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="feature-card p-4 h-100 text-center"
+                    style="background: white; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); transition: all 0.3s; border: 2px solid transparent;">
+                    <div class="icon-wrapper mb-3"
+                        style="width: 80px; height: 80px; background: linear-gradient(135deg, #0DA49F, #0CB3A7); border-radius: 20px; display: flex; align-items: center; justify-center: center; margin: 0 auto;">
+                        <i class="fas fa-calendar-check fa-2x text-white"></i>
+                    </div>
+                    <h4 class="fw-bold mb-3" style="color: #002E5D;" style="color: white;">Flexible Booking</h4>
+                    <p class="text-muted">Easy online scheduling with instant confirmations and automated calendar
+                        syncing</p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="feature-card p-4 h-100 text-center"
+                    style="background: white; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); transition: all 0.3s; border: 2px solid transparent;">
+                    <div class="icon-wrapper mb-3"
+                        style="width: 80px; height: 80px; background: linear-gradient(135deg, #FF6B6B, #FF8787); border-radius: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto;">
+                        <i class="fas fa-certificate fa-2x text-white"></i>
+                    </div>
+                    <h4 class="fw-bold mb-3" style="color: #002E5D;" style="color: white;">Quality Assured</h4>
+                    <p class="text-muted">All programs meet rigorous educational standards and safety requirements</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Popular Activities -->
+<div class="py-6" style="background: white;">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold mb-3" style="color: #002E5D;">Popular Activities</h2>
+            <p class="lead text-muted">Discover our most sought-after programs</p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-3">
+                <div class="activity-card"
+                    style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 20px; padding: 30px; color: white; height: 200px; display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.3s;">
+                    <div>
+                        <h5 class="fw-bold mb-2" style="color: white;">Music & Arts</h5>
+                        <small style="opacity: 0.9;">Unleash creativity</small>
+                    </div>
+                    <i class="fas fa-music fa-3x" style="opacity: 0.3;"></i>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="activity-card"
+                    style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); border-radius: 20px; padding: 30px; color: white; height: 200px; display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.3s;">
+                    <div>
+                        <h5 class="fw-bold mb-2" style="color: white;">Sports & Fitness</h5>
+                        <small style="opacity: 0.9;">Build strength & teamwork</small>
+                    </div>
+                    <i class="fas fa-running fa-3x" style="opacity: 0.3;"></i>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="activity-card"
+
+... [Code Truncated for Documentation Readability - See Source File for Complete Logic] ...
+```

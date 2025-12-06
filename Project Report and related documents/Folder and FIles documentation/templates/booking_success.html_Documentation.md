@@ -1,0 +1,115 @@
+# HTML Template: booking_success.html
+
+## 1. Executive Summary
+Defines the structural layout and content for a specific web page view.
+
+## 2. Code Logic & Functionality
+Uses the Jinja2 templating engine. The file allows for dynamic data insertion using `{{ variable }}` syntax and control structures like `{% if %}` loops within standard HTML markup.
+
+## 3. Key Concepts & Definitions
+- **Jinja2**: A modern and designer-friendly templating language for Python.
+- **Template Inheritance**: The ability to extend a base layout (`base.html`) to avoid code duplication.
+- **DOM**: Document Object Model, the data representation of the objects that comprise the structure and content of a document on the web.
+
+## 4. Location Details
+**Path**: `templates\booking_success.html`
+**Type**: .HTML File
+
+## 5. Source Code Preview (Snippet)
+
+Running typical software analysis on this file:
+
+```html
+{% extends "base.html" %}
+
+{% block title %}Booking Confirmed{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg border-0">
+                <div class="card-body p-5 text-center">
+                    <!-- Success Icon -->
+                    <div class="mb-4">
+                        <i class="fas fa-check-circle text-success" style="font-size: 5rem;"></i>
+                    </div>
+
+                    <!-- Success Message -->
+                    <h2 class="text-success fw-bold mb-3">Booking Confirmed!</h2>
+                    <p class="lead text-muted mb-4">Your booking has been successfully processed.</p>
+
+                    <!-- Booking Details Card -->
+                    <div class="card bg-light border-0 mb-4 text-start">
+                        <div class="card-body p-4">
+                            <h5 class="text-primary mb-3">
+                                <i class="fas fa-info-circle me-2"></i>Booking Details
+                            </h5>
+
+                            <div class="row mb-3">
+                                <div class="col-sm-4 fw-bold text-muted">Booking ID:</div>
+                                <div class="col-sm-8">#{{ booking.id }}</div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-sm-4 fw-bold text-muted">Activity:</div>
+                                <div class="col-sm-8">{{ booking.activity.name }}</div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-sm-4 fw-bold text-muted">Student:</div>
+                                <div class="col-sm-8">{{ booking.child.name }} (Year {{ booking.child.grade }})</div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-sm-4 fw-bold text-muted">Scheduled Date:</div>
+                                <div class="col-sm-8">{{ booking.booking_date.strftime('%A, %d %B %Y') }}</div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-sm-4 fw-bold text-muted">Time:</div>
+                                <div class="col-sm-8">{{ booking.activity.start_time }} - {{ booking.activity.end_time
+                                    }}</div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-sm-4 fw-bold text-muted">Day:</div>
+                                <div class="col-sm-8">{{ booking.activity.day_of_week }}</div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-sm-4 fw-bold text-muted">Tutor:</div>
+                                <div class="col-sm-8">{{ booking.activity.tutor.full_name if booking.activity.tutor else
+                                    'To Be Assigned' }}</div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-4 fw-bold text-muted">Amount Paid:</div>
+                                <div class="col-sm-8 text-success fw-bold">£{{ "%.2f"|format(booking.cost) }}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Confirmation Email Notice -->
+                    <div class="alert alert-info mb-4">
+                        <i class="fas fa-envelope me-2"></i>
+                        A confirmation email has been sent to your registered email address.
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="d-grid gap-3 d-md-flex justify-content-md-center">
+                        <a href="{{ url_for('generate_invoice', booking_id=booking.id) }}"
+                            class="btn btn-success btn-lg px-4">
+                            <i class="fas fa-file-pdf me-2"></i>Download Invoice
+                        </a>
+                        <a href="{{ url_for('dashboard') }}" class="btn btn-outline-primary btn-lg px-4">
+                            <i class="fas fa-home me-2"></i>Return to Dashboard
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+```

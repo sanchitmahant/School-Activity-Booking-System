@@ -1,0 +1,168 @@
+<html><head><style>body{font-family:'Segoe UI', Calibri, sans-serif; line-height:1.6;} h1{color:#2E4053; border-bottom:2px solid #2E4053;} h2{color:#2874A6;} code{background:#F4F6F6; padding:2px; font-family:Consolas, monospace;}</style></head><body><h1>HTML Template: portal_enhanced.html</h1>
+<h2>1. Executive Summary</h2>
+<p>Defines the structural layout and content for a specific web page view.</p>
+<h2>2. Code Logic &amp; Functionality</h2>
+<p>Uses the Jinja2 templating engine. The file allows for dynamic data insertion using <code>{{ variable }}</code> syntax and control structures like <code>{% if %}</code> loops within standard HTML markup.</p>
+<h2>3. Key Concepts &amp; Definitions</h2>
+<ul>
+<li><strong>Jinja2</strong>: A modern and designer-friendly templating language for Python.</li>
+<li><strong>Template Inheritance</strong>: The ability to extend a base layout (<code>base.html</code>) to avoid code duplication.</li>
+<li><strong>DOM</strong>: Document Object Model, the data representation of the objects that comprise the structure and content of a document on the web.</li>
+</ul>
+<h2>4. Location Details</h2>
+<p><strong>Path</strong>: <code>templates\portal_enhanced.html</code>
+<strong>Type</strong>: .HTML File</p>
+<h2>5. Source Code Preview (Snippet)</h2>
+<p>Running typical software analysis on this file:</p>
+<p>```html
+{% extends "base.html" %}</p>
+<p>{% block title %}Activities Portal{% endblock %}</p>
+<p>{% block content %}</p>
+<!-- Header -->
+<div class="py-5" style="background: linear-gradient(135deg, #002E5D 0%, #0056A3 100%);">
+    <div class="container text-center text-white">
+        <h1 class="display-4 fw-bold mb-3" style="color: white;">Explore Our Activities</h1>
+        <p class="lead">Discover the perfect program for your child</p>
+    </div>
+</div>
+
+<!-- Search & Filter Section -->
+<div class="container py-4">
+    <div class="card shadow-sm border-0 p-4 mb-4">
+        <div class="row g-3">
+            <!-- Search -->
+            <div class="col-md-4">
+                <label class="form-label fw-bold">
+                    <i class="fas fa-search me-2"></i>Search Activities
+                </label>
+                <input type="text" id="searchInput" class="form-control" placeholder="Search by name or description...">
+            </div>
+
+            <!-- Day Filter -->
+            <div class="col-md-3">
+                <label class="form-label fw-bold">
+                    <i class="fas fa-calendar me-2"></i>Day of Week
+                </label>
+                <select id="dayFilter" class="form-select">
+                    <option value="">All Days</option>
+                    <option value="Monday">Monday</option>
+                    <option value="Tuesday">Tuesday</option>
+                    <option value="Wednesday">Wed nesday</option>
+                    <option value="Thursday">Thursday</option>
+                    <option value="Friday">Friday</option>
+                    <option value="Saturday">Saturday</option>
+                </select>
+            </div>
+
+            <!-- Price Filter -->
+            <div class="col-md-2">
+                <label class="form-label fw-bold">
+                    <i class="fas fa-pound-sign me-2"></i>Max Price
+                </label>
+                <input type="number" id="priceFilter" class="form-control" placeholder="Any" min="0">
+            </div>
+
+            <!-- Sort -->
+            <div class="col-md-3">
+                <label class="form-label fw-bold">
+                    <i class="fas fa-sort me-2"></i>Sort By
+                </label>
+                <select id="sortSelect" class="form-select">
+                    <option value="name">Name (A-Z)</option>
+                    <option value="price-low">Price (Low to High)</option>
+                    <option value="price-high">Price (High to Low)</option>
+                    <option value="day">Day of Week</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="mt-3 pt-3 border-top">
+            <small class="text-muted">
+                <span id="resultCount">Loading...</span> activities found
+                <button class="btn btn-sm btn-outline-secondary ms-3" id="clearFilters">
+                    <i class="fas fa-times me-1"></i>Clear Filters
+                </button>
+            </small>
+        </div>
+    </div>
+
+    <!-- View Toggle -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h5 class="mb-0">Available Activities</h5>
+        <div class="btn-group" role="group">
+            <button class="btn btn-sm btn-outline-primary active" id="gridView">
+                <i class="fas fa-th"></i> Grid
+            </button>
+            <button class="btn btn-sm btn-outline-primary" id="listView">
+                <i class="fas fa-list"></i> List
+            </button>
+        </div>
+    </div>
+
+    <!-- Activities Grid -->
+    <div id="activitiesContainer" class="row g-4">
+        <!-- Activities will be loaded here via JavaScript -->
+    </div>
+
+    <!-- No Results Message -->
+    <div id="noResults" class="text-center py-5" style="display: none;">
+        <i class="fas fa-search fa-4x text-muted mb-3"></i>
+        <h4 class="text-muted">No activities found</h4>
+        <p class="text-muted">Try adjusting your search or filters</p>
+    </div>
+</div>
+
+<style>
+    .activity-card {
+        height: 100%;
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+        cursor: pointer;
+    }
+
+    .activity-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15) !important;
+        border-color: #0DA49F;
+    }
+
+    .activity-badge {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: rgba(13, 164, 159, 0.9);
+        color: white;
+        padding: 5px 15px;
+        border-radius: 20px;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    .list-view .activity-card {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .list-view .card-body {
+        flex: 1;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .activity-icon {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, #002E5D, #0056A3);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 24px;
+        margin-bottom: 15px;
+
+... [Code Truncated for Documentation Readability - See Source File for Complete Logic] ...
+```</body></html>
