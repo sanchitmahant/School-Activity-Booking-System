@@ -68,7 +68,10 @@
                                             <div class="btn-group" role="group">
                                                 <input type="radio" class="btn-check"
                                                     name="status_{{ booking.child.id }}"
-                                                    id="present_{{ booking.child.id }}" value="present" checked>
+                                                    id="present_{{ booking.child.id }}" value="present" {% if not
+                                                    attendance_map.get(booking.child.id) or
+                                                    attendance_map[booking.child.id].status=='present' %}checked{% endif
+                                                    %}>
                                                 <label class="btn btn-outline-success"
                                                     for="present_{{ booking.child.id }}">
                                                     <i class="fas fa-check"></i> Present
@@ -76,7 +79,10 @@
 
                                                 <input type="radio" class="btn-check"
                                                     name="status_{{ booking.child.id }}"
-                                                    id="late_{{ booking.child.id }}" value="late">
+                                                    id="late_{{ booking.child.id }}" value="late" {% if
+                                                    attendance_map.get(booking.child.id) and
+                                                    attendance_map[booking.child.id].status=='late' %}checked{% endif
+                                                    %}>
                                                 <label class="btn btn-outline-warning"
                                                     for="late_{{ booking.child.id }}">
                                                     <i class="fas fa-clock"></i> Late
@@ -84,7 +90,10 @@
 
                                                 <input type="radio" class="btn-check"
                                                     name="status_{{ booking.child.id }}"
-                                                    id="absent_{{ booking.child.id }}" value="absent">
+                                                    id="absent_{{ booking.child.id }}" value="absent" {% if
+                                                    attendance_map.get(booking.child.id) and
+                                                    attendance_map[booking.child.id].status=='absent' %}checked{% endif
+                                                    %}>
                                                 <label class="btn btn-outline-danger"
                                                     for="absent_{{ booking.child.id }}">
                                                     <i class="fas fa-times"></i> Absent
@@ -93,7 +102,8 @@
                                         </td>
                                         <td class="align-middle">
                                             <input type="text" class="form-control" name="notes_{{ booking.child.id }}"
-                                                placeholder="Optional notes...">
+                                                placeholder="Optional notes..."
+                                                value="{{ attendance_map[booking.child.id].notes if attendance_map.get(booking.child.id) and attendance_map[booking.child.id].notes else '' }}">
                                         </td>
                                     </tr>
                                     {% endfor %}

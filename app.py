@@ -104,8 +104,10 @@ class Tutor(db.Model):
     years_experience = db.Column(db.Integer)
     education = db.Column(db.Text)
     certifications = db.Column(db.Text)
-    status = db.Column(db.String(20), default='approved')  # pending, approved, rejected
+    status = db.Column(db.String(20), default='pending')  # pending, approved, rejected
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    approved_by = db.Column(db.Integer, db.ForeignKey('admin.id'), nullable=True)
+    approval_date = db.Column(db.DateTime, nullable=True)
     
     def set_password(self, password):
         self.password = generate_password_hash(password)
@@ -174,6 +176,7 @@ class Attendance(db.Model):
     activity_id = db.Column(db.Integer, db.ForeignKey('activity.id'), nullable=False)
     date = db.Column(db.Date, nullable=False)
     status = db.Column(db.String(20), default='present') # present, absent, late
+    notes = db.Column(db.Text)
     recorded_at = db.Column(db.DateTime, default=datetime.utcnow)
 
 class SystemLog(db.Model):
@@ -317,62 +320,66 @@ def send_booking_confirmation_email(booking):
         
         parent_msg.html = f"""
         <html>
-        <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
-            <div style="max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px;">
-                <h2 style="color: #002E5D; border-bottom: 3px solid #0DA49F; padding-bottom: 10px;">
-                    Booking Confirmation
-                </h2>
+        <body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; background-color: #f4f4f4; padding: 20px;">
+            <div style="max-width: 600px; margin: 0 auto; background: #ffffff; padding: 40px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <h1 style="color: #002E5D; margin: 0;">Greenwood International</h1>
+                    <p style="color: #666; font-size: 14px;">Booking Confirmation</p>
+                </div>
                 
+                <h2 style="color: #28a745; margin-top: 0;">Booking Confirmed</h2>
                 <p>Dear {parent.full_name},</p>
+                <p>Thank you for booking an activity at Greenwood International School. We are pleased to confirm your booking.</p>
                 
-                <p>Thank you for booking an activity at Greenwood International School. Your booking has been confirmed!</p>
-                
-                <div style="background-color: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                <div style="background-color: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #28a745;">
                     <h3 style="color: #002E5D; margin-top: 0;">Booking Details</h3>
                     <table style="width: 100%; border-collapse: collapse;">
                         <tr>
-                            <td style="padding: 8px 0; font-weight: bold; width: 40%;">Booking ID:</td>
-                            <td style="padding: 8px 0;">#{booking.id}</td>
+                            <td style="padding: 5px 0; font-weight: bold; width: 40%;">Booking ID:</td>
+                            <td style="padding: 5px 0;">#{booking.id}</td>
                         </tr>
                         <tr>
-                            <td style="padding: 8px 0; font-weight: bold;">Activity:</td>
-                            <td style="padding: 8px 0;">{activity.name}</td>
+                            <td style="padding: 5px 0; font-weight: bold;">Activity:</td>
+                            <td style="padding: 5px 0;">{activity.name}</td>
                         </tr>
                         <tr>
-                            <td style="padding: 8px 0; font-weight: bold;">Student:</td>
-                            <td style="padding: 8px 0;">{child.name} (Year {child.grade})</td>
+                            <td style="padding: 5px 0; font-weight: bold;">Student:</td>
+                            <td style="padding: 5px 0;">{child.name} (Year {child.grade})</td>
                         </tr>
                         <tr>
-                            <td style="padding: 8px 0; font-weight: bold;">Date:</td>
-                            <td style="padding: 8px 0;">{booking.booking_date.strftime('%A, %d %B %Y')}</td>
+                            <td style="padding: 5px 0; font-weight: bold;">Date:</td>
+                            <td style="padding: 5px 0;">{booking.booking_date.strftime('%A, %d %B %Y')}</td>
                         </tr>
                         <tr>
-                            <td style="padding: 8px 0; font-weight: bold;">Time:</td>
-                            <td style="padding: 8px 0;">{activity.start_time} - {activity.end_time}</td>
+                            <td style="padding: 5px 0; font-weight: bold;">Time:</td>
+                            <td style="padding: 5px 0;">{activity.start_time} - {activity.end_time}</td>
                         </tr>
                         <tr>
-                            <td style="padding: 8px 0; font-weight: bold;">Day:</td>
-                            <td style="padding: 8px 0;">{activity.day_of_week}</td>
+                            <td style="padding: 5px 0; font-weight: bold;">Day:</td>
+                            <td style="padding: 5px 0;">{activity.day_of_week}</td>
                         </tr>
                         <tr>
-                            <td style="padding: 8px 0; font-weight: bold;">Tutor:</td>
-                            <td style="padding: 8px 0;">{tutor.full_name if tutor else 'To Be Assigned'}</td>
+                            <td style="padding: 5px 0; font-weight: bold;">Tutor:</td>
+                            <td style="padding: 5px 0;">{tutor.full_name if tutor else 'To Be Assigned'}</td>
                         </tr>
                         <tr>
-                            <td style="padding: 8px 0; font-weight: bold;">Amount Paid:</td>
-                            <td style="padding: 8px 0; color: #28a745; font-weight: bold;">£{booking.cost:.2f}</td>
+                            <td style="padding: 5px 0; font-weight: bold;">Amount Paid:</td>
+                            <td style="padding: 5px 0; color: #28a745; font-weight: bold;">£{booking.cost:.2f}</td>
                         </tr>
                     </table>
                 </div>
                 
-                <p><strong>📅 Calendar Invite:</strong> A calendar invitation (.ics file) is attached to this email. Click to add this event to your calendar!</p>
+                <p><strong>📅 Calendar Invite:</strong> A calendar invitation file is attached. Click to add to your calendar.</p>
                 
-                <p style="margin-top: 30px;">If you have any questions, please don't hesitate to contact us.</p>
+                <div style="text-align: center; margin: 30px 0;">
+                    <a href="http://127.0.0.1:5000/portal" style="background-color: #002E5D; color: white; padding: 14px 28px; text-decoration: none; border-radius: 50px; font-weight: bold; display: inline-block;">
+                        View My Bookings
+                    </a>
+                </div>
                 
-                <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #ddd; color: #666; font-size: 12px;">
-                    <p><strong>Greenwood International School</strong><br>
-                    Greenwood Hall, Henley-on-Thames, Oxfordshire, RG9 1AA<br>
-                    📧 greenwoodinternationaluk@gmail.com | 📞 +44 20 7123 4567</p>
+                <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee; font-size: 12px; color: #999; text-align: center;">
+                    <p>Greenwood International School<br>Greenwood Hall, Henley-on-Thames, Oxfordshire, RG9 1AA</p>
+                    <p>&copy; {datetime.now().year} Greenwood International School. All rights reserved.</p>
                 </div>
             </div>
         </body>
@@ -396,47 +403,54 @@ def send_booking_confirmation_email(booking):
             
             tutor_msg.html = f"""
             <html>
-            <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
-                <div style="max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px;">
-                    <h2 style="color: #002E5D;">New Student Enrollment</h2>
+            <body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; background-color: #f4f4f4; padding: 20px;">
+                <div style="max-width: 600px; margin: 0 auto; background: #ffffff; padding: 40px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                    <div style="text-align: center; margin-bottom: 30px;">
+                        <h1 style="color: #002E5D; margin: 0;">Greenwood International</h1>
+                        <p style="color: #666; font-size: 14px;">Enrollment Alert</p>
+                    </div>
                     
+                    <h2 style="color: #002E5D; margin-top: 0;">New Student Enrollment</h2>
                     <p>Dear {tutor.full_name},</p>
                     
                     <p>A new student has been enrolled in your activity:</p>
                     
-                    <div style="background-color: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                    <div style="background-color: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #002E5D;">
                         <h3 style="color: #002E5D; margin-top: 0;">Enrollment Details</h3>
                         <table style="width: 100%; border-collapse: collapse;">
                             <tr>
-                                <td style="padding: 8px 0; font-weight: bold; width: 40%;">Activity:</td>
-                                <td style="padding: 8px 0;">{activity.name}</td>
+                                <td style="padding: 5px 0; font-weight: bold; width: 40%;">Activity:</td>
+                                <td style="padding: 5px 0;">{activity.name}</td>
                             </tr>
                             <tr>
-                                <td style="padding: 8px 0; font-weight: bold;">Student:</td>
-                                <td style="padding: 8px 0;">{child.name} (Year {child.grade}, Age {child.age})</td>
+                                <td style="padding: 5px 0; font-weight: bold;">Student:</td>
+                                <td style="padding: 5px 0;">{child.name} (Year {child.grade}, Age {child.age})</td>
                             </tr>
                             <tr>
-                                <td style="padding: 8px 0; font-weight: bold;">Parent:</td>
-                                <td style="padding: 8px 0;">{parent.full_name}</td>
+                                <td style="padding: 5px 0; font-weight: bold;">Parent:</td>
+                                <td style="padding: 5px 0;">{parent.full_name}</td>
                             </tr>
                             <tr>
-                                <td style="padding: 8px 0; font-weight: bold;">Date:</td>
-                                <td style="padding: 8px 0;">{booking.booking_date.strftime('%A, %d %B %Y')}</td>
+                                <td style="padding: 5px 0; font-weight: bold;">Date:</td>
+                                <td style="padding: 5px 0;">{booking.booking_date.strftime('%A, %d %B %Y')}</td>
                             </tr>
                             <tr>
-                                <td style="padding: 8px 0; font-weight: bold;">Schedule:</td>
-                                <td style="padding: 8px 0;">{activity.day_of_week}, {activity.start_time} - {activity.end_time}</td>
+                                <td style="padding: 5px 0; font-weight: bold;">Time:</td>
+                                <td style="padding: 5px 0;">{activity.start_time} - {activity.end_time}</td>
                             </tr>
                         </table>
                     </div>
                     
-                    <p>📅 A calendar invitation is attached. Please add this session to your calendar.</p>
+                    <p>📅 A calendar invitation is attached. Please ensure you are prepared for this session.</p>
                     
-                    <p>Please prepare materials and ensure the session venue is ready.</p>
+                    <div style="text-align: center; margin: 30px 0;">
+                        <a href="http://127.0.0.1:5000/tutor/login" style="background-color: #002E5D; color: white; padding: 14px 28px; text-decoration: none; border-radius: 50px; font-weight: bold; display: inline-block;">
+                            View Dashboard
+                        </a>
+                    </div>
                     
-                    <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #ddd; color: #666; font-size: 12px;">
-                        <p><strong>Greenwood International School</strong><br>
-                        📧 greenwoodinternationaluk@gmail.com | 📞 +44 20 7123 4567</p>
+                    <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee; font-size: 12px; color: #999; text-align: center;">
+                        <p>&copy; {datetime.now().year} Greenwood International School. All rights reserved.</p>
                     </div>
                 </div>
             </body>
@@ -463,45 +477,51 @@ def send_booking_confirmation_email(booking):
             
             admin_msg.html = f"""
             <html>
-            <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
-                <div style="max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px;">
-                    <h2 style="color: #002E5D;">New Booking Received</h2>
+            <body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; background-color: #f4f4f4; padding: 20px;">
+                <div style="max-width: 600px; margin: 0 auto; background: #ffffff; padding: 40px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                    <div style="text-align: center; margin-bottom: 30px;">
+                        <h1 style="color: #002E5D; margin: 0;">Greenwood International</h1>
+                        <p style="color: #666; font-size: 14px;">Admin Notification</p>
+                    </div>
                     
+                    <h2 style="color: #002E5D; margin-top: 0;">New Booking Received</h2>
                     <p><strong>Admin Notification</strong></p>
-                    
                     <p>A new booking has been successfully processed.</p>
                     
                     <div style="background-color: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
                         <h3 style="color: #002E5D; margin-top: 0;">Booking Details</h3>
-                        <table style="width: 100%; border-collapse: collapse;">
+                        <table style="width: 100%;">
                             <tr>
-                                <td style="padding: 8px 0; font-weight: bold; width: 40%;">Booking ID:</td>
-                                <td style="padding: 8px 0;">#{booking.id}</td>
+                                <td style="padding: 5px 0; font-weight: bold; width: 40%;">Booking ID:</td>
+                                <td style="padding: 5px 0;">#{booking.id}</td>
                             </tr>
                             <tr>
-                                <td style="padding: 8px 0; font-weight: bold;">Activity:</td>
-                                <td style="padding: 8px 0;">{activity.name}</td>
+                                <td style="padding: 5px 0; font-weight: bold;">Activity:</td>
+                                <td style="padding: 5px 0;">{activity.name}</td>
                             </tr>
                             <tr>
-                                <td style="padding: 8px 0; font-weight: bold;">Student:</td>
-                                <td style="padding: 8px 0;">{child.name} (Year {child.grade})</td>
+                                <td style="padding: 5px 0; font-weight: bold;">Student:</td>
+                                <td style="padding: 5px 0;">{child.name} (Year {child.grade})</td>
                             </tr>
                             <tr>
-                                <td style="padding: 8px 0; font-weight: bold;">Parent:</td>
-                                <td style="padding: 8px 0;">{parent.full_name} ({parent.email})</td>
+                                <td style="padding: 5px 0; font-weight: bold;">Parent:</td>
+                                <td style="padding: 5px 0;">{parent.full_name} ({parent.email})</td>
                             </tr>
                             <tr>
-                                <td style="padding: 8px 0; font-weight: bold;">Date:</td>
-                                <td style="padding: 8px 0;">{booking.booking_date.strftime('%A, %d %B %Y')}</td>
+                                <td style="padding: 5px 0; font-weight: bold;">Date:</td>
+                                <td style="padding: 5px 0;">{booking.booking_date.strftime('%A, %d %B %Y')}</td>
                             </tr>
                             <tr>
-                                <td style="padding: 8px 0; font-weight: bold;">Amount Paid:</td>
-                                <td style="padding: 8px 0; color: #28a745; font-weight: bold;">£{booking.cost:.2f}</td>
+                                <td style="padding: 5px 0; font-weight: bold;">Amount Paid:</td>
+                                <td style="padding: 5px 0; color: #28a745; font-weight: bold;">£{booking.cost:.2f}</td>
                             </tr>
                         </table>
                     </div>
                     
-                    <p style="font-size: 12px; color: #666;">This is an automated notification for the school administrator.</p>
+                    <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee; font-size: 12px; color: #999; text-align: center;">
+                        <p>Automated Notification System</p>
+                        <p>&copy; {datetime.now().year} Greenwood International School.</p>
+                    </div>
                 </div>
             </body>
             </html>
@@ -530,18 +550,32 @@ def send_tutor_application_email(tutor):
             recipients=[tutor.email]
         )
         tutor_msg.html = f"""
-        <html><body style="font-family: Arial, sans-serif;">
-        <div style="max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #ddd;">
-            <h2 style="color: #002E5D;">Application Received</h2>
-            <p>Dear {tutor.full_name},</p>
-            <p>Thank you for applying to Greenwood International School!</p>
-            <p>Your application is under review. You'll receive an email once reviewed.</p>
-            <p style="background: #f8f9fa; padding: 15px; border-radius: 5px;">
-                <strong>Application Date:</strong> {tutor.application_date.strftime('%B %d, %Y')}<br>
-                <strong>Status:</strong> <span style="color: #ffc107;">Pending Review</span>
-            </p>
-        </div>
-        </body></html>
+        <html>
+        <body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; background-color: #f4f4f4; padding: 20px;">
+            <div style="max-width: 600px; margin: 0 auto; background: #ffffff; padding: 40px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <h1 style="color: #002E5D; margin: 0;">Greenwood International</h1>
+                    <p style="color: #666; font-size: 14px;">Excellence in Education</p>
+                </div>
+                
+                <h2 style="color: #002E5D; margin-top: 0;">Application Received</h2>
+                <p>Dear {tutor.full_name},</p>
+                <p>Thank you for applying to join our team at Greenwood International School.</p>
+                <p>We have successfully received your application details. Our administrative team will review your qualifications and experience shortly.</p>
+                
+                <div style="background-color: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #ffc107;">
+                    <p style="margin: 0;"><strong>Application Date:</strong> {tutor.created_at.strftime('%B %d, %Y')}</p>
+                    <p style="margin: 10px 0 0 0;"><strong>Current Status:</strong> <span style="color: #ffc107; font-weight: bold;">Pending Review</span></p>
+                </div>
+                
+                <p>You will receive another email notification once a decision has been made.</p>
+                
+                <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee; font-size: 12px; color: #999; text-align: center;">
+                    <p>&copy; {datetime.now().year} Greenwood International School. All rights reserved.</p>
+                </div>
+            </div>
+        </body>
+        </html>
         """
         
         # Admin notification
@@ -552,19 +586,46 @@ def send_tutor_application_email(tutor):
                 recipients=[admin.email]
             )
             admin_msg.html = f"""
-            <html><body style="font-family: Arial;">
-            <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
-                <h2>New Tutor Application</h2>
-                <p><strong>Name:</strong> {tutor.full_name}</p>
-                <p><strong>Email:</strong> {tutor.email}</p>
-                <p><strong>Specialization:</strong> {tutor.specialization}</p>
-                <p style="background: #0d6efd; color: white; padding: 15px; text-align: center;">
-                    <a href="http://127.0.0.1:5000/admin/pending-tutors" style="color: white; text-decoration: none;">
-                        Review Application →
-                    </a>
-                </p>
-            </div>
-            </body></html>
+            <html>
+            <body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; background-color: #f4f4f4; padding: 20px;">
+                <div style="max-width: 600px; margin: 0 auto; background: #ffffff; padding: 40px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                    <div style="text-align: center; margin-bottom: 30px;">
+                        <h1 style="color: #002E5D; margin: 0;">Greenwood International</h1>
+                        <p style="color: #666; font-size: 14px;">Admin Notification</p>
+                    </div>
+                    
+                    <h2 style="color: #002E5D; margin-top: 0;">New Tutor Application</h2>
+                    <p>A new tutor application has been submitted and requires review.</p>
+                    
+                    <div style="background-color: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                        <table style="width: 100%;">
+                            <tr>
+                                <td style="padding: 5px 0; font-weight: bold; width: 30%;">Name:</td>
+                                <td style="padding: 5px 0;">{tutor.full_name}</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 5px 0; font-weight: bold;">Email:</td>
+                                <td style="padding: 5px 0;">{tutor.email}</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 5px 0; font-weight: bold;">Specialization:</td>
+                                <td style="padding: 5px 0;">{tutor.specialization}</td>
+                            </tr>
+                        </table>
+                    </div>
+                    
+                    <div style="text-align: center; margin: 30px 0;">
+                        <a href="http://127.0.0.1:5000/admin/pending-tutors" style="background-color: #002E5D; color: white; padding: 14px 28px; text-decoration: none; border-radius: 50px; font-weight: bold; display: inline-block;">
+                            Review Application
+                        </a>
+                    </div>
+                    
+                    <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee; font-size: 12px; color: #999; text-align: center;">
+                        <p>&copy; {datetime.now().year} Greenwood International School. All rights reserved.</p>
+                    </div>
+                </div>
+            </body>
+            </html>
             """
             mail.send(admin_msg)
         
@@ -582,15 +643,95 @@ def send_tutor_approval_email(tutor):
             recipients=[tutor.email]
         )
         msg.html = f"""
-        <html><body style="font-family: Arial;">
-        <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
-            <h2 style="color: #28a745;">🎉 Application Approved!</h2>
-            <p>Dear {tutor.full_name},</p>
-            <p>Your application has been <strong style="color: #28a745;">APPROVED</strong>!</p>
-            <p>Login at <a href="http://127.0.0.1:5000/tutor/login">Tutor Portal</a></p>
-            <p>Welcome to the team!</p>
-        </div>
-        </body></html>
+        <html>
+        <body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; background-color: #f4f4f4; padding: 20px;">
+            <div style="max-width: 600px; margin: 0 auto; background: #ffffff; padding: 40px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <h1 style="color: #002E5D; margin: 0;">Greenwood International</h1>
+                    <p style="color: #666; font-size: 14px;">Welcome</p>
+                </div>
+                
+                <h2 style="color: #28a745; margin-top: 0; text-align: center;">Congratulations!</h2>
+                <p>Dear {tutor.full_name},</p>
+                
+                <p>We are pleased to inform you that your application to join Greenwood International School as a tutor has been <strong>APPROVED</strong>.</p>
+                
+                <p>You can now log in to the Tutor Portal to set up your profile, view activity assignments, and manage your schedules.</p>
+                
+                <div style="text-align: center; margin: 30px 0;">
+                    <a href="http://127.0.0.1:5000/tutor/login" style="background-color: #28a745; color: white; padding: 14px 28px; text-decoration: none; border-radius: 50px; font-weight: bold; display: inline-block;">
+                        Access Tutor Portal
+                    </a>
+                </div>
+                
+                <p>We look forward to working with you!</p>
+                
+                <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee; font-size: 12px; color: #999; text-align: center;">
+                    <p>&copy; {datetime.now().year} Greenwood International School. All rights reserved.</p>
+                </div>
+            </div>
+        </body>
+        </html>
+        """
+        mail.send(msg)
+        return True
+    except Exception as e:
+        print(f'Email error: {e}')
+        return False
+
+def send_activity_assignment_email(tutor, activity):
+    """Send email when tutor is assigned to an activity"""
+    try:
+        msg = Message(
+            subject=f'New Activity Assignment: {activity.name}',
+            recipients=[tutor.email]
+        )
+        msg.html = f"""
+        <html>
+        <body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; background-color: #f4f4f4; padding: 20px;">
+            <div style="max-width: 600px; margin: 0 auto; background: #ffffff; padding: 40px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <h1 style="color: #002E5D; margin: 0;">Greenwood International</h1>
+                    <p style="color: #666; font-size: 14px;">Activity Assignment</p>
+                </div>
+                
+                <h2 style="color: #002E5D; margin-top: 0;">New Activity Assignment</h2>
+                <p>Dear {tutor.full_name},</p>
+                
+                <p>You have been assigned to lead the following activity:</p>
+                
+                <div style="background-color: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #002E5D;">
+                    <h3 style="margin-top: 0; color: #002E5D;">{activity.name}</h3>
+                    <table style="width: 100%;">
+                        <tr>
+                            <td style="padding: 5px 0; font-weight: bold; width: 30%;">Day:</td>
+                            <td style="padding: 5px 0;">{activity.day_of_week}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 5px 0; font-weight: bold;">Time:</td>
+                            <td style="padding: 5px 0;">{activity.start_time} - {activity.end_time}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 5px 0; font-weight: bold;">Price:</td>
+                            <td style="padding: 5px 0;">£{activity.price:.2f}</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <p>Please log in to your dashboard to view student enrollments and manage attendance.</p>
+                
+                <div style="text-align: center; margin: 30px 0;">
+                    <a href="http://127.0.0.1:5000/tutor/login" style="background-color: #002E5D; color: white; padding: 14px 28px; text-decoration: none; border-radius: 50px; font-weight: bold; display: inline-block;">
+                        Access Dashboard
+                    </a>
+                </div>
+                
+                <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee; font-size: 12px; color: #999; text-align: center;">
+                    <p>&copy; {datetime.now().year} Greenwood International School. All rights reserved.</p>
+                </div>
+            </div>
+        </body>
+        </html>
         """
         mail.send(msg)
         return True
@@ -606,14 +747,29 @@ def send_tutor_rejection_email(tutor):
             recipients=[tutor.email]
         )
         msg.html = f"""
-        <html><body style="font-family: Arial;">
-        <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
-            <h2>Application Update</h2>
-            <p>Dear {tutor.full_name},</p>
-            <p>Thank you for your interest. After review, we are unable to proceed with your application at this time.</p>
-            <p>You may reapply in the future.</p>
-        </div>
-        </body></html>
+        <html>
+        <body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; background-color: #f4f4f4; padding: 20px;">
+            <div style="max-width: 600px; margin: 0 auto; background: #ffffff; padding: 40px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <h1 style="color: #002E5D; margin: 0;">Greenwood International</h1>
+                    <p style="color: #666; font-size: 14px;">Application Update</p>
+                </div>
+                
+                <h2 style="color: #333; margin-top: 0;">Application Status</h2>
+                <p>Dear {tutor.full_name},</p>
+                
+                <p>Thank you for your interest in joining Greenwood International School.</p>
+                
+                <p>We appreciate the time you took to apply. However, after careful review of your qualifications, we have decided not to proceed with your application at this time.</p>
+                
+                <p>We wish you the best in your future endeavors and encourage you to check back for future openings.</p>
+                
+                <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee; font-size: 12px; color: #999; text-align: center;">
+                    <p>&copy; {datetime.now().year} Greenwood International School. All rights reserved.</p>
+                </div>
+            </div>
+        </body>
+        </html>
         """
         mail.send(msg)
         return True
@@ -1363,13 +1519,19 @@ def admin_dashboard():
     total_bookings = Booking.query.count()
     total_revenue = db.session.query(db.func.sum(Booking.cost)).scalar() or 0
     activities = Activity.query.all()
-    tutors = Tutor.query.all()
+    
+    # Only show approved tutors in the main list/dropdowns
+    tutors = Tutor.query.filter_by(status='approved').all()
+    
+    # Check for pending applications
+    pending_count = Tutor.query.filter_by(status='pending').count()
     
     return render_template('admin/dashboard.html', 
                            total_bookings=total_bookings, 
                            total_revenue=total_revenue,
                            activities=activities,
-                           tutors=tutors)
+                           tutors=tutors,
+                           pending_count=pending_count)
 
 @app.route('/admin/activity/add', methods=['POST'])
 @admin_required
@@ -1389,11 +1551,23 @@ def add_activity():
     tutor_id = request.form.get('tutor_id')
     
     activity = Activity(name=name, price=price, day_of_week=day, start_time=start, end_time=end)
+    
+    tutor_assigned = False
     if tutor_id:
         activity.tutor_id = tutor_id
+        tutor_assigned = True
         
     db.session.add(activity)
     db.session.commit()
+    
+    # Send notification if tutor assigned
+    if tutor_assigned:
+        tutor = Tutor.query.get(tutor_id)
+        if tutor:
+            try:
+                send_activity_assignment_email(tutor, activity)
+            except Exception:
+                pass
     
     flash('Activity created successfully!', 'success')
     return redirect(url_for('admin_dashboard'))
@@ -1463,6 +1637,9 @@ def edit_tutor(id):
 def edit_activity(id):
     activity = Activity.query.get_or_404(id)
     
+    # Store old tutor to check for changes
+    old_tutor_id = activity.tutor_id
+    
     activity.name = request.form.get('name')
     try:
         activity.price = float(request.form.get('price'))
@@ -1475,12 +1652,25 @@ def edit_activity(id):
     activity.end_time = request.form.get('end')
     
     tutor_id = request.form.get('tutor_id')
+    new_tutor_id = None
+    
     if tutor_id:
-        activity.tutor_id = tutor_id
+        activity.tutor_id = int(tutor_id)
+        new_tutor_id = int(tutor_id)
     else:
         activity.tutor_id = None
         
     db.session.commit()
+    
+    # Check if a new tutor was assigned (and it's different from before)
+    if new_tutor_id and new_tutor_id != old_tutor_id:
+        tutor = Tutor.query.get(new_tutor_id)
+        if tutor:
+            try:
+                send_activity_assignment_email(tutor, activity)
+            except Exception:
+                pass
+                
     flash('Activity updated successfully', 'success')
     return redirect(url_for('admin_dashboard'))
 
@@ -1489,7 +1679,7 @@ def edit_activity(id):
 @admin_required
 def admin_pending_tutors():
     """Pending tutors"""
-    pending = Tutor.query.filter_by(status='pending').order_by(Tutor.application_date.desc()).all()
+    pending = Tutor.query.filter_by(status='pending').order_by(Tutor.created_at.desc()).all()
     approved = Tutor.query.filter_by(status='approved').all()
     rejected = Tutor.query.filter_by(status='rejected').all()
     return render_template('admin/pending_tutors.html', pending=pending, approved=approved, rejected=rejected)
@@ -1557,22 +1747,50 @@ def tutor_register():
         confirm = request.form.get('confirm_password')
         name = request.form.get('full_name')
         spec = request.form.get('specialization')
-        quals = request.form.get('qualifications')
+        
+        # New Detailed Fields matching HTML form and Tutor Model
+        years_experience = request.form.get('years_experience')
+        education = request.form.get('education')
+        certifications = request.form.get('certifications')
+        teaching_philosophy = request.form.get('teaching_philosophy')
+        linkedin_url = request.form.get('linkedin_url')
         bio = request.form.get('bio')
         
-        if not all([email, password, confirm, name, spec, quals]):
-            return render_template('tutor/register.html', error='All fields required')
+        # Validate Required Fields based on HTML 'required' attributes
+        # email, password, confirm, name, spec, years_experience, education, teaching_philosophy, bio
+        required_values = [email, password, confirm, name, spec, years_experience, education, teaching_philosophy, bio]
         
+        if not all(required_values):
+            flash('All marked fields are required.', 'error')
+            return redirect(url_for('tutor_register'))
+            
         if password != confirm:
-            return render_template('tutor/register.html', error='Passwords do not match')
-        
+            flash('Passwords do not match', 'error')
+            return redirect(url_for('tutor_register'))
+            
         if len(password) < 8:
-            return render_template('tutor/register.html', error='Password must be 8+ characters')
-        
+            flash('Password must be at least 8 characters long', 'error')
+            return redirect(url_for('tutor_register'))
+            
         if Tutor.query.filter_by(email=email).first():
-            return render_template('tutor/register.html', error='Email already registered')
+            flash('Email already registered', 'error')
+            return redirect(url_for('tutor_register'))
         
-        tutor = Tutor(email=email, full_name=name, specialization=spec, qualifications=quals, bio=bio, status='pending')
+        # Create Tutor - using correct model fields
+        tutor = Tutor(
+            email=email, 
+            full_name=name, 
+            specialization=spec, 
+            bio=bio,
+            years_experience=years_experience,
+            education=education,
+            certifications=certifications,
+            teaching_philosophy=teaching_philosophy,
+            linkedin_url=linkedin_url,
+            status='pending',
+            # Map education to qualification for backward compatibility if redundant
+            qualification=education[:300] if education else None 
+        )
         tutor.set_password(password)
         db.session.add(tutor)
         db.session.commit()
@@ -1586,7 +1804,6 @@ def tutor_register():
         return redirect(url_for('portal_home'))
     
     return render_template('tutor/register.html')
-
 
 @app.route('/tutor/dashboard')
 @tutor_required
@@ -1628,12 +1845,14 @@ def tutor_attendance(activity_id):
             
             if record:
                 record.status = status
+                record.notes = notes
             else:
                 record = Attendance(
                     child_id=booking.child.id,
                     activity_id=activity_id,
                     date=date,
-                    status=status
+                    status=status,
+                    notes=notes
                 )
                 db.session.add(record)
         
@@ -1643,10 +1862,22 @@ def tutor_attendance(activity_id):
     
     # GET request - show attendance form
     bookings = Booking.query.filter_by(activity_id=activity_id, status='confirmed').all()
+    
+    # Get existing attendance for today
+    today = datetime.utcnow().date()
+    attendance_records = Attendance.query.filter_by(
+        activity_id=activity_id,
+        date=today
+    ).all()
+    
+    # Create a map for easy lookup in template: child_id -> record
+    attendance_map = {record.child_id: record for record in attendance_records}
+    
     return render_template('tutor/attendance.html', 
                          activity=activity, 
                          bookings=bookings,
-                         today=datetime.utcnow().date())
+                         today=today,
+                         attendance_map=attendance_map)
 
 @app.route('/tutor/attendance_history/<int:activity_id>')
 @tutor_required
@@ -1804,27 +2035,44 @@ def cancel_booking(booking_id):
     """
     booking = Booking.query.get_or_404(booking_id)
     
-    if booking.parent_id != session.get('parent_id'):
-        flash('Unauthorized access', 'error')
+    if booking.parent_id != session.get('parent_id') and 'admin_id' not in session:
+        flash('Unauthorized access', 'danger')
         abort(403)
     
     try:
+        # 1. GATHER DATA BEFORE DELETION (Prevent DetachedInstanceError)
         activity = booking.activity
         child = booking.child
         parent = Parent.query.get(booking.parent_id)
         tutor = activity.tutor
         admin = Admin.query.first()
         
+        # Store simple types/variables
         activity_name = activity.name
+        activity_id = activity.id
+        activity_price = activity.price
+        max_capacity = activity.max_capacity
+        current_booked_count = len(activity.bookings) # Load this relationship now
+        
         child_name = child.name
-        booking_date = booking.booking_date.strftime('%d %B %Y')
+        child_grade = child.grade
+        child_id = child.id
+        parent_name = parent.full_name
+        parent_email = parent.email
+        
+        tutor_name = tutor.full_name if tutor else 'Not Assigned'
+        tutor_email = tutor.email if tutor else None
+        
+        booking_date_str = booking.booking_date.strftime('%d %B %Y')
+        booking_date_obj = booking.booking_date # Keep for waitlist logic
         cancellation_date = datetime.now().strftime('%d %B %Y at %H:%M')
         
-        # Delete the booking
+        # 2. DELETE BOOKING
         db.session.delete(booking)
         db.session.commit()
         
-        # 1. PARENT NOTIFICATION - Professional cancellation confirmation
+        # 3. SEND NOTIFICATIONS (Using pre-fetched data)
+        # Parent Notification
         try:
             parent_content = f"""
             <div style="text-align: center; padding: 20px 0;">
@@ -1832,280 +2080,87 @@ def cancel_booking(booking_id):
                     <h2 style="color: #DC2626; margin: 0; font-size: 24px;">Booking Cancelled</h2>
                 </div>
             </div>
-            
-            <p style="font-size: 16px; line-height: 1.6; color: #333;">Dear <strong>{parent.full_name}</strong>,</p>
-            
-            <p style="font-size: 15px; line-height: 1.6; color: #555;">
-                This confirms that your booking has been successfully cancelled as requested.
-            </p>
-            
-            <div style="background-color: #F9FAFB; border: 2px solid #E5E7EB; border-radius: 8px; padding: 25px; margin: 25px 0;">
-                <h3 style="color: #002E5D; margin-top: 0; border-bottom: 2px solid #D4AF37; padding-bottom: 10px;">Cancellation Details</h3>
-                <table width="100%" cellpadding="8" cellspacing="0">
-                    <tr>
-                        <td style="color: #666; font-weight: bold; width: 40%;">Activity:</td>
-                        <td style="color: #002E5D; font-weight: bold;">{activity_name}</td>
-                    </tr>
-                    <tr>
-                        <td style="color: #666; font-weight: bold;">Student:</td>
-                        <td style="color: #002E5D;">{child_name} (Year {child.grade})</td>
-                    </tr>
-                    <tr>
-                        <td style="color: #666; font-weight: bold;">Original Booking Date:</td>
-                        <td style="color: #002E5D;">{booking_date}</td>
-                    </tr>
-                    <tr>
-                        <td style="color: #666; font-weight: bold;">Cancelled On:</td>
-                        <td style="color: #DC2626;">{cancellation_date}</td>
-                    </tr>
-                    <tr>
-                        <td style="color: #666; font-weight: bold;">Status:</td>
-                        <td><span style="background-color: #DC2626; color: white; padding: 4px 12px; border-radius: 4px; font-size: 12px;">CANCELLED</span></td>
-                    </tr>
-                </table>
+            <p style="font-size: 16px; color: #333;">Dear <strong>{parent_name}</strong>,</p>
+            <p style="font-size: 15px; color: #555;">This confirms that your booking has been cancelled.</p>
+            <div style="background-color: #F9FAFB; padding: 25px; border-radius: 8px;">
+                <p><strong>Activity:</strong> {activity_name}</p>
+                <p><strong>Student:</strong> {child_name}</p>
+                <p><strong>Date:</strong> {booking_date_str}</p>
             </div>
-            
-            <div style="background-color: #EFF6FF; border-left: 4px solid: #0DA49F; padding: 20px; margin: 25px 0; border-radius: 4px;">
-                <p style="margin: 0; color: #002E5D; font-size: 14px;">
-                    <strong>💡 Would you like to book another activity?</strong><br>
-                    Visit your dashboard to explore our full range of extracurricular activities.
-                </p>
-            </div>
-            
-            <p style="font-size: 15px; color: #555; line-height: 1.6;">
-                If you have any questions or concerns, please don't hesitate to contact us.
-            </p>
-            
-            <p style="font-size: 15px; color: #333; margin-top: 30px;">
-                Best regards,<br>
-                <strong style="color: #002E5D;">Activities Coordination Team</strong><br>
-                Greenwood International School
-            </p>
             """
             
-            parent_msg = Message(
-                subject=f'❌ Booking Cancellation Confirmed - {activity_name}',
-                recipients=[parent.email]
-            )
-            parent_msg.html = get_email_template(parent_content, "Booking Cancellation Confirmation")
-            mail.send(parent_msg)
+            msg = Message(subject=f'❌ Booking Cancelled - {activity_name}', recipients=[parent_email])
+            msg.html = get_email_template(parent_content)
+            mail.send(msg)
         except Exception as e:
             print(f"Parent email failed: {e}")
-        
-        # 2. ADMIN NOTIFICATION - For records management
-        if admin:
+
+        # Tutor Notification
+        if tutor_email:
             try:
-                admin_content = f"""
-                <div style="background-color: #FEF3C7; border-left: 4px solid #F59E0B; padding: 20px; margin: 20px 0;">
-                    <h2 style="color: #92400E; margin: 0;">📋 Booking Cancellation Alert</h2>
-                </div>
-                
-                <p style="font-size: 15px; color: #333;">Dear Admin,</p>
-                
-                <p style="font-size: 14px; color: #555;">
-                    A booking has been cancelled. Please review the details below for your records:
-                </p>
-                
-                <div style="background-color: #F9FAFB; border: 2px solid #E5E7EB; border-radius: 8px; padding: 25px; margin: 25px 0;">
-                    <h3 style="color: #002E5D; margin-top: 0;">Cancellation Information</h3>
-                    <table width="100%" cellpadding="8" cellspacing="0">
-                        <tr>
-                            <td style="color: #666; font-weight: bold; width: 35%;">Parent:</td>
-                            <td style="color: #002E5D;">{parent.full_name} ({parent.email})</td>
-                        </tr>
-                        <tr>
-                            <td style="color: #666; font-weight: bold;">Student:</td>
-                            <td style="color: #002E5D;">{child_name} (Year {child.grade})</td>
-                        </tr>
-                        <tr>
-                            <td style="color: #666; font-weight: bold;">Activity:</td>
-                            <td style="color: #002E5D; font-weight: bold;">{activity_name}</td>
-                        </tr>
-                        <tr>
-                            <td style="color: #666; font-weight: bold;">Tutor:</td>
-                            <td style="color: #002E5D;">{tutor.full_name if tutor else 'Not Assigned'}</td>
-                        </tr>
-                        <tr>
-                            <td style="color: #666; font-weight: bold;">Booking Date:</td>
-                            <td style="color: #002E5D;">{booking_date}</td>
-                        </tr>
-                        <tr>
-                            <td style="color: #666; font-weight: bold;">Cancellation Time:</td>
-                            <td style="color: #DC2626;">{cancellation_date}</td>
-                        </tr>
-                        <tr>
-                            <td style="color: #666; font-weight: bold;">Available Capacity:</td>
-                            <td style="color: #059669;">{activity.max_capacity - len(activity.bookings)} spots now available</td>
-                        </tr>
-                    </table>
-                </div>
-                
-                <p style="font-size: 14px; color: #555;">
-                    This cancellation has been processed automatically. No further action required unless there are waitlisted students.
-                </p>
-                """
-                
-                admin_msg = Message(
-                    subject=f'🔔 Booking Cancellation Alert: {activity_name} - {child_name}',
-                    recipients=[admin.email]
-                )
-                admin_msg.html = get_email_template(admin_content, "Admin Cancellation Alert")
-                mail.send(admin_msg)
-            except Exception as e:
-                print(f"Admin email failed: {e}")
-        
-        # 3. TUTOR NOTIFICATION - Roster update
-        if tutor:
-            try:
-                current_enrolled = len(activity.bookings)
+                new_count = current_booked_count - 1
                 tutor_content = f"""
-               <div style="background-color: #DBEAFE; border-left: 4px solid: #3B82F6; padding: 20px; margin: 20px 0;">
-                    <h2 style="color: #1E40AF; margin: 0;">👨‍🏫 Class Roster Update</h2>
+                <div style="background-color: #DBEAFE; border-left: 4px solid #3B82F6; padding: 20px;">
+                    <h2 style="color: #1E40AF; margin: 0;">Class Roster Update</h2>
                 </div>
-                
-                <p style="font-size: 15px; color: #333;">Dear <strong>{tutor.full_name}</strong>,</p>
-                
-                <p style="font-size: 14px; color: #555;">
-                    A student has withdrawn from your <strong>{activity_name}</strong> class. Please note this roster change:
-                </p>
-                
-                <div style="background-color: #F9FAFB; border: 2px solid #E5E7EB; border-radius: 8px; padding: 25px; margin: 25px 0;">
-                    <h3 style="color: #002E5D; margin-top: 0;">Withdrawal Details</h3>
-                    <table width="100%" cellpadding="8" cellspacing="0">
-                        <tr>
-                            <td style="color: #666; font-weight: bold; width: 35%;">Student Withdrawn:</td>
-                            <td style="color: #DC2626; font-weight: bold;">{child_name}</td>
-                        </tr>
-                        <tr>
-                            <td style="color: #666; font-weight: bold;">Activity:</td>
-                            <td style="color: #002E5D;">{activity_name}</td>
-                        </tr>
-                        <tr>
-                            <td style="color: #666; font-weight: bold;">Year Group:</td>
-                            <td style="color: #002E5D;">Year {child.grade}</td>
-                        </tr>
-                        <tr>
-                            <td style="color: #666; font-weight: bold;">Parent Contact:</td>
-                            <td style="color: #002E5D;">{parent.full_name}</td>
-                        </tr>
-                        <tr>
-                            <td style="color: #666; font-weight: bold;">Updated Class Size:</td>
-                            <td style="color: #059669; font-weight: bold;">{current_enrolled} / {activity.max_capacity} students</td>
-                        </tr>
-                        <tr>
-                            <td style="color: #666; font-weight: bold;">Available Spots:</td>
-                            <td style="color: #059669;">{activity.max_capacity - current_enrolled} spots available</td>
-                        </tr>
-                    </table>
-                </div>
-                
-                <div style="background-color: #FEF3C7; border: 1px solid #F59E0B; padding: 15px; border-radius: 4px; margin: 20px 0;">
-                    <p style="margin: 0; color: #92400E; font-size: 14px;">
-                        <strong>📝 Action Required:</strong> Please update your attendance register and class materials accordingly.
-                    </p>
-                </div>
-                
-                <p style="font-size: 14px; color: #555; line-height: 1.6;">
-                    Your updated class roster is available in your tutor dashboard.
-                </p>
-                
-                <p style="font-size: 15px; color: #333; margin-top: 30px;">
-                    Best regards,<br>
-                    <strong style="color: #002E5D;">Activities Coordination Office</strong>
-                </p>
+                <p>Dear <strong>{tutor_name}</strong>,</p>
+                <p>Student <strong>{child_name}</strong> has withdrawn from <strong>{activity_name}</strong>.</p>
+                <p>Updated Class Size: <strong style="color: #059669;">{new_count} / {max_capacity}</strong></p>
                 """
-                
-                tutor_msg = Message(
-                    subject=f'📋 Roster Update: Student Withdrawal from {activity_name}',
-                    recipients=[tutor.email]
-                )
-                tutor_msg.html = get_email_template(tutor_content, "Tutor Roster Update")
-                mail.send(tutor_msg)
+                msg = Message(subject=f'📋 Roster Update: {activity_name}', recipients=[tutor_email])
+                msg.html = get_email_template(tutor_content)
+                mail.send(msg)
             except Exception as e:
                 print(f"Tutor email failed: {e}")
+
+        # 4. WAITLIST PROMOTION LOGIC
+        first_waitlist = Waitlist.query.filter_by(activity_id=activity_id, status='waiting').order_by(Waitlist.created_at.asc()).first()
         
-        # Check waitlist and auto-promote
-        first_in_queue = Waitlist.query.filter_by(
-            activity_id=activity.id,
-            status='waiting'
-        ).order_by(Waitlist.created_at.asc()).first()
-        
-        if first_in_queue:
-            # Promote from waitlist
-            promoted_booking = Booking(
-                parent_id=first_in_queue.parent_id,
-                child_id=first_in_queue.child_id,
-                activity_id=activity.id,
-                booking_date=first_in_queue.request_date,
-                cost=activity.price,
+        if first_waitlist:
+            # Create new booking for waitlisted child
+            new_booking = Booking(
+                parent_id=first_waitlist.parent_id,
+                child_id=first_waitlist.child_id,
+                activity_id=activity_id,
+                booking_date=first_waitlist.request_date, # Use requested date
+                cost=activity_price,
                 status='confirmed'
             )
-            first_in_queue.status = 'promoted'
-            db.session.add(promoted_booking)
+            first_waitlist.status = 'promoted'
+            db.session.add(new_booking)
             db.session.commit()
             
-            # Send promotion email
+            # Notify promoted parent
             try:
-                promoted_parent = Parent.query.get(first_in_queue.parent_id)
-                promoted_child = Child.query.get(first_in_queue.child_id)
+                wl_parent = Parent.query.get(first_waitlist.parent_id)
+                wl_child = Child.query.get(first_waitlist.child_id)
                 
                 promo_content = f"""
-                <div style="text-align: center; padding: 20px 0;">
-                    <div style="display: inline-block; background-color: #D1FAE5; border-left: 4px solid #10B981; padding: 15px 20px;">
-                        <h2 style="color: #065F46; margin: 0; font-size: 24px;">🎉 Great News!</h2>
-                    </div>
+                <div style="background-color: #D1FAE5; border-left: 4px solid #10B981; padding: 20px;">
+                    <h2 style="color: #065F46; margin: 0;">🎉 Spot Available!</h2>
                 </div>
-                
-                <p style="font-size: 16px; color: #333;">Dear <strong>{promoted_parent.full_name}</strong>,</p>
-                
-                <p style="font-size: 15px; line-height: 1.6; color: #555;">
-                    A spot has become available for <strong style="color: #002E5D;">{activity_name}</strong>, and we're delighted to confirm that 
-                    <strong>{promoted_child.name}</strong> has been successfully enrolled!
-                </p>
-                
-                <div style="background-color: #ECFDF5; border: 2px solid #10B981; border-radius: 8px; padding: 25px; margin: 25px 0;">
-                    <h3 style="color: #065F46; margin-top: 0;">✅ Enrolment Confirmed</h3>
-                    <table width="100%" cellpadding="8" cellspacing="0">
-                        <tr>
-                            <td style="color: #666; font-weight: bold;">Activity:</td>
-                            <td style="color: #002E5D; font-weight: bold;">{activity_name}</td>
-                        </tr>
-                        <tr>
-                            <td style="color: #666; font-weight: bold;">Student:</td>
-                            <td style="color: #002E5D;">{promoted_child.name}</td>
-                        </tr>
-                        <tr>
-                            <td style="color: #666; font-weight: bold;">Status:</td>
-                            <td><span style="background-color: #10B981; color: white; padding: 4px 12px; border-radius: 4px;">CONFIRMED</span></td>
-                        </tr>
-                    </table>
-                </div>
-                
-                <p style="font-size: 15px; color: #333;">
-                    Best regards,<br>
-                    <strong style="color: #002E5D;">Greenwood Activities Team</strong>
-                </p>
+                <p>Dear <strong>{wl_parent.full_name}</strong>,</p>
+                <p>Great news! A spot opened up for <strong>{activity_name}</strong> and <strong>{wl_child.name}</strong> has been automatically enrolled!</p>
                 """
-                
-                promo_msg = Message(
-                    subject=f'🎉 Enrolment Confirmed: {activity_name} - {promoted_child.name}',
-                    recipients=[promoted_parent.email]
-                )
-                promo_msg.html = get_email_template(promo_content, "Enrolment Confirmation")
-                mail.send(promo_msg)
+                msg = Message(subject=f'✅ You are off the waitlist! - {activity_name}', recipients=[wl_parent.email])
+                msg.html = get_email_template(promo_content)
+                mail.send(msg)
             except Exception as e:
                 print(f"Promotion email failed: {e}")
             
             flash(f'Booking cancelled. Waitlisted student promoted. All parties notified.', 'success')
         else:
             flash(f'Booking cancelled. Confirmation emails sent to all parties.', 'success')
+
+        if 'admin_id' in session:
+             return redirect(url_for('admin_bookings'))
         
         return redirect(url_for('dashboard'))
-        
+
     except Exception as e:
         db.session.rollback()
-        print(f"Cancellation error: {e}")
-        flash('An error occurred. Please try again.', 'error')
+        print(f"Cancellation Error: {e}")
+        flash('An error occurred during cancellation. Please try again.', 'error')
         return redirect(url_for('dashboard'))
 
 
@@ -2262,60 +2317,138 @@ def admin_tutors():
     
     return render_template('admin/tutors.html', tutor_data=tutor_data)
 
-@app.route('/admin/tutor/<int:tutor_id>')
-@admin_required
-def admin_tutor_detail(tutor_id):
-    """View detailed tutor profile with qualifications and activities"""
-    tutor = Tutor.query.get_or_404(tutor_id)
-    
-    # Get all activities by this tutor with booking counts
-    activity_stats = []
-    for activity in tutor.activities:
-        stats = {
-            'activity': activity,
-            'booked': len(activity.bookings),
-            'capacity': activity.max_capacity,
-            'revenue': activity.price * len(activity.bookings)
-        }
-        activity_stats.append(stats)
-    
-    total_revenue = sum(stat['revenue'] for stat in activity_stats)
-    total_students = sum(stat['booked'] for stat in activity_stats)
-    
-    return render_template('admin/tutor_detail.html', 
-                         tutor=tutor,
-                         activity_stats=activity_stats,
-                         total_revenue=total_revenue,
-                         total_students=total_students)
-
-
-
-@app.route('/admin/activity/<int:activity_id>/enrollments')
-@admin_required
-def admin_activity_enrollments(activity_id):
-    """View all enrollments for a specific activity with management options"""
-    activity = Activity.query.get_or_404(activity_id)
-    
-    # Get all bookings with parent and child details
-    bookings = Booking.query.filter_by(activity_id=activity_id).all()
-    
-    enrollment_data = []
-    for booking in bookings:
-        data = {
-            'booking': booking,
-            'child': Child.query.get(booking.child_id),
-            'parent': Parent.query.get(booking.parent_id)
-        }
-        enrollment_data.append(data)
-    
-    # Sort by booking date (most recent first)
-    enrollment_data.sort(key=lambda x: x['booking'].booking_date, reverse=True)
-    
-    return render_template('admin/activity_enrollments.html',
-                         activity=activity,
-                         enrollment_data=enrollment_data,
-                         total_enrolled=len(bookings),
-                         available_spots=activity.max_capacity - len(bookings))
+    try:
+        activity = booking.activity
+        child = booking.child
+        parent = Parent.query.get(booking.parent_id)
+        tutor = activity.tutor
+        admin = Admin.query.first()
+        
+        activity_name = activity.name
+        child_name = child.name
+        booking_date = booking.booking_date.strftime('%d %B %Y')
+        cancellation_date = datetime.now().strftime('%d %B %Y at %H:%M')
+        
+        # Delete the booking
+        db.session.delete(booking)
+        db.session.commit()
+        
+        # Send notification to parent
+        try:
+            parent_content = f"""
+            <div style="text-align: center; padding: 20px 0;">
+                <div style="display: inline-block; background-color: #FEF2F2; border-left: 4px solid #DC2626; padding: 15px 20px;">
+                    <h2 style="color: #DC2626; margin: 0; font-size: 24px;">Booking Cancelled by Administrator</h2>
+                </div>
+            </div>
+            
+            <p style="font-size: 16px; color: #333;">Dear <strong>{parent.full_name}</strong>,</p>
+            
+            <p style="font-size: 15px; line-height: 1.6; color: #555;">
+                We regret to inform you that your booking has been cancelled by our administrative team.
+            </p>
+            
+            <div style="background-color: #F9FAFB; border: 2px solid #E5E7EB; border-radius: 8px; padding: 25px; margin: 25px 0;">
+                <h3 style="color: #002E5D; margin-top: 0;">Cancellation Details</h3>
+                <table width="100%" cellpadding="8" cellspacing="0">
+                    <tr>
+                        <td style="color: #666; font-weight: bold;">Activity:</td>
+                        <td style="color: #002E5D; font-weight: bold;">{activity_name}</td>
+                    </tr>
+                    <tr>
+                        <td style="color: #666; font-weight: bold;">Student:</td>
+                        <td style="color: #002E5D;">{child_name} (Year {child.grade})</td>
+                    </tr>
+                    <tr>
+                        <td style="color: #666; font-weight: bold;">Original Booking Date:</td>
+                        <td style="color: #002E5D;">{booking_date}</td>
+                    </tr>
+                    <tr>
+                        <td style="color: #666; font-weight: bold;">Cancelled By:</td>
+                        <td style="color: #DC2626;">Administrator</td>
+                    </tr>
+                    <tr>
+                        <td style="color: #666; font-weight: bold;">Cancellation Date:</td>
+                        <td style="color: #DC2626;">{cancellation_date}</td>
+                    </tr>
+                </table>
+            </div>
+            
+            <p style="font-size: 15px; color: #555; line-height: 1.6;">
+                If you have any questions regarding this cancellation, please contact our admin office at 
+                <strong>greenwoodinternationaluk@gmail.com</strong>.
+            </p>
+            
+            <p style="font-size: 15px; color: #333; margin-top: 30px;">
+                Best regards,<br>
+                <strong style="color: #002E5D;">Greenwood International School Administration</strong>
+            </p>
+            """
+            
+            parent_msg = Message(
+                subject=f'Booking Cancellation Notice - {activity_name}',
+                recipients=[parent.email]
+            )
+            parent_msg.html = get_email_template(parent_content, "Booking Cancellation Notice")
+            mail.send(parent_msg)
+        except Exception as e:
+            print(f"Parent notification failed: {e}")
+        
+        # Notify tutor
+        if tutor:
+            try:
+                current_enrolled = len(activity.bookings)
+                tutor_content = f"""
+                <div style="background-color: #DBEAFE; border-left: 4px solid #3B82F6; padding: 20px; margin: 20px 0;">
+                    <h2 style="color: #1E40AF; margin: 0;">📋 Admin Cancellation - Roster Update</h2>
+                </div>
+                
+                <p style="font-size: 15px; color: #333;">Dear <strong>{tutor.full_name}</strong>,</p>
+                
+                <p style="font-size: 14px; color: #555;">
+                    An administrator has cancelled a student enrollment in your <strong>{activity_name}</strong> class.
+                </p>
+                
+                <div style="background-color: #F9FAFB; border: 2px solid #E5E7EB; border-radius: 8px; padding: 25px; margin: 25px 0;">
+                    <h3 style="color: #002E5D; margin-top: 0;">Cancellation Details</h3>
+                    <table width="100%" cellpadding="8" cellspacing="0">
+                        <tr>
+                            <td style="color: #666; font-weight: bold;">Student:</td>
+                            <td style="color: #DC2626; font-weight: bold;">{child_name}</td>
+                        </tr>
+                        <tr>
+                            <td style="color: #666; font-weight: bold;">Year Group:</td>
+                            <td style="color: #002E5D;">Year {child.grade}</td>
+                        </tr>
+                        <tr>
+                            <td style="color: #666; font-weight: bold;">Updated Class Size:</td>
+                            <td style="color: #059669; font-weight: bold;">{current_enrolled} / {activity.max_capacity} students</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <p style="font-size: 14px; color: #555;">
+                    Please update your attendance register accordingly.
+                </p>
+                """
+                
+                tutor_msg = Message(
+                    subject=f'Admin Cancellation: {child_name} - {activity_name}',
+                    recipients=[tutor.email]
+                )
+                tutor_msg.html = get_email_template(tutor_content, "Admin Cancellation Notice")
+                mail.send(tutor_msg)
+            except Exception as e:
+                print(f"Tutor notification failed: {e}")
+        
+        flash(f'Booking cancelled successfully. Notifications sent to parent and tutor.', 'success')
+        return redirect(url_for('admin_activity_enrollments', activity_id=activity.id))
+        
+    except Exception as e:
+        db.session.rollback()
+        print(f"Admin cancellation error: {e}")
+        flash('An error occurred. Please try again.', 'error')
+        return redirect(url_for('admin_dashboard'))
 
 @app.route('/admin/cancel_booking/<int:booking_id>', methods=['POST'])
 @admin_required
@@ -2456,201 +2589,183 @@ def admin_cancel_booking(booking_id):
         flash('An error occurred. Please try again.', 'error')
         return redirect(url_for('admin_dashboard'))
 
-@app.route('/admin/tutor/<int:tutor_id>')
-@admin_required
-def admin_tutor_detail(tutor_id):
-    """View detailed tutor profile with qualifications and activities"""
-    tutor = Tutor.query.get_or_404(tutor_id)
-    
-    # Get all activities by this tutor with booking counts
-    activity_stats = []
-    for activity in tutor.activities:
-        stats = {
-            'activity': activity,
-            'booked': len(activity.bookings),
-            'capacity': activity.max_capacity,
-            'revenue': activity.price * len(activity.bookings)
-        }
-        activity_stats.append(stats)
-    
-    total_revenue = sum(stat['revenue'] for stat in activity_stats)
-    total_students = sum(stat['booked'] for stat in activity_stats)
-    
-    return render_template('admin/tutor_detail.html', 
-                         tutor=tutor,
-                         activity_stats=activity_stats,
-                         total_revenue=total_revenue,
-                         total_students=total_students)
 
+# ========================================
 
-
-@app.route('/admin/activity/<int:activity_id>/enrollments')
-@admin_required
-def admin_activity_enrollments(activity_id):
-    """View all enrollments for a specific activity with management options"""
-    activity = Activity.query.get_or_404(activity_id)
+# --- Child Management Routes ---
+    """Edit existing child"""
+    child = Child.query.get_or_404(child_id)
     
-    # Get all bookings with parent and child details
-    bookings = Booking.query.filter_by(activity_id=activity_id).all()
+    # Verify ownership
+    if child.parent_id != session['parent_id']:
+        flash('Unauthorized', 'danger')
+        return redirect(url_for('dashboard'))
     
-    enrollment_data = []
-    for booking in bookings:
-        data = {
-            'booking': booking,
-            'child': Child.query.get(booking.child_id),
-            'parent': Parent.query.get(booking.parent_id)
-        }
-        enrollment_data.append(data)
+    child.name = request.form.get('name', child.name)
+    child.age = request.form.get('age', child.age)
+    child.grade = request.form.get('grade', child.grade)
     
-    # Sort by booking date (most recent first)
-    enrollment_data.sort(key=lambda x: x['booking'].booking_date, reverse=True)
+    db.session.commit()
+    flash(f'{child.name} updated successfully!', 'success')
+    return redirect(url_for('dashboard'))
+@app.route('/parent/profile', methods=['GET', 'POST'])
+@login_required
+def parent_profile():
+    """Parent profile view and edit"""
+    parent = Parent.query.get(session['parent_id'])
     
-    return render_template('admin/activity_enrollments.html',
-                         activity=activity,
-                         enrollment_data=enrollment_data,
-                         total_enrolled=len(bookings),
-                         available_spots=activity.max_capacity - len(bookings))
-
-@app.route('/admin/cancel_booking/<int:booking_id>', methods=['POST'])
-@admin_required
-def admin_cancel_booking(booking_id):
-    """Admin cancels a booking on behalf of parent (with notifications)"""
-    booking = Booking.query.get_or_404(booking_id)
-    
-    try:
-        activity = booking.activity
-        child = booking.child
-        parent = Parent.query.get(booking.parent_id)
-        tutor = activity.tutor
-        admin = Admin.query.first()
+    if request.method == 'POST':
+        parent.full_name = request.form.get('full_name', parent.full_name)
+        parent.email = request.form.get('email', parent.email)
+        parent.phone = request.form.get('phone', parent.phone)
         
-        activity_name = activity.name
-        child_name = child.name
-        booking_date = booking.booking_date.strftime('%d %B %Y')
-        cancellation_date = datetime.now().strftime('%d %B %Y at %H:%M')
-        
-        # Delete the booking
-        db.session.delete(booking)
         db.session.commit()
+        flash('Profile updated successfully!', 'success')
+        return redirect(url_for('parent_profile'))
+    
+    return render_template('parent/profile.html', parent=parent)
+
+
+@app.route('/parent/change-password', methods=['POST'])
+@login_required
+def parent_change_password():
+    """Parent password change"""
+    parent = Parent.query.get(session['parent_id'])
+    
+    current_password = request.form.get('current_password')
+    new_password = request.form.get('new_password')
+    confirm_password = request.form.get('confirm_password')
+    
+    if not parent.check_password(current_password):
+        flash('Current password is incorrect', 'danger')
+        return redirect(url_for('parent_profile'))
+    
+    if new_password != confirm_password:
+        flash('New passwords do not match', 'danger')
+        return redirect(url_for('parent_profile'))
+    
+    if len(new_password) < 6:
+        flash('Password must be at least 6 characters', 'danger')
+        return redirect(url_for('parent_profile'))
+    
+    parent.set_password(new_password)
+    db.session.commit()
+    
+    flash('Password changed successfully!', 'success')
+    return redirect(url_for('parent_profile'))
+
+
+# --- Tutor Profile Management ---
+
+@app.route('/tutor/profile', methods=['GET', 'POST'])
+@tutor_required
+def tutor_profile():
+    """Tutor profile view and edit"""
+    tutor = Tutor.query.get(session['tutor_id'])
+    
+    if request.method == 'POST':
+        tutor.full_name = request.form.get('full_name', tutor.full_name)
+        tutor.phone = request.form.get('phone', tutor.phone)
+        tutor.bio = request.form.get('bio', tutor.bio)
         
-        # Send notification to parent
-        try:
-            parent_content = f"""
-            <div style="text-align: center; padding: 20px 0;">
-                <div style="display: inline-block; background-color: #FEF2F2; border-left: 4px solid #DC2626; padding: 15px 20px;">
-                    <h2 style="color: #DC2626; margin: 0; font-size: 24px;">Booking Cancelled by Administrator</h2>
-                </div>
-            </div>
-            
-            <p style="font-size: 16px; color: #333;">Dear <strong>{parent.full_name}</strong>,</p>
-            
-            <p style="font-size: 15px; line-height: 1.6; color: #555;">
-                We regret to inform you that your booking has been cancelled by our administrative team.
-            </p>
-            
-            <div style="background-color: #F9FAFB; border: 2px solid #E5E7EB; border-radius: 8px; padding: 25px; margin: 25px 0;">
-                <h3 style="color: #002E5D; margin-top: 0;">Cancellation Details</h3>
-                <table width="100%" cellpadding="8" cellspacing="0">
-                    <tr>
-                        <td style="color: #666; font-weight: bold;">Activity:</td>
-                        <td style="color: #002E5D; font-weight: bold;">{activity_name}</td>
-                    </tr>
-                    <tr>
-                        <td style="color: #666; font-weight: bold;">Student:</td>
-                        <td style="color: #002E5D;">{child_name} (Year {child.grade})</td>
-                    </tr>
-                    <tr>
-                        <td style="color: #666; font-weight: bold;">Original Booking Date:</td>
-                        <td style="color: #002E5D;">{booking_date}</td>
-                    </tr>
-                    <tr>
-                        <td style="color: #666; font-weight: bold;">Cancelled By:</td>
-                        <td style="color: #DC2626;">Administrator</td>
-                    </tr>
-                    <tr>
-                        <td style="color: #666; font-weight: bold;">Cancellation Date:</td>
-                        <td style="color: #DC2626;">{cancellation_date}</td>
-                    </tr>
-                </table>
-            </div>
-            
-            <p style="font-size: 15px; color: #555; line-height: 1.6;">
-                If you have any questions regarding this cancellation, please contact our admin office at 
-                <strong>greenwoodinternationaluk@gmail.com</strong>.
-            </p>
-            
-            <p style="font-size: 15px; color: #333; margin-top: 30px;">
-                Best regards,<br>
-                <strong style="color: #002E5D;">Greenwood International School Administration</strong>
-            </p>
-            """
-            
-            parent_msg = Message(
-                subject=f'Booking Cancellation Notice - {activity_name}',
-                recipients=[parent.email]
+        db.session.commit()
+        flash('Profile updated successfully!', 'success')
+        return redirect(url_for('tutor_profile'))
+    
+    return render_template('tutor/profile.html', tutor=tutor)
+
+
+@app.route('/tutor/change-password', methods=['POST'])
+@tutor_required
+def tutor_change_password():
+    """Tutor password change"""
+    tutor = Tutor.query.get(session['tutor_id'])
+    
+    current_password = request.form.get('current_password')
+    new_password = request.form.get('new_password')
+    confirm_password = request.form.get('confirm_password')
+    
+    if not tutor.check_password(current_password):
+        flash('Current password is incorrect', 'danger')
+        return redirect(url_for('tutor_profile'))
+    
+    if new_password != confirm_password:
+        flash('New passwords do not match', 'danger')
+        return redirect(url_for('tutor_profile'))
+    
+    if len(new_password) < 6:
+        flash('Password must be at least 6 characters', 'danger')
+        return redirect(url_for('tutor_profile'))
+    
+    tutor.set_password(new_password)
+    db.session.commit()
+    
+    flash('Password changed successfully!', 'success')
+    return redirect(url_for('tutor_profile'))
+
+
+# --- Admin Bookings Management ---
+
+@app.route('/admin/bookings')
+@admin_required
+def admin_bookings():
+    """Admin view all bookings with search and filters"""
+    # Get filter parameters
+    search = request.args.get('search', '')
+    activity_filter = request.args.get('activity', '')
+    status_filter = request.args.get('status', '')
+    date_from = request.args.get('date_from', '')
+    date_to = request.args.get('date_to', '')
+    
+    # Start with base query
+    query = Booking.query
+    
+    # Apply filters
+    if search:
+        query = query.join(Parent).join(Child).filter(
+            db.or_(
+                Parent.full_name.ilike(f'%{search}%'),
+                Child.name.ilike(f'%{search}%')
             )
-            parent_msg.html = get_email_template(parent_content, "Booking Cancellation Notice")
-            mail.send(parent_msg)
-        except Exception as e:
-            print(f"Parent notification failed: {e}")
-        
-        # Notify tutor
-        if tutor:
-            try:
-                current_enrolled = len(activity.bookings)
-                tutor_content = f"""
-                <div style="background-color: #DBEAFE; border-left: 4px solid #3B82F6; padding: 20px; margin: 20px 0;">
-                    <h2 style="color: #1E40AF; margin: 0;">📋 Admin Cancellation - Roster Update</h2>
-                </div>
-                
-                <p style="font-size: 15px; color: #333;">Dear <strong>{tutor.full_name}</strong>,</p>
-                
-                <p style="font-size: 14px; color: #555;">
-                    An administrator has cancelled a student enrollment in your <strong>{activity_name}</strong> class.
-                </p>
-                
-                <div style="background-color: #F9FAFB; border: 2px solid #E5E7EB; border-radius: 8px; padding: 25px; margin: 25px 0;">
-                    <h3 style="color: #002E5D; margin-top: 0;">Cancellation Details</h3>
-                    <table width="100%" cellpadding="8" cellspacing="0">
-                        <tr>
-                            <td style="color: #666; font-weight: bold;">Student:</td>
-                            <td style="color: #DC2626; font-weight: bold;">{child_name}</td>
-                        </tr>
-                        <tr>
-                            <td style="color: #666; font-weight: bold;">Year Group:</td>
-                            <td style="color: #002E5D;">Year {child.grade}</td>
-                        </tr>
-                        <tr>
-                            <td style="color: #666; font-weight: bold;">Updated Class Size:</td>
-                            <td style="color: #059669; font-weight: bold;">{current_enrolled} / {activity.max_capacity} students</td>
-                        </tr>
-                    </table>
-                </div>
-                
-                <p style="font-size: 14px; color: #555;">
-                    Please update your attendance register accordingly.
-                </p>
-                """
-                
-                tutor_msg = Message(
-                    subject=f'Admin Cancellation: {child_name} - {activity_name}',
-                    recipients=[tutor.email]
-                )
-                tutor_msg.html = get_email_template(tutor_content, "Admin Cancellation Notice")
-                mail.send(tutor_msg)
-            except Exception as e:
-                print(f"Tutor notification failed: {e}")
-        
-        flash(f'Booking cancelled successfully. Notifications sent to parent and tutor.', 'success')
-        return redirect(url_for('admin_activity_enrollments', activity_id=activity.id))
-        
-    except Exception as e:
-        db.session.rollback()
-        print(f"Admin cancellation error: {e}")
-        flash('An error occurred. Please try again.', 'error')
-        return redirect(url_for('admin_dashboard'))
-
-
+        )
+    
+    if activity_filter:
+        query = query.filter_by(activity_id=activity_filter)
+    
+    if status_filter:
+        query = query.filter_by(status=status_filter)
+    
+    if date_from:
+        try:
+            from_date = datetime.strptime(date_from, '%Y-%m-%d').date()
+            query = query.filter(Booking.booking_date >= from_date)
+        except ValueError:
+            pass
+    
+    if date_to:
+        try:
+            to_date = datetime.strptime(date_to, '%Y-%m-%d').date()
+            query = query.filter(Booking.booking_date <= to_date)
+        except ValueError:
+            pass
+    
+    # Get all bookings with pagination
+    page = request.args.get('page', 1, type=int)
+    per_page = 20
+    bookings_paginated = query.order_by(Booking.created_at.desc()).paginate(
+        page=page, per_page=per_page, error_out=False
+    )
+    
+    # Get all activities for filter dropdown
+    activities = Activity.query.all()
+    
+    return render_template('admin/bookings.html', 
+                           bookings=bookings_paginated.items,
+                           pagination=bookings_paginated,
+                           activities=activities,
+                           search=search,
+                           activity_filter=activity_filter,
+                           status_filter=status_filter)
 if __name__ == '__main__':
     init_db()
     # Use environment variable for debug mode in production
@@ -2659,3 +2774,6 @@ if __name__ == '__main__':
     # Bind to PORT for Render deployment (default 5000 for local)
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port, debug=debug_mode)
+# ========================================
+# ADDITIONAL ROUTES - Child Management, Profiles, Admin Bookings
+# Add these routes to app.py after the existing parent/booking routes
