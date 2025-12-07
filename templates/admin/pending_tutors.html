@@ -52,10 +52,16 @@
                                     <p><strong><i class="fas fa-envelope"></i> Email:</strong> {{ tutor.email }}</p>
                                     <p><strong><i class="fas fa-star"></i> Specialization:</strong> {{
                                         tutor.specialization }}</p>
-                                    <p><strong><i class="fas fa-graduation-cap"></i> Qualifications:</strong></p>
+                                    <p><strong><i class="fas fa-graduation-cap"></i> Education:</strong></p>
                                     <div class="border-start border-primary ps-3 mb-3"
                                         style="max-height: 100px; overflow-y: auto;">
-                                        {{ tutor.qualifications }}
+                                        {{ tutor.education or tutor.qualification or 'Not specificed' }}
+                                    </div>
+
+                                    <p><strong><i class="fas fa-certificate"></i> Certifications:</strong></p>
+                                    <div class="border-start border-info ps-3 mb-3"
+                                        style="max-height: 100px; overflow-y: auto;">
+                                        {{ tutor.certifications or 'None listed' }}
                                     </div>
 
                                     {% if tutor.bio %}
@@ -67,8 +73,8 @@
                                     {% endif %}
 
                                     <p class="text-muted small">
-                                        <i class="fas fa-calendar"></i> Applied: {{ tutor.application_date.strftime('%B
-                                        %d, %Y %I:%M %p') }}
+                                        <i class="fas fa-calendar"></i> Applied: {{ tutor.created_at.strftime('%B %d, %Y
+                                        %I:%M %p') }}
                                     </p>
 
                                     <div class="d-grid gap-2">

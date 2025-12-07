@@ -1,0 +1,164 @@
+{% extends 'base.html' %}
+{% block title %}Manage Bookings - Admin Portal{% endblock %}
+
+{% block content %}
+<div class="container-fluid mt-4">
+    <h2 class="mb-4"><i class="fas fa-calendar-check"></i> All Bookings</h2>
+
+    <!-- Search and Filters -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <form method="GET" action="{{ url_for('admin_bookings') }}">
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <label class="form-label">Search (Parent/Child)</label>
+                        <input type="text" class="form-control" name="search" value="{{ search }}"
+                            placeholder="Enter name...">
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">Activity</label>
+                        <select class="form-select" name="activity">
+                            <option value="">All Activities</option>
+                            {% for activity in activities %}
+                            <option value="{{ activity.id }}" {% if activity_filter==activity.id|string %}selected{%
+                                endif %}>
+                                {{ activity.name }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label">Status</label>
+                        <select class="form-select" name="status">
+                            <option value="">All</option>
+                            <option value="confirmed" {% if status_filter=='confirmed' %}selected{% endif %}>Confirmed
+                            </option>
+                            <option value="cancelled" {% if status_filter=='cancelled' %}selected{% endif %}>Cancelled
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label">Date From</label>
+                        <input type="date" class="form-control" name="date_from">
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label">Date To</label>
+                        <input type="date" class="form-control" name="date_to">
+                    </div>
+                    <div class="col-md-12">
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i> Search</button>
+                        <a href="{{ url_for('admin_bookings') }}" class="btn btn-secondary">Clear</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Bookings Table -->
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th>ID</th>
+                            <th>Parent</th>
+                            <th>Child</th>
+                            <th>Activity</th>
+                            <th>Date</th>
+                            <th>Cost</th>
+                            <th>Status</th>
+                            <th>Booked On</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for booking in bookings %}
+                        <tr>
+                            <td>#{{ booking.id }}</td>
+                            <td>{{ booking.parent.full_name }}</td>
+                            <td>{{ booking.child.name }}</td>
+                            <td>{{ booking.activity.name }}</td>
+                            <td>{{ booking.booking_date.strftime('%d %b %Y') }}</td>
+                            <td>£{{ "%.2f"|format(booking.cost) }}</td>
+                            <td>
+                                {% if booking.status == 'confirmed' %}
+                                <span class="badge bg-success">Confirmed</span>
+                                {% else %}
+                                <span class="badge bg-secondary">{{ booking.status }}</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ booking.created_at.strftime('%d %b %Y %H:%M') }}</td>
+                            <td>
+                                {% if booking.status == 'confirmed' %}
+                                <form method="POST"
+                                    action="{{ url_for('admin_cancel_booking', booking_id=booking.id) }}"
+                                    style="display:inline;">
+                                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                    <button type="submit" class="btn btn-sm btn-danger"
+                                        onclick="return confirm('Cancel this booking?')">
+                                        <i class="fas fa-times"></i> Cancel
+                                    </button>
+                                </form>
+                                {% else %}
+                                <span class="text-muted">-</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="9" class="text-center text-muted">No bookings found</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination -->
+            {% if pagination.pages > 1 %}
+            <nav>
+                <ul class="pagination justify-content-center">
+                    {% if pagination.has_prev %}
+                    <li class="page-item">
+                        <a class="page-link"
+                            href="{{ url_for('admin_bookings', page=pagination.prev_num, search=search, activity=activity_filter, status=status_filter) }}">
+                            Previous
+                        </a>
+                    </li>
+                    {% endif %}
+
+                    {% for page_num in pagination.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2)
+                    %}
+                    {% if page_num %}
+                    <li class="page-item {% if page_num == pagination.page %}active{% endif %}">
+                        <a class="page-link"
+                            href="{{ url_for('admin_bookings', page=page_num, search=search, activity=activity_filter, status=status_filter) }}">
+                            {{ page_num }}
+                        </a>
+                    </li>
+                    {% else %}
+                    <li class="page-item disabled"><span class="page-link">...</span></li>
+                    {% endif %}
+                    {% endfor %}
+
+                    {% if pagination.has_next %}
+                    <li class="page-item">
+                        <a class="page-link"
+                            href="{{ url_for('admin_bookings', page=pagination.next_num, search=search, activity=activity_filter, status=status_filter) }}">
+                            Next
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <a href="{{ url_for('admin_dashboard') }}" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Back to Dashboard
+        </a>
+    </div>
+</div>
+{% endblock %}

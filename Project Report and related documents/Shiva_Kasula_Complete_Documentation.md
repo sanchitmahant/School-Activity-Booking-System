@@ -41,6 +41,16 @@ As the database architect, I designed and implemented the complete data layer of
 5. **Query Optimization** - Eager loading, indexed queries
 6. **Transaction Management** - ACID compliance
 
+## 1.1.5 List of Implemented Features
+
+| Feature Name | Implementation Summary | Key Logic/Code Components |
+| :--- | :--- | :--- |
+| **Database Architecture** | Designed and implemented the complete Database Schema using SQLAlchemy ORM (8 models: Parent, Child, Activity, Booking, Waitlist, Attendance, Tutor, Admin). | `SQLAlchemy`, `db.Model`, `db.relationship`, `db.ForeignKey`, indexes |
+| **Booking Logic Core** | Developed the intelligent booking processor that handles double-booking prevention, capacity checks, and enrollment validation. | `BookActivity` route, complex query filtering, `joinedload` optimization |
+| **Waitlist System** | Implemented a First-In-First-Out (FIFO) waitlist queue for full activities with automated promotion logic when spots open. | `Waitlist` model, `promote_waitlist_user` function, status tracking ('waiting', 'promoted') |
+| **Data Integrity Enforcement** | Configured robust Foreign Key constraints and Cascade rules to ensure database consistency (e.g., deleting a Parent deletes their Children and Bookings). | `cascade='all, delete-orphan'`, `nullable=False`, Unique Constraints |
+| **Capacity Management** | Created logic to enforce maximum class sizes and dynamic availability checking. | `Booking.query.filter_by().count()` vs `activity.max_capacity` |
+
 ## 1.2 Database Models Created
 
 | Model | Purpose | Relationships |

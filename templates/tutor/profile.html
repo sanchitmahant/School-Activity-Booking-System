@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+{% block title %}My Profile - Tutor Portal{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <h2 class="mb-4"><i class="fas fa-user-tie"></i> My Profile</h2>
+
+            <!-- Profile Information Card -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0"><i class="fas fa-info-circle"></i> Personal Information</h5>
+                </div>
+                <div class="card-body">
+                    <form method="POST">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+                        <div class="mb-3">
+                            <label class="form-label"><i class="fas fa-user"></i> Full Name</label>
+                            <input type="text" class="form-control" name="full_name" value="{{ tutor.full_name }}"
+                                required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label"><i class="fas fa-phone"></i> Phone Number</label>
+                            <input type="tel" class="form-control" name="phone" value="{{ tutor.phone or '' }}">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label"><i class="fas fa-comment-alt"></i> Bio</label>
+                            <textarea class="form-control" name="bio" rows="4">{{ tutor.bio or '' }}</textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Update Profile
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Professional Information (Read-only) -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0"><i class="fas fa-graduation-cap"></i> Professional Information</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="text-muted">Email</label>
+                            <p class="fw-bold">{{ tutor.email }}</p>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="text-muted">Specialization</label>
+                            <p class="fw-bold">{{ tutor.specialization or 'Not specified' }}</p>
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <label class="text-muted">Qualifications</label>
+                            <p class="fw-bold">{{ tutor.qualification or 'Not specified' }}</p>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="text-muted">Status</label>
+                            <p>
+                                {% if tutor.status == 'approved' %}
+                                <span class="badge bg-success">Approved</span>
+                                {% elif tutor.status == 'pending' %}
+                                <span class="badge bg-warning">Pending Approval</span>
+                                {% else %}
+                                <span class="badge bg-secondary">{{ tutor.status }}</span>
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                    <small class="text-muted">
+                        <i class="fas fa-info-circle"></i> To update professional information, please contact admin.
+                    </small>
+                </div>
+            </div>
+
+            <!-- Change Password Card -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-warning text-dark">
+                    <h5 class="mb-0"><i class="fas fa-key"></i> Change Password</h5>
+                </div>
+                <div class="card-body">
+                    <form method="POST" action="{{ url_for('tutor_change_password') }}">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+                        <div class="mb-3">
+                            <label class="form-label">Current Password</label>
+                            <input type="password" class="form-control" name="current_password" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">New Password</label>
+                            <input type="password" class="form-control" name="new_password" required minlength="6">
+                            <small class="form-text text-muted">Minimum 6 characters</small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Confirm New Password</label>
+                            <input type="password" class="form-control" name="confirm_password" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-warning">
+                            <i class="fas fa-lock"></i> Change Password
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <a href="{{ url_for('tutor_dashboard') }}" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Back to Dashboard
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

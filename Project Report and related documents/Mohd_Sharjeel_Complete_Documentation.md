@@ -41,6 +41,16 @@ As the backend specialist, I implemented the attendance tracking system, parent 
 5. **API Design** - RESTful endpoints for AJAX
 6. **Requirements Engineering** - Gathered and documented requirements
 
+## 1.1.5 List of Implemented Features
+
+| Feature Name | Implementation Summary | Key Logic/Code Components |
+| :--- | :--- | :--- |
+| **Attendance Module** | Developed the full attendance tracking system, including tutor interfaces for marking presence, absence, and lateness with notes. | `Attendance` model, `tutor_attendance` route, UPSERT logic, conditional aggregation |
+| **Data Aggregation & Reporting** | Implemented complex SQL queries using `func.count`, `func.sum`, and `CASE` statements to generate attendance statistics. | `sqlalchemy.func`, `sqlalchemy.sql.case`, grouping and filtering logic |
+| **Parent Dashboard Backend** | Built the backend logic for the parent portal, including booking history retrieval and child management. | `dashboard` route, `Booking` queries, `Child` relationship handling |
+| **Child Management System** | Created the logic for parents to add and remove children profiles, enforcing constraints (e.g., cannot remove children with active bookings). | `add_child` / `remove_child` routes, validation logic |
+| **Infrastructure Setup** | Initialized the Flask project structure, virtual environment, and Git repository, establishing the development baseline. | standard Flask project layout, `requirements.txt`, `.gitignore` |
+
 ## 1.2 Files Modified
 
 | File | Lines | Purpose |

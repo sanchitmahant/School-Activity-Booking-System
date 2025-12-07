@@ -41,6 +41,16 @@ As the security backbone of our School Activity Booking System, I implemented co
 5. **Admin Panel** - Secure administrative interface
 6. **Login Systems** - Multi-role authentication (Parent/Tutor/Admin)
 
+## 1.1.5 List of Implemented Features
+
+| Feature Name | Implementation Summary | Key Logic/Code Components |
+| :--- | :--- | :--- |
+| **Authentication System** | Implemented complete login, registration, and logout flows for Parents and Tutors. Used secure password hashing with Werkzeug. | `Werkzeug.security`, `generate_password_hash`, `check_password_hash`, Session management |
+| **CSRF Protection** | Integrated Flask-WTF to protect all forms and AJAX requests from Cross-Site Request Forgery attacks. | `CSRFProtect`, `csrf_token()`, AJAX header injection |
+| **Role-Based Access Control (RBAC)** | Created custom decorators to restrict route access based on user roles (Admin, Tutor, Parent). | `@admin_required`, `@tutor_required`, `@login_required` decorators |
+| **Secure Session Management** | Configured secure cookie settings including HTTPOnly, Secure, and SameSite attributes to prevent session hijacking. | `SESSION_COOKIE_HTTPONLY`, `SESSION_COOKIE_SECURE`, `PERMANENT_SESSION_LIFETIME` |
+| **Admin Panel Security** | Secured the admin dashboard and sensitive routes, ensuring only authenticated administrators can manage data. | Admin route protection, session validation |
+
 ## 1.2 Files Modified
 
 | File | Lines | Purpose |
