@@ -18,7 +18,7 @@ This project was developed by a team of 4 students who contributed equally to al
 |------|------|
 | **Chichebendu Blessed Umeh** | Security & Admin Specialist |
 | **Mohd Sharjeel** | Backend & Attendance Specialist |
-| **Sanchit Kaushal** | Email & Integration Specialist |
+| **Sanchit Kaushal** | Lead Developer & Full Stack Engineer |
 | **Shiva Kasula** | Database & Logic Specialist |
 
 *All members contributed equally to the project success.*
