@@ -153,6 +153,18 @@ As the **Email & Integration Specialist** in our 4-person team, my role was miss
 
 ---
 
+## 1.5 List of Implemented Features
+
+| Feature Name | Implementation Summary | Key Logic/Code Components |
+| :--- | :--- | :--- |
+| **Email Notification System** | Configured Flask-Mail with Gmail SMTP to send transactional emails. Created HTML templates for bookings, cancellations, and approvals. | `flask_mail`, `smtplib`, `Message`, HTML Templates, `MAIL_USE_TLS` |
+| **PDF Invoice Generation** | Implemented dynamic PDF generation using ReportLab. Includes branding, booking details, payment breakdown, and QR verification codes. | `reportlab`, `SimpleDocTemplate`, `Table`, `QrCodeWidget`, `BytesIO` |
+| **Calendar Integration (.ics)** | Developed a utility to generate standard iCalendar files attached to emails, allowing one-click "Add to Calendar" functionality. | `datetime`, RFC 5545 format, MIME attachments, `generate_ics_file` |
+| **Admin Reports & Dashboard** | Built the initial admin interface layout and reporting structures for viewing system activity and bookings. | Jinja2 templates, SQL queries, Bootstrap styling |
+| **Centralized Communication** | Designed the multi-party notification logic ensuring parents, tutors, and admins are simultaneously informed of relevant events. | Signal/Observer pattern logic in `app.py`, multiple `Message` objects |
+
+---
+
 # 2. Technologies & Libraries - Complete Analysis
 
 ## 2.1 Flask-Mail - Email Framework
