@@ -29,10 +29,15 @@ if not exist .venv (
 REM 3. Activate and Install Dependencies
 echo [2/4] Installing dependencies...
 call .venv\Scripts\activate.bat
-python -m pip install --upgrade pip >nul 2>&1
-pip install -r requirements.txt >nul 2>&1
+python -m pip install --upgrade pip
+REM Removed >nul to show installation progress and errors
+pip install -r requirements.txt
 if %errorlevel% neq 0 (
+    echo.
+    echo ======================================================
     echo ERROR: Failed to install dependencies.
+    echo See the error message above for details.
+    echo ======================================================
     pause
     exit /b 1
 )
