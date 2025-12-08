@@ -1,17 +1,60 @@
-venv/
-.venv/
-__pycache__/
-*.pyc
-instance/
-.pytest_cache/
-.coverage
-htmlcov/
-dist/
-build/
-*.egg-info/
+# IMPORTANT: .gitignore for Team Sharing
+# Add this file to prevent environment-specific files from causing issues
 
-booking_system_v2.db
-*.log
-.DS_Store
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+school_activities.db
+instance/
+
+# Environment variables - EXCLUDE from Git but INCLUDE in ZIP for team
+# .env
+
+# IDE
 .vscode/
 .idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+*.log
+
+# Flask
+instance/
+.webassets-cache
+
+# Uploads
+uploads/
+*.pdf
+
+# Documentation build
+_build/
