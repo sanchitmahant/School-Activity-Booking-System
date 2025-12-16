@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}Academic{% endblock %}
+
+{% block content %}
+<div class="hero-section" style="height: 60vh;">
+    <div class="hero-bg"
+        style="background: linear-gradient(rgba(5,5,5,0.7), var(--bg-dark)), url('https://images.unsplash.com/photo-1509062522246-3755977927d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');">
+    </div>
+    <div class="container text-center">
+        <h1 class="display-3 hero-title fade-in-up">Academic Excellence</h1>
+        <p class="hero-subtitle fade-in-up delay-1">Inspiring a Lifelong Love of Learning</p>
+    </div>
+</div>
+
+<div class="container section-padding">
+    <div class="row">
+        <div class="col-lg-8">
+            <h2 class="mb-4 text-white">Our Curriculum</h2>
+            <p class="lead text-muted mb-5">Greenwood International follows an enhanced version of the English National
+                Curriculum, designed to challenge and inspire students at every stage.</p>
+
+            <div class="mb-5 hover-3d p-4 glass-panel rounded">
+                <h3 class="text-gold">Pre-Prep (Ages 3-7)</h3>
+                <p class="text-muted">In the early years, we focus on learning through play, developing social skills,
+                    and establishing strong foundations in reading and mathematics. Our small class sizes ensure every
+                    child receives individual attention.</p>
+            </div>
+
+            <div class="mb-5 hover-3d p-4 glass-panel rounded">
+                <h3 class="text-gold">Prep School (Ages 7-11)</h3>
+                <p class="text-muted">As students move into Prep School, the curriculum broadens to include specialist
+                    teaching in Science, French, Music, and Art. We encourage independence and critical thinking,
+                    preparing students for the transition to Senior School.</p>
+            </div>
+
+            <div class="mb-5 hover-3d p-4 glass-panel rounded">
+                <h3 class="text-gold">Senior School (Ages 11-16)</h3>
+                <p class="text-muted mb-3">Students follow a rigorous program leading to GCSEs. Core subjects include
+                    English, Maths, and Sciences, alongside a wide range of options including Humanities, Modern
+                    Languages, and Computer Science.</p>
+                <div class="alert glass-panel border-gold text-white">
+                    <i class="fas fa-trophy text-gold me-2"></i> <strong>2025 GCSE Results:</strong> 75% of grades 9-7
+                    (A*-A).
+                </div>
+            </div>
+
+            <div class="mb-5 hover-3d p-4 glass-panel rounded">
+                <h3 class="text-gold">Sixth Form (Ages 16-18)</h3>
+                <p class="text-muted mb-3">Our Sixth Form offers a wide range of A-Level subjects. Students are
+                    supported by expert tutors as they prepare for university applications, including Oxbridge and
+                    Russell Group institutions.</p>
+
+                <div class="card glass-panel border-0 mt-4">
+                    <div class="card-header border-bottom border-secondary text-gold fw-bold">Departments</div>
+                    <ul class="list-group list-group-flush bg-transparent">
+                        <li class="list-group-item bg-transparent text-muted border-secondary">English & Drama</li>
+                        <li class="list-group-item bg-transparent text-muted border-secondary">Mathematics</li>
+                        <li class="list-group-item bg-transparent text-muted border-secondary">Sciences (Bio, Chem,
+                            Phys)</li>
+                        <li class="list-group-item bg-transparent text-muted border-secondary">Modern Languages</li>
+                        <li class="list-group-item bg-transparent text-muted border-secondary">Humanities</li>
+                        <li class="list-group-item bg-transparent text-muted border-secondary">Arts & Technology</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

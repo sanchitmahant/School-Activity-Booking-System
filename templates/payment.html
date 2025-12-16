@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+
+{% block title %}Secure Payment{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-primary text-white py-3">
+                    <h4 class="mb-0"><i class="fas fa-lock me-2"></i> Secure Payment</h4>
+                </div>
+                <div class="card-body p-5">
+                    <div class="text-center mb-4">
+                        <h5 class="text-muted">Total Amount</h5>
+                        <h2 class="display-4 fw-bold text-primary">£{{ "%.2f"|format(activity.price) }}</h2>
+                        <p class="mb-0">{{ activity.name }}</p>
+                        <small class="text-muted">Student: {{ child.name }}</small>
+                    </div>
+
+                    <hr class="my-4">
+
+                    <!-- Standard Form Submission -->
+                    <form id="payment-form" action="{{ url_for('book_activity') }}" method="POST">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <input type="hidden" name="activity_id" id="activity_id" value="{{ activity.id }}">
+                        <input type="hidden" name="child_id" id="child_id" value="{{ child.id }}">
+                        <input type="hidden" name="booking_date" id="date" value="{{ date }}">
+
+                        <div class="mb-3">
+                            <label class="form-label">Cardholder Name</label>
+                            <input type="text" name="cardholder_name" class="form-control form-control-lg"
+                                placeholder="John Doe" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Card Number</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-credit-card"></i></span>
+                                <input type="text" name="card_number" class="form-control form-control-lg"
+                                    id="card-number" placeholder="0000 0000 0000 0000" maxlength="19" required>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Expiry Date</label>
+                                <input type="text" name="expiry_date" class="form-control form-control-lg" id="expiry"
+                                    placeholder="MM/YY" maxlength="5" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">CVV</label>
+                                <input type="text" name="cvv" class="form-control form-control-lg" placeholder="123"
+                                    maxlength="3" required>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2 mt-4">
+                            <button type="submit" class="btn btn-success btn-lg" id="pay-btn">
+                                <i class="fas fa-check-circle me-2"></i> Pay & Confirm Booking
+                            </button>
+                            <a href="{{ url_for('dashboard') }}" class="btn btn-outline-secondary">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer bg-light text-center text-muted small">
+                    <i class="fas fa-shield-alt me-1"></i> 256-bit SSL Encrypted Transaction
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        console.log('Payment page initialized');
+
+        // Format Expiry Date (MM/YY)
+        const expiryInput = document.getElementById('expiry');
+        if (expiryInput) {
+            expiryInput.addEventListener('input', function (e) {
+                let input = e.target.value.replace(/\D/g, '');
+                if (input.length > 2) {
+                    input = input.substring(0, 2) + '/' + input.substring(2, 4);
+                }
+                e.target.value = input;
+            });
+        }
+
+        // Format Card Number (Groups of 4)
+        const cardInput = document.getElementById('card-number');
+        if (cardInput) {
+            cardInput.addEventListener('input', function (e) {
+                let input = e.target.value.replace(/\D/g, '');
+                input = input.substring(0, 16);
+                let sections = input.match(/.{1,4}/g);
+                if (sections) {
+                    e.target.value = sections.join(' ');
+                } else {
+                    e.target.value = input;
+                }
+            });
+        }
+
+        const form = document.getElementById('payment-form');
+        if (form) {
+            form.addEventListener('submit', function (e) {
+                // We do NOT preventDefault() here. 
+                // We let the form submit naturally.
+                // We just update the UI to show processing.
+                console.log('Form submitting naturally...');
+
+                const btn = document.getElementById('pay-btn');
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Processing...';
+                // Do not disable the button immediately or it might prevent submission in some browsers
+                // btn.disabled = true; 
+                setTimeout(() => { btn.disabled = true; }, 100);
+            });
+        }
+    });
+</script>
+{% endblock %}
