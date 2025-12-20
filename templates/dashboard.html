@@ -166,6 +166,22 @@
                             {% endif %}
                         </div>
                         <div class="card-footer bg-white border-0 px-4 pb-4">
+                            {% if percent >= 100 %}
+                            <!-- Waitlist Form (shown when activity is full) -->
+                            <form class="d-flex gap-2" onsubmit="joinWaitlist(event, {{ activity.id }})">
+                                <select class="form-select form-select-sm" name="child_id" required>
+                                    <option value="" selected disabled>Select Child</option>
+                                    {% for child in children %}
+                                    <option value="{{ child.id }}">{{ child.name }}</option>
+                                    {% endfor %}
+                                </select>
+                                <input type="date" class="form-control form-control-sm" name="date" required>
+                                <button type="submit" class="btn btn-sm btn-warning px-3">
+                                    <i class="fas fa-clock me-1"></i>Join Waitlist
+                                </button>
+                            </form>
+                            {% else %}
+                            <!-- Standard Booking Form -->
                             <form class="d-flex gap-2 booking-form" data-activity-id="{{ activity.id }}">
                                 <select class="form-select form-select-sm" name="child_id" required>
                                     <option value="" selected disabled>Select Child</option>
@@ -176,6 +192,7 @@
                                 <input type="date" class="form-control form-control-sm" name="booking_date" required>
                                 <button type="submit" class="btn btn-sm btn-primary px-3">Book</button>
                             </form>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -298,6 +315,32 @@
         }
 
         new bootstrap.Modal(document.getElementById('tutorProfileModal')).show();
+    }
+
+    // Join Waitlist Function
+    async function joinWaitlist(event, activityId) {
+        event.preventDefault();
+        const form = event.target;
+        const formData = new FormData(form);
+        formData.append('activity_id', activityId);
+
+        try {
+            const response = await fetch("{{ url_for('join_waitlist') }}", {
+                method: 'POST',
+                body: formData
+            });
+            const data = await response.json();
+
+            if (data.success) {
+                alert('✓ Successfully added to waitlist! You will be notified if a spot becomes available.');
+                location.reload();
+            } else {
+                alert('Error: ' + (data.error || 'Unable to join waitlist'));
+            }
+        } catch (error) {
+            console.error('Waitlist error:', error);
+            alert('An error occurred. Please try again.');
+        }
     }
 
     // Add Child
