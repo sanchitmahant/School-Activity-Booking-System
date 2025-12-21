@@ -54,7 +54,11 @@ Beck, K. et al. (2001) *Manifesto for Agile Software Development*. Available at:
 
 Bootstrap Team (2024) *Bootstrap 5.3 Documentation*. Available at: https://getbootstrap.com/docs/5.3/ (Accessed: 15 December 2024).
 
+Chacon, S. and Straub, B. (2014) *Pro Git*. 2nd edn. Berkeley: Apress.
+
 Connolly, T. and Begg, C. (2015) *Database Systems: A Practical Approach to Design, Implementation, and Management*. 6th edn. Harlow: Pearson Education.
+
+Fielding, R.T. (2000) *Architectural Styles and the Design of Network-based Software Architectures*. Doctoral dissertation. University of California, Irvine.
 
 Flask Development Team (2024) *Flask Documentation (Version 3.0)*. Available at: https://flask.palletsprojects.com/ (Accessed: 15 December 2024).
 
@@ -65,6 +69,18 @@ Gamma, E., Helm, R., Johnson, R. and Vlissides, J. (1994) *Design Patterns: Elem
 Grinberg, M. (2018) *Flask Web Development: Developing Web Applications with Python*. 2nd edn. Sebastopol: O'Reilly Media.
 
 IEEE (1998) *IEEE Recommended Practice for Software Requirements Specifications*. IEEE Std 830-1998. New York: Institute of Electrical and Electronics Engineers.
+
+Klensin, J. (2008) *Simple Mail Transfer Protocol*. RFC 5321. Available at: https://www.rfc-editor.org/rfc/rfc5321 (Accessed: 15 December 2024).
+
+Krug, S. (2014) *Don't Make Me Think, Revisited: A Common Sense Approach to Web Usability*. 3rd edn. Berkeley: New Riders.
+
+Martin, R.C. (2008) *Clean Code: A Handbook of Agile Software Craftsmanship*. Upper Saddle River: Prentice Hall.
+
+Myers, G.J., Sandler, C. and Badgett, T. (2011) *The Art of Software Testing*. 3rd edn. Hoboken: John Wiley & Sons.
+
+Newman, S. (2015) *Building Microservices: Designing Fine-Grained Systems*. Sebastopol: O'Reilly Media.
+
+Nielsen, J. (1994) *Usability Engineering*. San Francisco: Morgan Kaufmann.
 
 OWASP Foundation (2024) *OWASP Top Ten Web Application Security Risks*. Available at: https://owasp.org/www-project-top-ten/ (Accessed: 15 December 2024).
 
