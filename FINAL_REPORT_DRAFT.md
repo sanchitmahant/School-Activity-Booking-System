@@ -183,9 +183,9 @@ The system adheres to the UK Data Protection Act (GDPR) by collecting only neces
 The test plan ensures all system functions work correctly and reliably. Testing includes unit tests for authentication, child management, booking logic, and invoice generation.
 
 7.1 Functional Test Suite (T1)
-The project adopts a test-driven development (TDD) approach, utilizing the Python `unittest` framework to validate individual components in isolation. Unit tests are located in `tests/test_unit.py` and cover critical functions such as password hashing correctness, database model integrity (e.g., ensuring child-parent relationships), and utility functions for date validation. Automated tests are executed via the CI/CD pipeline on every commit to ensuring no regressions are introduced in the core logic.
+The project adopts a test-driven development (TDD) approach, utilizing the Python `unittest` framework to validate individual components in isolation. Unit tests are located in `tests/test_unit.py` and cover critical functions such as password hashing correctness, database model integrity (e.g., ensuring child-pAutomated tests are executed via the CLI pipeline, while manual tests cover UI/UX interactions. Edge cases (null inputs, SQL injection attempts) are checked via the CLI pipeline on every commit to ensure no regressions are introduced in the core logic.
 
-7.1.1 Unit Tests & Integration Strategy
+7.1 Unit Tests & Integration Strategy
 The project adopts a test-driven development (TDD) approach. The following unit tests are defined in the test suite:
 
 **File: `tests/test_models.py`**
@@ -201,7 +201,7 @@ The project adopts a test-driven development (TDD) approach. The following unit 
 
 Integration testing utilizes the `Flask-Client` test harness to simulate HTTP requests (GET/POST) and verify that the database updates correctly upon booking submission.
 
-7.1.2 Test Case Table (End-to-End)
+7.2 Test Case Table (End-to-End)
 The following test cases verify the core functionality of the School Activity Booking System, covering authentication, booking logic, constraints, and administrative functions.
 
 Format: Test Case ID | Description | Pre-Conditions | Input Data | Expected Result / Behavior | Actual Result | Status | Remarks/Screenshot
