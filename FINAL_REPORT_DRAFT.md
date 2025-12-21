@@ -50,19 +50,39 @@ The following documents and resources serve as the authoritative references for 
 
 AbouGrad, H. (2024) *CN7021 Advanced Software Engineering Module Guide*. University of East London.
 
-Flask Development Team (2024) *Flask Documentation (Version 3.0)*. Available at: https://flask.palletsprojects.com/ (Accessed: 15 December 2024).
-
-SQLAlchemy Authors (2024) *SQLAlchemy 2.0 Documentation*. Available at: https://docs.sqlalchemy.org/ (Accessed: 15 December 2024).
-
-PostgreSQL Global Development Group (2024) *PostgreSQL 16 Documentation*. Available at: https://www.postgresql.org/docs/16/ (Accessed: 15 December 2024).
+Beck, K. et al. (2001) *Manifesto for Agile Software Development*. Available at: https://agilemanifesto.org/ (Accessed: 15 December 2024).
 
 Bootstrap Team (2024) *Bootstrap 5.3 Documentation*. Available at: https://getbootstrap.com/docs/5.3/ (Accessed: 15 December 2024).
 
+Connolly, T. and Begg, C. (2015) *Database Systems: A Practical Approach to Design, Implementation, and Management*. 6th edn. Harlow: Pearson Education.
+
+Flask Development Team (2024) *Flask Documentation (Version 3.0)*. Available at: https://flask.palletsprojects.com/ (Accessed: 15 December 2024).
+
+Fowler, M. (2018) *Refactoring: Improving the Design of Existing Code*. 2nd edn. Boston: Addison-Wesley.
+
+Gamma, E., Helm, R., Johnson, R. and Vlissides, J. (1994) *Design Patterns: Elements of Reusable Object-Oriented Software*. Boston: Addison-Wesley.
+
+Grinberg, M. (2018) *Flask Web Development: Developing Web Applications with Python*. 2nd edn. Sebastopol: O'Reilly Media.
+
+IEEE (1998) *IEEE Recommended Practice for Software Requirements Specifications*. IEEE Std 830-1998. New York: Institute of Electrical and Electronics Engineers.
+
+OWASP Foundation (2024) *OWASP Top Ten Web Application Security Risks*. Available at: https://owasp.org/www-project-top-ten/ (Accessed: 15 December 2024).
+
+PostgreSQL Global Development Group (2024) *PostgreSQL 16 Documentation*. Available at: https://www.postgresql.org/docs/16/ (Accessed: 15 December 2024).
+
+Pressman, R.S. and Maxim, B.R. (2020) *Software Engineering: A Practitioner's Approach*. 9th edn. New York: McGraw-Hill Education.
+
+Python Software Foundation (2024) *Python 3.12 Documentation*. Available at: https://docs.python.org/3/ (Accessed: 15 December 2024).
+
 ReportLab Inc. (2024) *ReportLab PDF Library Documentation*. Available at: https://www.reportlab.com/docs/ (Accessed: 15 December 2024).
+
+Schwaber, K. and Sutherland, J. (2020) *The Scrum Guide*. Available at: https://scrumguides.org/ (Accessed: 15 December 2024).
 
 Sommerville, I. (2016) *Software Engineering*. 10th edn. Harlow: Pearson Education.
 
-Pressman, R.S. and Maxim, B.R. (2020) *Software Engineering: A Practitioner's Approach*. 9th edn. New York: McGraw-Hill Education.
+SQLAlchemy Authors (2024) *SQLAlchemy 2.0 Documentation*. Available at: https://docs.sqlalchemy.org/ (Accessed: 15 December 2024).
+
+Van Rossum, G. and Warsaw, B. (2013) *PEP 8 – Style Guide for Python Code*. Available at: https://peps.python.org/pep-0008/ (Accessed: 15 December 2024).
 
 3.  Development Standards & Protocols
     Python PEP 8 Style Guide, IEEE SRS format, Agile development methodology, Git version control.
