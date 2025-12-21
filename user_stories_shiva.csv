@@ -1,0 +1,5 @@
+Story ID,User Story,Assigned To,Status,Priority,Sprint,Date Completed
+US-009,As a Parent I want to view available activities and book a slot so my child can participate,Shiva Kasula,Completed,Critical,Sprint 1,2024-11-22
+US-010,As a Parent I want to view my bookings and cancel if needed for flexibility,Shiva Kasula,Completed,High,Sprint 2,2024-12-03
+US-011,As a User I want to join a waitlist when activities are full to secure a spot,Shiva Kasula,Completed,High,Sprint 3,2024-12-15
+US-012,As a Parent I want to see real-time capacity updates to plan bookings,Shiva Kasula,Completed,Medium,Sprint 3,2024-12-16

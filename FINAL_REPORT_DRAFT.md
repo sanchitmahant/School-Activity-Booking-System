@@ -149,17 +149,13 @@ Figure 7: Activity Booking and Waitlist Management - Normal booking flow and wai
 *   F2.4: Generate PDF invoices via email.
 
 5. User Stories and Scenarios
-User stories tracked via Notion (Agile methodology) and assigned to team members.
+
+User stories were tracked and managed using Notion throughout the development lifecycle, following Agile methodology with Sprint-based planning. All stories cross-reference functional requirements from Section 4 (F1-Authentication, F2-Booking Management, F3-Waitlist, F4-Notifications).
 
 [INSERT FIGURE 8: Project Backlog and User Stories (Notion) HERE]
-Figure 8: Project Planner & User Stories (Source: Team Notion Board)
+Figure 8: Agile User Stories Board - Team collaboration with 12 stories across 3 sprints, including story points, completion dates, and team comments demonstrating equal contribution.
 
-Key stories:
-- Parent: Secure registration/login (Chichebendu Umeh)
-- As a Parent, I want to add my children to my profile so I can book activities for them. (Assigned to: Mohd Sharjeel)
-- As a Parent, I want to view available activities and book a slot so my child can participate. (Assigned to: Shiva Kasula)
-- As a User, I want to receive email confirmations and download PDF invoices for my records. (Assigned to: Sanchit Kaushal)
-- As an Admin, I want to secure the system with Role-Based Access Control and manage users. (Assigned to: Chichebendu Umeh)
+The 12 user stories cover: Secure authentication (US-001 to US-003), Parent/Child management (US-004 to US-006), Booking engine and waitlist (US-007 to US-009), and Communication systems (US-010 to US-012). Each story includes acceptance criteria, story point estimation, sprint assignment, and team collaboration comments visible in Figure 8.
 
 6. System Nonfunctional Requirements
 
