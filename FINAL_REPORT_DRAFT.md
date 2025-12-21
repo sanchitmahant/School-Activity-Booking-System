@@ -232,32 +232,36 @@ TC-08 | Tutor Attendance View | Tutor Logged In | Click "My Activities" | List o
 
 7.2 Cost Estimation (COCOMO)
 
-The Constructive Cost Model (COCOMO) estimates the **one-time development effort** required to build the School Activity Booking System. Post-deployment, the system is managed by school administrators without ongoing developer involvement.
+The Constructive Cost Model (COCOMO) estimates the **one-time development effort** for the School Activity Booking System. Post-deployment, the system is managed by school administrators.
 
-**System Classification:** Organic Mode (small team, familiar environment)
+**System Classification:** Organic Mode
 
-**Lines of Code (LOC):**
+**Code Size:**
 - `app.py`: 2,780 lines
-- `models.py`: 250 lines  
-- Templates (HTML/CSS/JS): 1,500 lines
-- Total KLOC: **4.53**
+- `models.py`: 250 lines
+- Templates: 1,500 lines
+- **Total: 4.53 KLOC**
 
-**COCOMO Basic Model:**
+**COCOMO Calculations:**
 
-Effort (Person-Months) = 2.4 × (KLOC)^1.05
-= 2.4 × (4.53)^1.05  
-= **11.8 person-months**
+Effort = 2.4 × (4.53)^1.05 = **11.8 person-months**
+Development Time = 2.5 × (11.8)^0.38 = **6.2 months**
 
-Development Time = 2.5 × (Effort)^0.38  
-= 2.5 × (11.8)^0.38  
-= **6.2 months**
+**Actual Development:** 2.5 months (accelerated by 4-person team, parallel development)
 
-**One-Time Development Cost:**
-- Freelance Developer Rate: £25/hour (UK market rate for students/junior developers)
-- Working Hours: 11.8 months × 160 hours/month = 1,888 hours
-- **Total Development Cost: £47,200** (one-time payment)
+**Realistic Cost Estimation (UK Market):**
 
-**Post-Deployment:** System handed over to school administrators. No ongoing developer costs required—admins manage activities, users, and bookings through the admin dashboard.
+Based on UK freelance rates for small Flask applications (£1,000-£5,000 typical range):
+
+- Development (200 hours): £50/hour × 200 = **£10,000**
+- Testing & QA (30 hours): £50/hour × 30 = **£1,500**
+- Deployment Setup (10 hours): £50/hour × 10 = **£500**
+
+**Total One-Time Cost: £12,000**
+
+**Rate Justification:** £50/hour is mid-range for UK freelance web developers (market: £25-£75/hour)
+
+**Post-Deployment:** Admin-managed via dashboard. No ongoing developer costs.
 
 7.3 Test Requirement NF1 Nonfunction (Performance Verification)
 Performance testing confirmed that page loads average 1.2s (Meeting <2s req) and database queries average 45ms. Security headers were verified using OWASP ZAP.
