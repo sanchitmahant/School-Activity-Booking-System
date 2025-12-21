@@ -232,47 +232,32 @@ TC-08 | Tutor Attendance View | Tutor Logged In | Click "My Activities" | List o
 
 7.2 Cost Estimation (COCOMO)
 
-The Constructive Cost Model (COCOMO) was applied to estimate development effort and duration for the School Activity Booking System.
+The Constructive Cost Model (COCOMO) estimates the **one-time development effort** required to build the School Activity Booking System. Post-deployment, the system is managed by school administrators without ongoing developer involvement.
 
-**System Classification:** Organic Mode (small, experienced team in familiar environment)
+**System Classification:** Organic Mode (small team, familiar environment)
 
-**Lines of Code (LOC) Count:**
+**Lines of Code (LOC):**
 - `app.py`: 2,780 lines
 - `models.py`: 250 lines  
 - Templates (HTML/CSS/JS): 1,500 lines
-- Total KLOC: **4.53** (thousands of lines)
+- Total KLOC: **4.53**
 
-**COCOMO Basic Model Calculations:**
+**COCOMO Basic Model:**
 
 Effort (Person-Months) = 2.4 × (KLOC)^1.05
 = 2.4 × (4.53)^1.05  
 = **11.8 person-months**
 
-Development Time (Months) = 2.5 × (Effort)^0.38  
+Development Time = 2.5 × (Effort)^0.38  
 = 2.5 × (11.8)^0.38  
 = **6.2 months**
 
-Average Team Size = Effort / Development Time  
-= 11.8 / 6.2  
-= **1.9 ≈ 2 developers**
+**One-Time Development Cost:**
+- Freelance Developer Rate: £25/hour (UK market rate for students/junior developers)
+- Working Hours: 11.8 months × 160 hours/month = 1,888 hours
+- **Total Development Cost: £47,200** (one-time payment)
 
-**Actual vs. Estimated:**
-- **Estimated:** 6.2 months, 2 developers
-- **Actual:** 2.5 months, 4 team members
-- **Reason for variance:** Agile methodology, parallel development, and code reuse reduced timeline
-
-**Cost Estimation (UK Market Rates):**
-- Average Junior Developer: £30,000/year = £2,500/month
-- Total Development Cost: 11.8 person-months × £2,500 = **£29,500**
-
-**Infrastructure Costs (Annual):**
-- Cloud Hosting (Render/AWS): £120/year
-- Domain Registration: £15/year
-- PostgreSQL Database: £0 (free tier)
-- Email Service (SMTP): £0 (included)
-- **Total Infrastructure:** £135/year
-
-**Total Project Cost:** £29,500 (development) + £135 (infrastructure) = **£29,635**
+**Post-Deployment:** System handed over to school administrators. No ongoing developer costs required—admins manage activities, users, and bookings through the admin dashboard.
 
 7.3 Test Requirement NF1 Nonfunction (Performance Verification)
 Performance testing confirmed that page loads average 1.2s (Meeting <2s req) and database queries average 45ms. Security headers were verified using OWASP ZAP.
@@ -300,20 +285,50 @@ Figure 12: Sample PDF Invoice
 
 8.1 Operational & Infrastructure Budget (Annual)
 
-**AWS Infrastructure:**
-- EC2 Application Server (t3.micro): £120/year
-- RDS PostgreSQL Database: £180/year  
-- S3 Storage: £2/year
-- Route 53 DNS: £6/year
-- SSL Certificate (ACM): Free
+**Professional Hosting Solution:**
+For a real-world school deployment, the system is hosted on a reputable managed platform, allowing school administrators to manage the application without technical expertise.
 
-**Third-Party Services:**
-- Domain Registration: £12/year
-- Email SMTP (SendGrid): £0 (free tier)
+**Recommended Platform:** Digital Ocean App Platform / Hostinger Business Hosting
 
-**Total Annual Cost:** £320/year (~£27/month)
+**Annual Costs:**
 
-**Scaling:** For 500+ users, upgrade to t3.small instances (~£700/year)
+1. **Web Hosting (Managed Platform)**
+   - Digital Ocean App Platform: £10/month
+   - Includes: Auto-scaling, SSL certificate, CDN
+   - Annual Cost: **£120/year**
+
+2. **Domain Registration**
+   - Provider: Namecheap / GoDaddy
+   - Domain: schoolbooking.co.uk
+   - Annual Cost: **£12/year**
+
+3. **Database Hosting**
+   - PostgreSQL (Managed): Included in hosting platform
+   - Backup storage: £5/month
+   - Annual Cost: **£60/year**
+
+4. **Email Service**
+   - SendGrid Free Tier: 100 emails/day
+   - Sufficient for school use
+   - Annual Cost: **£0/year**
+
+5. **SSL Certificate**
+   - Let's Encrypt (Free, auto-renewing)
+   - Annual Cost: **£0/year**
+
+**Total Annual Operational Cost: £192/year (~£16/month)**
+
+**Management Model:**
+- **No ongoing developer costs** - System handed over to school administrators
+- Admins manage: Activities, enrollments, user accounts via admin dashboard
+- Technical updates: Optional annual maintenance contract (£200-£500/year)
+
+**Total First-Year Cost:**
+- Development (one-time): £47,200
+- Infrastructure (annual): £192
+- **Total: £47,392**
+
+**Ongoing Annual Cost:** £192 (infrastructure only) + optional £300 maintenance
 
 9. References
 
