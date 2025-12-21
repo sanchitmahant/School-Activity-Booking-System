@@ -159,16 +159,17 @@ Enables authenticated parents to book activities and receive confirmations. Prio
 
 **Input/Outputs Sequences**
 *   Booking: Parent selects activity -> System validates capacity/conflicts -> Confirms booking -> Sends Email.
-*   Waitlist: Activity Full -> System offers Waitlist option.
+*   Waitlist (Full Capacity): Activity reaches max capacity (e.g., 10/10 enrolled) -> System displays "Join Waitlist" button -> Parent submits waitlist request -> System saves to database -> Confirmation message displayed -> When booking cancelled, system auto-promotes first waiting student and sends notification.
 
 [INSERT FIGURE 7: Booking System Flow HERE]
-Figure 7: Activity Booking and Confirmation Process
+Figure 7: Waitlist Feature - System displays "Join Waitlist" option when activity reaches full capacity (10/10 enrolled), with success confirmation after submission
 (Source: Application Interface)
 
 **Functional Requirements**
 *   F2.1: Prevent double-bookings for the same child/time.
 *   F2.2: Auto-decrement capacity upon successful booking.
-*   F2.3: Generate and email PDF invoices immediately.
+*   F2.3: Display waitlist option when activity reaches full capacity, automatically promote first waiting student upon cancellation.
+*   F2.4: Generate and email PDF invoices immediately.
 
 5. User Stories and Scenarios
 The functional requirements of the School Activity Booking System are configured based on the key features of the system. We utilized Notion as our project management and planning tool to track these user stories, assign tasks to team members, and monitor progress throughout the development lifecycle (Agile Methodology).
