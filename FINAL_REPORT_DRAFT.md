@@ -46,59 +46,11 @@ The School Activity Booking System provides a centralized platform for managing 
 
 1.5 Requirements Reference Documents
 
-The following documents and resources serve as the authoritative references for this Software Requirements Specification:
-
 AbouGrad, H. (2024) *CN7021 Advanced Software Engineering Module Guide*. University of East London.
 
-Beck, K. et al. (2001) *Manifesto for Agile Software Development*. Available at: https://agilemanifesto.org/ (Accessed: 15 December 2024).
-
-Bootstrap Team (2024) *Bootstrap 5.3 Documentation*. Available at: https://getbootstrap.com/docs/5.3/ (Accessed: 15 December 2024).
-
-Chacon, S. and Straub, B. (2014) *Pro Git*. 2nd edn. Berkeley: Apress.
-
-Connolly, T. and Begg, C. (2015) *Database Systems: A Practical Approach to Design, Implementation, and Management*. 6th edn. Harlow: Pearson Education.
-
-Fielding, R.T. (2000) *Architectural Styles and the Design of Network-based Software Architectures*. Doctoral dissertation. University of California, Irvine.
-
-Flask Development Team (2024) *Flask Documentation (Version 3.0)*. Available at: https://flask.palletsprojects.com/ (Accessed: 15 December 2024).
-
-Fowler, M. (2018) *Refactoring: Improving the Design of Existing Code*. 2nd edn. Boston: Addison-Wesley.
-
-Gamma, E., Helm, R., Johnson, R. and Vlissides, J. (1994) *Design Patterns: Elements of Reusable Object-Oriented Software*. Boston: Addison-Wesley.
-
-Grinberg, M. (2018) *Flask Web Development: Developing Web Applications with Python*. 2nd edn. Sebastopol: O'Reilly Media.
+University of East London (2024) *CN7021 Advanced Software Engineering Coursework Brief*. University of East London.
 
 IEEE (1998) *IEEE Recommended Practice for Software Requirements Specifications*. IEEE Std 830-1998. New York: Institute of Electrical and Electronics Engineers.
-
-Klensin, J. (2008) *Simple Mail Transfer Protocol*. RFC 5321. Available at: https://www.rfc-editor.org/rfc/rfc5321 (Accessed: 15 December 2024).
-
-Krug, S. (2014) *Don't Make Me Think, Revisited: A Common Sense Approach to Web Usability*. 3rd edn. Berkeley: New Riders.
-
-Martin, R.C. (2008) *Clean Code: A Handbook of Agile Software Craftsmanship*. Upper Saddle River: Prentice Hall.
-
-Myers, G.J., Sandler, C. and Badgett, T. (2011) *The Art of Software Testing*. 3rd edn. Hoboken: John Wiley & Sons.
-
-Newman, S. (2015) *Building Microservices: Designing Fine-Grained Systems*. Sebastopol: O'Reilly Media.
-
-Nielsen, J. (1994) *Usability Engineering*. San Francisco: Morgan Kaufmann.
-
-OWASP Foundation (2024) *OWASP Top Ten Web Application Security Risks*. Available at: https://owasp.org/www-project-top-ten/ (Accessed: 15 December 2024).
-
-PostgreSQL Global Development Group (2024) *PostgreSQL 16 Documentation*. Available at: https://www.postgresql.org/docs/16/ (Accessed: 15 December 2024).
-
-Pressman, R.S. and Maxim, B.R. (2020) *Software Engineering: A Practitioner's Approach*. 9th edn. New York: McGraw-Hill Education.
-
-Python Software Foundation (2024) *Python 3.12 Documentation*. Available at: https://docs.python.org/3/ (Accessed: 15 December 2024).
-
-ReportLab Inc. (2024) *ReportLab PDF Library Documentation*. Available at: https://www.reportlab.com/docs/ (Accessed: 15 December 2024).
-
-Schwaber, K. and Sutherland, J. (2020) *The Scrum Guide*. Available at: https://scrumguides.org/ (Accessed: 15 December 2024).
-
-Sommerville, I. (2016) *Software Engineering*. 10th edn. Harlow: Pearson Education.
-
-SQLAlchemy Authors (2024) *SQLAlchemy 2.0 Documentation*. Available at: https://docs.sqlalchemy.org/ (Accessed: 15 December 2024).
-
-Van Rossum, G. and Warsaw, B. (2013) *PEP 8 – Style Guide for Python Code*. Available at: https://peps.python.org/pep-0008/ (Accessed: 15 December 2024).
 
 3.  Development Standards & Protocols
     Python PEP 8 Style Guide, IEEE SRS format, Agile development methodology, Git version control.
@@ -372,7 +324,55 @@ For a real-world school deployment, the system is hosted on a reputable managed 
 
 9. References
 
-References listed in Section 1.5 (Requirements Reference Documents).
+Beck, K. et al. (2001) *Manifesto for Agile Software Development*. Available at: https://agilemanifesto.org/ (Accessed: 15 December 2024).
+
+Bootstrap Team (2024) *Bootstrap 5.3 Documentation*. Available at: https://getbootstrap.com/docs/5.3/ (Accessed: 15 December 2024).
+
+Chacon, S. and Straub, B. (2014) *Pro Git*. 2nd edn. Berkeley: Apress.
+
+Connolly, T. and Begg, C. (2015) *Database Systems: A Practical Approach to Design, Implementation, and Management*. 6th edn. Harlow: Pearson Education.
+
+Fielding, R.T. (2000) *Architectural Styles and the Design of Network-based Software Architectures*. Doctoral dissertation. University of California, Irvine.
+
+Flask Development Team (2024) *Flask Documentation (Version 3.0)*. Available at: https://flask.palletsprojects.com/ (Accessed: 15 December 2024).
+
+Fowler, M. (2018) *Refactoring: Improving the Design of Existing Code*. 2nd edn. Boston: Addison-Wesley.
+
+Gamma, E., Helm, R., Johnson, R. and Vlissides, J. (1994) *Design Patterns: Elements of Reusable Object-Oriented Software*. Boston: Addison-Wesley.
+
+Grinberg, M. (2018) *Flask Web Development: Developing Web Applications with Python*. 2nd edn. Sebastopol: O'Reilly Media.
+
+Klensin, J. (2008) *Simple Mail Transfer Protocol*. RFC 5321. Available at: https://www.rfc-editor.org/rfc/rfc5321 (Accessed: 15 December 2024).
+
+Krug, S. (2014) *Don't Make Me Think, Revisited: A Common Sense Approach to Web Usability*. 3rd edn. Berkeley: New Riders.
+
+Martin, R.C. (2008) *Clean Code: A Handbook of Agile Software Craftsmanship*. Upper Saddle River: Prentice Hall.
+
+Myers, G.J., Sandler, C. and Badgett, T. (2011) *The Art of Software Testing*. 3rd edn. Hoboken: John Wiley & Sons.
+
+Newman, S. (2015) *Building Microservices: Designing Fine-Grained Systems*. Sebastopol: O'Reilly Media.
+
+Nielsen, J. (1994) *Usability Engineering*. San Francisco: Morgan Kaufmann.
+
+OWASP Foundation (2024) *OWASP Top Ten Web Application Security Risks*. Available at: https://owasp.org/www-project-top-ten/ (Accessed: 15 December 2024).
+
+PostgreSQL Global Development Group (2024) *PostgreSQL 16 Documentation*. Available at: https://www.postgresql.org/docs/16/ (Accessed: 15 December 2024).
+
+Pressman, R.S. and Maxim, B.R. (2020) *Software Engineering: A Practitioner's Approach*. 9th edn. New York: McGraw-Hill Education.
+
+Python Software Foundation (2024) *Python 3.12 Documentation*. Available at: https://docs.python.org/3/ (Accessed: 15 December 2024).
+
+ReportLab Inc. (2024) *ReportLab PDF Library Documentation*. Available at: https://www.reportlab.com/docs/ (Accessed: 15 December 2024).
+
+Schwaber, K. and Sutherland, J. (2020) *The Scrum Guide*. Available at: https://scrumguides.org/ (Accessed: 15 December 2024).
+
+Sommerville, I. (2016) *Software Engineering*. 10th edn. Harlow: Pearson Education.
+
+SQLAlchemy Authors (2024) *SQLAlchemy 2.0 Documentation*. Available at: https://docs.sqlalchemy.org/ (Accessed: 15 December 2024).
+
+University of East London (2024) *CN7021 Advanced Software Engineering Coursework Brief*. University of East London.
+
+Van Rossum, G. and Warsaw, B. (2013) *PEP 8 – Style Guide for Python Code*. Available at: https://peps.python.org/pep-0008/ (Accessed: 15 December 2024).
 
 Python Software Foundation, 2024. Python 3.12 Documentation. [online] Available at: <https://docs.python.org/3/> [Accessed 19 Dec. 2025].
 
