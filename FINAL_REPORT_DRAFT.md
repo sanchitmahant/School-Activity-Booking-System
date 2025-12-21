@@ -96,10 +96,10 @@ Figure 2: System Class Diagram
 (Source: Based on SQLAlchemy Models in app.py)
 
 2.6 User Documentation
-Comprehensive documentation includes a README.md providing step-by-step installation instructions for non-technical administrators. In-application help features contextual tooltips on complex forms, particularly for booking conflict resolution and capacity management. An automated SETUP_AND_RUN.bat script streamlines Windows deployment by handling dependency installation and database initialization. System dependencies require internet connectivity for initial pip package installation and Google Fonts CDN resources during runtime.
+README.md provides installation instructions. In-app tooltips guide users through booking and capacity management. SETUP_AND_RUN.bat automates Windows deployment (dependencies, database initialization). Requires internet for pip packages and Google Fonts CDN.
 
 2.7 Assumptions and Dependencies
-The system assumes reliable internet connectivity for client browsers to access cloud-hosted instances and load external resources. User authentication depends on valid email addresses for account recovery and notification delivery. Booking operations assume accurate system clock synchronization to prevent timestamp conflicts in concurrent booking scenarios. External dependencies include SMTP mail servers for automated notifications, PostgreSQL database services for production data persistence, and browser compatibility with HTML5, CSS3, and ECMAScript 6 standards.
+Assumes: Internet connectivity, valid email addresses for notifications, accurate system clock. Dependencies: SMTP mail servers, PostgreSQL (production), HTML5/CSS3/ES6 browser support.
 
 3. Specific Requirements
 
@@ -161,13 +161,13 @@ Figure 7: Activity Booking and Waitlist Management - Normal booking flow and wai
 *   F2.4: Generate PDF invoices via email.
 
 5. User Stories and Scenarios
-The functional requirements of the School Activity Booking System are configured based on the key features of the system. We utilized Notion as our project management and planning tool to track these user stories, assign tasks to team members, and monitor progress throughout the development lifecycle (Agile Methodology).
+User stories tracked via Notion (Agile methodology) and assigned to team members.
 
 [INSERT FIGURE 8: Project Backlog and User Stories (Notion) HERE]
 Figure 8: Project Planner & User Stories (Source: Team Notion Board)
 
-Key stories include:
-- As a Parent, I want to register and login securely so that I can access the system. (Assigned to: Chichebendu Umeh)
+Key stories:
+- Parent: Secure registration/login (Chichebendu Umeh)
 - As a Parent, I want to add my children to my profile so I can book activities for them. (Assigned to: Mohd Sharjeel)
 - As a Parent, I want to view available activities and book a slot so my child can participate. (Assigned to: Shiva Kasula)
 - As a User, I want to receive email confirmations and download PDF invoices for my records. (Assigned to: Sanchit Kaushal)
@@ -336,17 +336,7 @@ For a real-world school deployment, the system is hosted on a reputable managed 
 
 9. References
 
-Bayer, M., 2024. SQLAlchemy 1.4 Documentation. [online] Available at: <https://www.sqlalchemy.org/> [Accessed 19 Dec. 2025].
-
-Grinberg, M., 2018. Flask Web Development: Developing Web Applications with Python. 2nd ed. Sebastopol: O'Reilly Media.
-
-Pallets Projects, 2024. Flask Documentation. [online] Available at: <https://flask.palletsprojects.com/> [Accessed 19 Dec. 2025].
-
-ReportLab, 2024. ReportLab PDF Library User Guide. [pdf] Available at: <https://www.reportlab.com/docs/reportlab-userguide.pdf> [Accessed 19 Dec. 2025].
-
-Otto, M. and Thornton, J., 2024. Bootstrap 5.3 Documentation. [online] Available at: <https://getbootstrap.com/> [Accessed 19 Dec. 2025].
-
-PostgreSQL Global Development Group, 2024. PostgreSQL 16 Documentation. [online] Available at: <https://www.postgresql.org/docs/> [Accessed 19 Dec. 2025].
+References listed in Section 1.5 (Requirements Reference Documents).
 
 Python Software Foundation, 2024. Python 3.12 Documentation. [online] Available at: <https://docs.python.org/3/> [Accessed 19 Dec. 2025].
 
