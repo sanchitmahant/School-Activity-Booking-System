@@ -2,24 +2,24 @@ SCHOOL OF ARCHITECTURE, COMPUTING & ENGINEERING
 Department of Computer Science and Digital Technologies – CDT
 CN7021 – Advanced Software Engineering
 
-**School Activity Booking System**
+School Activity Booking System
 
-**Group: 3.B**
+Group: 3.B
 
-**Students Name & ID:**
+Students Name & ID:
 *   Sanchit Kaushal (2823183)
 *   Mohd Sharjeel (2823311)
 *   Chichebendu Umeh (2823112)
 *   Shiva Kasula (2822121)
 
-**Tutor:** [TUTOR NAME]
-**Module Leader:** Dr Hisham AbouGrad
+Tutor: [TUTOR NAME]
+Module Leader: Dr Hisham AbouGrad
 
-**December 2025**
+December 2025
 
 ---
 
-**Table of Contents**
+Table of Contents
 
 [INSERT TABLE OF CONTENTS HERE]
 
@@ -93,30 +93,30 @@ Assumes: Internet connectivity, valid email addresses for notifications, accurat
 
 3.1 External Interface Requirements
 
-**User Interfaces:**
+User Interfaces:
 Bootstrap 5-based responsive design supporting desktop (1920x1080) and mobile (375x667) viewports. Key interfaces: registration/login, dashboard with activity cards, booking form with date picker, admin panel with CRUD operations.
 
-**Hardware Interfaces:**
+Hardware Interfaces:
 Client: Any modern web browser device (4GB RAM recommended for PDF rendering).
 Server: 1 vCPU @ 2.0 GHz, 512MB RAM, 500MB storage.
 
-**Software Interfaces:**
+Software Interfaces:
 - SQLAlchemy ORM for PostgreSQL database interaction
 - Flask-Mail for SMTP email delivery
 - ReportLab for PDF invoice generation
 - Werkzeug (dev) / Gunicorn (prod) WSGI server
 
-**Communications Interfaces:**
+Communications Interfaces:
 HTTPS/TLS (port 443) for web traffic, SMTP (port 587) for email delivery. Data formats: HTML5/CSS3, JSON (AJAX), multipart/form-data.
 
 4. System Functional Requirements
 
 4.1 Parent Registration & Authentication: F1
 
-**Description and Priority**
+Description and Priority
 Allows parents to create accounts and log in securely. Priority: High (Essential for system access).
 
-**Input/Outputs Sequences**
+Input/Outputs Sequences
 *   Registration: User submits details -> System validates, hashes password, creates account.
 *   Login: User logs in -> System creates session, redirects to Dashboard.
 
@@ -124,17 +124,17 @@ Allows parents to create accounts and log in securely. Priority: High (Essential
 Figure 6: User Registration and Login Screens
 (Source: Application Interface)
 
-**Functional Requirements**
+Functional Requirements
 *   F1.1: Validate email format and uniqueness in the database.
 *   F1.2: Securely hash passwords (scrypt) before storage.
 *   F1.3: Enforce 30-minute session timeouts.
 
 4.2 Activity Booking Management: F2
 
-**Description and Priority**
+Description and Priority
 Enables booking with capacity validation and waitlist. Priority: High.
 
-**Input/Outputs Sequences**
+Input/Outputs Sequences
 *   Booking: Parent selects activity -> validates capacity/conflicts -> confirms -> sends email.
 *   Waitlist: Full capacity (10/10) -> displays "Join Waitlist" -> saves request -> auto-promotes on cancellation.
 
@@ -142,7 +142,7 @@ Enables booking with capacity validation and waitlist. Priority: High.
 Figure 7: Activity Booking and Waitlist Management - Normal booking flow and waitlist feature when capacity is full
 (Source: Application Interface)
 
-**Functional Requirements**
+Functional Requirements
 *   F2.1: Prevent double-bookings via unique constraint.
 *   F2.2: Decrement capacity on booking.
 *   F2.3: Waitlist FIFO queue with auto-promotion.
@@ -175,9 +175,9 @@ The system prioritizes Usability (intuitive Bootstrap interface), Reliability (r
 The system adheres to the UK Data Protection Act (GDPR) by collecting only necessary data (Parent Name, Email, Child details) and providing options for account deletion.
 
 6.6 Business Rules
-*   **BR1**: Only registered Parents can book activities.
-*   **BR2**: Tutors cannot modify bookings, only view attendance.
-*   **BR3**: Administrators have full override access to all records.
+*   BR1: Only registered Parents can book activities.
+*   BR2: Tutors cannot modify bookings, only view attendance.
+*   BR3: Administrators have full override access to all records.
 
 7. Software Testing and Test Plan
 The test plan ensures all system functions work correctly and reliably. Testing includes unit tests for authentication, child management, booking logic, and invoice generation.
@@ -185,24 +185,24 @@ The test plan ensures all system functions work correctly and reliably. Testing 
 7.1 Functional Test Suite (T1)
 The project adopts a test-driven development (TDD) approach, utilizing the Python `unittest` framework to validate individual components in isolation. Unit tests are located in `tests/test_unit.py` and cover critical functions such as password hashing correctness, database model integrity (e.g., ensuring child-parent relationships), and utility functions for date validation. Automated tests are executed via the CLI pipeline, while manual tests cover UI/UX interactions. Edge cases (null inputs, SQL injection attempts) are checked via the CLI pipeline on every commit to ensure no regressions are introduced in the core logic.
 
-**Unit Tests & Integration Strategy**
+Unit Tests & Integration Strategy
 
 The project adopts a test-driven development (TDD) approach. The following unit tests are defined in the test suite:
 
-**File: `tests/test_models.py`**
+File: `tests/test_models.py`
 1.  `test_parent_creation()`: Verifies parent object instantiation.
 2.  `test_password_hashing()`: Ensures passwords are hashed correctly (not plain text).
 3.  `test_activity_capacity()`: Checks that booking decrements capacity.
 4.  `test_booking_uniqueness()`: Validates the `unique_booking_per_day` constraint raises `IntegrityError`.
 
-**File: `tests/test_routes.py`**
+File: `tests/test_routes.py`
 1.  `test_login_page_load()`: Verifies 200 OK response.
 2.  `test_dashboard_access_denied()`: Ensures redirect if not logged in.
 3.  `test_invoice_generation()`: Verifies PDF response header.
 
 Integration testing utilizes the `Flask-Client` test harness to simulate HTTP requests (GET/POST) and verify that the database updates correctly upon booking submission.
 
-**Test Case Table (End-to-End)**
+Test Case Table (End-to-End)
 The following test cases verify the core functionality of the School Activity Booking System, covering authentication, booking logic, constraints, and administrative functions.
 
 Format: Test Case ID | Description | Pre-Conditions | Input Data | Expected Result / Behavior | Actual Result | Status | Remarks/Screenshot
@@ -215,43 +215,10 @@ TC-06 | Admin Access (RBAC) | Admin Account Exists | Email: "admin@school.edu", 
 TC-07 | Invoice Generation | Booking Exists | Click "Download Invoice" on Dashboard | PDF Invoice downloaded with correct details. | PDF Invoice downloaded. | Pass | Figure 11
 TC-08 | Tutor Attendance View | Tutor Logged In | Click "My Activities" | List of enrolled students displayed. | List displayed correctly. | Pass | Handled
 
-7.2 Cost Estimation (COCOMO)
-
-The Constructive Cost Model (COCOMO) estimates the **one-time development effort** for the School Activity Booking System. Post-deployment, the system is managed by school administrators.
-
-**System Classification:** Organic Mode
-
-**Code Size:**
-- `app.py`: 2,780 lines
-- `models.py`: 250 lines
-- Templates: 1,500 lines
-- **Total: 4.53 KLOC**
-
-**COCOMO Calculations:**
-
-Effort = 2.4 × (4.53)^1.05 = **11.8 person-months**
-Development Time = 2.5 × (11.8)^0.38 = **6.2 months**
-
-**Actual Development:** 2.5 months (accelerated by 4-person team, parallel development)
-
-**Realistic Cost Estimation (UK Market):**
-
-Based on UK freelance rates for small Flask applications (£1,000-£5,000 typical range):
-
-- Development (200 hours): £50/hour × 200 = **£10,000**
-- Testing & QA (30 hours): £50/hour × 30 = **£1,500**
-- Deployment Setup (10 hours): £50/hour × 10 = **£500**
-
-**Total One-Time Cost: £12,000**
-
-**Rate Justification:** £50/hour is mid-range for UK freelance web developers (market: £25-£75/hour)
-
-**Post-Deployment:** Admin-managed via dashboard. No ongoing developer costs.
-
-7.3 Test Requirement NF1 Nonfunction (Performance Verification)
+7.2 Test Requirement NF1 Nonfunction (Performance Verification)
 Performance testing confirmed that page loads average 1.2s (Meeting <2s req) and database queries average 45ms. Security headers were verified using OWASP ZAP.
 
-7.4 Test Results and Screenshots
+7.3 Test Results and Screenshots
 The following screenshots provide evidence of the testing process and key system interfaces.
 
 [INSERT FIGURE 9: System Login / Dashboard View HERE]
@@ -272,49 +239,82 @@ Figure 12: Sample PDF Invoice
 
 8. Project Management
 
-8.1 Operational & Infrastructure Budget (Annual)
+8.1 Cost Estimation (COCOMO)
 
-**Professional Hosting Solution:**
+The Constructive Cost Model (COCOMO) estimates the one-time development effort for the School Activity Booking System. Post-deployment, the system is managed by school administrators.
+
+System Classification: Organic Mode
+
+Code Size:
+- `app.py`: 2,780 lines
+- `models.py`: 250 lines
+- Templates: 1,500 lines
+- Total: 4.53 KLOC
+
+COCOMO Calculations:
+
+Effort = 2.4 × (4.53)^1.05 = 11.8 person-months
+Development Time = 2.5 × (11.8)^0.38 = 6.2 months
+
+Actual Development: 2.5 months (accelerated by 4-person team, parallel development)
+
+Realistic Cost Estimation (UK Market):
+
+Based on UK freelance rates for small Flask applications (£1,000-£5,000 typical range):
+
+- Development (200 hours): £50/hour × 200 = £10,000
+- Testing & QA (30 hours): £50/hour × 30 = £1,500
+- Deployment Setup (10 hours): £50/hour × 10 = £500
+
+Total One-Time Cost: £12,000
+
+Rate Justification: £50/hour is mid-range for UK freelance web developers (market: £25-£75/hour)
+
+Post-Deployment: Admin-managed via dashboard. No ongoing developer costs.
+
+8.2 Operational & Infrastructure Budget (Annual)
+
+Professional Hosting Solution:
 For a real-world school deployment, the system is hosted on a reputable managed platform, allowing school administrators to manage the application without technical expertise.
 
-**Recommended Platform:** Digital Ocean App Platform / Hostinger Business Hosting
+Recommended Platform: Digital Ocean App Platform / Hostinger Business Hosting
 
-**Annual Costs:**
+Annual Costs:
 
-1. **Web Hosting (Managed Platform)**
+1. Web Hosting (Managed Platform)
    - Digital Ocean App Platform: £10/month
    - Includes: Auto-scaling, SSL certificate, CDN
-   - Annual Cost: **£120/year**
+   - Annual Cost: £120/year
 
-2. **Domain Registration**
+2. Domain Registration
    - Provider: Namecheap / GoDaddy
    - Domain: schoolbooking.co.uk
-   - Annual Cost: **£12/year**
+   - Annual Cost: £12/year
 
-3. **Database Hosting**
+3. Database Hosting
    - PostgreSQL (Managed): Included in hosting platform
    - Backup storage: £5/month
-   - Annual Cost: **£60/year**
+   - Annual Cost: £60/year
 
-4. **Email Service**
+4. Email Service
    - SendGrid Free Tier: 100 emails/day
    - Sufficient for school use
-   - Annual Cost: **£0/year**
+   - Annual Cost: £0/year
 
-5. **SSL Certificate**
+5. SSL Certificate
    - Let's Encrypt (Free, auto-renewing)
-   - Annual Cost: **£0/year**
+   - Annual Cost: £0/year
 
-**Total Annual Operational Cost: £192/year (~£16/month)**
+Total Annual Operational Cost: £192/year (~£16/month)
 
-**Management Model:**
-- **No ongoing developer costs** - System handed over to school administrators
+Management Model:
+- No ongoing developer costs - System handed over to school administrators
 - Admins manage: Activities, enrollments, user accounts via admin dashboard
 - Technical updates: Optional annual maintenance contract (£200-£500/year)
 
-**Total First-Year Cost:** £47,392 (development £47,200 + infrastructure £192)
+Total First-Year Cost: £47,392 (development £47,200 + infrastructure £192)
 
-**Ongoing:** £192/year + optional £300 maintenance
+Ongoing: £192/year + optional £300 maintenance
 
 9. References
 
@@ -456,7 +456,7 @@ Mobile App | Native mobile application wrapper | Future Enhancement
 
 10.6 Appendix F: Source Code
 
-**Project Repository URL:** [https://github.com/sanchitmahant/School-Activity-Booking-System](https://github.com/sanchitmahant/School-Activity-Booking-System)
+Project Repository URL: [https://github.com/sanchitmahant/School-Activity-Booking-System](https://github.com/sanchitmahant/School-Activity-Booking-System)
 
 *Note: The complete source code, including database models and route logic, is available at the link above.*
 
@@ -493,24 +493,24 @@ Figure F.6: Version Control History (Git Log)
 | TC-007 | Admin RBAC | Unauthorized access blocked | ✓ 403 error | Pass |
 | TC-008 | Invoice Generation | PDF created + attached to email | ✓ PDF received | Pass |
 
-**Individual Contributions by Team Member**
+Individual Contributions by Team Member
 
 | Team Member | Student ID | Tasks Completed | Contribution % |
 |-------------|-----------|-----------------|----------------|
-| **Sanchit Kaushal** (Lead) | 2823183 | Project leadership, Email notifications (Flask-Mail), PDF invoice generation (ReportLab), Calendar integration (.ics export), Final report compilation, GitHub repository management | 25% |
-| **Chichebendu Umeh** | 2823112 | User authentication system, Password hashing (Werkzeug scrypt), CSRF protection, Role-Based Access Control (RBAC), Admin security features | 25% |
-| **Mohd Sharjeel** | 2823311 | Parent dashboard development, Child profile management (add/remove), Attendance tracking system, Tutor interface design | 25% |
-| **Shiva Kasula** | 2822121 | Database schema design (SQLAlchemy models), Booking system core logic, Conflict prevention algorithm, Capacity management, Waitlist functionality (FIFO queue) | 25% |
+| Sanchit Kaushal (Lead) | 2823183 | Project leadership, Email notifications (Flask-Mail), PDF invoice generation (ReportLab), Calendar integration (.ics export), Final report compilation, GitHub repository management | 25% |
+| Chichebendu Umeh | 2823112 | User authentication system, Password hashing (Werkzeug scrypt), CSRF protection, Role-Based Access Control (RBAC), Admin security features | 25% |
+| Mohd Sharjeel | 2823311 | Parent dashboard development, Child profile management (add/remove), Attendance tracking system, Tutor interface design | 25% |
+| Shiva Kasula | 2822121 | Database schema design (SQLAlchemy models), Booking system core logic, Conflict prevention algorithm, Capacity management, Waitlist functionality (FIFO queue) | 25% |
 
-**Agreement of Equal Contribution:**
+Agreement of Equal Contribution:
 
 We, the undersigned, confirm that all team members contributed equally (25% each) to this project. The distribution of tasks was based on individual strengths and expertise, with regular collaboration throughout the development lifecycle. All members participated in code reviews, testing, and documentation.
 
-**Signed:**
+Signed:
 - Sanchit Kaushal (Group Lead)
 - Chichebendu Umeh
 - Mohd Sharjeel  
 - Shiva Kasula
 
-**Date:** 21st December 2024
-**Tutorial Group:** 3.B
+Date: 21st December 2024
+Tutorial Group: 3.B
