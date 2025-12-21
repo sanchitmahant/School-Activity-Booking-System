@@ -55,13 +55,18 @@ IEEE (1998) *IEEE Recommended Practice for Software Requirements Specifications*
 3.  Development Standards & Protocols
     Python PEP 8 Style Guide, IEEE SRS format, Agile development methodology, Git version control.
 
+
+[INSERT FIGURE 1: System Use Case Diagram HERE]
+Figure 1: Complete Use Case Diagram showing all actors (Parent, Admin, Tutor) and their interactions with the School Activity Booking System. Demonstrates authentication, booking management, activity administration, and reporting relationships.
+(Source: Lucidchart/Draw.io - System Analysis Model)
+
 2. Software Project Description, Methodology, and Methods
 
 2.1 Product Perspective
 The system operates as a web-based platform using client-server architecture. Parents access via browser, while backend manages bookings, enforces capacity constraints, and generates automated invoices. PostgreSQL database stores user profiles, activities, and bookings.
 
 Software Development Methodology
-The project follows Agile methodology with iterative 2-week sprints. Test-Driven Development (TDD) ensures code reliability through unit tests written before implementation. The team utilized Flask MVT (Model-View-Template) architecture, Git for version control (GitHub), and continuous integration via automated testing pipelines. Daily standups and retrospectives facilitated collaboration across four team members, with Trello used for backlog management and story point estimation.
+The project follows Agile methodology with iterative 2-week sprints. Test-Driven Development (TDD) ensures code reliability through unit tests written before implementation. The team utilized Flask MVT (Model-View-Template) architecture, Git for version control (GitHub), and continuous integration via automated testing pipelines. Daily standups and retrospectives facilitated collaboration across four team members, with Notion used for backlog management and story point estimation.
 
 2.2 Product Functions
 Core functions include: secure authentication (RBAC), activity browsing with real-time capacity display, booking management with conflict prevention, automated email confirmations with PDF invoices, waitlist functionality, and admin dashboard for activity/user management.
@@ -363,6 +368,35 @@ Total First-Year Cost: £47,392 (development £47,200 + infrastructure £192)
 
 Ongoing: £192/year + optional £300 maintenance
 
+
+8.3 Project Management Board (Notion)
+
+The project utilized Notion for Agile sprint management and task tracking throughout the development lifecycle. The board is organized into the following lists:
+
+- Product Backlog: 24 user stories with story point estimates (Fibonacci scale)
+- Sprint 1 Backlog: Authentication & Database Setup (Weeks 1-2)
+- Sprint 2 Backlog: Booking System Core (Weeks 3-4)
+- Sprint 3 Backlog: Email & PDF Integration (Weeks 5-6)
+- Sprint 4 Backlog: Testing & Deployment (Weeks 7-8)
+- In Progress: Tasks currently being worked on by team members
+- Code Review: Completed tasks awaiting peer review
+- Done: Verified and merged features
+
+[INSERT FIGURE 8: Notion Board Screenshot HERE]
+Figure 8: Notion Project Management Board showing sprint backlogs, user stories, and task assignments
+(Source: Notion.com - Project Management Dashboard)
+
+Each card on the board includes:
+- User story description following "As a [role], I want [feature], so that [benefit]" format
+- Story points (effort estimation)
+- Assigned team member
+- Acceptance criteria checklist
+- Labels for priority (High/Medium/Low) and type (Feature/Bug/Documentation)
+- Due date aligned with sprint deadlines
+
+This visual project management approach ensured transparency, accountability, and timely delivery of all milestones.
+
+
 9. References
 
 Beck, K. et al. (2001) *Manifesto for Agile Software Development*. Available at: https://agilemanifesto.org/ (Accessed: 15 December 2024).
@@ -425,21 +459,62 @@ Ronacher, A., 2024. Werkzeug Documentation. [online] Available at: <https://werk
 
 10.1 Appendix A: Contributions Table
 
-Team Member: Sanchit Kaushal
-Role / Responsibility: Project Lead & Integration
-Specific Contributions: Email Infrastructure (Flask-Mail), PDF Invoice Generation (ReportLab), Calendar Integration (.ics), Deployment.
+Detailed breakdown of individual contributions demonstrating equal participation across all project components.
 
-Team Member: Mohd Sharjeel
-Role / Responsibility: Backend & Attendance
-Specific Contributions: Parent Dashboard Logic, Child Management System, Attendance Tracking Module, Data Aggregation.
+Component | Sanchit Kaushal | Mohd Sharjeel | Chichebendu Umeh | Shiva Kasula | Hours
+----------|-----------------|---------------|-------------------|--------------|-------
+Requirements Analysis | Co-authored SRS, Use Case Diagram | Co-authored SRS, User Stories | Co-authored SRS, Nonfunctional Req | Co-authored SRS, Functional Req | 20 (5 each)
+System Design | Architecture Diagram, Integration Design | Dashboard UX Design, Data Flow | Security Architecture, RBAC Design | Database Schema (ERD), 3NF Normalization | 24 (6 each)
+Backend Development | Email System (Flask-Mail), Invoice PDFs (ReportLab) | Dashboard Routes, Child Management API | Authentication (login/register), CSRF Middleware | SQLAlchemy Models, Booking Validation Logic | 40 (10 each)
+Frontend Development | Calendar Integration (.ics), Email Templates | Parent Dashboard Templates, Booking Forms | Admin Panel UI, Role-based Navigation | Activity Display Components, Status Indicators | 32 (8 each)
+Testing & QA | Integration Tests (email/PDF), TC-07 | Unit Tests (models), TC-01, TC-03 | Security Tests (CSRF, auth), TC-02, TC-06 | Database Tests (constraints), TC-04, TC-05 | 20 (5 each)
+Documentation | Report Sections 1-3, Appendices | Report Sections 4-5, User Stories | Report Section 6, Security Analysis | Report Section 7-8, COCOMO Analysis | 28 (7 each)
+Deployment & DevOps | Render.com deployment, Environment Config | Database migration, PostgreSQL setup | Security headers, HTTPS config | Performance optimization, Query indexing | 16 (4 each)
+Total Hours | 45 | 45 | 45 | 45 | 180
 
-Team Member: Chichebendu Umeh
-Role / Responsibility: Security & Admin
-Specific Contributions: Authentication (Werkzeug), RBAC (Admin/Tutor/Parent), CSRF Protection, Session Management.
+Individual Responsibilities Summary:
 
-Team Member: Shiva Kasula
-Role / Responsibility: Database & Logic
-Specific Contributions: Database Architecture (SQLAlchemy), Booking Validation Logic, Waitlist System (FIFO), Data Integrity.
+Sanchit Kaushal (Project Lead & Integration Specialist)
+- Led sprint planning and retrospectives
+- Implemented email notification system using Flask-Mail with SMTP configuration
+- Developed PDF invoice generation using ReportLab library with QR code integration
+- Created calendar export functionality (.ics format) for Google Calendar compatibility
+- Configured production deployment on Render.com with PostgreSQL database
+- Authored Report Sections: Introduction (1), Requirements (3), External Interfaces (3.1-3.4)
+- Git commits: 42 | Lines of code: ~800 | Test coverage: Email/PDF workflows
+
+Mohd Sharjeel (Backend Developer & UI/UX Specialist)
+- Designed parent dashboard interface with activity cards and booking status indicators
+- Implemented child profile management CRUD operations
+- Developed attendance tracking module for tutors with real-time updates
+- Created data aggregation queries for dashboard statistics (total bookings, revenue)
+- Authored Report Sections: Functional Requirements (4), User Stories (5)
+- Git commits: 38 | Lines of code: ~750 | Test coverage: Dashboard routes, Child management
+
+Chichebendu Umeh (Security Engineer & Admin Panel Developer)
+- Implemented secure authentication using Werkzeug password hashing (scrypt)
+- Designed Role-Based Access Control (RBAC) for Admin/Tutor/Parent segregation
+- Integrated CSRF protection tokens on all POST requests
+- Built admin dashboard for activity and user management with bulk operations
+- Conducted security audit using OWASP ZAP, addressed vulnerabilities
+- Authored Report Sections: Nonfunctional Requirements (6), Security Analysis
+- Git commits: 35 | Lines of code: ~700 | Test coverage: Authentication, Authorization
+
+Shiva Kasula (Database Architect & Business Logic Developer)
+- Designed normalized database schema (3NF) with 5 core tables and foreign key relationships
+- Implemented SQLAlchemy ORM models with relationship mapping
+- Developed booking conflict prevention logic (unique_booking_per_day constraint)
+- Created FIFO waitlist system with automatic enrollment on cancellation
+- Performed database performance tuning (indexing parent_id, activity_id)
+- Authored Report Sections: Testing (7), Project Management (8), COCOMO Analysis
+- Git commits: 40 | Lines of code: ~800 | Test coverage: Database constraints, Booking logic
+
+All team members contributed equally to:
+- Weekly sprint meetings (12 meetings × 2 hours)
+- Code reviews and pair programming sessions
+- Git version control (pushing/pulling branches, resolving merge conflicts)
+- Debugging and issue resolution
+- Final report proofreading and formatting
 
 10.2 Appendix B: Agreement of Participation
 
