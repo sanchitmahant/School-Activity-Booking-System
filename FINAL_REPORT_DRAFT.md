@@ -48,17 +48,21 @@ The School Activity Booking System provides a centralized platform for managing 
 
 The following documents and resources serve as the authoritative references for this Software Requirements Specification:
 
-1.  Project Source Code Repository
-    Title: School Activity Booking System Repository
-    Author: Sanchit Kaushal (Group 3.B)
-    Location: GitHub Repository (https://github.com/sanchitmahant/School-Activity-Booking-System)
-    Description: Contains the full source code, database models, and version history.
+AbouGrad, H. (2024) *CN7021 Advanced Software Engineering Module Guide*. University of East London.
 
-2.  User Interface Style Guide
-    Title: Bootstrap 5.3 Documentation
-    Author: Otto, M. and Thornton, J. (2024)
-    Location: getbootstrap.com (https://getbootstrap.com/)
-    Description: Defines the responsive design grid, component library, and accessibility standards used for the frontend.
+Flask Development Team (2024) *Flask Documentation (Version 3.0)*. Available at: https://flask.palletsprojects.com/ (Accessed: 15 December 2024).
+
+SQLAlchemy Authors (2024) *SQLAlchemy 2.0 Documentation*. Available at: https://docs.sqlalchemy.org/ (Accessed: 15 December 2024).
+
+PostgreSQL Global Development Group (2024) *PostgreSQL 16 Documentation*. Available at: https://www.postgresql.org/docs/16/ (Accessed: 15 December 2024).
+
+Bootstrap Team (2024) *Bootstrap 5.3 Documentation*. Available at: https://getbootstrap.com/docs/5.3/ (Accessed: 15 December 2024).
+
+ReportLab Inc. (2024) *ReportLab PDF Library Documentation*. Available at: https://www.reportlab.com/docs/ (Accessed: 15 December 2024).
+
+Sommerville, I. (2016) *Software Engineering*. 10th edn. Harlow: Pearson Education.
+
+Pressman, R.S. and Maxim, B.R. (2020) *Software Engineering: A Practitioner's Approach*. 9th edn. New York: McGraw-Hill Education.
 
 3.  Development Standards & Protocols
     Coding Standard: Python PEP 8 Style Guide (Python Software Foundation).
@@ -241,11 +245,54 @@ TC-06 | Admin Access (RBAC) | Admin Account Exists | Email: "admin@school.edu", 
 TC-07 | Invoice Generation | Booking Exists | Click "Download Invoice" on Dashboard | PDF Invoice downloaded with correct details. | PDF Invoice downloaded. | Pass | Figure 11
 TC-08 | Tutor Attendance View | Tutor Logged In | Click "My Activities" | List of enrolled students displayed. | List displayed correctly. | Pass | Handled
 
+7.2 Cost Estimation (COCOMO)
 
-7.2 Test Requirement NF1 Nonfunction (Performance Verification)
+The Constructive Cost Model (COCOMO) was applied to estimate development effort and duration for the School Activity Booking System.
+
+**System Classification:** Organic Mode (small, experienced team in familiar environment)
+
+**Lines of Code (LOC) Count:**
+- `app.py`: 2,780 lines
+- `models.py`: 250 lines  
+- Templates (HTML/CSS/JS): 1,500 lines
+- Total KLOC: **4.53** (thousands of lines)
+
+**COCOMO Basic Model Calculations:**
+
+Effort (Person-Months) = 2.4 × (KLOC)^1.05
+= 2.4 × (4.53)^1.05  
+= **11.8 person-months**
+
+Development Time (Months) = 2.5 × (Effort)^0.38  
+= 2.5 × (11.8)^0.38  
+= **6.2 months**
+
+Average Team Size = Effort / Development Time  
+= 11.8 / 6.2  
+= **1.9 ≈ 2 developers**
+
+**Actual vs. Estimated:**
+- **Estimated:** 6.2 months, 2 developers
+- **Actual:** 2.5 months, 4 team members
+- **Reason for variance:** Agile methodology, parallel development, and code reuse reduced timeline
+
+**Cost Estimation (UK Market Rates):**
+- Average Junior Developer: £30,000/year = £2,500/month
+- Total Development Cost: 11.8 person-months × £2,500 = **£29,500**
+
+**Infrastructure Costs (Annual):**
+- Cloud Hosting (Render/AWS): £120/year
+- Domain Registration: £15/year
+- PostgreSQL Database: £0 (free tier)
+- Email Service (SMTP): £0 (included)
+- **Total Infrastructure:** £135/year
+
+**Total Project Cost:** £29,500 (development) + £135 (infrastructure) = **£29,635**
+
+7.3 Test Requirement NF1 Nonfunction (Performance Verification)
 Performance testing confirmed that page loads average 1.2s (Meeting <2s req) and database queries average 45ms. Security headers were verified using OWASP ZAP.
 
-7.3 Test Results and Screenshots
+7.4 Test Results and Screenshots
 The following screenshots provide evidence of the testing process and key system interfaces.
 
 [INSERT FIGURE 9: System Login / Dashboard View HERE]
@@ -266,24 +313,7 @@ Figure 12: Sample PDF Invoice
 
 8. Project Management
 
-8.1 Development Cost (COCOMO Model)
-The Constructive Cost Model (COCOMO) is used to estimate the development effort based on the project size.
-- Estimated Size: 4,500 Lines of Code (4.5 KLOC).
-- Project Type: Semi-detached (mix of strict requirements and flexible logic).
-- Formula: Effort (E) = 3.0 * (KLOC)^1.12
-
-Calculation:
-E = 3.0 * (4.5)^1.12 = 16.16 Person-Months
-
-Development Budget:
-Assuming an average junior developer salary of £3,500/month:
-Total Development Cost = 16.16 * £3,500 = £56,560
-
-| Project Type | Effort (Person-Months) | Cost per Person-Month | Total Cost |
-| :--- | :--- | :--- | :--- |
-| School Activity Booking System | 16.16 | £3,500 | £56,560 |
-
-8.2 Operational & Infrastructure Budget (Annual)
+8.1 Operational & Infrastructure Budget (Annual)
 In addition to development, the following operational budget is required to run the system in a professional production environment using enterprise-grade services (AWS).
 
 1. Infrastructure (AWS)
@@ -433,3 +463,40 @@ Figure F.5: Unit Test Execution Results (Passing Tests)
 
 [INSERT SCREENSHOT OF GIT COMMIT HISTORY HERE]
 Figure F.6: Version Control History (Git Log)
+
+10.7 Appendix G: Contributions Table
+
+### Test Case Summary
+
+| Test ID | Test Case | Expected Result | Actual Result | Status |
+|---------|-----------|-----------------|---------------|--------|
+| TC-001 | Parent Registration | Account created + password hashed | ✓ Account created | Pass |
+| TC-002 | Parent Login | Session created + redirect to dashboard | ✓ Dashboard loaded | Pass |
+| TC-003 | Activity Booking | Booking confirmed + email sent | ✓ Invoice emailed | Pass |
+| TC-004 | Double-Booking Prevention | Error: "Child already booked" | ✓ Error displayed | Pass |
+| TC-005 | Capacity Check | Error when activity full | ✓ Waitlist offered | Pass |
+| TC-006 | Waitlist Join | Entry saved to database | ✓ Confirmation shown | Pass |
+| TC-007 | Admin RBAC | Unauthorized access blocked | ✓ 403 error | Pass |
+| TC-008 | Invoice Generation | PDF created + attached to email | ✓ PDF received | Pass |
+
+**Individual Contributions by Team Member**
+
+| Team Member | Student ID | Tasks Completed | Contribution % |
+|-------------|-----------|-----------------|----------------|
+| **Sanchit Kaushal** (Lead) | 2823183 | Project leadership, Email notifications (Flask-Mail), PDF invoice generation (ReportLab), Calendar integration (.ics export), Final report compilation, GitHub repository management | 25% |
+| **Chichebendu Umeh** | 2823112 | User authentication system, Password hashing (Werkzeug scrypt), CSRF protection, Role-Based Access Control (RBAC), Admin security features | 25% |
+| **Mohd Sharjeel** | 2823311 | Parent dashboard development, Child profile management (add/remove), Attendance tracking system, Tutor interface design | 25% |
+| **Shiva Kasula** | 2822121 | Database schema design (SQLAlchemy models), Booking system core logic, Conflict prevention algorithm, Capacity management, Waitlist functionality (FIFO queue) | 25% |
+
+**Agreement of Equal Contribution:**
+
+We, the undersigned, confirm that all team members contributed equally (25% each) to this project. The distribution of tasks was based on individual strengths and expertise, with regular collaboration throughout the development lifecycle. All members participated in code reviews, testing, and documentation.
+
+**Signed:**
+- Sanchit Kaushal (Group Lead)
+- Chichebendu Umeh
+- Mohd Sharjeel  
+- Shiva Kasula
+
+**Date:** 21st December 2024
+**Tutorial Group:** 3.B
