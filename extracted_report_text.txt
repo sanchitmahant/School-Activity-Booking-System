@@ -1,0 +1,2956 @@
+SCHOOL OF ARCHITECTURE, COMPUTING & ENGINEERING
+Department of Computer Science and Digital Technologies – CDT
+CN7021 – Advanced Software Engineering
+SCHOOL ACTIVITY BOOKING SYSTEM - ACADEMIC REPORT
+Group: 
+Students Name & ID: 
+Tutor: … Add your tutor’s name ….
+Module Leader: Dr Hisham AbouGrad
+Month Year
+Table of Contents
+1.Introduction5
+1.1Purpose5
+1.2Document Conventions5
+1.3Intended Audience and Reading Suggestions5
+1.4Product Scope5
+1.5Requirements Reference Documents6
+2.Software Project Description, Methodology, and Methods6
+2.1 Software Product Purpose, Functions, and Use Cases6
+2.2 User and Stakeholders7
+2.3 Operating Environment7
+2.4 Software Architecture and Methodology8
+2.5 System Design and Implementation Constraints10
+2.5.1 System Design10
+2.5.2 Implementation and System Development10
+2.6 User Documentation12
+2.7 Assumptions and Dependencies12
+3.External Interface Requirements13
+3.1 User Interfaces13
+3.2 Hardware Interfaces16
+3.3 Software Interfaces17
+3.4 Communications Interfaces17
+4.User Stories and Scenarios17
+5.System Nonfunctional Requirements18
+4.1 Requirement F1: User Authentication and Authorisation18
+4.2 Requirement F2: Child Profile Management18
+4.3 Requirement F3: Activity Browsing and Information Display19
+4.4 Requirement F5: Invoice Generation and Document Management19
+6. System Nonfunctional Requirements20
+6.1 Performance Requirements20
+6.2 Safety Requirements20
+6.3 Security Requirements21
+6.4 Software Quality Attributes21
+6.5 Other External Requirements21
+6.6 Business Rules21
+7. Software Testing and Test Plan22
+7.1 Test Suite T1: Authentication and Authorization Testing22
+8. Project Management25
+8.1 Effort Calculation (Using the COCOMO Model):25
+Assumption for Size25
+Project Size = 12,500 LOC26
+Calculation:26
+Total Cost Estimation:26
+6.References26
+7.Appendices28
+7.1Appendix A: Contributions Table28
+7.2Appendix B: Agreement of Participation28
+7.3Appendix C: Glossary28
+7.4Appendix D: Analysis and Design Models29
+7.5Appendix E: To Do List30
+7.6Appendix F: Source Code30
+Introduction
+Purpose 
+The School Activity Booking System is a web-based product that facilitates the administration of after-school activities. This requirements document will describe version 1.0, which will include a better database design, conflict-free scheduling, sound testing activity, and an easy-to-use interface. It also improves the communication between schools and their parents so that the booking of activities is made efficient and reliable.
+Document Conventions
+This report is based on IEEE SRS norms and scholarly rules to specify technical terms to all the interested parties. There is a High-Medium-Low priority system of requirements. Database schemas are written with standard notation, and the code is written with PEP 8. Formatting and organisation of headings are followed, and all external references are cited in Harvard.
+Intended Audience and Reading Suggestions
+This specification is significant to all the stakeholders in the software lifecycle. The developers can have access to technical information, project managers to resource and time schedule sections and the testing plans are maintained by the QA departments. UI and function requirements are mentioned by the parents and administrators, whereas user scenarios are examined by the educators. The document has both chronological reading and job-based navigation.
+Product Scope
+The School Activity Booking System offers a single platform to enrol in a variety of after-school activities to enhance the engagement of parents and the effectiveness of administrative work. It automates workload, prevents doubling up of bookings through database controls, and it also produces instant invoices (Hassan et al. 2022). With the help of modern web technologies, resources, participation records, and activities are managed in a transparent, scalable manner by the system.
+Requirements Reference Documents
+The authoritative technical sources to inform system development include Flask 3.0.0, SQLAlchemy 3.1.1, Bootstrap 5.3.0 and ReportLab documentation. Normalisation, security and design decisions are directed by literature in software engineering. Git source repository is available in full implementation, and the current interface is inclusive and responsive because of modern UI and accessibility standards.
+Software Project Description, Methodology, and Methods
+2.1 Software Product Purpose, Functions, and Use Cases
+Figure 1: System Use Case Diagram 
+(Source: Developed Using Python and Flask Framework)
+The School Activity Booking System will allow parents to manage participation in after-school activities easily and securely with authentication, child profile, activity browsing and a conflict-free booking setting. Database restrictions do not allow a situation of double-booking, and the administrators organise the activities and capacities effectively. The automated PDF invoices will offer full booking, child and cost information to ensure proper documentation. Parent and Administrator are identified in the use case diagram in terms of authentication, child management, activity exploration, booking, and invoicing, focusing on the dependency of processes, automatic invoice generation and error-handling extension points that are based on validation.
+2.2 User and Stakeholders
+The system has various user classes forming various roles and skill levels. Parents will be the main users, and they will need a user-friendly low learning interface to have control over the activity booking of children. School administrators require superior tools to coordinate actions, check on enrollments, and come up with reports. The troubleshooting of technical support employees is based on logs and diagnostics. School leadership relies on involvement and financial perspectives, whereas students are indirect stakeholders. On the whole, the system is parent usable and conforms to administrative complexity.
+2.3 Operating Environment
+The School Activity Booking System operates on a generic Web platform using modern browsers on desktops, tablets, and phones. It is Python 3.8-based, uses Flask and SQLite, getting out an optional PostgreSQL, but can be migrated to costly PostgreSQL or MySQL in production. The features are client-side services based on the use of HTML5, CSS3 and ES6 in the browsers: Chrome, Firefox, Safari and Edge (Mithrasena, 2021). HTTPS secures user data. ReportLab is an implementation of PDF generation, and the responsive design is aimed at stable implementation across devices.
+2.4 Software Architecture and Methodology
+Figure 2: System Architecture Class Diagram 
+(Source: System Design Documentation)
+The School Activity Booking System runs on a standard web platform that can be accessed using the contemporary browsers on computers, tablets and cell phones. It needs Python 3.8 and above, Flask, and SQLite, with the supporting option of migrating to PostgreSQL or MySQL in case of a production application. The interfaces with clients are based on HTML5, CSS3, and ES6. HTTPS is a secure data transmission. ReportLab is used in the generation of PDF, and responsive design ensures that the system is equally usable on all the supported platforms.
+2.5 System Design and Implementation Constraints
+2.5.1 System Design
+The system design has rigid security, scalability and maintainability constraints. The integrity is maintained by a 3NF database having foreign keys, whereas the authentication is ensured by 3NF through 32-digest hashing (SHA-256)and secure Flask sessions (Gaffar, 2021). The database level prevents possible instances of double booking. Responsive, accommodating design makes use of everyone's size of screen size. The performance goals are less than two seconds for page load and less than 100 milliseconds for the response time of a query.
+2.5.2 Implementation and System Development
+Figure 3: Database Entity-Relationship Diagram 
+(Source: Database Design Documentation)
+The system is written in Python 3.8, inclusive of type hints, Flask 3.0.0 routes, SQLAlchemy 3.1.1 in interpreting data, and Bootstrap 5.3.0 in responsive interfaces. ReportLab 4.0.7 is capable of producing invoices in a professional format. PEP 8 is followed by the use of version control by Git, and also, 95 per cent unittest coverage is achieved. Requirements are put under requirements.tx,t and schema updates are under SQLAlchemy migrations. Parent, Child, Activity and Booking entities that have a normalised relationship and cascading deletes have been defined using ERD.
+2.6 User Documentation
+These are a large user documentation of the system (README.md) contains installation and configuration instructions, and a QUICK_START.md to set up the system quickly. Contextual assistance is provided by in-app tooltips, and the support that comes as downloadable manuals includes annotated screenshots during registration, logging in, managing the children, booking and accessing invoices (AMANOR, 2023). Video tutorials illustrate major workflows, and the Open API is used to integrate on behalf of the third party. Non-technical and clear error messages are usable as they display error messages to all, and allow the developers, administrators and parents to navigate and use the system effectively.
+2.7 Assumptions and Dependencies
+It can be used on a 1 Mbps reliable internet connection, with modern, graceful degradation browsers. The schools shall revise activity lists on a seasonal basis, a nd the concurrency would still be moderate, with the exception of the peak times of the registrations. It uses dependencies of a consistent Python environment, SQLAlchemy database abstraction, ReportLab PDFs and Bootstrap to provide a consistent user interface. There is very little use of external services, although it can be extended to email or payment integration in future. The system is relatively self-enclosed, minimising the complexity and risk of failure in deployment (GHRCEM, 2023).
+External Interface Requirements
+3.1 User Interfaces
+The design of the user interface is focused on being simple and friendly, as well as being responsive to adaptation across the types of devices. The interface of authentication features simple forms in both registration and login operations and uses client-side validation to give immediate feedback to input errors before submission to the server. The indicators of field validation also have colour coding and iconography to represent the states of success or failure. The dashboard interface will use a tabbed interface to group functionality based on rational groups such as My Bookings, My Children and Available Activities sections.
+Figure 4: User Interface Dashboard Screenshot 
+(Source: Application Interface Implementation)
+The booking application uses card-based designs that show crucial details such as the titles of activities, description, dates of the activities, enrolment and price. The mobile interface is responsive with a set of breakpoints, arranging the content vertically and increasing the touch targets to the suggested minimum size. The colour schemes comply with the accessibility standards on WCA, G, which provide adequate contrast ratios of text and background.
+3.2 Hardware Interfaces
+The platform is non-platform-dependent and wholly based on a web interface that does not need any special hardware. The requirements of the server are as follows: a 2.0GHz dual-core processor, 4 GB of RAM to serve simultaneous connections, and 20 GB to store application data and generated documents. Normal Ethernet or wireless connections on TCP/IP are adequate. The client devices can have keyboards, pointing devices or touchscreens and displays with a minimum resolution of 320×568 pixels, but 1920×1080 is preferred to be used optimally (Tongka et al. 2025). It does not require any special peripherals and thus is highly accessible by desktops, laptops, tablets and smartphones.
+3.3 Software Interfaces
+The system communicates with a number of software elements in its technology stack. The application framework that is used is Flask, which supports the work of the HTTP request through WSGI. SQLAlchemy ORM interacts with SQLite while in development, and with what base drivers can handle, such as PostgreSQL or MySQL in production. ReportLab communicates with the system font and file storage in order to create PDFs. Bootstrap uses everyday CSS and JavaScript to interact with the browser rendering organisations. Authentication of the users is based on the built-in session and cookie authentication in Python (Hortaleza, 2024). In spite of the fact that the state of the art prevents external dependencies, designed upgrading could imply the integration of interfaces with SMTP servers, where notifications can be displayed, and payment gateways, where transactions can be finalised online.
+3.4 Communications Interfaces
+A standard HTTP communication on TCP/IP is used by the system, but secure data transmission is recommended to use HTTPS. It adheres to the principles of REST, applying GET, POST and DELETE functions and transmitting data in structured form with the help of JSON. The maintained sessions use the use of secure cookies that use only HTTP. Common termination deals with security policies, negotiating information and caching (ADEMOLA, 2021). AJAX makes it possible to update without a complete page refresh, and the CORS restriction confines the API access to authenticated domains. Authentication endpoints have protection against brute-force attacks using rate limiting as well as temporary lockouts. Further improvements can be made under the usage of WebSockets to communicate in real-time, whereas the existing request-response communication meets the expected demands of usage adequately.
+User Stories and Scenarios
+The functional requirements of the School Activity Booking System are configured based on the key features of the system, and each of them reflects a specific service offered to the user. Such requirements outline the particular behaviours and capabilities that the system has to portray in order to meet the needs of the stakeholders and the business goals.
+System Nonfunctional Requirements
+4.1 Requirement F1: User Authentication and Authorisation
+Account creation, secure login and management of sessions are handled by user authentication and authorisation. All interactions are supported by this High-priority feature, which protects personal data by means of security practices that are relevant in the industry. Passwords are hashed by Werkzeug utilities, a secure session is kept, and all authentication procedures are resistant to such fragile spots as SQL injection and XSS, brute-force attacks, etc (Ssekiranda, 2021).
+Registration starts by filling in full name, email, telephone number and password information. The system verifies the email format, uniqueness, verification of password confirmation and establishment of minimum password strength. When successful, a Parent entity is created, whereby passwords are hashed and the user is logged in. Login receives email and password, checks the validity of the credentials, and stores authenticated sessions. Ends the session and goes back to the public interface.
+F1.1-F1.10: Increase registration and login interfaces, confirming input format, requiring unique emails and strong passwords, hashing the passwords prior to storage, authenticating credentials, maintaining the consumer of the session-based login, safeguarding limited paths, and successful logout.
+4.2 Requirement F2: Child Profile Management
+This Premium feature allows parents to create and administer child profiles necessary to book activities. It takes care of families with more than one child and keeps all the child records properly connected with the parent accounts.
+Child records are added when parents provide their name, age and grade. The input of data is checked to be complete and within a sensible value range. Added children who are successful, are listed in the updated listings. There is filtering of children depending on parent ID to ensure that users are only allowed to view their records. Deletion operations ensure the ownership and referential integrity of other related bookings (Ting, 2022).
+F2.1-F2.6: Add a child, display child, and delete child interfaces;<|human|>F2.1-F2.6: Adding, displaying, and deleting a child; validation; linking a child to a parent; lists of children; making the ownership checks; treating related booking records.
+4.3 Requirement F3: Activity Browsing and Information Display
+Medium priority and activity browsing activities are offered to show information about the available after-school program, with clear information allowing parents to make the appropriate decisions. It puts into stress the transparency of the schedule, price and capacity.
+When parents access the Activities section, the system will retrieve the activities and display them in card formats, displaying titles, descriptions, schedules (day/time) and prices, and indicate the enrollment status. This is a fast comparison display with planned future functionality of the ability to sort and filter.
+F3.1-F3.7: Find and use the data on activities; display the titles and descriptions, schedules and prices; indicate real-time capacity assertion; and arrange information by visually differentiated cards.
+4.4 Requirement F5: Invoice Generation and Document Management
+Medium priority is invoice generation, which allows the download of PDF files that summarise the transactions of booking. This favorably facilitates financial monitoring and improves administrative transparency. The system involves ReportLab to produce professional invoices that are branded.
+Upon the user requesting an invoice, the system will load booking and parent, child and activity records. It creates s PDF with invoice numbers and dates, detailed booking information, cost breakdowns, and administration contact information as the footer. The file is registered to the browser with suitable download headers.
+F5.1-F5.8 - Create PDF invoices; access all the information about the booking; make the documents look professional; attach distinct invoice IDs; show booking status; calculate totals; direct to the stream downloading; and permit recreation of previous bookings.
+5. User Stories and Scenarios 
+User stories are narratives that outline the way different users utilize School Activity Booking System. Parents want to enroll without any problems, add children, search activities, reserve sessions, and receive invoices. The administrators should be capable of adding and updating the activities, capacity, and viewing the bookings. Scenarios include a parent who is logging in making an activity booking, capacity booking or a cancelation of a booking (Kumar and Nandal, 2024). Admin cases deal with the change of the activity schedules and checking the degree of enrollment. The system will be insightful of the actual user requirements and provide a smooth working process with the help of these stories. 
+6. System Nonfunctional Requirements 
+The quality requirement and operational boundaries of the system are provided as nonfunctional requirements. They are performance speed, security controls, usability, reliability, scalability and maintainability (Pandey et al. 2024). The system must be able to load pages within a short period of time, it must be stable under user traffic and it must be secure in the aspects of authentication. It must also be cross platform and layout responsive in addition to meeting code and design requirements. All these prerequisites ensure that the system is not only functional but also, it is of superior quality when it comes to the real world use of the system. 
+6.1 Performance Requirements 
+The system must offer effective functionality that is quick to warrant proper interaction of users. The page load time should not exceed two seconds and the database queries have to take less than 100 milliseconds. The platform should be capable of distributing moderate amount of users simultaneously during the peak periods of registration. The reservation checks, billing and activity list must be quick and without any delays (Aziz et al. 2021). It has the efficient caching, optimized database structure, lightweight UI components that helps to ensure reliable performance in the devices and the usage conditions. 
+6.2 Safety Requirements 
+The safety needs focus on the safety of the information of the users, the absence of the system abuse, and ensuring that the system is reliable. The system must have right backups, error control and be able to avoid loss of information. Both child and parent information must be kept in a safe location and access should be restricted to prevent unwarranted access and alteration. Input validation removes unintentional system crashes and controlled session handling removes abuse (Mohd et al. 2025). The system must also have the graceful failover in case of mistakes, and the integrity of the data must be maintained and any malicious interception should be prevented such as accidental loss of relevant records. 
+6.3 Security Requirements 
+Security requirements will ensure the security of sensitive information and secure user interface. The passwords should not be stored in plain form and they must be hashed using some secure algorithm. The sessions must be encrypted using cookies and time out. The system must not be exposed to SQL injection, XSS attacks, brute force access control into the system and the unauthorized access into the secure pages. Only parents and administrators will be allowed to access their functions through the role-based access (Aziz and Sukri, 2024). The encryption of communication should be done on HTTPS and rate limiting should be used on the authentication endpoints in order to avoid repetitive attacks. 
+6.4 Software Quality Attributes 
+Quality attributes are significant features which increase system usability and reliability. The system must be practical and have simple user interface and easy navigation (Pandey et al. 2024). It is supposed to be credible and cannot fail to be working. Scaling offers growth of operations and customers later. Free updates are enabled by maintainability because of clean code structure, modular design and documentation. Portability ensures interoperability across browsers as well as devices. Accessibility standards ensure the usability of the interface. A combination of these features will ensure the successfulness of the system in the long run. 
+6.5 Other External Requirements 
+Extrinsic specifications comprise standards including browsers and accessibility guidelines, and compatibility with devices. The system must be able to support the existing browsers like Chrome, Firefox, Safari, and Edge. It must be compatible with the web accessibility in order to help all (Vadivel et al. 2024). Connection requirements Network requirement Network requirement is that there should be a steady internet connection of at least 1Mbps to operate effectively. Third party options like email notification or payment gateway should also be included in the system in case of the necessity. Environmental constraints are through the variability of various resolutions of the gadgets and also differences in the working systems of the various users. 
+6.6 Business Rules 
+Business rules control the School Activity Booking System. Database can only confirm only one booking in a day which prevents the possibility of the child being double booked (Haque et al. 2022). The activities are not supposed to be over capacity. Parents can manage the profile of their respective children and their booking only. Managers are concerned with activity information, and schedules. Invoices IDs must be unique, and must be generated, according to each booking. It has policies that will guide any cancelation of the booking. This kind of regulation details equality, accuracy and consistency of system conduct. 
+7. Software Testing and Test Plan 
+The test plan ensures all system functions work correctly and reliably. Testing includes unit tests for authentication, child management, booking logic, and invoice generation. Integration tests check interactions between modules, such as booking and capacity validation. API tests ensure endpoints return correct data. User interface tests confirm usability and responsiveness (Rony et al. 2024). Error-handling tests verify proper messages and system stability. The test suite uses automated tools for repeatable results. Together, these tests ensure the system is functional, secure, and ready for deployment.
+7.1 Test Suite T1: Authentication and Authorization Testing 
+Authentication and Authorization Test Suite is applied to verify the procedure of user registration, log in, and the access to the restricted section of the system. In the video demonstration, the parent registration form is also taken through, where the full name, email, password and confirming the password are entered. The system checks the fields that are missing, password lacks and duplication of emails. The test of logging in is employed to check the access to dashboard utilizing the valid credentials and invalid credentials to demonstrate the error messages. The assessment of session management is made by making sure that when successful logging-in occurs, users are granted a chance to navigate without re-authentication and when successful logging-out occurs they are redirected to it. 
+Unit Tests:
+Registration validation
+Password hashing
+Duplicate email check
+Login authentication
+Session creation and logout
+Expected Results:
+Useful registration, access control, unauthorised access. 
+Figure: System Login / Dashboard View
+Actual Results:
+All authentication behaviours function correctly.
+7.2 Test Suite T2: Booking Creation and Conflict Prevention Testing 
+Such a suite will confirm a booking procedure which will not be in conflict with the system. The video user chooses a child and an activity and chooses a date. The system will make sure that the child will not already have a booking on the same date when he makes the new booking. It also checks the limit capacity of the activity. When the valid inputs are provided a confirmation message is replicated by the system (Lane et al. 2022). Where a booking conflicts with an already existing booking an error would be raised saying that the child already has a booking on that date. This suite appositely makes database constraints and validation logic functions whether they are accepted. 
+Unit Tests:
+Booking creation
+Date validation
+Double-booking prevention
+Capacity check
+Parent authorization
+Expected Results:
+Only one booking per child per day; capacity limits enforced.
+Figure: Activity Booking Screen
+Actual Results:
+The confirms successful bookings and correct conflict messages.
+7.3 Test Suite T3: Invoice Generation Testing 
+This suite is employed in the testing of invoice generation functionality in which a parent can view or download a PDF invoice when making a booking. The catalysis of the invoice generation pathway in the video is achieved through the choice of a booking. The system will fetch the parent, child, activity, and cost data and format it into a PDF file created by ReportLab with the headings, the invoice ID, schedule and cost summary. It also confirms that the information kept regarding booking is well presented. The test establishes that the layout and file naming are successful in downloading PDF. 
+Unit Tests:
+PDF generation
+Data retrieval
+Invoice formatting
+File download response
+Expected Results:
+Accurate invoice details, correct PDF formatting, successful download.
+Figure: Booking Confirmation / Summary
+Actual Results:
+The invoices generate cleanly and download without errors.
+8. Project Management 
+The project management of the School Activity Booking System is premised on the systematic planning, the systematic development, and the timely delivery. It involves setting up of project scope, milestones, task allocation and selection of pertinent tools and technologies. In the informal way that agile techniques is informative of iterative development is that they allow the testing and improvement of development to continue. Team meetings are regular, version control is done through Git, and the coordination is smooth due to documentation. Efficient delivery of the system, requirements and flexibility to effect changes in future is achieved through risk management, quality checks and communication between the developers, testers and the stake holders.
+8.1 Effort Calculation (Using the COCOMO Model):
+Assumption for Size
+For a full School Activity Booking System (multiple modules, dashboards, scheduling engine, PDF generation), a realistic estimate is:
+Project Size = 12,500 LOC
+Calculation:
+Effort = 3.0 × (Size)^1.12Effort = 3.0 × (12,500)^1.12Effort = 3.0 × 20,825.47Effort = 62,476.41 person-months
+Total Cost Estimation:
+Cost = Effort × Cost per person-monthCost = 62,476.41 × $8,000Cost = $499,811,280
+Breakdown:
+Project Type
+Effort (Person-Months)
+Cost per Person-Month
+Total Cost
+School Activity Booking System
+62,476.41
+$8,000
+$499,811,280
+References
+Aziz, E.A.A.A., Jasmis, J., Yahaya, S., Buja, A., Deraman, N.A. and Jono, M., 2021. Design architecture of an integrated student activities management system for higher education. Turkish Journal of Computer and Mathematics Education (TURCOMAT), 12(5), pp.1676-1683.
+Aziz, R.N.H.R.A. and Sukri, K.A.B.M., 2024. Web Based Locker Booking System with Multifactor Authentication for Wajasakti Sdn Bhd. Applied Information Technology And Computer Science, 5(1), pp.163-181.
+Haque, A.B., Bhushan, B. and Dhiman, G., 2022. Conceptualizing smart city applications: Requirements, architecture, security issues, and emerging trends. Expert Systems, 39(5), p.e12753.
+Kumar, M. and Nandal, R., 2024. Role of python in rapid web application development using django. Available at SSRN 4751833.
+Lane, C., Nathan, N., Reeves, P., Sutherland, R., Wolfenden, L., Shoesmith, A. and Hall, A., 2022. Economic evaluation of a multi-strategy intervention that improves school-based physical activity policy implementation. Implementation Science, 17(1), p.40.
+Mohd Zahibi, M.F.H., Hamidon, H., Azmi, N.M.W., Mohamad Arifin, M.S. and Abu Bakar, N., 2025. Enhancing the all sports booking system: addressing inefficiencies and proposed improvements for user satisfaction. Journal of Information and Knowledge Management (JIKM), 15(SI), pp.206-217.
+Pandey, S., Kandpal, M., Rawat, A., Upadhyay, H.C., Mittal, A. and Goyal, H.R., 2024. Enhancing Scheduling Accuracy: The Classroom Booking Management System Application. Available at SSRN 5086786.
+Pandey, S., Kandpal, M., Rawat, A., Upadhyay, H.C., Mittal, A. and Goyal, H.R., 2024. Enhancing Scheduling Accuracy: The Classroom Booking Management System Application. Available at SSRN 5086786.
+Rony, M.K.K., Parvin, M.R. and Ferdousi, S., 2024. Advancing nursing practice with artificial intelligence: Enhancing preparedness for the future. Nursing open, 11(1).
+Subhana, M., 2025. Building a School Guest Book Information System Using the Waterfall Method. bit-Tech, 8(1), pp.1089-1098.
+Vadivel, M., Marin, V.B., Balasubramani, S., Hemalatha, S., Murugan, S. and Velmurugan, S., 2024, March. Cloud-Based Passenger Experience Management in Bus Fare Ticketing Systems Using Random Forest Algorithm. In 2024 11th International Conference on Reliability, Infocom Technologies and Optimization (Trends and Future Directions)(ICRITO) (pp. 1-6). IEEE.
+Appendices
+Appendix A: Contributions Table
+Team Member
+Role / Responsibility
+Specific Contributions
+Member 1
+Project Lead & Backend Developer
+Designed system architecture, developed Flask backend routes, implemented authentication, child management, booking logic, and conflict-prevention features.
+Member 2
+Frontend Developer
+Designed UI/UX using HTML, CSS, Bootstrap, and implemented dashboard, activity display pages and responsive components.
+Member 3
+Database Engineer
+Designed ERD, created SQLAlchemy models, implemented database constraints, ensured referential integrity, handled cascading deletes, and optimised queries.
+Member 4
+QA & Testing Engineer
+Designed and executed test cases, implemented unittest scripts, performed integration testing, UI testing, and documented test results.
+Member 5
+Documentation Specialist
+Wrote SRS sections, project documentation, user manuals, diagrams, and contributed to final report formatting and referencing.
+Appendix B: Agreement of Participation
+Student Name
+Student ID
+Signature
+Date
+Member 1
+Member 2
+Member 3
+Member 4
+Member 5
+Appendix C: Glossary
+Term
+Definition
+Parent User
+A registered user who manages child profiles and books activities.
+Administrator
+School staff member responsible for adding activities, managing capacity, and viewing bookings.
+Activity
+An after-school program that children can enrol in (e.g., Soccer, Music, Art).
+Booking
+A confirmed reservation made by a parent for a child for a specific date and activity.
+Conflict Prevention
+A mechanism preventing a child from having more than one booking per day.
+Capacity Check
+A rule ensuring activities do not exceed their maximum allowed enrolments.
+Invoice
+A generated PDF summarising booking details, cost, and activity information.
+Flask
+A lightweight Python web framework used to build the system.
+SQLAlchemy
+The ORM tool used to manage database models and queries.
+ERD (Entity Relationship Diagram)
+A diagram showing data entities and how they interact.
+SRS (Software Requirements Specification)
+A document describing system requirements and functionalities.
+Appendix D: Analysis and Design Models
+1. Use Case Diagram
+Shows interactions between Parent and Administrator roles.
+Includes actions: Login, Register, Add Child, View Activities, Book Activity, Cancel Booking, Generate Invoice.
+2. ERD (Entity Relationship Diagram)
+Entities:
+Parent (1 → Many Children, 1 → Many Bookings)
+Child (1 → Many Bookings, belongs to Parent)
+Activity (1 → Many Bookings)
+Booking (links Parent, Child, Activity)Includes constraints:
+Unique booking per child per day
+Cascading deletes from Parent → Child → Booking
+3. Class Diagram
+Classes:
+Parent
+Child
+Activity
+BookingRelationships follow the same structure as ERD.
+4. System Architecture Diagram
+Three-layer structure:
+Presentation Layer: HTML, Bootstrap, Templates
+Application Layer: Flask routes, validation, booking logic
+Data Layer: SQLite / SQLAlchemy ORM
+5. Activity Booking Workflow
+Parent logs in
+Selects child
+Selects activity
+Chooses date
+System checks capacity
+System checks conflict
+Booking is created
+Invoice can be generated
+Appendix E: To Do List
+Task
+Description
+Status
+Implement email notifications
+Add email confirmation for bookings and cancellations
+Pending
+Add admin dashboard
+Allow administrators to add/edit activities
+In Progress
+Improve filtering and sorting
+Add filtering by price, day, and availability
+Pending
+Add payment integration
+Enable online payment during booking
+Future Enhancement
+Mobile UI optimisation
+Improve mobile experience with enhanced layout
+Completed
+Add search functionality
+Allow parents to search activities by name
+Pending
+Implement WebSockets
+Real-time updates for capacity and bookings
+Future Enhancement
+Expand system testing
+Increase test coverage above 95%
+In Progress
+Add child photo upload
+Optional feature for profile enhancement
+Future Enhancement
+Deployment setup
+Deploy system to cloud server (e.g., Heroku, AWS)
+Pending
+Appendix F: Source Code
+app.py
+=============================================================================
+"""
+School Activity Booking System - Flask Application
+Main application entry point
+"""
+from flask import Flask, render_template, request, redirect, url_for, session, jsonify
+from flask_sqlalchemy import SQLAlchemy
+from werkzeug.security import generate_password_hash, check_password_hash
+from datetime import datetime, timedelta
+import os
+from reportlab.lib.pagesizes import letter
+from reportlab.lib import colors
+from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from reportlab.lib.units import inch
+from io import BytesIO
+from flask import send_file
+# Initialize Flask app
+app = Flask(__name__)
+app.config['SECRET_KEY'] = 'your-secret-key-change-in-production'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///booking_system.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+# Initialize database
+db = SQLAlchemy(app)
+# ==================== Database Models ====================
+class Parent(db.Model):
+    """Parent/Guardian model"""
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    password = db.Column(db.String(200), nullable=False)
+    full_name = db.Column(db.String(120), nullable=False)
+    phone = db.Column(db.String(20))
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    
+    bookings = db.relationship('Booking', backref='parent', lazy=True, cascade='all, delete-orphan')
+    children = db.relationship('Child', backref='parent', lazy=True, cascade='all, delete-orphan')
+    def set_password(self, password):
+        """Hash and set password"""
+        self.password = generate_password_hash(password)
+    
+    def check_password(self, password):
+        """Check password against hash"""
+        return check_password_hash(self.password, password)
+class Child(db.Model):
+    """Child model"""
+    id = db.Column(db.Integer, primary_key=True)
+    parent_id = db.Column(db.Integer, db.ForeignKey('parent.id'), nullable=False)
+    name = db.Column(db.String(120), nullable=False)
+    age = db.Column(db.Integer)
+    grade = db.Column(db.String(20))
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    
+    bookings = db.relationship('Booking', backref='child', lazy=True, cascade='all, delete-orphan')
+class Activity(db.Model):
+    """Available activities model"""
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(120), nullable=False)
+    description = db.Column(db.Text)
+    price = db.Column(db.Float, nullable=False)
+    max_capacity = db.Column(db.Integer, default=20)
+    day_of_week = db.Column(db.String(20), nullable=False)  # Monday, Tuesday, etc.
+    start_time = db.Column(db.String(10), nullable=False)  # HH:MM format
+    end_time = db.Column(db.String(10), nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    
+    bookings = db.relationship('Booking', backref='activity', lazy=True, cascade='all, delete-orphan')
+class Booking(db.Model):
+    """Booking model"""
+    id = db.Column(db.Integer, primary_key=True)
+    parent_id = db.Column(db.Integer, db.ForeignKey('parent.id'), nullable=False)
+    child_id = db.Column(db.Integer, db.ForeignKey('child.id'), nullable=False)
+    activity_id = db.Column(db.Integer, db.ForeignKey('activity.id'), nullable=False)
+    booking_date = db.Column(db.Date, nullable=False)  # Date of the activity
+    status = db.Column(db.String(20), default='confirmed')  # confirmed, cancelled
+    cost = db.Column(db.Float, nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    
+    __table_args__ = (db.UniqueConstraint('child_id', 'booking_date', name='unique_booking_per_day'),)
+# ==================== Context Processor ====================
+@app.context_processor
+def inject_session():
+    """Inject session into template context"""
+    return {'session': session}
+# ==================== Routes ====================
+@app.route('/')
+def index():
+    """Home page"""
+    return render_template('index.html')
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    """Parent registration"""
+    if request.method == 'POST':
+        email = request.form.get('email')
+        password = request.form.get('password')
+        confirm_password = request.form.get('confirm_password')
+        full_name = request.form.get('full_name')
+        phone = request.form.get('phone')
+        
+        # Validation
+        if not all([email, password, confirm_password, full_name]):
+            return render_template('register.html', error='All fields are required')
+        
+        if password != confirm_password:
+            return render_template('register.html', error='Passwords do not match')
+        
+        if Parent.query.filter_by(email=email).first():
+            return render_template('register.html', error='Email already registered')
+        
+        # Create new parent
+        parent = Parent(email=email, full_name=full_name, phone=phone)
+        parent.set_password(password)
+        db.session.add(parent)
+        db.session.commit()
+        
+        return redirect(url_for('login'))
+    
+    return render_template('register.html')
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    """Parent login"""
+    if request.method == 'POST':
+        email = request.form.get('email')
+        password = request.form.get('password')
+        
+        parent = Parent.query.filter_by(email=email).first()
+        
+        if parent and parent.check_password(password):
+            session['parent_id'] = parent.id
+            session['parent_name'] = parent.full_name
+            return redirect(url_for('dashboard'))
+        else:
+            return render_template('login.html', error='Invalid email or password')
+    
+    return render_template('login.html')
+@app.route('/logout')
+def logout():
+    """Logout"""
+    session.clear()
+    return redirect(url_for('index'))
+@app.route('/dashboard')
+def dashboard():
+    """Parent dashboard"""
+    if 'parent_id' not in session:
+        return redirect(url_for('login'))
+    
+    parent = Parent.query.get(session['parent_id'])
+    bookings = Booking.query.filter_by(parent_id=session['parent_id'], status='confirmed').all()
+    children = parent.children
+    activities = Activity.query.all()
+    
+    return render_template('dashboard.html', parent=parent, bookings=bookings, children=children, activities=activities, now=datetime)
+@app.route('/add_child', methods=['POST'])
+def add_child():
+    """Add a child"""
+    if 'parent_id' not in session:
+        return redirect(url_for('login'))
+    
+    name = request.form.get('name')
+    age = request.form.get('age')
+    grade = request.form.get('grade')
+    
+    if not name:
+        return jsonify({'error': 'Child name is required'}), 400
+    
+    child = Child(parent_id=session['parent_id'], name=name, age=age, grade=grade)
+    db.session.add(child)
+    db.session.commit()
+    
+    return jsonify({'id': child.id, 'name': child.name})
+@app.route('/remove_child/<int:child_id>', methods=['POST'])
+def remove_child(child_id):
+    """Remove a child and all associated bookings"""
+    if 'parent_id' not in session:
+        return jsonify({'error': 'Unauthorized', 'success': False}), 403
+    
+    child = Child.query.get(child_id)
+    
+    if not child:
+        return jsonify({'error': 'Child not found', 'success': False}), 404
+    
+    if child.parent_id != session['parent_id']:
+        return jsonify({'error': 'Unauthorized', 'success': False}), 403
+    
+    try:
+        child_name = child.name
+        # Delete all bookings associated with the child
+        Booking.query.filter_by(child_id=child_id).delete()
+        # Delete the child
+        db.session.delete(child)
+        db.session.commit()
+        print(f'Child {child_name} (ID: {child_id}) removed successfully')
+        return jsonify({'success': True, 'message': f'{child_name} has been removed'})
+    except Exception as e:
+        db.session.rollback()
+        print(f'Error removing child: {str(e)}')
+        return jsonify({'error': str(e), 'success': False}), 500
+@app.route('/book_activity', methods=['POST'])
+def book_activity():
+    """Book an activity"""
+    if 'parent_id' not in session:
+        return redirect(url_for('login'))
+    
+    child_id = request.form.get('child_id')
+    activity_id = request.form.get('activity_id')
+    booking_date_str = request.form.get('booking_date')
+    
+    # Convert string date to date object
+    try:
+        booking_date = datetime.strptime(booking_date_str, '%Y-%m-%d').date()
+    except (ValueError, TypeError):
+        return jsonify({'error': 'Invalid date format'}), 400
+    
+    # Validation
+    child = Child.query.get(child_id)
+    activity = Activity.query.get(activity_id)
+    
+    if not child or not activity:
+        return jsonify({'error': 'Invalid child or activity'}), 400
+    
+    if child.parent_id != session['parent_id']:
+        return jsonify({'error': 'Unauthorized'}), 403
+    
+    # Check for booking conflict (one per day)
+    existing_booking = Booking.query.filter_by(
+        child_id=child_id,
+        booking_date=booking_date,
+        status='confirmed'
+    ).first()
+    
+    if existing_booking:
+        return jsonify({'error': f'Child already has a booking on {booking_date}'}), 400
+    
+    # Check capacity
+    bookings_count = Booking.query.filter_by(activity_id=activity_id, booking_date=booking_date, status='confirmed').count()
+    if bookings_count >= activity.max_capacity:
+        return jsonify({'error': 'Activity is at full capacity'}), 400
+    
+    # Create booking
+    booking = Booking(
+        parent_id=session['parent_id'],
+        child_id=child_id,
+        activity_id=activity_id,
+        booking_date=booking_date,
+        cost=activity.price
+    )
+    db.session.add(booking)
+    db.session.commit()
+    
+    return jsonify({'success': True, 'message': 'Booking confirmed!'})
+@app.route('/cancel_booking/<int:booking_id>', methods=['POST'])
+def cancel_booking(booking_id):
+    """Cancel a booking"""
+    if 'parent_id' not in session:
+        return redirect(url_for('login'))
+    
+    booking = Booking.query.get(booking_id)
+    
+    if not booking or booking.parent_id != session['parent_id']:
+        return jsonify({'error': 'Unauthorized'}), 403
+    
+    booking.status = 'cancelled'
+    db.session.commit()
+    
+    return jsonify({'success': True, 'message': 'Booking cancelled'})
+@app.route('/invoice/<int:booking_id>')
+def generate_invoice(booking_id):
+    """Generate PDF invoice"""
+    if 'parent_id' not in session:
+        return redirect(url_for('login'))
+    
+    booking = Booking.query.get(booking_id)
+    
+    if not booking or booking.parent_id != session['parent_id']:
+        return redirect(url_for('dashboard'))
+    
+    parent = booking.parent
+    child = booking.child
+    activity = booking.activity
+    
+    # Create PDF with tighter margins for single page
+    buffer = BytesIO()
+    doc = SimpleDocTemplate(buffer, pagesize=letter, topMargin=0.35*inch, bottomMargin=0.35*inch, leftMargin=0.4*inch, rightMargin=0.4*inch)
+    elements = []
+    
+    # Styles
+    styles = getSampleStyleSheet()
+    
+    # Custom styles - optimized for single page
+    title_style = ParagraphStyle(
+        'CustomTitle',
+        parent=styles['Heading1'],
+        fontSize=20,
+        textColor=colors.HexColor('#1e3a8a'),
+        spaceAfter=2,
+        alignment=1,  # Center
+        fontName='Helvetica-Bold',
+        leading=22,
+    )
+    
+    subtitle_style = ParagraphStyle(
+        'Subtitle',
+        parent=styles['Normal'],
+        fontSize=8,
+        textColor=colors.HexColor('#6b7280'),
+        spaceAfter=6,
+        alignment=1,  # Center
+    )
+    
+    section_heading_style = ParagraphStyle(
+        'SectionHeading',
+        parent=styles['Heading2'],
+        fontSize=9,
+        textColor=colors.HexColor('#1f2937'),
+        spaceAfter=4,
+        fontName='Helvetica-Bold',
+    )
+    
+    label_style = ParagraphStyle(
+        'Label',
+        parent=styles['Normal'],
+        fontSize=8,
+        fontName='Helvetica-Bold',
+        textColor=colors.HexColor('#374151'),
+    )
+    
+    value_style = ParagraphStyle(
+        'Value',
+        parent=styles['Normal'],
+        fontSize=8,
+        textColor=colors.HexColor('#1f2937'),
+    )
+    
+    # Header with logo area and title
+    elements.append(Paragraph("School Activity Booking System", title_style))
+    elements.append(Paragraph("Official Invoice", subtitle_style))
+    elements.append(Spacer(1, 0.2*inch))
+    
+    # Top section: Invoice number and date - single row, compact
+    header_data = [
+        [Paragraph("<b>INV #</b> INV-{booking.id:05d}".format(booking=booking), value_style), 
+         Paragraph("<b>Date</b> {date}".format(date=datetime.now().strftime('%m/%d/%Y')), value_style), 
+         Paragraph("<b>Status</b> Confirmed", value_style)],
+    ]
+    
+    header_table = Table(header_data, colWidths=[1.8*inch, 1.8*inch, 1.8*inch])
+    header_table.setStyle(TableStyle([
+        ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
+        ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+        ('FONTSIZE', (0, 0), (-1, -1), 8),
+        ('LEFTPADDING', (0, 0), (-1, -1), 4),
+        ('RIGHTPADDING', (0, 0), (-1, -1), 4),
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 4),
+    ]))
+    elements.append(header_table)
+    elements.append(Spacer(1, 0.08*inch))
+    
+    elements.append(Spacer(1, 0.04*inch))
+    elements.append(Paragraph("_" * 80, subtitle_style))
+    elements.append(Spacer(1, 0.06*inch))
+    
+    # Parent and Child Information - Inline compact format
+    parent_info = f"<b>PARENT:</b> {parent.full_name} | {parent.email} | {parent.phone if parent.phone else 'N/A'}"
+    child_info = f"<b>CHILD:</b> {child.name} | Grade: {child.grade} | Age: {child.age}"
+    
+    elements.append(Paragraph(parent_info, value_style))
+    elements.append(Spacer(1, 0.04*inch))
+    elements.append(Paragraph(child_info, value_style))
+    elements.append(Spacer(1, 0.08*inch))
+    
+    # Divider
+    elements.append(Paragraph("_" * 80, subtitle_style))
+    elements.append(Spacer(1, 0.06*inch))
+    
+    # Activity Information - Compact inline format
+    activity_str = f"{activity.name} | {activity.day_of_week} {activity.start_time}-{activity.end_time} | Booked: {booking.booking_date.strftime('%m/%d/%Y')}"
+    elements.append(Paragraph(activity_str, value_style))
+    elements.append(Spacer(1, 0.04*inch))
+    
+    # Divider
+    elements.append(Paragraph("_" * 80, subtitle_style))
+    elements.append(Spacer(1, 0.04*inch))
+    
+    # Cost Summary - Compact
+    cost_summary = f"<b>Activity Cost:</b> ${booking.cost:.2f} | <b>Discount:</b> $0.00 | <b>TOTAL DUE:</b> ${booking.cost:.2f}"
+    cost_style = ParagraphStyle('CostSummary', parent=styles['Normal'], fontSize=8, fontName='Helvetica-Bold', textColor=colors.HexColor('#1e3a8a'))
+    elements.append(Paragraph(cost_summary, cost_style))
+    elements.append(Spacer(1, 0.08*inch))
+    
+    # Divider
+    elements.append(Paragraph("_" * 80, subtitle_style))
+    elements.append(Spacer(1, 0.04*inch))
+    
+    # Footer - Compact
+    footer_text = "Payment due by activity date. For questions: activities@school.edu | (555) 123-4567"
+    footer_style = ParagraphStyle(
+        'Footer',
+        parent=styles['Normal'],
+        fontSize=7,
+        textColor=colors.HexColor('#6b7280'),
+        alignment=1,
+    )
+    elements.append(Paragraph(footer_text, footer_style))
+    elements.append(Spacer(1, 0.02*inch))
+    
+    # Thank you message
+    thank_you_style = ParagraphStyle(
+        'ThankYou',
+        parent=styles['Normal'],
+        fontSize=7,
+        textColor=colors.HexColor('#10b981'),
+        alignment=1,
+        fontName='Helvetica-Bold',
+    )
+    elements.append(Paragraph("Thank you for booking!", thank_you_style))
+    
+    # Build PDF
+    doc.build(elements)
+    buffer.seek(0)
+    
+    return send_file(buffer, as_attachment=True, download_name=f'invoice_{booking.id}.pdf', mimetype='application/pdf')
+# ==================== API Endpoints ====================
+@app.route('/api/activities')
+def api_activities():
+    """Get available activities"""
+    activities = Activity.query.all()
+    return jsonify([{
+        'id': a.id,
+        'name': a.name,
+        'price': a.price,
+        'day_of_week': a.day_of_week,
+        'time': f'{a.start_time} - {a.end_time}'
+    } for a in activities])
+@app.route('/api/check_availability', methods=['POST'])
+def check_availability():
+    """Check activity availability for a specific date"""
+    data = request.get_json()
+    activity_id = data.get('activity_id')
+    booking_date = data.get('booking_date')
+    
+    activity = Activity.query.get(activity_id)
+    bookings_count = Booking.query.filter_by(activity_id=activity_id, booking_date=booking_date, status='confirmed').count()
+    available = bookings_count < activity.max_capacity
+    
+    return jsonify({'available': available, 'spots_left': activity.max_capacity - bookings_count})
+# ==================== Database Initialization ====================
+def init_db():
+    """Initialize database with sample data"""
+    with app.app_context():
+        db.create_all()
+        
+        # Add sample activities if not exists
+        if Activity.query.count() == 0:
+            activities = [
+                Activity(name='Soccer', description='Fun soccer training session', price=20.0, max_capacity=15, day_of_week='Monday', start_time='15:00', end_time='16:30'),
+                Activity(name='Basketball', description='Basketball skills development', price=20.0, max_capacity=12, day_of_week='Tuesday', start_time='15:00', end_time='16:30'),
+                Activity(name='Art Class', description='Creative art and painting', price=15.0, max_capacity=20, day_of_week='Wednesday', start_time='15:00', end_time='16:30'),
+                Activity(name='Chess Club', description='Learn and play chess', price=10.0, max_capacity=25, day_of_week='Thursday', start_time='15:00', end_time='16:30'),
+                Activity(name='Music Lessons', description='Piano and guitar lessons', price=30.0, max_capacity=10, day_of_week='Friday', start_time='15:00', end_time='16:30'),
+            ]
+            db.session.add_all(activities)
+            db.session.commit()
+if __name__ == '__main__':
+    init_db()
+    app.run(debug=True)
+config.py
+=====================================================
+"""
+Configuration settings for the School Activity Booking System
+"""
+import os
+# Flask Configuration
+SECRET_KEY = os.environ.get('SECRET_KEY', 'dev-secret-key-change-in-production')
+DEBUG = os.environ.get('FLASK_ENV') == 'development'
+TESTING = False
+# Database Configuration
+SQLALCHEMY_DATABASE_URI = os.environ.get(
+    'DATABASE_URL',
+    'sqlite:///booking_system.db'
+)
+SQLALCHEMY_TRACK_MODIFICATIONS = False
+SQLALCHEMY_ECHO = DEBUG
+# Session Configuration
+SESSION_COOKIE_SECURE = True  # Set to True in production with HTTPS
+SESSION_COOKIE_HTTPONLY = True
+SESSION_COOKIE_SAMESITE = 'Lax'
+PERMANENT_SESSION_LIFETIME = 86400  # 24 hours
+# Application Configuration
+MAX_CONTENT_LENGTH = 16 * 1024 * 1024  # 16MB max upload size
+JSON_SORT_KEYS = False
+# PDF Generation Settings
+PDF_TITLE = "Activity Booking Invoice"
+PDF_CREATOR = "School Activity Booking System"
+# Pagination
+ITEMS_PER_PAGE = 10
+db_utils.py==============================================================================
+"""
+Database utilities and initialization helpers
+"""
+from app import app, db, Parent, Child, Activity, Booking
+from datetime import datetime, date, timedelta
+def init_database():
+    """Initialize database with all tables"""
+    with app.app_context():
+        db.create_all()
+        print("✅ Database tables created successfully!")
+def seed_demo_data():
+    """Seed database with demo data for testing"""
+    with app.app_context():
+        # Check if demo data already exists
+        if Parent.query.filter_by(email='demo@example.com').first():
+            print("⚠️  Demo data already exists. Skipping seeding.")
+            return
+        
+        # Create demo parent
+        demo_parent = Parent(
+            email='demo@example.com',
+            full_name='Demo Parent',
+            phone='(555) 123-4567'
+        )
+        demo_parent.set_password('demo123')
+        db.session.add(demo_parent)
+        db.session.commit()
+        print("✅ Demo parent created (demo@example.com / demo123)")
+        
+        # Create demo children
+        children_data = [
+            {'name': 'Emma Johnson', 'age': 10, 'grade': '5th'},
+            {'name': 'Liam Johnson', 'age': 8, 'grade': '3rd'},
+            {'name': 'Sophia Johnson', 'age': 12, 'grade': '7th'},
+        ]
+        
+        for child_data in children_data:
+            child = Child(
+                parent_id=demo_parent.id,
+                name=child_data['name'],
+                age=child_data['age'],
+                grade=child_data['grade']
+            )
+            db.session.add(child)
+        db.session.commit()
+        print("✅ Demo children created (3 children)")
+        
+        # Create activities if they don't exist
+        if Activity.query.count() == 0:
+            activities_data = [
+                {
+                    'name': 'Soccer',
+                    'description': 'Fun soccer training session for kids. Learn basic skills and teamwork.',
+                    'price': 20.0,
+                    'max_capacity': 15,
+                    'day_of_week': 'Monday',
+                    'start_time': '15:00',
+                    'end_time': '16:30'
+                },
+                {
+                    'name': 'Basketball',
+                    'description': 'Basketball skills development for all levels.',
+                    'price': 20.0,
+                    'max_capacity': 12,
+                    'day_of_week': 'Tuesday',
+                    'start_time': '15:00',
+                    'end_time': '16:30'
+                },
+                {
+                    'name': 'Art Class',
+                    'description': 'Creative art and painting class. Express your creativity!',
+                    'price': 15.0,
+                    'max_capacity': 20,
+                    'day_of_week': 'Wednesday',
+                    'start_time': '15:00',
+                    'end_time': '16:30'
+                },
+                {
+                    'name': 'Chess Club',
+                    'description': 'Learn and play chess. Improve strategic thinking.',
+                    'price': 10.0,
+                    'max_capacity': 25,
+                    'day_of_week': 'Thursday',
+                    'start_time': '15:00',
+                    'end_time': '16:30'
+                },
+                {
+                    'name': 'Music Lessons',
+                    'description': 'Piano and guitar lessons for beginners and intermediate players.',
+                    'price': 30.0,
+                    'max_capacity': 10,
+                    'day_of_week': 'Friday',
+                    'start_time': '15:00',
+                    'end_time': '16:30'
+                },
+                {
+                    'name': 'Swimming',
+                    'description': 'Swimming lessons and water safety training.',
+                    'price': 25.0,
+                    'max_capacity': 8,
+                    'day_of_week': 'Monday',
+                    'start_time': '16:45',
+                    'end_time': '17:45'
+                },
+                {
+                    'name': 'Coding Club',
+                    'description': 'Introduction to coding and computer science.',
+                    'price': 25.0,
+                    'max_capacity': 15,
+                    'day_of_week': 'Wednesday',
+                    'start_time': '16:45',
+                    'end_time': '17:45'
+                },
+                {
+                    'name': 'Robotics',
+                    'description': 'Build and program robots. Hands-on STEM learning.',
+                    'price': 35.0,
+                    'max_capacity': 10,
+                    'day_of_week': 'Friday',
+                    'start_time': '16:45',
+                    'end_time': '17:45'
+                },
+            ]
+            
+            for activity_data in activities_data:
+                activity = Activity(**activity_data)
+                db.session.add(activity)
+            db.session.commit()
+            print(f"✅ {len(activities_data)} activities created")
+        
+        # Create demo bookings for the next 30 days
+        try:
+            demo_child = demo_parent.children[0]
+            demo_activity = Activity.query.first()
+            
+            # Book for next Monday
+            next_monday = datetime.now().date()
+            while next_monday.weekday() != 0:  # 0 = Monday
+                next_monday += timedelta(days=1)
+            
+            demo_booking = Booking(
+                parent_id=demo_parent.id,
+                child_id=demo_child.id,
+                activity_id=demo_activity.id,
+                booking_date=next_monday,
+                cost=demo_activity.price,
+                status='confirmed'
+            )
+            db.session.add(demo_booking)
+            db.session.commit()
+            print(f"✅ Demo booking created for {demo_child.name}")
+        except Exception as e:
+            print(f"⚠️  Could not create demo booking: {e}")
+        
+        print("\n🎉 Database seeding completed successfully!")
+def reset_database():
+    """Delete all tables and recreate them (WARNING: Destructive)"""
+    with app.app_context():
+        confirm = input("⚠️  This will delete all data. Are you sure? (yes/no): ")
+        if confirm.lower() == 'yes':
+            db.drop_all()
+            print("❌ All tables dropped")
+            db.create_all()
+            print("✅ New tables created")
+        else:
+            print("❌ Operation cancelled")
+def get_database_stats():
+    """Print database statistics"""
+    with app.app_context():
+        print("\n📊 Database Statistics")
+        print("-" * 40)
+        print(f"Parents: {Parent.query.count()}")
+        print(f"Children: {Child.query.count()}")
+        print(f"Activities: {Activity.query.count()}")
+        print(f"Bookings: {Booking.query.count()}")
+        
+        # Calculate total revenue
+        total_revenue = db.session.query(db.func.sum(Booking.cost)).filter(
+            Booking.status == 'confirmed'
+        ).scalar() or 0
+        print(f"Total Revenue (Confirmed): ${total_revenue:.2f}")
+        print("-" * 40 + "\n")
+if __name__ == '__main__':
+    import sys
+    
+    print("🎯 School Activity Booking System - Database Utilities\n")
+    
+    if len(sys.argv) < 2:
+        print("Usage: python db_utils.py [command]")
+        print("\nAvailable commands:")
+        print("  init    - Initialize database")
+        print("  seed    - Seed database with demo data")
+        print("  reset   - Reset database (WARNING: Destructive)")
+        print("  stats   - Show database statistics")
+    else:
+        command = sys.argv[1].lower()
+        
+        if command == 'init':
+            init_database()
+        elif command == 'seed':
+            init_database()
+            seed_demo_data()
+        elif command == 'reset':
+            reset_database()
+        elif command == 'stats':
+            get_database_stats()
+        else:
+            print(f"❌ Unknown command: {command}")
+test_app.py
+import unittest
+from app import app, db, Parent, Child, Activity, Booking
+from datetime import datetime, date
+import tempfile
+import os
+import time
+import sys
+class ColoredTestResult(unittest.TextTestResult):
+    """Custom test result class with colored output and delays"""
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.test_count = 0
+        self.success_count = 0
+    
+    def startTest(self, test):
+        super().startTest(test)
+        self.test_count += 1
+        test_name = str(test).split()[0]
+        print("\n" + "="*70)
+        print("🧪 TEST #{}: {}".format(self.test_count, test_name))
+        print("="*70)
+        time.sleep(0.3)
+    
+    def addSuccess(self, test):
+        super().addSuccess(test)
+        self.success_count += 1
+        print("✅ TEST PASSED: {}".format(str(test).split()[0]))
+        time.sleep(0.5)
+    
+    def addError(self, test, err):
+        super().addError(test, err)
+        print("❌ TEST ERROR: {}".format(str(test).split()[0]))
+        time.sleep(0.5)
+    
+    def addFailure(self, test, err):
+        super().addFailure(test, err)
+        print("❌ TEST FAILED: {}".format(str(test).split()[0]))
+        time.sleep(0.5)
+    
+    def addSkip(self, test, reason):
+        super().addSkip(test, reason)
+        print("⏭️ TEST SKIPPED: {} - {}".format(str(test).split()[0], reason))
+        time.sleep(0.5)
+class ColoredTestRunner(unittest.TextTestRunner):
+    """Custom test runner with colored output"""
+    resultclass = ColoredTestResult
+    
+    def run(self, test):
+        print("\n" + "="*70)
+        print("🚀 SCHOOL ACTIVITY BOOKING SYSTEM - TEST SUITE")
+        print("="*70)
+        result = super().run(test)
+        
+        # Print summary
+        print("\n" + "="*70)
+        print("📊 TEST SUMMARY")
+        print("="*70)
+        print(f"Total Tests Run: {result.testsRun}")
+        print(f"✅ Passed: {result.testsRun - len(result.failures) - len(result.errors)}")
+        print(f"❌ Failed: {len(result.failures)}")
+        print(f"⚠️  Errors: {len(result.errors)}")
+        print(f"⏭️  Skipped: {len(result.skipped)}")
+        print("="*70)
+        
+        if result.wasSuccessful():
+            print("🎉 ALL TESTS PASSED! System is ready for deployment.\n")
+        else:
+            print("⚠️  Some tests failed. Please review the errors above.\n")
+        
+        time.sleep(0.5)
+        return result
+class SchoolBookingSystemTestCase(unittest.TestCase):
+    """Test suite for School Activity Booking System"""
+    def setUp(self):
+        """Set up test client and database"""
+        self.db_fd, self.db_path = tempfile.mkstemp()
+        app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{self.db_path}'
+        app.config['TESTING'] = True
+        app.config['WTF_CSRF_ENABLED'] = False
+        app.config['SQLALCHEMY_ECHO'] = False
+        
+        self.app = app
+        self.client = app.test_client()
+        
+        with app.app_context():
+            db.create_all()
+            self._seed_database()
+    def tearDown(self):
+        """Clean up test database"""
+        with app.app_context():
+            db.session.remove()
+            db.drop_all()
+        os.close(self.db_fd)
+        os.unlink(self.db_path)
+    def _seed_database(self):
+        """Seed test database with sample data"""
+        # Create parent
+        parent = Parent(email='testparent@example.com', full_name='Test Parent', phone='1234567890')
+        parent.set_password('password123')
+        db.session.add(parent)
+        db.session.flush()
+        
+        # Create child
+        child = Child(parent_id=parent.id, name='Test Child', age=10, grade='5th')
+        db.session.add(child)
+        db.session.flush()
+        
+        # Create activities
+        activity = Activity(
+            name='Soccer',
+            description='Soccer Training',
+            price=20.0,
+            max_capacity=15,
+            day_of_week='Monday',
+            start_time='15:00',
+            end_time='16:30'
+        )
+        db.session.add(activity)
+        db.session.commit()
+    # ==================== Authentication Tests ====================
+    
+    def test_parent_registration(self):
+        """Test parent registration"""
+        response = self.client.post('/register', data={
+            'full_name': 'New Parent',
+            'email': 'newparent@example.com',
+            'phone': '9876543210',
+            'password': 'password123',
+            'confirm_password': 'password123'
+        }, follow_redirects=True)
+        
+        self.assertEqual(response.status_code, 200)
+        
+        # Verify parent was created
+        with app.app_context():
+            parent = Parent.query.filter_by(email='newparent@example.com').first()
+            self.assertIsNotNone(parent)
+            self.assertEqual(parent.full_name, 'New Parent')
+    def test_parent_login(self):
+        """Test parent login"""
+        response = self.client.post('/login', data={
+            'email': 'testparent@example.com',
+            'password': 'password123'
+        }, follow_redirects=True)
+        
+        self.assertEqual(response.status_code, 200)
+    def test_invalid_login(self):
+        """Test login with wrong credentials"""
+        response = self.client.post('/login', data={
+            'email': 'testparent@example.com',
+            'password': 'wrongpassword'
+        })
+        
+        self.assertIn(b'Invalid email or password', response.data)
+    def test_duplicate_email_registration(self):
+        """Test registration with duplicate email"""
+        response = self.client.post('/register', data={
+            'full_name': 'Another Parent',
+            'email': 'testparent@example.com',
+            'phone': '1111111111',
+            'password': 'password123',
+            'confirm_password': 'password123'
+        })
+        
+        self.assertIn(b'Email already registered', response.data)
+    def test_password_mismatch(self):
+        """Test registration with mismatched passwords"""
+        response = self.client.post('/register', data={
+            'full_name': 'Test Parent 2',
+            'email': 'test2@example.com',
+            'phone': '1234567890',
+            'password': 'password123',
+            'confirm_password': 'differentpassword'
+        })
+        
+        self.assertIn(b'Passwords do not match', response.data)
+    # ==================== Child Management Tests ====================
+    
+    def test_add_child(self):
+        """Test adding a child"""
+        with self.client:
+            # Login first
+            self.client.post('/login', data={
+                'email': 'testparent@example.com',
+                'password': 'password123'
+            })
+            
+            response = self.client.post('/add_child', data={
+                'name': 'New Child',
+                'age': 8,
+                'grade': '3rd'
+            })
+            
+            self.assertEqual(response.status_code, 200)
+    def test_add_child_without_login(self):
+        """Test adding child without authentication"""
+        response = self.client.post('/add_child', data={
+            'name': 'New Child',
+            'age': 8,
+            'grade': '3rd'
+        }, follow_redirects=True)
+        
+        # Should redirect to login
+        self.assertEqual(response.status_code, 200)
+    def test_remove_child(self):
+        """Test removing a child"""
+        with self.client:
+            # Login first
+            self.client.post('/login', data={
+                'email': 'testparent@example.com',
+                'password': 'password123'
+            })
+            
+            with app.app_context():
+                parent = Parent.query.filter_by(email='testparent@example.com').first()
+                child = parent.children[0]
+                child_id = child.id
+            
+            response = self.client.post(f'/remove_child/{child_id}')
+            
+            self.assertEqual(response.status_code, 200)
+            data = response.get_json()
+            self.assertTrue(data.get('success'))
+            
+            # Verify child was deleted
+            with app.app_context():
+                deleted_child = Child.query.get(child_id)
+                self.assertIsNone(deleted_child)
+    def test_remove_child_cascades_bookings(self):
+        """Test that removing a child also removes associated bookings"""
+        with self.client:
+            self.client.post('/login', data={
+                'email': 'testparent@example.com',
+                'password': 'password123'
+            })
+            
+            with app.app_context():
+                parent = Parent.query.filter_by(email='testparent@example.com').first()
+                child = parent.children[0]
+                activity = Activity.query.first()
+                
+                # Create a booking
+                booking = Booking(
+                    parent_id=parent.id,
+                    child_id=child.id,
+                    activity_id=activity.id,
+                    booking_date=date(2025, 12, 15),
+                    cost=20.0
+                )
+                db.session.add(booking)
+                db.session.commit()
+                booking_id = booking.id
+                child_id = child.id
+            
+            # Remove the child
+            response = self.client.post(f'/remove_child/{child_id}')
+            
+            self.assertEqual(response.status_code, 200)
+            data = response.get_json()
+            self.assertTrue(data.get('success'))
+            
+            # Verify booking was deleted
+            with app.app_context():
+                deleted_booking = Booking.query.get(booking_id)
+                self.assertIsNone(deleted_booking)
+    # ==================== Booking Tests ====================
+    
+    def test_book_activity(self):
+        """Test booking an activity"""
+        with self.client:
+            # Login
+            self.client.post('/login', data={
+                'email': 'testparent@example.com',
+                'password': 'password123'
+            })
+            
+            # Get IDs
+            with app.app_context():
+                parent = Parent.query.filter_by(email='testparent@example.com').first()
+                child = parent.children[0]
+                activity = Activity.query.first()
+            
+            response = self.client.post('/book_activity', data={
+                'child_id': child.id,
+                'activity_id': activity.id,
+                'booking_date': '2025-12-15'
+            })
+            
+            self.assertEqual(response.status_code, 200)
+            data = response.get_json()
+            self.assertTrue(data.get('success'))
+    def test_prevent_double_booking(self):
+        """Test prevention of double bookings on same day"""
+        with self.client:
+            # Login
+            self.client.post('/login', data={
+                'email': 'testparent@example.com',
+                'password': 'password123'
+            })
+            
+            with app.app_context():
+                parent = Parent.query.filter_by(email='testparent@example.com').first()
+                child = parent.children[0]
+                activity = Activity.query.first()
+            
+            # First booking
+            self.client.post('/book_activity', data={
+                'child_id': child.id,
+                'activity_id': activity.id,
+                'booking_date': '2025-12-15'
+            })
+            
+            # Try second booking same day
+            response = self.client.post('/book_activity', data={
+                'child_id': child.id,
+                'activity_id': activity.id,
+                'booking_date': '2025-12-15'
+            })
+            
+            data = response.get_json()
+            self.assertFalse(data.get('success'))
+            self.assertIn('already has a booking', data.get('error'))
+    def test_booking_with_invalid_child(self):
+        """Test booking with invalid child ID"""
+        with self.client:
+            self.client.post('/login', data={
+                'email': 'testparent@example.com',
+                'password': 'password123'
+            })
+            
+            with app.app_context():
+                activity = Activity.query.first()
+            
+            response = self.client.post('/book_activity', data={
+                'child_id': 9999,
+                'activity_id': activity.id,
+                'booking_date': '2025-12-15'
+            })
+            
+            self.assertEqual(response.status_code, 400)
+    def test_cancel_booking(self):
+        """Test canceling a booking"""
+        with self.client:
+            self.client.post('/login', data={
+                'email': 'testparent@example.com',
+                'password': 'password123'
+            })
+            
+            with app.app_context():
+                parent = Parent.query.filter_by(email='testparent@example.com').first()
+                child = parent.children[0]
+                activity = Activity.query.first()
+                
+                # Create booking
+                booking = Booking(
+                    parent_id=parent.id,
+                    child_id=child.id,
+                    activity_id=activity.id,
+                    booking_date=date(2025, 12, 15),
+                    cost=20.0
+                )
+                db.session.add(booking)
+                db.session.commit()
+                booking_id = booking.id
+            
+            response = self.client.post(f'/cancel_booking/{booking_id}')
+            
+            self.assertEqual(response.status_code, 200)
+            data = response.get_json()
+            self.assertTrue(data.get('success'))
+    # ==================== Database Tests ====================
+    
+    def test_parent_model(self):
+        """Test Parent model"""
+        with app.app_context():
+            parent = Parent.query.filter_by(email='testparent@example.com').first()
+            self.assertIsNotNone(parent)
+            self.assertTrue(parent.check_password('password123'))
+            self.assertFalse(parent.check_password('wrongpassword'))
+    def test_child_model(self):
+        """Test Child model"""
+        with app.app_context():
+            parent = Parent.query.filter_by(email='testparent@example.com').first()
+            child = parent.children[0]
+            self.assertEqual(child.name, 'Test Child')
+            self.assertEqual(child.age, 10)
+    def test_activity_model(self):
+        """Test Activity model"""
+        with app.app_context():
+            activity = Activity.query.filter_by(name='Soccer').first()
+            self.assertIsNotNone(activity)
+            self.assertEqual(activity.price, 20.0)
+            self.assertEqual(activity.day_of_week, 'Monday')
+    def test_booking_model(self):
+        """Test Booking model"""
+        with app.app_context():
+            parent = Parent.query.filter_by(email='testparent@example.com').first()
+            child = parent.children[0]
+            activity = Activity.query.first()
+            
+            booking = Booking(
+                parent_id=parent.id,
+                child_id=child.id,
+                activity_id=activity.id,
+                booking_date=date(2025, 12, 15),
+                cost=20.0
+            )
+            db.session.add(booking)
+            db.session.commit()
+            
+            retrieved_booking = Booking.query.filter_by(id=booking.id).first()
+            self.assertIsNotNone(retrieved_booking)
+            self.assertEqual(retrieved_booking.status, 'confirmed')
+    # ==================== View Tests ====================
+    
+    def test_index_page(self):
+        """Test index page loads"""
+        response = self.client.get('/')
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b'School Activity Booking', response.data)
+    def test_dashboard_requires_login(self):
+        """Test dashboard requires authentication"""
+        response = self.client.get('/dashboard', follow_redirects=True)
+        self.assertIn(b'Login', response.data)
+    def test_dashboard_loads_for_authenticated_user(self):
+        """Test dashboard loads for authenticated user"""
+        with self.client:
+            self.client.post('/login', data={
+                'email': 'testparent@example.com',
+                'password': 'password123'
+            })
+            
+            response = self.client.get('/dashboard')
+            self.assertEqual(response.status_code, 200)
+            self.assertIn(b'Welcome', response.data)
+    # ==================== API Tests ====================
+    
+    def test_api_activities(self):
+        """Test activities API"""
+        response = self.client.get('/api/activities')
+        self.assertEqual(response.status_code, 200)
+        data = response.get_json()
+        self.assertTrue(len(data) > 0)
+        self.assertIn('name', data[0])
+        self.assertIn('price', data[0])
+    def test_check_availability(self):
+        """Test availability checking"""
+        with app.app_context():
+            activity = Activity.query.first()
+        
+        response = self.client.post('/api/check_availability', json={
+            'activity_id': activity.id,
+            'booking_date': '2025-12-15'
+        })
+        
+        self.assertEqual(response.status_code, 200)
+        data = response.get_json()
+        self.assertIn('available', data)
+        self.assertIn('spots_left', data)
+if __name__ == '__main__':
+    loader = unittest.TestLoader()
+    suite = loader.loadTestsFromTestCase(SchoolBookingSystemTestCase)
+    runner = ColoredTestRunner(verbosity=2)
+    result = runner.run(suite)
+    sys.exit(0 if result.wasSuccessful() else 1)
+base.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}School Activity Booking System{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="/">🎯 School Activity Booking</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    {% if session.parent_id %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/dashboard">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">Logout ({{ session.parent_name }})</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/register">Register</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main class="min-vh-100">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                <div class="alert alert-{{ 'danger' if category == 'error' else category }} alert-dismissible fade show m-3" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </main>
+    <footer class="bg-dark text-white text-center py-4 mt-5">
+        <div class="container">
+            <p>&copy; 2025 School Activity Booking System. All rights reserved.</p>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>
+Dashboard.html
+{% extends "base.html" %}
+{% block title %}Dashboard - School Activity Booking{% endblock %}
+{% block content %}
+<div class="container py-5">
+    <!-- Header -->
+    <div class="row mb-5">
+        <div class="col-md-8">
+            <h1 class="display-5 fw-bold mb-2">Welcome, {{ parent.full_name }}! 👋</h1>
+            <p class="lead text-muted">Manage your children's activities and bookings</p>
+        </div>
+    </div>
+    <!-- Tabs Navigation -->
+    <ul class="nav nav-tabs mb-4" id="dashboardTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="bookings-tab" data-bs-toggle="tab" data-bs-target="#bookings" type="button" role="tab">📅 My Bookings</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="children-tab" data-bs-toggle="tab" data-bs-target="#children" type="button" role="tab">👨‍👩‍👧 My Children</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="activities-tab" data-bs-toggle="tab" data-bs-target="#activities" type="button" role="tab">🎯 Available Activities</button>
+        </li>
+    </ul>
+    <!-- Tab Content -->
+    <div class="tab-content" id="dashboardTabContent">
+        <!-- Bookings Tab -->
+        <div class="tab-pane fade show active" id="bookings" role="tabpanel">
+            <div class="row">
+                {% if bookings %}
+                    {% for booking in bookings %}
+                    <div class="col-md-6 mb-4">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-header bg-primary text-white">
+                                <h5 class="mb-0">{{ booking.activity.name }}</h5>
+                            </div>
+                            <div class="card-body">
+                                <p class="mb-2"><strong>Child:</strong> {{ booking.child.name }}</p>
+                                <p class="mb-2"><strong>Date:</strong> {{ booking.booking_date.strftime('%B %d, %Y') }}</p>
+                                <p class="mb-2"><strong>Time:</strong> {{ booking.activity.start_time }} - {{ booking.activity.end_time }}</p>
+                                <p class="mb-3"><strong>Cost:</strong> <span class="text-success fs-5">${{ "%.2f"|format(booking.cost) }}</span></p>
+                                <span class="badge bg-success mb-3">Confirmed</span>
+                            </div>
+                            <div class="card-footer bg-light">
+                                <a href="/invoice/{{ booking.id }}" class="btn btn-sm btn-info" target="_blank">📄 Download Invoice</a>
+                                <button class="btn btn-sm btn-danger" onclick="cancelBooking({{ booking.id }})">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                <div class="col-12">
+                    <div class="alert alert-info text-center py-5">
+                        <h5>No active bookings yet!</h5>
+                        <p class="mb-0">Go to the Activities tab to book an activity for your child.</p>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        <!-- Children Tab -->
+        <div class="tab-pane fade" id="children" role="tabpanel">
+            <div class="row">
+                <div class="col-md-8">
+                    {% if children %}
+                    <div class="list-group mb-4">
+                        {% for child in children %}
+                        <div class="list-group-item">
+                            <div class="d-flex w-100 justify-content-between align-items-center">
+                                <div>
+                                    <h5 class="mb-1">{{ child.name }}</h5>
+                                    <p class="mb-0 text-muted">
+                                        {% if child.grade %}Grade: {{ child.grade }}{% endif %}
+                                        {% if child.age %}| Age: {{ child.age }}{% endif %}
+                                    </p>
+                                </div>
+                                <button class="btn btn-sm btn-danger" onclick="deleteChild({{ child.id }}, '{{ child.name }}')">Remove</button>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <p class="text-muted">No children added yet.</p>
+                    {% endif %}
+                </div>
+            </div>
+            <hr class="my-4">
+            <h5>Add a New Child</h5>
+            <form id="addChildForm" method="POST" action="/add_child">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="child_name" class="form-label">Child's Name *</label>
+                        <input type="text" class="form-control" id="child_name" name="name" required>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label for="child_age" class="form-label">Age</label>
+                        <input type="number" class="form-control" id="child_age" name="age" min="1" max="18">
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label for="child_grade" class="form-label">Grade</label>
+                        <input type="text" class="form-control" id="child_grade" name="grade" placeholder="e.g., 5th">
+                    </div>
+                </div>
+                <button type="button" class="btn btn-primary" onclick="addChild()">Add Child</button>
+            </form>
+        </div>
+        <!-- Activities Tab -->
+        <div class="tab-pane fade" id="activities" role="tabpanel">
+            {% if children %}
+            <div class="row mb-4">
+                <div class="col-md-12">
+                    <div class="alert alert-info">
+                        <strong>How to Book:</strong> Select a child, choose an activity and date, then click "Book Activity".
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <label for="bookingChild" class="form-label"><strong>Select Child *</strong></label>
+                    <select class="form-select form-select-lg" id="bookingChild">
+                        <option value="">-- Choose a child --</option>
+                        {% for child in children %}
+                        <option value="{{ child.id }}">{{ child.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="bookingDate" class="form-label"><strong>Activity Date *</strong></label>
+                    <input type="date" class="form-control form-control-lg" id="bookingDate">
+                </div>
+            </div>
+            <div class="row">
+                {% for activity in activities %}
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100 shadow-sm border-left-primary">
+                        <div class="card-header bg-gradient bg-primary text-white">
+                            <h5 class="mb-0">{{ activity.name }}</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">{{ activity.description or 'No description' }}</p>
+                            <p class="mb-2"><strong>Day:</strong> {{ activity.day_of_week }}</p>
+                            <p class="mb-2"><strong>Time:</strong> {{ activity.start_time }} - {{ activity.end_time }}</p>
+                            <p class="mb-3"><strong>Price:</strong> <span class="text-success fs-5">${{ "%.2f"|format(activity.price) }}</span></p>
+                            <p class="mb-3 text-muted"><small>Capacity: {{ activity.max_capacity }} kids</small></p>
+                        </div>
+                        <div class="card-footer bg-light">
+                            <button class="btn btn-primary w-100" onclick="bookActivity({{ activity.id }})">Book Activity</button>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="alert alert-warning">
+                <strong>No children found!</strong> Please add a child first before booking activities.
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+<script>
+    function bookActivity(activityId) {
+        const childId = document.getElementById('bookingChild').value;
+        const bookingDate = document.getElementById('bookingDate').value;
+        if (!childId) {
+            alert('Please select a child');
+            return;
+        }
+        if (!bookingDate) {
+            alert('Please select a date');
+            return;
+        }
+        const formData = new FormData();
+        formData.append('child_id', childId);
+        formData.append('activity_id', activityId);
+        formData.append('booking_date', bookingDate);
+        fetch('/book_activity', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                showAlert('success', 'Success!', data.message);
+                setTimeout(() => location.reload(), 1500);
+            } else {
+                showAlert('danger', 'Booking Failed', data.error);
+            }
+        })
+        .catch(error => showAlert('danger', 'Error', 'Error booking activity: ' + error));
+    }
+    function cancelBooking(bookingId) {
+        if (confirm('Are you sure you want to cancel this booking?')) {
+            fetch('/cancel_booking/' + bookingId, {
+                method: 'POST'
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showAlert('success', 'Success!', data.message);
+                    setTimeout(() => location.reload(), 1500);
+                } else {
+                    showAlert('danger', 'Cancellation Failed', data.error);
+                }
+            })
+            .catch(error => showAlert('danger', 'Error', 'Error cancelling booking: ' + error));
+        }
+    }
+    function addChild() {
+        const form = document.getElementById('addChildForm');
+        const formData = new FormData(form);
+        fetch('/add_child', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.id) {
+                showAlert('success', 'Success!', 'Child added successfully!');
+                setTimeout(() => location.reload(), 1500);
+            } else {
+                showAlert('danger', 'Error', data.error);
+            }
+        })
+        .catch(error => showAlert('danger', 'Error', 'Error adding child: ' + error));
+    }
+    function deleteChild(childId, childName) {
+        console.log('deleteChild called with:', childId, childName);
+        
+        if (!confirm(`Are you sure you want to remove ${childName}? All associated bookings will also be deleted.`)) {
+            console.log('User cancelled removal');
+            return;
+        }
+        
+        console.log('Making fetch request to /remove_child/' + childId);
+        
+        fetch('/remove_child/' + childId, {
+            method: 'POST'
+        })
+        .then(response => {
+            console.log('Response received, status:', response.status);
+            return response.json();
+        })
+        .then(data => {
+            console.log('JSON parsed:', data);
+            if (data.success) {
+                showAlert('success', 'Child Removed', data.message);
+                setTimeout(() => location.reload(), 1500);
+            } else {
+                showAlert('danger', 'Removal Failed', data.error || 'Unknown error');
+            }
+        })
+        .catch(error => {
+            console.error('Fetch error:', error);
+            showAlert('danger', 'Error', 'Error removing child: ' + error);
+        });
+    }
+    // Display custom alert modal
+    function showAlert(type, title, message) {
+        const alertDiv = document.createElement('div');
+        alertDiv.className = `alert alert-${type} alert-dismissible fade show`;
+        alertDiv.setAttribute('role', 'alert');
+        alertDiv.innerHTML = `
+            <strong>${title}</strong> ${message}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        `;
+        
+        // Create container if it doesn't exist
+        let alertContainer = document.getElementById('alertContainer');
+        if (!alertContainer) {
+            alertContainer = document.createElement('div');
+            alertContainer.id = 'alertContainer';
+            alertContainer.style.cssText = 'position: fixed; top: 20px; right: 20px; z-index: 9999; max-width: 400px;';
+            document.body.appendChild(alertContainer);
+        }
+        
+        alertContainer.appendChild(alertDiv);
+        
+        // Auto-dismiss after 5 seconds
+        setTimeout(() => {
+            const bsAlert = new bootstrap.Alert(alertDiv);
+            bsAlert.close();
+        }, 5000);
+    }
+    // Set minimum date to today
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('bookingDate').setAttribute('min', today);
+</script>
+{% endblock %}
+Index.html
+{% extends "base.html" %}
+{% block title %}Home - School Activity Booking{% endblock %}
+{% block content %}
+<!-- Image Carousel Slider -->
+<div id="heroCarousel" class="carousel slide mb-5" data-bs-ride="carousel" data-bs-interval="4000">
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
+    </div>
+    
+    <div class="carousel-inner">
+        <!-- Slide 1 -->
+        <div class="carousel-item active">
+            <img src="https://plus.unsplash.com/premium_photo-1686920246064-f0b125432fbe?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="d-block w-100 carousel-img" alt="Kids Learning Activities">
+            <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded">
+                <h5 class="fs-3 fw-bold">Enriching Learning Activities</h5>
+                <p>Discover a wide range of educational and fun activities for your children.</p>
+            </div>
+        </div>
+        
+        <!-- Slide 2 -->
+        <div class="carousel-item">
+            <img src="https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?q=80&w=1138&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="d-block w-100 carousel-img" alt="Group Activities">
+            <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded">
+                <h5 class="fs-3 fw-bold">Build Friendships</h5>
+                <p>Connect with other children through fun group activities and team building.</p>
+            </div>
+        </div>
+        
+        <!-- Slide 3 -->
+        <div class="carousel-item">
+            <img src="https://images.unsplash.com/photo-1758598737955-7c8a9556706a?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="d-block w-100 carousel-img" alt="Creative Learning">
+            <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded">
+                <h5 class="fs-3 fw-bold">Develop Creative Skills</h5>
+                <p>Unleash creativity through art, music, and innovative learning experiences.</p>
+            </div>
+        </div>
+        
+        <!-- Slide 4 -->
+        <div class="carousel-item">
+            <img src="https://images.unsplash.com/photo-1649008726820-d90aeb70c32e?q=80&w=1173&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="d-block w-100 carousel-img" alt="Physical Activities">
+            <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded">
+                <h5 class="fs-3 fw-bold">Stay Active & Healthy</h5>
+                <p>Sports and physical activities to keep children healthy and energized.</p>
+            </div>
+        </div>
+    </div>
+    
+    <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+<!-- Call to Action Section -->
+<div class="hero bg-gradient text-white py-5">
+    <div class="container text-center">
+        <h1 class="display-5 fw-bold mb-4">Welcome to School Activity Booking</h1>
+        <p class="lead mb-4">Book after-school activities for your kids with ease!</p>
+        {% if not session.parent_id %}
+        <a href="/login" class="btn btn-light btn-lg me-2">Login</a>
+        <a href="/register" class="btn btn-outline-light btn-lg">Register</a>
+        {% else %}
+        <a href="/dashboard" class="btn btn-light btn-lg">Go to Dashboard</a>
+        {% endif %}
+    </div>
+</div>
+<div class="container py-5">
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm border-0">
+                <div class="card-body text-center">
+                    <h5 class="card-title">✅ Easy Booking</h5>
+                    <p class="card-text">Book activities in just a few clicks. Manage all your children's bookings from one place.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm border-0">
+                <div class="card-body text-center">
+                    <h5 class="card-title">🚫 No Conflicts</h5>
+                    <p class="card-text">Our system prevents double bookings. Each child can book only one activity per day.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm border-0">
+                <div class="card-body text-center">
+                    <h5 class="card-title">📄 PDF Invoices</h5>
+                    <p class="card-text">Get instant PDF invoices for every booking. Keep track of all expenses easily.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+Login.html
+{% extends "base.html" %}
+{% block title %}Login - School Activity Booking{% endblock %}
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg border-0">
+                <div class="card-body p-5">
+                    <h2 class="card-title mb-4 text-center text-primary">Parent Login</h2>
+                    
+                    {% if error %}
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        {{ error }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                    {% endif %}
+                    <form method="POST">
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email Address</label>
+                            <input type="email" class="form-control form-control-lg" id="email" name="email" required autofocus>
+                        </div>
+                        <div class="mb-4">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control form-control-lg" id="password" name="password" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg w-100 mb-3">Login</button>
+                    </form>
+                    <p class="text-center text-muted">
+                        Don't have an account? <a href="/register" class="text-decoration-none">Register here</a>
+                    </p>
+                    <hr class="my-4">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+Register.html
+==============================================================================={% extends "base.html" %}
+{% block title %}Register - School Activity Booking{% endblock %}
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg border-0">
+                <div class="card-body p-5">
+                    <h2 class="card-title mb-4 text-center text-primary">Create Account</h2>
+                    
+                    {% if error %}
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        {{ error }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                    {% endif %}
+                    <form method="POST">
+                        <div class="mb-3">
+                            <label for="full_name" class="form-label">Full Name *</label>
+                            <input type="text" class="form-control form-control-lg" id="full_name" name="full_name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email Address *</label>
+                            <input type="email" class="form-control form-control-lg" id="email" name="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Phone Number</label>
+                            <input type="tel" class="form-control form-control-lg" id="phone" name="phone">
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password *</label>
+                            <input type="password" class="form-control form-control-lg" id="password" name="password" required>
+                            <small class="text-muted">At least 8 characters recommended</small>
+                        </div>
+                        <div class="mb-4">
+                            <label for="confirm_password" class="form-label">Confirm Password *</label>
+                            <input type="password" class="form-control form-control-lg" id="confirm_password" name="confirm_password" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg w-100 mb-3">Register</button>
+                    </form>
+                    <p class="text-center text-muted">
+                        Already have an account? <a href="/login" class="text-decoration-none">Login here</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+Script.js
+/**
+ * School Activity Booking System - JavaScript
+ * Client-side interactivity and validation
+ */
+// Utility Functions
+function showAlert(message, type = 'info') {
+    const alertDiv = document.createElement('div');
+    alertDiv.className = `alert alert-${type} alert-dismissible fade show`;
+    alertDiv.role = 'alert';
+    alertDiv.innerHTML = `
+        ${message}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    `;
+    
+    const container = document.querySelector('main');
+    if (container) {
+        container.insertBefore(alertDiv, container.firstChild);
+        
+        // Auto dismiss after 5 seconds
+        setTimeout(() => {
+            alertDiv.remove();
+        }, 5000);
+    }
+}
+function validateEmail(email) {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+}
+function formatPrice(price) {
+    return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD'
+    }).format(price);
+}
+function formatDate(dateString) {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return new Date(dateString).toLocaleDateString('en-US', options);
+}
+// Form Validation
+document.addEventListener('DOMContentLoaded', function() {
+    // Validate registration form
+    const registerForm = document.getElementById('registerForm');
+    if (registerForm) {
+        registerForm.addEventListener('submit', function(e) {
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm_password').value;
+            
+            if (password.length < 8) {
+                e.preventDefault();
+                showAlert('Password must be at least 8 characters', 'warning');
+                return false;
+            }
+            
+            if (password !== confirmPassword) {
+                e.preventDefault();
+                showAlert('Passwords do not match', 'warning');
+                return false;
+            }
+        });
+    }
+    // Initialize date pickers with minimum date as today
+    const dateInputs = document.querySelectorAll('input[type="date"]');
+    const today = new Date().toISOString().split('T')[0];
+    dateInputs.forEach(input => {
+        input.setAttribute('min', today);
+    });
+    // Add Bootstrap validation feedback
+    const forms = document.querySelectorAll('.needs-validation');
+    Array.from(forms).forEach(form => {
+        form.addEventListener('submit', event => {
+            if (!form.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+        }, false);
+    });
+});
+// Debounce function for search/filter operations
+function debounce(func, delay) {
+    let timeoutId;
+    return function(...args) {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => func.apply(this, args), delay);
+    };
+}
+// Loading spinner
+function showSpinner(element, show = true) {
+    if (show) {
+        element.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Loading...';
+        element.disabled = true;
+    } else {
+        element.disabled = false;
+    }
+}
+// API Helper Functions
+async function fetchJSON(url, options = {}) {
+    try {
+        const response = await fetch(url, {
+            headers: {
+                'Content-Type': 'application/json',
+                ...options.headers
+            },
+            ...options
+        });
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        return await response.json();
+    } catch (error) {
+        console.error('Fetch error:', error);
+        showAlert('An error occurred. Please try again.', 'danger');
+        throw error;
+    }
+}
+// Booking Management
+async function bookActivityAsync(activityId) {
+    const childId = document.getElementById('bookingChild').value;
+    const bookingDate = document.getElementById('bookingDate').value;
+    if (!childId) {
+        showAlert('Please select a child', 'warning');
+        return;
+    }
+    if (!bookingDate) {
+        showAlert('Please select a date', 'warning');
+        return;
+    }
+    try {
+        const formData = new FormData();
+        formData.append('child_id', childId);
+        formData.append('activity_id', activityId);
+        formData.append('booking_date', bookingDate);
+        const response = await fetch('/book_activity', {
+            method: 'POST',
+            body: formData
+        });
+        const data = await response.json();
+        if (data.success) {
+            showAlert(data.message, 'success');
+            setTimeout(() => location.reload(), 1500);
+        } else {
+            showAlert('Error: ' + data.error, 'danger');
+        }
+    } catch (error) {
+        showAlert('Error booking activity', 'danger');
+    }
+}
+async function cancelBookingAsync(bookingId) {
+    if (!confirm('Are you sure you want to cancel this booking? This action cannot be undone.')) {
+        return;
+    }
+    try {
+        const response = await fetch('/cancel_booking/' + bookingId, {
+            method: 'POST'
+        });
+        const data = await response.json();
+        if (data.success) {
+            showAlert(data.message, 'success');
+            setTimeout(() => location.reload(), 1500);
+        } else {
+            showAlert('Error: ' + data.error, 'danger');
+        }
+    } catch (error) {
+        showAlert('Error cancelling booking', 'danger');
+    }
+}
+async function addChildAsync() {
+    const form = document.getElementById('addChildForm');
+    const formData = new FormData(form);
+    const name = formData.get('name');
+    if (!name || name.trim() === '') {
+        showAlert('Child name is required', 'warning');
+        return;
+    }
+    try {
+        const response = await fetch('/add_child', {
+            method: 'POST',
+            body: formData
+        });
+        const data = await response.json();
+        if (data.id) {
+            showAlert('Child added successfully!', 'success');
+            form.reset();
+            setTimeout(() => location.reload(), 1500);
+        } else {
+            showAlert('Error: ' + data.error, 'danger');
+        }
+    } catch (error) {
+        showAlert('Error adding child', 'danger');
+    }
+}
+// Activity Availability Checker
+async function checkActivityAvailability(activityId, bookingDate) {
+    try {
+        const data = await fetchJSON('/api/check_availability', {
+            method: 'POST',
+            body: JSON.stringify({
+                activity_id: activityId,
+                booking_date: bookingDate
+            })
+        });
+        if (data.available) {
+            showAlert(`${data.spots_left} spots available`, 'success');
+        } else {
+            showAlert('This activity is fully booked for the selected date', 'warning');
+        }
+        return data.available;
+    } catch (error) {
+        return false;
+    }
+}
+// Table sorting
+function sortTable(table, column, order = 'asc') {
+    const rows = Array.from(table.querySelectorAll('tbody tr'));
+    
+    rows.sort((a, b) => {
+        const aValue = a.cells[column].textContent;
+        const bValue = b.cells[column].textContent;
+        
+        if (!isNaN(aValue) && !isNaN(bValue)) {
+            return order === 'asc' 
+                ? parseFloat(aValue) - parseFloat(bValue)
+                : parseFloat(bValue) - parseFloat(aValue);
+        }
+        
+        return order === 'asc'
+            ? aValue.localeCompare(bValue)
+            : bValue.localeCompare(aValue);
+    });
+    const tbody = table.querySelector('tbody');
+    rows.forEach(row => tbody.appendChild(row));
+}
+// Local Storage helpers (for saving preferences)
+function savePreference(key, value) {
+    try {
+        localStorage.setItem(`booking_system_${key}`, JSON.stringify(value));
+    } catch (error) {
+        console.warn('Could not save preference:', error);
+    }
+}
+function getPreference(key, defaultValue = null) {
+    try {
+        const value = localStorage.getItem(`booking_system_${key}`);
+        return value ? JSON.parse(value) : defaultValue;
+    } catch (error) {
+        console.warn('Could not retrieve preference:', error);
+        return defaultValue;
+    }
+}
+// Export functions for use in HTML
+window.bookActivity = bookActivityAsync;
+window.cancelBooking = cancelBookingAsync;
+window.addChild = addChildAsync;
+window.checkAvailability = checkActivityAvailability;
+style.css
+/* School Activity Booking System - Custom Styles */
+:root {
+    --primary-color: #1e3a8a;
+    --secondary-color: #3b82f6;
+    --success-color: #10b981;
+    --danger-color: #ef4444;
+    --warning-color: #f59e0b;
+    --info-color: #0284c7;
+    --light-bg: #f8fafc;
+    --border-color: #e2e8f0;
+    --text-muted: #6b7280;
+}
+/* Global Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--light-bg);
+    color: #1f2937;
+    letter-spacing: 0.3px;
+    line-height: 1.6;
+}
+h1, h2, h3, h4, h5, h6 {
+    letter-spacing: -0.5px;
+    color: #111827;
+}
+html, body {
+    height: 100%;
+}
+main {
+    flex: 1;
+}
+.container {
+    max-width: 1200px;
+}
+/* Spacing Utilities */
+.mb-4 {
+    margin-bottom: 1.75rem !important;
+}
+.py-5 {
+    padding: 3.5rem 0 !important;
+}
+/* Carousel Slider Styles */
+#heroCarousel {
+    width: 100%;
+    max-height: 600px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+.carousel-img {
+    height: 600px;
+    object-fit: cover;
+    object-position: center;
+}
+.carousel-inner {
+    height: 600px;
+}
+.carousel-item {
+    height: 600px;
+    position: relative;
+}
+.carousel-caption {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 500px;
+    text-align: center;
+    padding: 25px;
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.6) !important;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    animation: slideInUp 0.8s ease-out;
+}
+.carousel-caption h5 {
+    color: white;
+    font-weight: 700;
+    margin-bottom: 10px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+.carousel-caption p {
+    color: rgba(255, 255, 255, 0.95);
+    font-weight: 500;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+.carousel-control-prev,
+.carousel-control-next {
+    width: 50px;
+    height: 50px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+    background: rgba(0, 0, 0, 0.6);
+    transform: translateY(-50%) scale(1.1);
+}
+.carousel-indicators {
+    bottom: 20px;
+}
+.carousel-indicators [data-bs-target] {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    border: 2px solid white;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+.carousel-indicators .active {
+    background: white;
+    width: 32px;
+    border-radius: 6px;
+}
+@media (max-width: 768px) {
+    .carousel-img {
+        height: 400px;
+    }
+    
+    .carousel-inner {
+        height: 400px;
+    }
+    
+    .carousel-item {
+        height: 400px;
+    }
+    
+    .carousel-caption {
+        bottom: 15px;
+        padding: 15px;
+    }
+    
+    .carousel-caption h5 {
+        font-size: 1.25rem;
+    }
+    
+    .carousel-caption p {
+        font-size: 0.9rem;
+    }
+}
+/* Navbar */
+.navbar {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    padding: 1rem 0;
+}
+.navbar-brand {
+    font-size: 1.5rem;
+    letter-spacing: 0.5px;
+    font-weight: 700;
+    transition: transform 0.3s ease;
+}
+.navbar-brand:hover {
+    transform: scale(1.02);
+}
+.nav-link {
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+.nav-link:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+/* Hero Section */
+.hero {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    padding: 7rem 0;
+    position: relative;
+    overflow: hidden;
+}
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+.hero h1 {
+    font-weight: 700;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    letter-spacing: -1px;
+}
+.hero p {
+    font-size: 1.15rem;
+    opacity: 0.95;
+}
+.hero .btn-light {
+    background-color: #10b981;
+    color: #ffffff;
+    font-weight: 600;
+    border: 2px solid #10b981;
+    transition: all 0.3s ease;
+}
+.hero .btn-light:hover {
+    background-color: #059669;
+    color: #ffffff;
+    border-color: #059669;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+}
+.hero .btn-light:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 10px rgba(16, 185, 129, 0.3);
+}
+.hero .btn-outline-light {
+    color: #ffffff;
+    border-color: #ffffff;
+    border-width: 2px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    background-color: #fd7e14;
+}
+.hero .btn-outline-light:hover {
+    background-color: #f59e0b;
+    color: #ffffff;
+    border-color: #f59e0b;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
+}
+.hero .btn-outline-light:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 10px rgba(245, 158, 11, 0.3);
+}
+/* Cards */
+.card {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border: none;
+    border-radius: 0.75rem;
+    background: #fff;
+    overflow: hidden;
+}
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+}
+.card-header {
+    border-bottom: 2px solid var(--border-color);
+    font-weight: 600;
+    border-radius: 0.75rem 0.75rem 0 0;
+    background-color: #f9fafb;
+}
+.card-body {
+    padding: 1.5rem;
+}
+.card-footer {
+    border-top: 1px solid var(--border-color);
+    border-radius: 0 0 0.75rem 0.75rem;
+    padding: 1rem 1.5rem;
+    background-color: #fafbfc;
+}
+.border-left-primary {
+    border-left: 5px solid var(--primary-color);
+}
+/* Buttons */
+.btn {
+    border-radius: 0.5rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-weight: 500;
+    border: none;
+    position: relative;
+    overflow: hidden;
+}
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+.btn:active::before {
+    width: 300px;
+    height: 300px;
+}
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    border: none;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(30, 58, 138, 0.2);
+}
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(30, 58, 138, 0.3);
+}
+.btn-sm {
+    font-weight: 500;
+    font-size: 0.875rem;
+}
+.btn-info {
+    background-color: var(--info-color);
+    border-color: var(--info-color);
+    box-shadow: 0 2px 8px rgba(2, 132, 199, 0.2);
+}
+.btn-info:hover {
+    background-color: #0369a1;
+    border-color: #0369a1;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
+}
+.btn-danger {
+    background-color: var(--danger-color);
+    border-color: var(--danger-color);
+    box-shadow: 0 2px 8px rgba(239, 68, 68, 0.2);
+}
+.btn-danger:hover {
+    background-color: #dc2626;
+    border-color: #dc2626;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+/* Forms */
+.form-control, .form-select {
+    border: 2px solid var(--border-color);
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+    padding: 0.625rem 0.875rem;
+    background-color: #fff;
+}
+.form-control:hover, .form-select:hover {
+    border-color: #d1d5db;
+}
+.form-control:focus, .form-select:focus {
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1), 0 0 0 2px #fff;
+    outline: none;
+}
+.form-label {
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+.form-label .required {
+    color: var(--danger-color);
+}
+.form-control::placeholder {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    opacity: 0.7;
+}
+/* Alerts */
+.alert {
+    border: none;
+    border-radius: 0.75rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border-left: 4px solid;
+    margin-bottom: 1.5rem;
+}
+.alert-info {
+    background-color: #ecf8ff;
+    border-left-color: var(--info-color);
+    color: #0c5a8a;
+}
+.alert-success {
+    background-color: #ecfdf5;
+    border-left-color: var(--success-color);
+    color: #065f46;
+}
+.alert-danger {
+    background-color: #fef2f2;
+    border-left-color: var(--danger-color);
+    color: #7f1d1d;
+}
+.alert-warning {
+    background-color: #fef3c7;
+    border-left-color: var(--warning-color);
+    color: #92400e;
+}
+/* List Groups */
+.list-group-item {
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+    margin-bottom: 0.75rem;
+    border-radius: 0.5rem;
+    background-color: #fff;
+}
+.list-group-item:hover {
+    background-color: #f0f9ff;
+    border-color: var(--secondary-color);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
+    transform: translateX(4px);
+}
+.list-group-item:active {
+    background-color: #eff6ff;
+}
+/* Badges */
+.badge {
+    padding: 0.5rem 0.875rem;
+    font-weight: 600;
+    border-radius: 0.35rem;
+    font-size: 0.8rem;
+    display: inline-block;
+}
+.badge.bg-success {
+    background-color: var(--success-color) !important;
+}
+.badge.bg-danger {
+    background-color: var(--danger-color) !important;
+}
+.badge.bg-warning {
+    background-color: var(--warning-color) !important;
+    color: #fff;
+}
+/* Nav Tabs */
+.nav-tabs .nav-link {
+    color: #666;
+    border-color: var(--border-color);
+    transition: all 0.3s ease;
+}
+.nav-tabs .nav-link:hover {
+    color: var(--secondary-color);
+    border-color: var(--secondary-color);
+}
+.nav-tabs .nav-link.active {
+    color: #fff;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    border-color: var(--secondary-color);
+}
+.alert-info {
+    background-color: #dbeafe;
+    color: #1e40af;
+    border-left: 5px solid #0284c7;
+}
+.alert-success {
+    background-color: #dcfce7;
+    color: #15803d;
+    border-left: 5px solid #22c55e;
+}
+.alert-danger {
+    background-color: #fee2e2;
+    color: #991b1b;
+    border-left: 5px solid #ef4444;
+}
+.alert-warning {
+    background-color: #fef3c7;
+    color: #92400e;
+    border-left: 5px solid #f59e0b;
+}
+/* Tabs */
+.nav-tabs {
+    border-bottom: 2px solid var(--border-color);
+    gap: 0.5rem;
+}
+.nav-tabs .nav-link {
+    color: var(--text-muted);
+    border: none;
+    border-bottom: 3px solid transparent;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem 0.5rem 0 0;
+}
+.nav-tabs .nav-link:hover {
+    color: var(--primary-color);
+    border-bottom-color: var(--secondary-color);
+    background-color: #f3f4f6;
+}
+.nav-tabs .nav-link.active {
+    color: #fff;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    border-bottom-color: transparent;
+}
+/* Badge */
+.badge {
+    padding: 0.5rem 0.75rem;
+    font-weight: 600;
+    border-radius: 0.5rem;
+}
+/* List Group */
+.list-group-item {
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    padding: 1.25rem;
+    margin-bottom: 0.75rem;
+    transition: all 0.3s ease;
+}
+.list-group-item:hover {
+    background-color: var(--light-bg);
+    border-color: var(--secondary-color);
+}
+/* Tables */
+.table {
+    background-color: white;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+.table thead {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    color: white;
+    font-weight: 600;
+}
+.table tbody tr {
+    transition: background-color 0.3s ease;
+}
+.table tbody tr:hover {
+    background-color: #f9fafb;
+}
+.table thead {
+    background-color: var(--light-bg);
+    font-weight: 600;
+}
+/* Gradient Background */
+.bg-gradient {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+}
+/* Footer */
+footer {
+    margin-top: auto;
+    border-top: 1px solid var(--border-color);
+}
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .display-4 {
+        font-size: 2rem;
+    }
+    .card {
+        margin-bottom: 1rem;
+    }
+    .btn {
+        font-size: 0.9rem;
+        padding: 0.5rem 0.75rem;
+    }
+}
+/* Loading Animation */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+.spinner {
+    animation: spin 1s linear infinite;
+}
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+/* Success Messages */
+.text-success {
+    color: var(--success-color) !important;
+    font-weight: 600;
+}
+/* Error Messages */
+.text-danger {
+    color: var(--danger-color) !important;
+}
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: var(--light-bg);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--secondary-color);
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-color);
+}
+/* Utility Classes */
+.min-vh-100 {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+.shadow-sm {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+.shadow-lg {
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+/* Cursor Pointer */
+button, [role="button"], .btn {
+    cursor: pointer;
+}
+/* Form Control Sizes */
+.form-control-lg {
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+}
+.form-select-lg {
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+}
+/* Footer */
+footer {
+    background: linear-gradient(135deg, #0f172a 0%, var(--primary-color) 100%);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: auto;
+}
+footer p {
+    opacity: 0.9;
+}
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+.card {
+    animation: fadeInUp 0.5s ease-out;
+}
+.list-group-item {
+    animation: slideInLeft 0.4s ease-out;
+}
+/* Focus Visible for Accessibility */
+:focus-visible {
+    outline: 2px solid var(--secondary-color);
+    outline-offset: 2px;
+}
+/* Text Selection */
+::selection {
+    background-color: var(--secondary-color);
+    color: white;
+}
+/* Links */
+a {
+    transition: color 0.3s ease;
+}
+a:hover {
+    text-decoration: none;
+}
