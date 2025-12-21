@@ -327,7 +327,10 @@
         try {
             const response = await fetch("{{ url_for('join_waitlist') }}", {
                 method: 'POST',
-                body: formData
+                body: formData,
+                headers: {
+                    'X-CSRFToken': csrfToken
+                }
             });
             const data = await response.json();
 
