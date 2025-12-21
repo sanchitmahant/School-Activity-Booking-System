@@ -65,48 +65,35 @@ Sommerville, I. (2016) *Software Engineering*. 10th edn. Harlow: Pearson Educati
 Pressman, R.S. and Maxim, B.R. (2020) *Software Engineering: A Practitioner's Approach*. 9th edn. New York: McGraw-Hill Education.
 
 3.  Development Standards & Protocols
-    Coding Standard: Python PEP 8 Style Guide (Python Software Foundation).
-    Database Standard: PostgreSQL 16 Documentation (Data Integrity and Normalization Rules).
-    Security Standard: OWASP Protection Guidelines (implemented via Flask-WTF CSRF protection).
+    Python PEP 8 Style Guide, IEEE SRS format, Agile development methodology, Git version control.
 
-2. Software Project Description, Methodology, and Methods
+2. Overall Description
 
-2.1 Software Product Purpose, Functions, and Use Cases
+2.1 Product Perspective
+The system operates as a web-based platform using client-server architecture. Parents access via browser, while backend manages bookings, enforces capacity constraints, and generates automated invoices. PostgreSQL database stores user profiles, activities, and bookings.
 
-[INSERT FIGURE 1: System Use Case Diagram HERE]
-Figure 1: System Use Case Diagram
-(Source: Developed Using Python and Flask Framework)
+2.2 Product Functions
+Core functions include: secure authentication (RBAC), activity browsing with real-time capacity display, booking management with conflict prevention, automated email confirmations with PDF invoices, waitlist functionality, and admin dashboard for activity/user management.
 
-The School Activity Booking System allows parents to manage participation in after-school activities easily and securely with authentication, child profile management, activity browsing, and a conflict-free booking system. Database restrictions prevent double-booking, and administrators organize activities and capacities effectively. The automated PDF invoices provide complete booking, child, and cost information to ensure proper documentation. Parent, Administrator, and Tutor are identified in the use case diagram in terms of authentication, child management, activity exploration, booking, invoicing, tutor application, and system administration, focusing on the dependency of processes, automatic invoice generation, and waitlist management based on capacity validation.
+2.3 User Classes and Characteristics
+Parents (primary users), School Administrators (manage activities, moderate tutors), Tutors (mark attendance, view enrollments).
 
-2.2 User and Stakeholders
-The system serves three primary stakeholder groups. Parents represent the primary user base, managing child profiles and activity bookings with basic technical proficiency. Administrators function as system managers, requiring advanced technical skills to oversee activity catalogs, approve tutor applications, and monitor system operations. Tutors operate as service providers, utilizing intermediate technical capabilities to access their teaching schedules and view enrolled student information.
+2.4 Operating Environment
+- Server: Python 3.12, Flask 3.0, PostgreSQL 16
+- Client: Modern browsers (Chrome, Firefox, Safari, Edge)
+- Hosting: Render.com (production), SQLite (development)
 
-2.3 Operating Environment
-The application operates in a cloud-native environment optimized for Platform-as-a-Service (PaaS) deployment while maintaining portability for local development. Client-side requirements include any modern web browser (Chrome, Edge, Safari, Firefox) with JavaScript enabled. The server environment utilizes Python 3.12+ running Flask 3.0, with PostgreSQL 16 for production databases and SQLite for development/testing. Deployment targets include Render and Heroku PaaS platforms, with Docker containerization support for consistent cross-platform execution.
-
-2.4 Software Architecture and Methodology
-The project follows Agile methodology with iterative development cycles, prioritizing core booking functionality before implementing notification and waitlist subsystems. The architecture implements a Model-View-Template (MVT) pattern via Flask, with clear separation between data models (SQLAlchemy ORM), business logic (route handlers), and presentation (Jinja2 templates). Key architectural components include the Parent, Child, Activity, Booking, Waitlist, Admin, and Tutor models, interconnected through normalized database relationships ensuring referential integrity and cascade operations for dependent records.
+2.5 Design and Implementation Constraints
+- Must use Flask MVT architecture
+- Werkzeug scrypt for password hashing
+- Bootstrap 5 for responsive UI
+- ReportLab for PDF generation
+- Data integrity via 3NF PostgreSQL schema
+- Performance: <2s page load, <100ms DB queries
 
 [INSERT FIGURE 2: System Class Diagram HERE]
 Figure 2: System Class Diagram
 (Source: Based on SQLAlchemy Models in app.py)
-
-2.5 Design and Implementation Constraints
-
-2.5.1 System Design
-The system adheres to strict security, scalability, and maintainability standards. Data integrity is enforced through a Third Normal Form (3NF) PostgreSQL database schema utilizing foreign keys and cascading deletes. Authentication security is implemented using Werkzeug's secure password hashing (scrypt) and httpOnly session cookies to prevent XSS. To prevent double-bookings, database-level unique constraints are applied to the Booking entity (child_id + booking_date). The interface utilizes a responsive Bootstrap 5 grid system to adapt fluidly to desktop, tablet, and mobile (>=320px) viewports. Performance objectives include maintaining page load times under two seconds and database query execution times under 100 milliseconds.
-
-2.5.2 Implementation and System Development
-
-The application utilizes a robust relational database schema implemented via SQLAlchemy ORM in Python. Key entities include Parent, Child, Activity, Booking, Waitlist, Tutor, and Attendance, ensuring comprehensive data management for all stakeholders. The Booking entity enforces a unique constraint (child_id + booking_date) to strictly prevent double-bookings at the database level. Developing on Flask 3.0 allows for a modular Model-View-Template (MVT) architecture, where business logic is decoupled from data models. The system supports Role-Based Access Control (RBAC) through distinct Admin and Tutor models, securitized with password hashing and session management.
-
-[INSERT FIGURE 3: Database Entity-Relationship Diagram (ERD) HERE]
-Figure 3: Database Entity-Relationship Diagram
-(Source: Database Design Documentation)
-
-The application is developed using Python 3.12 and the Flask 3.0 web framework, chosen for its lightweight and modular MVT architecture. Data persistence is managed by SQLAlchemy 2.0 ORM, ensuring database-agnostic code compatible with both SQLite (dev) and PostgreSQL (prod). The user interface is built with HTML5/CSS3 and Bootstrap 5.3 components. PDF generation for invoices uses the ReportLab library. The development workflow follows industry best practices including PEP 8 style guidelines, Git version control, and comprehensive unit testing to ensure code quality.
-
 
 2.6 User Documentation
 Comprehensive documentation includes a README.md providing step-by-step installation instructions for non-technical administrators. In-application help features contextual tooltips on complex forms, particularly for booking conflict resolution and capacity management. An automated SETUP_AND_RUN.bat script streamlines Windows deployment by handling dependency installation and database initialization. System dependencies require internet connectivity for initial pip package installation and Google Fonts CDN resources during runtime.
@@ -114,27 +101,25 @@ Comprehensive documentation includes a README.md providing step-by-step installa
 2.7 Assumptions and Dependencies
 The system assumes reliable internet connectivity for client browsers to access cloud-hosted instances and load external resources. User authentication depends on valid email addresses for account recovery and notification delivery. Booking operations assume accurate system clock synchronization to prevent timestamp conflicts in concurrent booking scenarios. External dependencies include SMTP mail servers for automated notifications, PostgreSQL database services for production data persistence, and browser compatibility with HTML5, CSS3, and ECMAScript 6 standards.
 
-3. External Interface Requirements
+3. Specific Requirements
 
-3.1 User Interfaces
-The interface follows a mobile-first design philosophy using Bootstrap 5.3, ensuring responsive rendering across screen sizes from 320px (mobile) to 1920px+ (desktop). Navigation employs a persistent top bar with role-adaptive menu items (guest users see Login/Register, authenticated users access Dashboard/Logout). User feedback mechanisms include Bootstrap Alert components for success/error messages and real-time form validation with inline error indicators. Accessibility compliance targets WCAG 2.1 Level AA standards through semantic HTML, ARIA attributes, and sufficient color contrast ratios (minimum 4.5:1 for normal text).
+3.1 External Interface Requirements
 
-[INSERT FIGURE 4: Parent Dashboard Screenshot HERE]
-Figure 4: Parent Dashboard Screenshot (Showing Active Bookings)
-(Source: Application Interface Implementation)
+**User Interfaces:**
+Bootstrap 5-based responsive design supporting desktop (1920x1080) and mobile (375x667) viewports. Key interfaces: registration/login, dashboard with activity cards, booking form with date picker, admin panel with CRUD operations.
 
-[INSERT FIGURE 5: Public Landing Page HERE]
-Figure 5: Public Landing Page
-(Source: Application Interface Implementation)
+**Hardware Interfaces:**
+Client: Any modern web browser device (4GB RAM recommended for PDF rendering).
+Server: 1 vCPU @ 2.0 GHz, 512MB RAM, 500MB storage.
 
-3.2 Hardware Interfaces
-Client hardware requirements specify any device capable of executing modern web browsers, with 4GB RAM recommended for optimal PDF rendering performance. Server-side specifications include minimum 1 vCPU at 2.0 GHz, 512MB RAM (1GB recommended for production loads), and 500MB storage for application code and database files. Network bandwidth requirements assume minimum 1 Mbps for standard operations, with higher throughput beneficial for concurrent user scenarios and large PDF downloads.
+**Software Interfaces:**
+- SQLAlchemy ORM for PostgreSQL database interaction
+- Flask-Mail for SMTP email delivery
+- ReportLab for PDF invoice generation
+- Werkzeug (dev) / Gunicorn (prod) WSGI server
 
-3.3 Software Interfaces
-The application integrates with PostgreSQL 16 via the psycopg2-binary driver for production database operations, while SQLite serves development environments through Python's built-in sqlite3 module. Web server interfacing occurs through Werkzeug (development) or Gunicorn (production WSGI server). Critical library dependencies include Flask-SQLAlchemy for ORM abstraction, Flask-Mail for SMTP integration, and ReportLab for programmatic PDF generation. Browser compatibility requires HTML5, CSS3, and JavaScript ES6+ support for client-side functionality.
-
-3.4 Communications Interfaces
-Client-server communication utilizes HTTP/1.1 for development environments and HTTPS with TLS 1.2+ for production deployments to ensure data confidentiality. Data interchange formats include HTML5/CSS3 for rendered pages, JSON for AJAX API responses (booking availability checks, dynamic form updates), and multipart/form-data for file uploads. Email notifications employ SMTP protocol over ports 587 (STARTTLS) or 465 (SSL/TLS) for registration confirmations, booking receipts, and waitlist promotion alerts.
+**Communications Interfaces:**
+HTTPS/TLS (port 443) for web traffic, SMTP (port 587) for email delivery. Data formats: HTML5/CSS3, JSON (AJAX), multipart/form-data.
 
 4. System Functional Requirements
 
@@ -159,21 +144,21 @@ Figure 6: User Registration and Login Screens
 4.2 Activity Booking Management: F2
 
 **Description and Priority**
-Enables authenticated parents to book activities and receive confirmations. Priority: High (Core business value).
+Enables booking with capacity validation and waitlist. Priority: High.
 
 **Input/Outputs Sequences**
-*   Booking: Parent selects activity -> System validates capacity/conflicts -> Confirms booking -> Sends Email.
-*   Waitlist (Full Capacity): Activity reaches max capacity (e.g., 10/10 enrolled) -> System displays "Join Waitlist" button -> Parent submits waitlist request -> System saves to database -> Confirmation message displayed -> When booking cancelled, system auto-promotes first waiting student and sends notification.
+*   Booking: Parent selects activity -> validates capacity/conflicts -> confirms -> sends email.
+*   Waitlist: Full capacity (10/10) -> displays "Join Waitlist" -> saves request -> auto-promotes on cancellation.
 
 [INSERT FIGURE 7: Booking System Flow HERE]
-Figure 7: Waitlist Feature - System displays "Join Waitlist" option when activity reaches full capacity (10/10 enrolled), with success confirmation after submission
+Figure 7: Waitlist Feature - "Join Waitlist" button displayed at full capacity with success confirmation
 (Source: Application Interface)
 
 **Functional Requirements**
-*   F2.1: Prevent double-bookings for the same child/time.
-*   F2.2: Auto-decrement capacity upon successful booking.
-*   F2.3: Display waitlist option when activity reaches full capacity, automatically promote first waiting student upon cancellation.
-*   F2.4: Generate and email PDF invoices immediately.
+*   F2.1: Prevent double-bookings via unique constraint.
+*   F2.2: Decrement capacity on booking.
+*   F2.3: Waitlist FIFO queue with auto-promotion.
+*   F2.4: Generate PDF invoices via email.
 
 5. User Stories and Scenarios
 The functional requirements of the School Activity Booking System are configured based on the key features of the system. We utilized Notion as our project management and planning tool to track these user stories, assign tasks to team members, and monitor progress throughout the development lifecycle (Agile Methodology).
