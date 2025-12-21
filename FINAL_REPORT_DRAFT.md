@@ -151,7 +151,7 @@ Enables booking with capacity validation and waitlist. Priority: High.
 *   Waitlist: Full capacity (10/10) -> displays "Join Waitlist" -> saves request -> auto-promotes on cancellation.
 
 [INSERT FIGURE 7: Booking System Flow HERE]
-Figure 7: Waitlist Feature - "Join Waitlist" button displayed at full capacity with success confirmation
+Figure 7: Activity Booking and Waitlist Management - Normal booking flow and waitlist feature when capacity is full
 (Source: Application Interface)
 
 **Functional Requirements**
@@ -299,31 +299,21 @@ Figure 12: Sample PDF Invoice
 8. Project Management
 
 8.1 Operational & Infrastructure Budget (Annual)
-In addition to development, the following operational budget is required to run the system in a professional production environment using enterprise-grade services (AWS).
 
-1. Infrastructure (AWS)
-- Application Server (AWS EC2 t3.medium): High availability compute for handling concurrent bookings.
-  Cost: £40.00 / month (£480.00 / year)
+**AWS Infrastructure:**
+- EC2 Application Server (t3.micro): £120/year
+- RDS PostgreSQL Database: £180/year  
+- S3 Storage: £2/year
+- Route 53 DNS: £6/year
+- SSL Certificate (ACM): Free
 
-- Database Server (AWS RDS PostgreSQL): Managed database with automated backups and disaster recovery.
-  Cost: £55.00 / month (£660.00 / year)
+**Third-Party Services:**
+- Domain Registration: £12/year
+- Email SMTP (SendGrid): £0 (free tier)
 
-- Storage (AWS S3): Secure object storage for generated invoices and static assets.
-  Cost: £10.00 / month (£120.00 / year)
+**Total Annual Cost:** £320/year (~£27/month)
 
-2. Domain & Security
-- Domain Registration (.com/.co.uk): Professional brand identity.
-  Cost: £15.00 / year
-
-- SSL Certificate (Wildcard): Enterprise-grade encryption for user data protection.
-  Cost: £80.00 / year
-
-3. Payment Gateway
-- Service: Stripe
-- Cost Model: Pay-as-you-go (Variable)
-- Fee Structure: 1.5% + 20p per transaction (UK cards).
-
-Total Estimated Fixed Operational Cost: ~£1,355.00 per year
+**Scaling:** For 500+ users, upgrade to t3.small instances (~£700/year)
 
 9. References
 
