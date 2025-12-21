@@ -164,13 +164,13 @@ Key stories:
 6. System Nonfunctional Requirements
 
 6.1 Performance Requirements
-The system must offer effective functionality that is quick to warrant proper interaction of users. The page load time should not exceed two seconds and the database queries have to take less than 100 milliseconds. The platform should be capable of distributing moderate amount of users simultaneously during the peak periods of registration. It uses efficient caching and optimized database structure to ensure reliable performance.
+Page load <2s, database queries <100ms. Concurrent user support via caching and indexing.
 
 6.2 Safety Requirements
-The safety needs focus on the protection of user data and prevention of system abuse. Input validation removes unintentional system crashes and controlled session handling removes abuse. The integrity of the data must be maintained and backups performed regularly to prevent accidental loss of relevant records.
+Input validation prevents crashes. Session handling prevents abuse. Regular backups.
 
 6.3 Security Requirements
-Security requirements ensure the confidentiality of sensitive information. Passwords are never stored in plain text but hashed using scrypt. Sessions are encrypted using httpOnly cookies. The system is protected against SQL injection via SQLAlchemy ORM and XSS attacks via Jinja2 auto-escaping. Role-based access control (RBAC) ensures only authorized users can access specific functions.
+Scrypt hashing, httpOnly cookies, SQLAlchemy (SQL injection prevention), Jinja2 auto-escaping (XSS), RBAC.
 
 6.4 Software Quality Attributes
 The system prioritizes Usability (intuitive Bootstrap interface), Reliability (robust error handling), and Maintainability (modular Flask code structure). Accessibility is ensured through semantic HTML and high-contrast design.
@@ -315,12 +315,9 @@ For a real-world school deployment, the system is hosted on a reputable managed 
 - Admins manage: Activities, enrollments, user accounts via admin dashboard
 - Technical updates: Optional annual maintenance contract (£200-£500/year)
 
-**Total First-Year Cost:**
-- Development (one-time): £47,200
-- Infrastructure (annual): £192
-- **Total: £47,392**
+**Total First-Year Cost:** £47,392 (development £47,200 + infrastructure £192)
 
-**Ongoing Annual Cost:** £192 (infrastructure only) + optional £300 maintenance
+**Ongoing:** £192/year + optional £300 maintenance
 
 9. References
 
