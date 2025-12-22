@@ -1,5 +1,0 @@
-Story ID,User Story,Assigned To,Status,Priority,Sprint,Date Completed
-US-001,As a Parent I want to register and login securely so that I can access the system,Chichebendu Umeh,Completed,High,Sprint 1,2024-11-15
-US-002,As an Admin I want to create and manage activities to organize school programs,Chichebendu Umeh,Completed,High,Sprint 1,2024-11-20
-US-003,As an Admin I want to implement Role-Based Access Control to secure the system,Chichebendu Umeh,Completed,Critical,Sprint 2,2024-12-05
-US-004,As an Admin I want to view all users and manage their accounts,Chichebendu Umeh,Completed,Medium,Sprint 2,2024-12-10
