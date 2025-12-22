@@ -106,19 +106,7 @@ python app.py
 
 ---
 
-## 📸 Screenshots
 
-*(Placeholders for project screenshots)*
-
-| **Admin Dashboard** | **Booking Interface** |
-|:---:|:---:|
-| <img src="static/screenshots/admin_dashboard.png" alt="Admin Dashboard" width="400"> | <img src="static/screenshots/booking_page.png" alt="Booking Page" width="400"> |
-
-| **PDF Invoice** | **Email Notification** |
-|:---:|:---:|
-| <img src="static/screenshots/invoice_sample.png" alt="Invoice" width="400"> | <img src="static/screenshots/email_sample.png" alt="Email" width="400"> |
-
----
 
 <div align="center">
   <p>© 2025 Greenwood International School Project. All Rights Reserved.</p>
