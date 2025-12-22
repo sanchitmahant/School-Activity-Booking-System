@@ -97,12 +97,7 @@ python init_db.py
 python app.py
 ```
 
-### 🔑 Login Credentials (Demo)
-| Role | Email | Password |
-|---|---|---|
-| **Admin** | `admin@greenwood.edu` | `admin123` |
-| **Tutor** | `tutor@greenwood.edu` | `tutor123` |
-| **Parent** | *(Register a new account)* | *(Any)* |
+
 
 ---
 
