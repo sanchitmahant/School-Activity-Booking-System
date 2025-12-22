@@ -132,5 +132,3 @@ if __name__ == '__main__':
 
 # Database Schema Checked
 
-
-# DB Integrity Check: PASS

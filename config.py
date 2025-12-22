@@ -79,7 +79,3 @@ config = {
     'default': DevelopmentConfig
 }
 
-# Production Safe
-
-
-# System Integration: READY

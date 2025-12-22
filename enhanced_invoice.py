@@ -288,5 +288,3 @@ def get_enhanced_invoice_pdf(booking):
     """Wrapper function to generate enhanced PDF invoice"""
     return generate_professional_invoice(booking)
 
-# Verified for PDF/A-3 compliance
-
