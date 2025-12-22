@@ -26,6 +26,12 @@ class Config:
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME', 'greenwoodinternationaluk@gmail.com')
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD', 'muesmgjpulyscdmv')
     MAIL_DEFAULT_SENDER = os.environ.get('MAIL_DEFAULT_SENDER', 'greenwoodinternationaluk@gmail.com')
+    MAIL_SUPPRESS_SEND = os.environ.get('MAIL_SUPPRESS_SEND', 'false').lower() == 'true'
+    MAIL_MAX_EMAILS = None
+    MAIL_ASCII_ATTACHMENTS = False
+    # Set reasonable timeout values for SMTP connection (in seconds)
+    MAIL_TIMEOUT = int(os.environ.get('MAIL_TIMEOUT', 10))  # 10 seconds for connection
+    
     
     # Payment Configuration (Stripe)
     STRIPE_PUBLIC_KEY = os.environ.get('STRIPE_PUBLIC_KEY', 'pk_test_51QSTYxRx07hqFOlwAinrm9hE76gYWJXSjnzFFG8eTkIEbHMKQqXQcA8QZtOckOlkgGXHGZz5UHUTWsJhx8iHU39g00UVCvtUWU')
